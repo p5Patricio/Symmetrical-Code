@@ -1,0 +1,48 @@
+{
+  "navbar": {
+    "brand": "Symmetrical Code",
+    "home": "Inicio",
+    "projects": "Proyectos",
+    "team": "Equipo",
+    "contact": "Contacto"
+  },
+  "hero": {
+    "title": "Symmetrical Code",
+    "subtitle": "Construimos software con balance, precisión y pasión.",
+    "cta": "Conócenos"
+  },
+  "projects": {
+    "title": "Nuestros Proyectos",
+    "subtitle": "Soluciones diseñadas con simetría en mente."
+  },
+  "team": {
+    "title": "Conoce al Equipo",
+    "subtitle": "Tres mentes, una visión.",
+    "member1": {
+      "name": "Miembro del Equipo 1",
+      "role": "Desarrollador",
+      "portfolio": "Portafolio"
+    },
+    "member2": {
+      "name": "Miembro del Equipo 2",
+      "role": "Desarrollador",
+      "portfolio": "Portafolio"
+    },
+    "member3": {
+      "name": "Miembro del Equipo 3",
+      "role": "Desarrollador",
+      "portfolio": "Portafolio"
+    }
+  },
+  "contact": {
+    "title": "Contáctanos",
+    "subtitle": "Construyamos algo grandioso juntos.",
+    "email": "Correo electrónico",
+    "message": "Mensaje",
+    "send": "Enviar Mensaje"
+  },
+  "language": {
+    "es": "Español",
+    "en": "Inglés"
+  }
+}
