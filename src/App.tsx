@@ -1,7 +1,12 @@
+import './i18n';
+import Navbar from './components/layout/Navbar';
 import HomePage from './pages/HomePage';
 
-function App() {
-  return <HomePage />;
+export default function App() {
+  return (
+    <>
+      <Navbar />
+      <HomePage />
+    </>
+  );
 }
-
-export default App;

@@ -1,48 +1,91 @@
 {
-  "navbar": {
-    "brand": "Symmetrical Code",
+  "nav": {
     "home": "Home",
     "projects": "Projects",
     "team": "Team",
     "contact": "Contact"
   },
   "hero": {
-    "title": "Symmetrical Code",
-    "subtitle": "We build software with balance, precision, and passion.",
-    "cta": "Get to know us"
+    "label": "Software Studio",
+    "title": "Code that",
+    "title_highlight": "transforms",
+    "title_end": "businesses",
+    "subtitle": "We build custom digital solutions with clean architecture, exceptional performance, and design that converts.",
+    "cta_primary": "View projects",
+    "cta_secondary": "Talk to the team",
+    "stat_1_value": "3+",
+    "stat_1_label": "Years of experience",
+    "stat_2_value": "20+",
+    "stat_2_label": "Projects delivered",
+    "stat_3_value": "100%",
+    "stat_3_label": "Satisfied clients"
   },
   "projects": {
-    "title": "Our Projects",
-    "subtitle": "Solutions designed with symmetry in mind."
+    "label": "Our work",
+    "title": "Projects",
+    "subtitle": "Real solutions for real problems. Every project is an opportunity to exceed expectations.",
+    "view_demo": "View demo",
+    "view_code": "View code",
+    "items": [
+      {
+        "title": "Project Alpha",
+        "description": "Fullstack web application with real-time analytics dashboard and advanced authentication.",
+        "tags": ["React", "Node.js", "PostgreSQL"]
+      },
+      {
+        "title": "Project Beta",
+        "description": "E-commerce with payment integration, admin panel, and automated inventory management.",
+        "tags": ["Next.js", "Stripe", "MongoDB"]
+      },
+      {
+        "title": "Project Gamma",
+        "description": "B2B SaaS platform with microservices architecture and documented REST API.",
+        "tags": ["TypeScript", "Docker", "AWS"]
+      }
+    ]
   },
   "team": {
-    "title": "Meet the Team",
-    "subtitle": "Three minds, one vision.",
-    "member1": {
-      "name": "Team Member 1",
-      "role": "Developer",
-      "portfolio": "Portfolio"
-    },
-    "member2": {
-      "name": "Team Member 2",
-      "role": "Developer",
-      "portfolio": "Portfolio"
-    },
-    "member3": {
-      "name": "Team Member 3",
-      "role": "Developer",
-      "portfolio": "Portfolio"
-    }
+    "label": "The ones doing magic",
+    "title": "The team",
+    "subtitle": "A team of passionate developers, committed to technical excellence and attention to detail.",
+    "portfolio": "View portfolio",
+    "members": [
+      {
+        "name": "Name 1",
+        "role": "Frontend Developer",
+        "bio": "Specialist in modern interfaces and memorable user experiences.",
+        "portfolio": "#"
+      },
+      {
+        "name": "Name 2",
+        "role": "Backend Developer",
+        "bio": "Robust system architecture, scalable APIs and optimized databases.",
+        "portfolio": "#"
+      },
+      {
+        "name": "Name 3",
+        "role": "Fullstack Developer",
+        "bio": "From design to production, leading projects with comprehensive technical vision.",
+        "portfolio": "#"
+      }
+    ]
   },
   "contact": {
-    "title": "Contact Us",
-    "subtitle": "Let's build something great together.",
-    "email": "Email",
-    "message": "Message",
-    "send": "Send Message"
+    "label": "Let's talk",
+    "title": "Have a project?",
+    "subtitle": "Tell us your idea. We love working with people who want to build something that matters.",
+    "form_name": "Your name",
+    "form_email": "Your email",
+    "form_message": "Tell us about your project...",
+    "form_submit": "Send message",
+    "form_sending": "Sending...",
+    "success_title": "Message sent!",
+    "success_msg": "We'll get back to you soon.",
+    "info_email": "hello@symmetricalcode.dev",
+    "info_location": "Remote · Worldwide"
   },
-  "language": {
-    "es": "Spanish",
-    "en": "English"
+  "footer": {
+    "tagline": "Symmetrical code. Extraordinary results.",
+    "rights": "All rights reserved."
   }
 }

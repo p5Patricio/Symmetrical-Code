@@ -1,21 +1,17 @@
-import Navbar from '../components/layout/Navbar';
-import HeroSection from '../components/sections/HeroSection';
-import ProjectsSection from '../components/sections/ProjectsSection';
-import TeamSection from '../components/sections/TeamSection';
-import ContactSection from '../components/sections/ContactSection';
+import Hero from "../components/sections/HeroSection";
+import Projects from "../components/sections/ProjectsSection";
+import Team from "../components/sections/TeamSection";
+import Contact from "../components/sections/ContactSection";
+import Footer from '../components/layout/Footer';
 
-const HomePage = () => {
+export default function HomePage() {
   return (
-    <>
-      <Navbar />
-      <main>
-        <HeroSection />
-        <ProjectsSection />
-        <TeamSection />
-        <ContactSection />
-      </main>
-    </>
+    <main className="noise">
+      <Hero />
+      <Projects />
+      <Team />
+      <Contact />
+      <Footer />
+    </main>
   );
-};
-
-export default HomePage;
+}

@@ -1,48 +1,91 @@
 {
-  "navbar": {
-    "brand": "Symmetrical Code",
+  "nav": {
     "home": "Inicio",
     "projects": "Proyectos",
     "team": "Equipo",
     "contact": "Contacto"
   },
   "hero": {
-    "title": "Symmetrical Code",
-    "subtitle": "Construimos software con balance, precisión y pasión.",
-    "cta": "Conócenos"
+    "label": "Software Studio",
+    "title": "Código que",
+    "title_highlight": "transforma",
+    "title_end": "negocios",
+    "subtitle": "Desarrollamos soluciones digitales a medida con arquitectura limpia, performance excepcional y diseño que convierte.",
+    "cta_primary": "Ver proyectos",
+    "cta_secondary": "Hablar con el equipo",
+    "stat_1_value": "3+",
+    "stat_1_label": "Años de experiencia",
+    "stat_2_value": "20+",
+    "stat_2_label": "Proyectos entregados",
+    "stat_3_value": "100%",
+    "stat_3_label": "Clientes satisfechos"
   },
   "projects": {
-    "title": "Nuestros Proyectos",
-    "subtitle": "Soluciones diseñadas con simetría en mente."
+    "label": "Nuestro trabajo",
+    "title": "Proyectos",
+    "subtitle": "Soluciones reales para problemas reales. Cada proyecto es una oportunidad de superar expectativas.",
+    "view_demo": "Ver demo",
+    "view_code": "Ver código",
+    "items": [
+      {
+        "title": "Proyecto Alpha",
+        "description": "Aplicación web fullstack con dashboard de analítica en tiempo real y autenticación avanzada.",
+        "tags": ["React", "Node.js", "PostgreSQL"]
+      },
+      {
+        "title": "Proyecto Beta",
+        "description": "E-commerce con integración de pagos, panel de administración y sistema de inventario automatizado.",
+        "tags": ["Next.js", "Stripe", "MongoDB"]
+      },
+      {
+        "title": "Proyecto Gamma",
+        "description": "Plataforma SaaS B2B con arquitectura de microservicios y API REST documentada.",
+        "tags": ["TypeScript", "Docker", "AWS"]
+      }
+    ]
   },
   "team": {
-    "title": "Conoce al Equipo",
-    "subtitle": "Tres mentes, una visión.",
-    "member1": {
-      "name": "Miembro del Equipo 1",
-      "role": "Desarrollador",
-      "portfolio": "Portafolio"
-    },
-    "member2": {
-      "name": "Miembro del Equipo 2",
-      "role": "Desarrollador",
-      "portfolio": "Portafolio"
-    },
-    "member3": {
-      "name": "Miembro del Equipo 3",
-      "role": "Desarrollador",
-      "portfolio": "Portafolio"
-    }
+    "label": "Los que hacen magia",
+    "title": "El equipo",
+    "subtitle": "Un equipo de desarrolladores apasionados, comprometidos con la excelencia técnica y el detalle.",
+    "portfolio": "Ver portafolio",
+    "members": [
+      {
+        "name": "Nombre 1",
+        "role": "Frontend Developer",
+        "bio": "Especialista en interfaces modernas y experiencias de usuario memorables.",
+        "portfolio": "#"
+      },
+      {
+        "name": "Nombre 2",
+        "role": "Backend Developer",
+        "bio": "Arquitectura de sistemas robustos, APIs escalables y bases de datos optimizadas.",
+        "portfolio": "#"
+      },
+      {
+        "name": "Nombre 3",
+        "role": "Fullstack Developer",
+        "bio": "Del diseño a producción, liderando proyectos con visión técnica integral.",
+        "portfolio": "#"
+      }
+    ]
   },
   "contact": {
-    "title": "Contáctanos",
-    "subtitle": "Construyamos algo grandioso juntos.",
-    "email": "Correo electrónico",
-    "message": "Mensaje",
-    "send": "Enviar Mensaje"
+    "label": "Hablemos",
+    "title": "¿Tienes un proyecto?",
+    "subtitle": "Cuéntanos tu idea. Nos encanta trabajar con personas que quieren construir algo que importe.",
+    "form_name": "Tu nombre",
+    "form_email": "Tu email",
+    "form_message": "Cuéntanos tu proyecto...",
+    "form_submit": "Enviar mensaje",
+    "form_sending": "Enviando...",
+    "success_title": "¡Mensaje enviado!",
+    "success_msg": "Nos pondremos en contacto contigo pronto.",
+    "info_email": "hola@symmetricalcode.dev",
+    "info_location": "Remoto · Worldwide"
   },
-  "language": {
-    "es": "Español",
-    "en": "Inglés"
+  "footer": {
+    "tagline": "Código simétrico. Resultados extraordinarios.",
+    "rights": "Todos los derechos reservados."
   }
 }
