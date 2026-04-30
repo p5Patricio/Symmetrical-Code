@@ -63,7 +63,6 @@ const CODE_LINES: CodeLine[] = [
    CODE → WEBSITE
 ══════════════════════════════════════════ */
 function CodeToWebScene() {
-  // ← AGREGADO: useTranslation para poder usar t() en esta función
   const { t } = useTranslation();
 
   const sceneRef = useRef<HTMLDivElement>(null);
@@ -127,6 +126,36 @@ function CodeToWebScene() {
   const typeLinesRef = useRef<((lines: CodeLine[], idx: number, onDone: () => void) => void) | null>(null);
   const startSequenceRef = useRef<(() => void) | null>(null);
 
+  // Escala dinámica: el panel "nativo" mide 460px de ancho y ~420px de alto.
+  // Calculamos cuánto cabe en el contenedor y aplicamos scale a todos los paneles.
+  useEffect(() => {
+    const scene = sceneRef.current;
+    if (!scene) return;
+    const PANEL_W = 460;
+    const PANEL_H = 420; // altura aproximada del panel con contenido
+    const LABEL_H = 40;  // espacio reservado para el phase-label en la parte baja
+    const applyScale = () => {
+      const sw = scene.offsetWidth;
+      const sh = scene.offsetHeight;
+      const scaleX = (sw - 32) / PANEL_W;
+      // Descontamos el label del alto disponible para que no lo tape
+      const scaleY = (sh - LABEL_H - 24) / PANEL_H;
+      const s = Math.min(scaleX, scaleY, 1);
+      // Centrado vertical: mover el pivot un poco arriba para ceder espacio al label
+      const topPct = sh > 0 ? ((sh - LABEL_H) / 2 / sh) * 100 : 50;
+      [codePanelRef, webPanelRef, logoOverlayRef].forEach(ref => {
+        if (ref.current) {
+          ref.current.dataset.baseScale = String(s);
+          ref.current.style.top = `${topPct}%`;
+        }
+      });
+    };
+    applyScale();
+    const ro = new ResizeObserver(applyScale);
+    ro.observe(scene);
+    return () => ro.disconnect();
+  }, []);
+
   useEffect(() => {
     const typeLines = (lines: CodeLine[], idx: number, onDone: () => void) => {
       const body = codeBodyRef.current;
@@ -147,7 +176,6 @@ function CodeToWebScene() {
     typeLinesRef.current = typeLines;
   }, []);
 
-  // ← CLAVE: t se agrega como dependencia para que la secuencia se re-registre al cambiar idioma
   useEffect(() => {
     const startSequence = () => {
       clearTimers();
@@ -159,18 +187,19 @@ function CodeToWebScene() {
       const label = phaseLabelRef.current;
       if (!body || !code || !web || !logo || !label) return;
 
+      const bs = parseFloat(code.dataset.baseScale ?? '1') || 1;
+
       body.innerHTML = '';
       code.style.transition = 'none';
       code.style.opacity = '1';
-      code.style.transform = 'translate(-50%, -50%) scale(1)';
+      code.style.transform = `translate(-50%, -50%) scale(${bs})`;
       web.style.transition = 'none';
       web.style.opacity = '0';
-      web.style.transform = 'translate(-50%, -50%) perspective(900px) rotateY(30deg) scale(1)';
+      web.style.transform = `translate(-50%, -50%) perspective(900px) rotateY(30deg) scale(${bs})`;
       logo.style.transition = 'none';
       logo.style.opacity = '0';
-      logo.style.transform = 'translate(-50%, -50%) scale(0.9)';
+      logo.style.transform = `translate(-50%, -50%) scale(${bs * 0.9})`;
       label.style.opacity = '1';
-      // ← TRADUCIDO
       label.textContent = t('scene.phase_typing');
 
       const typeLinesFn = typeLinesRef.current;
@@ -178,7 +207,6 @@ function CodeToWebScene() {
 
       typeLinesFn(CODE_LINES, 0, () => {
         later(() => {
-          // ← TRADUCIDO
           if (label) label.textContent = t('scene.phase_compiling');
           spawnParticles();
 
@@ -186,14 +214,13 @@ function CodeToWebScene() {
             if (code) {
               code.style.transition = 'all 0.8s cubic-bezier(0.4,0,0.2,1)';
               code.style.opacity = '0';
-              code.style.transform = 'translate(-50%, -50%) scale(0.95)';
+              code.style.transform = `translate(-50%, -50%) scale(${bs * 0.95})`;
             }
             if (web) {
               web.style.transition = 'all 0.8s cubic-bezier(0.4,0,0.2,1)';
-              web.style.transform = 'translate(-50%, -50%) perspective(900px) rotateY(0deg) scale(1)';
+              web.style.transform = `translate(-50%, -50%) perspective(900px) rotateY(0deg) scale(${bs})`;
               web.style.opacity = '1';
             }
-            // ← TRADUCIDO
             if (label) label.textContent = t('scene.phase_rendering');
             spawnParticles();
 
@@ -201,14 +228,13 @@ function CodeToWebScene() {
               if (web) {
                 web.style.transition = 'all 0.8s cubic-bezier(0.4,0,0.2,1)';
                 web.style.opacity = '0';
-                web.style.transform = 'translate(-50%, -50%) perspective(900px) scale(0.95)';
+                web.style.transform = `translate(-50%, -50%) perspective(900px) scale(${bs * 0.95})`;
               }
               if (logo) {
                 logo.style.transition = 'all 0.8s cubic-bezier(0.4,0,0.2,1)';
                 logo.style.opacity = '1';
-                logo.style.transform = 'translate(-50%, -50%) scale(1)';
+                logo.style.transform = `translate(-50%, -50%) scale(${bs})`;
               }
-              // Este es el dominio, no se traduce
               if (label) label.textContent = 'symmetricalcode.com';
 
               later(() => {
@@ -222,7 +248,6 @@ function CodeToWebScene() {
     };
 
     startSequenceRef.current = startSequence;
-  // ← t como dependencia: cuando cambia el idioma, startSequence se re-registra con los nuevos textos
   }, [clearTimers, spawnParticles, later, t]);
 
   // Canvas de estrellas
@@ -249,7 +274,7 @@ function CodeToWebScene() {
     return () => resizeObserver.disconnect();
   }, []);
 
-  // Inyecta estilos
+  // Inyecta estilos — VERSIÓN RESPONSIVA
   useEffect(() => {
     if (document.getElementById('sc-styles')) return;
     const s = document.createElement('style');
@@ -257,40 +282,86 @@ function CodeToWebScene() {
     s.textContent = `
       .sc-scene { width:100%;height:100%;background:#040810;position:relative;overflow:hidden; }
       .sc-stars { position:absolute;inset:0;pointer-events:none;width:100%;height:100%; }
-      .sc-code-panel { position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:460px;background:#0d1b2a;border:1px solid #1a3a5c;border-radius:12px;overflow:hidden;box-shadow:0 0 60px rgba(0,180,255,.1);z-index:10; }
+
+      /* ── Paneles: siempre 460px nativos, el scale JS los achica ── */
+      .sc-code-panel {
+        position:absolute;top:50%;left:50%;
+        transform-origin: center center;
+        width:460px;
+        background:#0d1b2a;border:1px solid #1a3a5c;border-radius:12px;
+        overflow:hidden;box-shadow:0 0 60px rgba(0,180,255,.1);z-index:10;
+      }
       .sc-panel-bar { background:#142030;padding:12px 16px;display:flex;align-items:center;gap:8px;border-bottom:1px solid #1a3a5c; }
       .sc-dot { width:12px;height:12px;border-radius:50%; }
       .sc-fname { font-size:12px;color:#4a7fa0;margin-left:10px;font-family:monospace; }
-      .sc-code-body { padding:20px 24px;min-height:320px;font-size:13px;line-height:1.8;color:#c8d8e8;font-family:'Menlo','Monaco','Courier New',monospace; }
+      .sc-code-body {
+        padding:20px 24px;min-height:320px;
+        font-size:13px;line-height:1.8;color:#c8d8e8;
+        font-family:'Menlo','Monaco','Courier New',monospace;
+      }
       .sc-line { white-space:pre; }
       .sc-cursor { display:inline-block;width:2px;height:15px;background:#00e5ff;vertical-align:middle;animation:sc-blink .9s step-end infinite; }
       @keyframes sc-blink { 0%,100%{opacity:1}50%{opacity:0} }
       .tk.kw{color:#7dd3fc}.tk.fn{color:#86efac}.tk.str{color:#fde68a}.tk.cmt{color:#4a6a7a;font-style:italic}.tk.var{color:#e2a0ff}.tk.op{color:#7dd3fc}.tk.tag{color:#7dd3fc}.tk.attr{color:#86efac}.tk.val{color:#fde68a}
-      .sc-web-panel { position:absolute;top:50%;left:50%;transform:translate(-50%,-50%) perspective(900px) rotateY(30deg) scale(1);width:460px;border-radius:12px;overflow:hidden;opacity:0;box-shadow:0 0 80px rgba(0,229,255,.15);z-index:9; }
-      .sc-web-bar { background:#1a1a2e;padding:12px 16px;display:flex;align-items:center;gap:8px;border-bottom:1px solid #2a2a4e; }
-      .sc-url-bar { flex:1;background:#0d0d1e;border-radius:20px;padding:4px 14px;font-size:11px;color:#6a9a7a;font-family:monospace;border:1px solid #2a2a4e; }
-      .sc-web-hero { background:#0a0f1e;padding:36px 32px 28px;border-bottom:1px solid #1a2a3e; }
-      .sc-web-tag { display:inline-block;font-size:10px;font-family:monospace;color:#00b4d8;border:1px solid rgba(0,180,216,.3);padding:3px 10px;border-radius:20px;margin-bottom:14px; }
-      .sc-web-title { font-size:26px;font-weight:600;color:#e8f4ff;line-height:1.2;margin-bottom:8px; }
+
+      /* ── Web Panel ── */
+      .sc-web-panel {
+        position:absolute;top:50%;left:50%;
+        transform-origin: center center;
+        width:460px;border-radius:12px;overflow:hidden;opacity:0;
+        box-shadow:0 0 80px rgba(0,229,255,.15);z-index:9;
+      }
+      .sc-web-bar { background:#1a1a2e;padding:10px 14px;display:flex;align-items:center;gap:8px;border-bottom:1px solid #2a2a4e; }
+      .sc-url-bar { flex:1;background:#0d0d1e;border-radius:20px;padding:4px 14px;font-size:11px;color:#6a9a7a;font-family:monospace;border:1px solid #2a2a4e;overflow:hidden;text-overflow:ellipsis;white-space:nowrap; }
+      .sc-web-hero { background:#0a0f1e;padding:28px 24px 22px;border-bottom:1px solid #1a2a3e; }
+      .sc-web-tag { display:inline-block;font-size:10px;font-family:monospace;color:#00b4d8;border:1px solid rgba(0,180,216,.3);padding:3px 10px;border-radius:20px;margin-bottom:12px; }
+      .sc-web-title { font-size:24px;font-weight:600;color:#e8f4ff;line-height:1.2;margin-bottom:8px; }
       .sc-web-title span{color:#00e5ff}
-      .sc-web-sub { font-size:12px;color:#5a7a90;margin-bottom:20px;line-height:1.5; }
-      .sc-web-btns { display:flex;gap:12px; }
-      .sc-btn-p { background:#00b4d8;color:#000;border:none;padding:8px 20px;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer; }
-      .sc-btn-o { background:transparent;color:#00b4d8;border:1px solid rgba(0,180,216,.4);padding:8px 20px;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer; }
-      .sc-web-cards { background:#070d14;padding:18px 20px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px; }
-      .sc-web-card { background:#0d1b2a;border:1px solid #1a3a5c;border-radius:8px;padding:12px; }
-      .sc-card-icon { width:28px;height:28px;border-radius:6px;margin-bottom:8px;display:flex;align-items:center;justify-content:center; }
-      .sc-card-title { font-size:11px;font-weight:600;color:#a8c8e0;margin-bottom:4px; }
+      .sc-web-sub { font-size:12px;color:#5a7a90;margin-bottom:16px;line-height:1.5; }
+      .sc-web-btns { display:flex;gap:10px; }
+      .sc-btn-p { background:#00b4d8;color:#000;border:none;padding:7px 16px;border-radius:6px;font-size:11px;font-weight:600;cursor:pointer; }
+      .sc-btn-o { background:transparent;color:#00b4d8;border:1px solid rgba(0,180,216,.4);padding:7px 16px;border-radius:6px;font-size:11px;font-weight:600;cursor:pointer; }
+      .sc-web-cards { background:#070d14;padding:14px 16px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px; }
+      .sc-web-card { background:#0d1b2a;border:1px solid #1a3a5c;border-radius:8px;padding:10px; }
+      .sc-card-icon { width:26px;height:26px;border-radius:6px;margin-bottom:7px;display:flex;align-items:center;justify-content:center; }
+      .sc-card-title { font-size:10px;font-weight:600;color:#a8c8e0;margin-bottom:3px; }
       .sc-card-desc { font-size:9px;color:#3a5a6a;line-height:1.4; }
-      .sc-logo-overlay { position:absolute;top:50%;left:50%;transform:translate(-50%,-50%) scale(0.9);opacity:0;z-index:30;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;pointer-events:none;width:460px;margin:0;padding:40px 20px;background:rgba(13,27,42,0.6);backdrop-filter:blur(4px);border-radius:12px;border:1px solid rgba(0,180,216,0.2); }
+
+      /* ── Logo Overlay ── */
+      .sc-logo-overlay {
+        position:absolute;top:50%;left:50%;
+        transform-origin: center center;
+        opacity:0;z-index:30;
+        display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;
+        pointer-events:none;
+        width:460px;padding:40px 20px;
+        background:rgba(13,27,42,0.6);backdrop-filter:blur(4px);
+        border-radius:12px;border:1px solid rgba(0,180,216,0.2);
+      }
       .sc-logo-img { width:200px;height:200px;object-fit:contain;display:block;margin:0 auto;filter:drop-shadow(0 0 48px rgba(0,229,255,0.5)) drop-shadow(0 0 20px rgba(0,180,255,0.4)); }
       .sc-logo-label { font-family:monospace;font-size:14px;letter-spacing:.3em;text-transform:uppercase;color:rgba(0,229,255,.7);text-align:center; }
-      .sc-phase-label { position:absolute;bottom:30px;left:50%;transform:translateX(-50%);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:rgba(0,229,255,.4);font-family:monospace;transition:opacity .5s;white-space:nowrap;z-index:40;background:rgba(0,0,0,0.5);padding:6px 14px;border-radius:20px;backdrop-filter:blur(4px); }
+
+      /* ── Phase Label — pegado al fondo del contenedor, nunca tapa el panel ── */
+      .sc-phase-label {
+        position:absolute;
+        /* bottom relativo a la escena, siempre debajo del panel escalado */
+        bottom:10px;
+        left:50%;transform:translateX(-50%);
+        font-size:10px;letter-spacing:.18em;text-transform:uppercase;
+        color:rgba(0,229,255,.55);font-family:monospace;
+        transition:opacity .5s;white-space:nowrap;
+        z-index:40;
+        background:rgba(4,8,16,0.75);
+        padding:4px 12px;border-radius:20px;
+        backdrop-filter:blur(4px);
+        max-width:calc(100% - 24px);
+        overflow:hidden;text-overflow:ellipsis;
+        pointer-events:none;
+      }
     `;
     document.head.appendChild(s);
   }, []);
 
-  // Iniciar la secuencia
   useEffect(() => {
     const id = setTimeout(() => {
       if (startSequenceRef.current) startSequenceRef.current();
@@ -323,7 +394,6 @@ function CodeToWebScene() {
           <div className="sc-url-bar">symmetricalcode.com</div>
         </div>
         <div className="sc-web-hero">
-          {/* ← TRADUCIDO */}
           <div className="sc-web-tag">{t('scene.studio_tag')}</div>
           <div className="sc-web-title">
             {t('scene.studio_name')}<span>{t('scene.studio_highlight')}</span>
@@ -335,7 +405,6 @@ function CodeToWebScene() {
           </div>
         </div>
         <div className="sc-web-cards">
-          {/* ← TRADUCIDO */}
           {[
             { Icon: IconReact, bg: 'rgba(0,180,216,.12)', title: 'React', desc: t('scene.card_react_desc') },
             { Icon: IconNode, bg: 'rgba(134,239,172,.12)', title: 'Node.js', desc: t('scene.card_node_desc') },
@@ -389,10 +458,11 @@ export default function Hero() {
       </div>
 
       <div className="relative grid grid-cols-1 lg:grid-cols-2" style={{ minHeight: '100vh', zIndex: 1 }}>
+
         {/* LEFT — Texto */}
-        <div className="flex flex-col justify-center px-8 lg:px-14 pt-24 pb-12">
+        <div className="flex flex-col justify-center px-5 sm:px-8 lg:px-14 pt-20 sm:pt-24 pb-12">
           <div
-            className="inline-flex items-center gap-3 mb-7 opacity-0 animate-fade-up"
+            className="inline-flex items-center gap-3 mb-6 sm:mb-7 opacity-0 animate-fade-up"
             style={{ animationDelay: '0.1s', animationFillMode: 'forwards' }}
           >
             <span className="w-8 h-px bg-[#00e5ff]" />
@@ -400,8 +470,13 @@ export default function Hero() {
           </div>
 
           <h1
-            className="font-syne font-black leading-[0.88] mb-7 opacity-0 animate-fade-up"
-            style={{ fontSize: 'clamp(2.4rem, 4.2vw, 4.4rem)', animationDelay: '0.18s', animationFillMode: 'forwards', overflowWrap: 'break-word' }}
+            className="font-syne font-black leading-[0.88] mb-6 sm:mb-7 opacity-0 animate-fade-up"
+            style={{
+              fontSize: 'clamp(2rem, 8vw, 4.4rem)',
+              animationDelay: '0.18s',
+              animationFillMode: 'forwards',
+              overflowWrap: 'break-word',
+            }}
           >
             <span className="text-white block">{t('hero.title')}</span>
             <span className="gradient-text block">{t('hero.title_highlight')}</span>
@@ -409,53 +484,54 @@ export default function Hero() {
           </h1>
 
           <p
-            className="text-white/50 text-sm leading-relaxed mb-8 opacity-0 animate-fade-up"
+            className="text-white/50 text-sm leading-relaxed mb-7 opacity-0 animate-fade-up"
             style={{ maxWidth: '38ch', animationDelay: '0.28s', animationFillMode: 'forwards' }}
           >
             {t('hero.subtitle')}
           </p>
 
           <div
-            className="flex flex-wrap gap-3 mb-9 opacity-0 animate-fade-up"
+            className="flex flex-wrap gap-3 mb-8 opacity-0 animate-fade-up"
             style={{ animationDelay: '0.35s', animationFillMode: 'forwards' }}
           >
             <button
               onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })}
-              className="btn-primary px-7 py-3 rounded-none font-syne font-bold text-sm tracking-wider"
+              className="btn-primary px-6 py-3 rounded-none font-syne font-bold text-sm tracking-wider"
             >
               {t('hero.cta_primary')}
             </button>
             <button
               onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
-              className="btn-outline px-7 py-3 rounded-none font-syne font-bold text-sm tracking-wider"
+              className="btn-outline px-6 py-3 rounded-none font-syne font-bold text-sm tracking-wider"
             >
               {t('hero.cta_secondary')}
             </button>
           </div>
 
+          {/* Stats — se envuelven mejor en móvil */}
           <div
-            className="flex flex-wrap gap-6 mb-8 opacity-0 animate-fade-up"
+            className="flex flex-wrap gap-5 sm:gap-6 mb-7 opacity-0 animate-fade-up"
             style={{ animationDelay: '0.42s', animationFillMode: 'forwards' }}
           >
             {stats.map((s, i) => (
               <div key={i} className="border-l-2 border-[rgba(0,229,255,0.22)] pl-4">
-                <div className="font-syne font-black text-xl gradient-text">{s.value}</div>
-                <div className="font-mono text-[0.68rem] text-white/35 mt-0.5 leading-tight">{s.label}</div>
+                <div className="font-syne font-black text-lg sm:text-xl gradient-text">{s.value}</div>
+                <div className="font-mono text-[0.65rem] text-white/35 mt-0.5 leading-tight">{s.label}</div>
               </div>
             ))}
           </div>
 
           <div
-            className="h-px mb-7 opacity-0 animate-fade-up bg-gradient-to-r from-[rgba(0,229,255,0.15)] to-transparent"
+            className="h-px mb-6 opacity-0 animate-fade-up bg-gradient-to-r from-[rgba(0,229,255,0.15)] to-transparent"
             style={{ maxWidth: '36ch', animationDelay: '0.47s', animationFillMode: 'forwards' }}
           />
 
+          {/* Info de contacto + redes */}
           <div
-            className="flex flex-col sm:flex-row gap-6 opacity-0 animate-fade-up"
+            className="flex flex-col sm:flex-row gap-5 sm:gap-6 opacity-0 animate-fade-up"
             style={{ animationDelay: '0.52s', animationFillMode: 'forwards' }}
           >
-            <div className="flex flex-col gap-2.5">
-              {/* ← TRADUCIDO */}
+            <div className="flex flex-col gap-2">
               {[
                 { icon: <MailIcon />, text: t('hero.email') },
                 { icon: <MapIcon />, text: t('hero.location') },
@@ -479,7 +555,6 @@ export default function Hero() {
                 ))}
               </div>
               <div className="flex items-center gap-3 mt-0.5">
-                {/* ← TRADUCIDO */}
                 <span className="font-mono text-[0.58rem] text-white/20 tracking-widest uppercase">
                   {t('hero.follow_us')}
                 </span>
@@ -504,9 +579,22 @@ export default function Hero() {
               </div>
             </div>
           </div>
+
+          {/* ── MOBILE: Scene se muestra debajo del texto en móvil ── */}
+          {/* FIX: visible solo en mobile/tablet, oculto en lg (donde ya aparece en la columna derecha) */}
+          <div
+            className="block lg:hidden mt-10 rounded-xl overflow-hidden opacity-0 animate-fade-up"
+            style={{
+              height: 'clamp(280px, 55vw, 420px)',
+              animationDelay: '0.6s',
+              animationFillMode: 'forwards',
+            }}
+          >
+            <CodeToWebScene />
+          </div>
         </div>
 
-        {/* RIGHT — Code → Web Scene */}
+        {/* RIGHT — Code → Web Scene (solo desktop) */}
         <div
           className="relative hidden lg:flex items-center justify-center"
           style={{ minHeight: '100vh', position: 'relative' }}
@@ -525,6 +613,7 @@ export default function Hero() {
         </div>
       </div>
 
+      {/* Scroll indicator */}
       <div
         className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-25"
         style={{ zIndex: 2 }}

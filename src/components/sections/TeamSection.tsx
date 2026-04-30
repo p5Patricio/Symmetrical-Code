@@ -35,7 +35,7 @@ const LinkedInIcon = () => (
 );
 
 const CalendarIcon = () => (
-  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
     <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
     <line x1="16" y1="2" x2="16" y2="6"/>
     <line x1="8" y1="2" x2="8" y2="6"/>
@@ -44,14 +44,14 @@ const CalendarIcon = () => (
 );
 
 const LocationIcon = () => (
-  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
     <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
     <circle cx="12" cy="10" r="3"/>
   </svg>
 );
 
 /* ══════════════════════════════════════════
-   MODAL — Tarjeta expandida con badges mejorados
+   MODAL — Tarjeta expandida
 ══════════════════════════════════════════ */
 function MemberModal({ member, onClose }) {
   const { t } = useTranslation();
@@ -78,18 +78,27 @@ function MemberModal({ member, onClose }) {
     <div
       onClick={handleBackdrop}
       style={{
-        position: 'fixed', inset: 0, zIndex: 9999,
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        zIndex: 9999,
         background: 'rgba(2,4,8,0.95)',
         backdropFilter: 'blur(20px)',
-        display: 'flex', alignItems: 'center', justifyContent: 'center',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
         padding: '24px',
         opacity: isOpen ? 1 : 0,
         transition: 'opacity 0.4s ease',
+        overflowY: 'auto',
       }}
     >
       <div
         style={{
-          width: '100%', maxWidth: '880px',
+          width: '100%',
+          maxWidth: '880px',
           background: 'linear-gradient(135deg, #070f1a 0%, #0a1220 100%)',
           border: `1px solid ${member.color}40`,
           borderRadius: '28px',
@@ -99,6 +108,7 @@ function MemberModal({ member, onClose }) {
           opacity: isOpen ? 1 : 0,
           transform: isOpen ? 'scale(1) translateY(0)' : 'scale(0.95) translateY(20px)',
           transition: 'opacity 0.4s cubic-bezier(0.34, 1.2, 0.64, 1), transform 0.4s cubic-bezier(0.34, 1.2, 0.64, 1)',
+          margin: 'auto',
         }}
       >
         <div style={{
@@ -146,9 +156,8 @@ function MemberModal({ member, onClose }) {
           <CloseIcon />
         </button>
 
-        <div style={{ display: 'grid', gridTemplateColumns: '300px 1fr' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '300px 1fr' }} className="modal-grid">
 
-          {/* Imagen lateral */}
           <div style={{
             position: 'relative',
             background: '#03060a',
@@ -214,13 +223,10 @@ function MemberModal({ member, onClose }) {
             </div>
           </div>
 
-          {/* Contenido derecho */}
-          <div style={{ padding: '36px 32px', display: 'flex', flexDirection: 'column', gap: '24px' }}>
-            
-            {/* Header */}
+          <div style={{ padding: '36px 32px', display: 'flex', flexDirection: 'column', gap: '22px' }}>
             <div style={{ animation: 'fadeInUp 0.5s ease-out 0.1s both' }}>
               <p style={{
-                fontFamily: 'monospace', fontSize: '10px',
+                fontFamily: 'monospace', fontSize: '9px',
                 letterSpacing: '0.25em', textTransform: 'uppercase',
                 color: member.color, opacity: 0.8,
                 marginBottom: '10px',
@@ -244,232 +250,63 @@ function MemberModal({ member, onClose }) {
               </p>
             </div>
 
-            {/* Línea decorativa */}
             <div style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '20px',
-              margin: '4px 0',
+              display: 'flex', flexWrap: 'wrap', gap: '12px',
+              justifyContent: 'flex-start', margin: '8px 0',
             }}>
               <div style={{
-                flex: 1,
-                height: '1px',
-                background: `linear-gradient(90deg, ${member.color}50, transparent)`,
-              }} />
-              <div style={{
-                width: '8px',
-                height: '8px',
-                borderRadius: '50%',
-                background: member.color,
-                opacity: 0.8,
-                boxShadow: `0 0 8px ${member.color}`,
-              }} />
-              <div style={{
-                flex: 1,
-                height: '1px',
-                background: `linear-gradient(270deg, ${member.color}50, transparent)`,
-              }} />
-            </div>
-
-            {/* Badges de información - mejor acomodados en fila flexible */}
-            <div style={{
-              display: 'flex',
-              flexWrap: 'wrap',
-              gap: '16px',
-              justifyContent: 'space-between',
-              margin: '8px 0',
-            }}>
-              {/* Badge Experience */}
-              <div style={{
-                flex: 1,
-                minWidth: '120px',
-                background: `linear-gradient(135deg, ${member.color}12, ${member.color}03)`,
+                background: 'rgba(255,255,255,0.03)',
                 border: `1px solid ${member.color}30`,
-                borderRadius: '20px',
-                padding: '16px 12px',
+                borderRadius: '30px',
+                padding: '8px 18px',
                 display: 'flex',
-                flexDirection: 'column',
                 alignItems: 'center',
-                gap: '10px',
-                transition: 'all 0.3s ease',
-              }}
-              onMouseEnter={e => {
-                e.currentTarget.style.transform = 'translateY(-4px)';
-                e.currentTarget.style.borderColor = member.color;
-                e.currentTarget.style.boxShadow = `0 12px 24px -8px ${member.color}30`;
-                e.currentTarget.style.background = `linear-gradient(135deg, ${member.color}18, ${member.color}06)`;
-              }}
-              onMouseLeave={e => {
-                e.currentTarget.style.transform = 'translateY(0)';
-                e.currentTarget.style.borderColor = `${member.color}30`;
-                e.currentTarget.style.boxShadow = 'none';
-                e.currentTarget.style.background = `linear-gradient(135deg, ${member.color}12, ${member.color}03)`;
+                gap: '8px',
               }}>
-                <div style={{
-                  width: '48px',
-                  height: '48px',
-                  borderRadius: '50%',
-                  background: `radial-gradient(circle, ${member.color}30, ${member.color}08)`,
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                }}>
-                  <CalendarIcon style={{ color: member.color, width: '22px', height: '22px' }} />
-                </div>
-                <div style={{ textAlign: 'center' }}>
-                  <div style={{
-                    fontFamily: 'Syne, sans-serif',
-                    fontWeight: 800,
-                    fontSize: '24px',
-                    background: `linear-gradient(135deg, ${member.color}, #ffffff)`,
-                    WebkitBackgroundClip: 'text',
-                    WebkitTextFillColor: 'transparent',
-                    lineHeight: 1.2,
-                  }}>{member.experience}</div>
-                  <div style={{
-                    fontFamily: 'monospace',
-                    fontSize: '9px',
-                    letterSpacing: '0.1em',
-                    color: 'rgba(255,255,255,0.5)',
-                    marginTop: '4px',
-                  }}>EXPERIENCE</div>
-                </div>
+                <CalendarIcon style={{ color: member.color, width: '14px', height: '14px' }} />
+                <span style={{ fontFamily: 'monospace', fontSize: '11px', color: 'rgba(255,255,255,0.7)' }}>{member.experience}</span>
               </div>
-
-              {/* Badge Projects */}
               <div style={{
-                flex: 1,
-                minWidth: '120px',
-                background: `linear-gradient(135deg, ${member.color}12, ${member.color}03)`,
+                background: 'rgba(255,255,255,0.03)',
                 border: `1px solid ${member.color}30`,
-                borderRadius: '20px',
-                padding: '16px 12px',
+                borderRadius: '30px',
+                padding: '8px 18px',
                 display: 'flex',
-                flexDirection: 'column',
                 alignItems: 'center',
-                gap: '10px',
-                transition: 'all 0.3s ease',
-              }}
-              onMouseEnter={e => {
-                e.currentTarget.style.transform = 'translateY(-4px)';
-                e.currentTarget.style.borderColor = member.color;
-                e.currentTarget.style.boxShadow = `0 12px 24px -8px ${member.color}30`;
-                e.currentTarget.style.background = `linear-gradient(135deg, ${member.color}18, ${member.color}06)`;
-              }}
-              onMouseLeave={e => {
-                e.currentTarget.style.transform = 'translateY(0)';
-                e.currentTarget.style.borderColor = `${member.color}30`;
-                e.currentTarget.style.boxShadow = 'none';
-                e.currentTarget.style.background = `linear-gradient(135deg, ${member.color}12, ${member.color}03)`;
+                gap: '8px',
               }}>
-                <div style={{
-                  width: '48px',
-                  height: '48px',
-                  borderRadius: '50%',
-                  background: `radial-gradient(circle, ${member.color}30, ${member.color}08)`,
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  fontSize: '24px',
-                }}>📁</div>
-                <div style={{ textAlign: 'center' }}>
-                  <div style={{
-                    fontFamily: 'Syne, sans-serif',
-                    fontWeight: 800,
-                    fontSize: '24px',
-                    background: `linear-gradient(135deg, ${member.color}, #ffffff)`,
-                    WebkitBackgroundClip: 'text',
-                    WebkitTextFillColor: 'transparent',
-                    lineHeight: 1.2,
-                  }}>{member.projects}+</div>
-                  <div style={{
-                    fontFamily: 'monospace',
-                    fontSize: '9px',
-                    letterSpacing: '0.1em',
-                    color: 'rgba(255,255,255,0.5)',
-                    marginTop: '4px',
-                  }}>PROJECTS</div>
-                </div>
+                <span style={{ fontFamily: 'Syne, sans-serif', fontWeight: 700, fontSize: '14px', color: member.color }}>{member.projects}+</span>
+                <span style={{ fontFamily: 'monospace', fontSize: '9px', color: 'rgba(255,255,255,0.5)' }}>proyectos</span>
               </div>
-
-              {/* Badge Location */}
               <div style={{
-                flex: 1,
-                minWidth: '120px',
-                background: `linear-gradient(135deg, ${member.color}12, ${member.color}03)`,
+                background: 'rgba(255,255,255,0.03)',
                 border: `1px solid ${member.color}30`,
-                borderRadius: '20px',
-                padding: '16px 12px',
+                borderRadius: '30px',
+                padding: '8px 18px',
                 display: 'flex',
-                flexDirection: 'column',
                 alignItems: 'center',
-                gap: '10px',
-                transition: 'all 0.3s ease',
-              }}
-              onMouseEnter={e => {
-                e.currentTarget.style.transform = 'translateY(-4px)';
-                e.currentTarget.style.borderColor = member.color;
-                e.currentTarget.style.boxShadow = `0 12px 24px -8px ${member.color}30`;
-                e.currentTarget.style.background = `linear-gradient(135deg, ${member.color}18, ${member.color}06)`;
-              }}
-              onMouseLeave={e => {
-                e.currentTarget.style.transform = 'translateY(0)';
-                e.currentTarget.style.borderColor = `${member.color}30`;
-                e.currentTarget.style.boxShadow = 'none';
-                e.currentTarget.style.background = `linear-gradient(135deg, ${member.color}12, ${member.color}03)`;
+                gap: '8px',
               }}>
-                <div style={{
-                  width: '48px',
-                  height: '48px',
-                  borderRadius: '50%',
-                  background: `radial-gradient(circle, ${member.color}30, ${member.color}08)`,
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                }}>
-                  <LocationIcon style={{ color: member.color, width: '22px', height: '22px' }} />
-                </div>
-                <div style={{ textAlign: 'center' }}>
-                  <div style={{
-                    fontFamily: 'Syne, sans-serif',
-                    fontWeight: 700,
-                    fontSize: '16px',
-                    background: `linear-gradient(135deg, ${member.color}, #ffffff)`,
-                    WebkitBackgroundClip: 'text',
-                    WebkitTextFillColor: 'transparent',
-                    lineHeight: 1.3,
-                  }}>{member.location.split(',')[0]}</div>
-                  <div style={{
-                    fontFamily: 'monospace',
-                    fontSize: '9px',
-                    letterSpacing: '0.1em',
-                    color: 'rgba(255,255,255,0.5)',
-                    marginTop: '4px',
-                  }}>LOCATION</div>
-                </div>
+                <LocationIcon style={{ color: member.color, width: '14px', height: '14px' }} />
+                <span style={{ fontFamily: 'monospace', fontSize: '11px', color: 'rgba(255,255,255,0.7)' }}>{member.location.split(',')[0]}</span>
               </div>
             </div>
 
-            {/* Párrafo justificado */}
             <p style={{
-              fontSize: '14px',
-              color: 'rgba(255,255,255,0.55)',
-              lineHeight: 1.7,
-              textAlign: 'justify',
+              fontSize: '13px', color: 'rgba(255,255,255,0.5)',
+              lineHeight: 1.7, textAlign: 'justify',
               animation: 'fadeInUp 0.5s ease-out 0.2s both',
-              marginTop: '4px',
             }}>
               {translatedInfo.detail}
             </p>
 
-            {/* Skills */}
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px', animation: 'fadeInUp 0.5s ease-out 0.3s both' }}>
               {member.skills.map((skill, idx) => (
                 <span key={skill} style={{
-                  fontFamily: 'monospace', fontSize: '11px',
+                  fontFamily: 'monospace', fontSize: '10px',
                   color: `${member.color}dd`,
                   border: `1px solid ${member.color}30`,
-                  padding: '8px 18px',
+                  padding: '6px 14px',
                   borderRadius: '30px',
                   transition: 'all 0.3s ease',
                   cursor: 'default',
@@ -490,21 +327,19 @@ function MemberModal({ member, onClose }) {
               ))}
             </div>
 
-            {/* Botones sociales */}
-            <div style={{ display: 'flex', gap: '14px', flexWrap: 'wrap', marginTop: '8px', animation: 'fadeInUp 0.5s ease-out 0.4s both' }}>
+            <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', marginTop: '8px', animation: 'fadeInUp 0.5s ease-out 0.4s both' }}>
               <a href={member.portfolio} target="_blank" rel="noopener noreferrer"
                 style={{
                   display: 'flex', alignItems: 'center', gap: '8px',
-                  fontFamily: 'monospace', fontSize: '11px',
+                  fontFamily: 'monospace', fontSize: '10px',
                   color: member.color,
                   border: `1px solid ${member.color}40`,
                   borderRadius: '40px',
-                  padding: '12px 24px',
+                  padding: '10px 20px',
                   textDecoration: 'none',
                   letterSpacing: '0.08em',
                   transition: 'all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1)',
                   background: 'transparent',
-                  fontWeight: 500,
                 }}
                 onMouseEnter={e => {
                   e.currentTarget.style.background = `${member.color}20`;
@@ -522,11 +357,11 @@ function MemberModal({ member, onClose }) {
               <a href={member.github} target="_blank" rel="noopener noreferrer"
                 style={{
                   display: 'flex', alignItems: 'center', gap: '8px',
-                  fontFamily: 'monospace', fontSize: '11px',
+                  fontFamily: 'monospace', fontSize: '10px',
                   color: 'rgba(255,255,255,0.5)',
                   border: '1px solid rgba(255,255,255,0.1)',
                   borderRadius: '40px',
-                  padding: '12px 24px',
+                  padding: '10px 20px',
                   textDecoration: 'none',
                   letterSpacing: '0.08em',
                   transition: 'all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1)',
@@ -547,11 +382,11 @@ function MemberModal({ member, onClose }) {
               <a href={member.linkedin} target="_blank" rel="noopener noreferrer"
                 style={{
                   display: 'flex', alignItems: 'center', gap: '8px',
-                  fontFamily: 'monospace', fontSize: '11px',
+                  fontFamily: 'monospace', fontSize: '10px',
                   color: 'rgba(255,255,255,0.5)',
                   border: '1px solid rgba(255,255,255,0.1)',
                   borderRadius: '40px',
-                  padding: '12px 24px',
+                  padding: '10px 20px',
                   textDecoration: 'none',
                   letterSpacing: '0.08em',
                   transition: 'all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1)',
@@ -950,7 +785,12 @@ export default function Team() {
       }
       
       @media (max-width: 768px) {
-        .modal-grid { grid-template-columns: 1fr !important; }
+        .modal-grid {
+          grid-template-columns: 1fr !important;
+        }
+        .modal-grid > div:first-child {
+          min-height: 300px !important;
+        }
       }
     `;
     document.head.appendChild(s);
