@@ -18,7 +18,11 @@
     "stat_2_value": "20+",
     "stat_2_label": "Projects delivered",
     "stat_3_value": "100%",
-    "stat_3_label": "Satisfied clients"
+    "stat_3_label": "Satisfied clients",
+    "email": "atencionaclientes@symmetricalcode.com",
+    "location": "Guanajuato, Mexico · Remote",
+    "availability": "Available for new projects",
+    "follow_us": "Follow us"
   },
   "projects": {
     "label": "Our work",
@@ -30,17 +34,29 @@
       {
         "title": "Project Alpha",
         "description": "Fullstack web application with real-time analytics dashboard and advanced authentication.",
-        "tags": ["React", "Node.js", "PostgreSQL"]
+        "tags": [
+          "React",
+          "Node.js",
+          "PostgreSQL"
+        ]
       },
       {
         "title": "Project Beta",
         "description": "E-commerce with payment integration, admin panel, and automated inventory management.",
-        "tags": ["Next.js", "Stripe", "MongoDB"]
+        "tags": [
+          "Next.js",
+          "Stripe",
+          "MongoDB"
+        ]
       },
       {
         "title": "Project Gamma",
         "description": "B2B SaaS platform with microservices architecture and documented REST API.",
-        "tags": ["TypeScript", "Docker", "AWS"]
+        "tags": [
+          "TypeScript",
+          "Docker",
+          "AWS"
+        ]
       }
     ]
   },
@@ -48,27 +64,29 @@
     "label": "The ones doing magic",
     "title": "The team",
     "subtitle": "A team of passionate developers, committed to technical excellence and attention to detail.",
-    "portfolio": "View portfolio",
-    "members": [
-      {
-        "name": "Name 1",
-        "role": "Frontend Developer",
-        "bio": "Specialist in modern interfaces and memorable user experiences.",
-        "portfolio": "#"
+    "know_more": "Know more",
+    "modal_portfolio": "Portfolio",
+    "modal_experience": "Experience",
+    "modal_projects": "Projects",
+    "modal_location": "Location",
+    "footer_developers": "Developers · Guanajuato, MX",
+    "members": {
+      "eduardo": {
+        "bio": "Passionate about frontend and user experience. Specialist in modern interfaces, animations and design that converts.",
+        "specialty": "UI / UX & Frontend",
+        "detail": "Eduardo leads user interface development with a focus on accessibility, performance and aesthetics. His mastery of React and CSS animations makes him responsible for every pixel having intention. He has built over 12 projects that combine functionality with memorable visual experience."
       },
-      {
-        "name": "Name 2",
-        "role": "Backend Developer",
-        "bio": "Robust system architecture, scalable APIs and optimized databases.",
-        "portfolio": "#"
+      "patricio": {
+        "bio": "Backend systems architect focused on scalability, security and high-performance APIs.",
+        "specialty": "Backend & DevOps",
+        "detail": "Patricio designs and maintains the backbone of projects. His experience in microservices architecture, relational databases and Docker containers ensures systems that scale painlessly. Passionate about security and good engineering practices."
       },
-      {
-        "name": "Name 3",
-        "role": "Fullstack Developer",
-        "bio": "From design to production, leading projects with comprehensive technical vision.",
-        "portfolio": "#"
+      "mario": {
+        "bio": "Fullstack developer with product vision. Leads projects from start to production with solid architecture.",
+        "specialty": "Fullstack & Cloud",
+        "detail": "Mario connects the pieces. With comprehensive product vision and fullstack experience, he takes projects from wireframe to AWS deploy. His expertise in Next.js and MongoDB allows him to build complete platforms with SEO, performance and scalability from day one."
       }
-    ]
+    }
   },
   "contact": {
     "label": "Let's talk",
@@ -87,5 +105,19 @@
   "footer": {
     "tagline": "Symmetrical code. Extraordinary results.",
     "rights": "All rights reserved."
+  },
+  "scene": {
+    "phase_typing": "⌨️ writing code...",
+    "phase_compiling": "⚙️ compiling...",
+    "phase_rendering": "🌐 rendering interface...",
+    "studio_tag": "Full-Stack Studio",
+    "studio_name": "Symmetrical",
+    "studio_highlight": "Code",
+    "studio_sub": "Design + code that scales.",
+    "btn_projects": "View projects",
+    "btn_contact": "Contact",
+    "card_react_desc": "Reactive interfaces",
+    "card_node_desc": "Scalable backend",
+    "card_ts_desc": "Robust code"
   }
 }

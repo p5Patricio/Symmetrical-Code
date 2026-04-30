@@ -18,7 +18,11 @@
     "stat_2_value": "20+",
     "stat_2_label": "Proyectos entregados",
     "stat_3_value": "100%",
-    "stat_3_label": "Clientes satisfechos"
+    "stat_3_label": "Clientes satisfechos",
+    "email": "atencionaclientes@symmetricalcode.com",
+    "location": "Guanajuato, México · Remoto",
+    "availability": "Disponible para nuevos proyectos",
+    "follow_us": "Síguenos"
   },
   "projects": {
     "label": "Nuestro trabajo",
@@ -30,17 +34,29 @@
       {
         "title": "Proyecto Alpha",
         "description": "Aplicación web fullstack con dashboard de analítica en tiempo real y autenticación avanzada.",
-        "tags": ["React", "Node.js", "PostgreSQL"]
+        "tags": [
+          "React",
+          "Node.js",
+          "PostgreSQL"
+        ]
       },
       {
         "title": "Proyecto Beta",
         "description": "E-commerce con integración de pagos, panel de administración y sistema de inventario automatizado.",
-        "tags": ["Next.js", "Stripe", "MongoDB"]
+        "tags": [
+          "Next.js",
+          "Stripe",
+          "MongoDB"
+        ]
       },
       {
         "title": "Proyecto Gamma",
         "description": "Plataforma SaaS B2B con arquitectura de microservicios y API REST documentada.",
-        "tags": ["TypeScript", "Docker", "AWS"]
+        "tags": [
+          "TypeScript",
+          "Docker",
+          "AWS"
+        ]
       }
     ]
   },
@@ -48,27 +64,29 @@
     "label": "Los que hacen magia",
     "title": "El equipo",
     "subtitle": "Un equipo de desarrolladores apasionados, comprometidos con la excelencia técnica y el detalle.",
-    "portfolio": "Ver portafolio",
-    "members": [
-      {
-        "name": "Nombre 1",
-        "role": "Frontend Developer",
-        "bio": "Especialista en interfaces modernas y experiencias de usuario memorables.",
-        "portfolio": "#"
+    "know_more": "Saber más",
+    "modal_portfolio": "Portafolio",
+    "modal_experience": "Experiencia",
+    "modal_projects": "Proyectos",
+    "modal_location": "Ubicación",
+    "footer_developers": "Developers · Guanajuato, MX",
+    "members": {
+      "eduardo": {
+        "bio": "Apasionado del frontend y la experiencia de usuario. Especialista en interfaces modernas, animaciones y diseño que convierte.",
+        "specialty": "UI / UX & Frontend",
+        "detail": "Eduardo lidera el desarrollo de interfaces de usuario con un enfoque en accesibilidad, rendimiento y estética. Su dominio de React y las animaciones CSS lo convierte en el responsable de que cada píxel tenga intención. Ha construido más de 12 proyectos que combinan funcionalidad con experiencia visual memorable."
       },
-      {
-        "name": "Nombre 2",
-        "role": "Backend Developer",
-        "bio": "Arquitectura de sistemas robustos, APIs escalables y bases de datos optimizadas.",
-        "portfolio": "#"
+      "patricio": {
+        "bio": "Arquitecto de sistemas backend con enfoque en escalabilidad, seguridad y APIs de alto rendimiento.",
+        "specialty": "Backend & DevOps",
+        "detail": "Patricio diseña y mantiene la columna vertebral de los proyectos. Su experiencia en arquitectura de microservicios, bases de datos relacionales y contenedores Docker garantiza sistemas que escalan sin dolor. Apasionado de la seguridad y las buenas prácticas de ingeniería."
       },
-      {
-        "name": "Nombre 3",
-        "role": "Fullstack Developer",
-        "bio": "Del diseño a producción, liderando proyectos con visión técnica integral.",
-        "portfolio": "#"
+      "mario": {
+        "bio": "Fullstack developer con visión de producto. Lidera proyectos de inicio a producción con arquitectura sólida.",
+        "specialty": "Fullstack & Cloud",
+        "detail": "Mario conecta las piezas. Con visión integral de producto y experiencia fullstack, lleva proyectos desde el wireframe hasta el deploy en AWS. Su expertise en Next.js y MongoDB le permite construir plataformas completas con SEO, rendimiento y escalabilidad desde el día uno."
       }
-    ]
+    }
   },
   "contact": {
     "label": "Hablemos",
@@ -87,5 +105,19 @@
   "footer": {
     "tagline": "Código simétrico. Resultados extraordinarios.",
     "rights": "Todos los derechos reservados."
+  },
+  "scene": {
+    "phase_typing": "⌨️ escribiendo código...",
+    "phase_compiling": "⚙️ compilando...",
+    "phase_rendering": "🌐 renderizando interfaz...",
+    "studio_tag": "Full-Stack Studio",
+    "studio_name": "Symmetrical",
+    "studio_highlight": "Code",
+    "studio_sub": "Diseño + código que escala.",
+    "btn_projects": "Ver proyectos",
+    "btn_contact": "Contactar",
+    "card_react_desc": "Interfaces reactivas",
+    "card_node_desc": "Backend escalable",
+    "card_ts_desc": "Código robusto"
   }
 }
