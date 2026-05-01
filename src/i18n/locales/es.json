@@ -119,5 +119,16 @@
     "card_react_desc": "Interfaces reactivas",
     "card_node_desc": "Backend escalable",
     "card_ts_desc": "Código robusto"
-  }
+  },
+  "chat": {
+  "welcome": "¡Hola! Soy el asistente de Symmetrical Code. ¿En qué puedo ayudarte hoy?",
+  "subtitle": "Asistente virtual",
+  "placeholder": "Escribí tu mensaje...",
+  "aria_open": "Abrir chat",
+  "aria_close": "Cerrar chat",
+  "aria_send": "Enviar mensaje",
+  "error_unknown": "Error desconocido del servidor",
+  "error_connect": "No se pudo conectar con el servidor",
+  "error_message": "⚠️ Lo siento, estoy teniendo problemas para conectarme. Por favor, asegurate de que el servidor esté corriendo en http://localhost:3001"
+}
 }

@@ -119,5 +119,16 @@
     "card_react_desc": "Reactive interfaces",
     "card_node_desc": "Scalable backend",
     "card_ts_desc": "Robust code"
-  }
+  },
+  "chat": {
+  "welcome": "Hi! I'm the Symmetrical Code assistant. How can I help you today?",
+  "subtitle": "Virtual assistant",
+  "placeholder": "Type your message...",
+  "aria_open": "Open chat",
+  "aria_close": "Close chat",
+  "aria_send": "Send message",
+  "error_unknown": "Unknown server error",
+  "error_connect": "Could not connect to the server",
+  "error_message": "⚠️ Sorry, I'm having trouble connecting. Please make sure the server is running at http://localhost:3001"
+}
 }

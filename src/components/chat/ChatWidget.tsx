@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 
 interface ChatMessage {
   role: 'user' | 'model';
@@ -8,18 +9,28 @@ interface ChatMessage {
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001/api/chat';
 
 export default function ChatWidget() {
+  const { t, i18n } = useTranslation();
+
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<ChatMessage[]>([
-    {
-      role: 'model',
-      text: '¡Hola! Soy el asistente de Symmetrical Code. ¿En qué puedo ayudarte hoy?',
-    },
+    { role: 'model', text: t('chat.welcome') },
   ]);
   const [input, setInput] = useState('');
   const [isTyping, setIsTyping] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+
+  // Cuando cambia el idioma, actualizar SOLO el mensaje de bienvenida (índice 0)
+  useEffect(() => {
+    setMessages((prev) =>
+      prev.map((msg, idx) =>
+        idx === 0 && msg.role === 'model'
+          ? { ...msg, text: t('chat.welcome') }
+          : msg
+      )
+    );
+  }, [i18n.language, t]);
 
   // Auto-scroll al último mensaje
   useEffect(() => {
@@ -50,6 +61,7 @@ export default function ChatWidget() {
         body: JSON.stringify({
           message: text,
           history: messages,
+          language: i18n.language, // enviamos el idioma actual al backend
         }),
       });
 
@@ -62,17 +74,14 @@ export default function ChatWidget() {
       if (data.success) {
         setMessages((prev) => [...prev, { role: 'model', text: data.reply }]);
       } else {
-        throw new Error(data.error || 'Error desconocido del servidor');
+        throw new Error(data.error || t('chat.error_unknown'));
       }
     } catch (err) {
-      const errorMsg = err instanceof Error ? err.message : 'No se pudo conectar con el servidor';
+      const errorMsg = err instanceof Error ? err.message : t('chat.error_connect');
       setError(errorMsg);
       setMessages((prev) => [
         ...prev,
-        {
-          role: 'model',
-          text: '⚠️ Lo siento, estoy teniendo problemas para conectarme. Por favor, asegurate de que el servidor esté corriendo en http://localhost:3001',
-        },
+        { role: 'model', text: t('chat.error_message') },
       ]);
     } finally {
       setIsTyping(false);
@@ -102,7 +111,7 @@ export default function ChatWidget() {
             : 'bg-gradient-to-br from-[#00e5ff] to-[#1565ff] text-[#020408] hover:scale-110 hover:shadow-[0_0_40px_rgba(0,229,255,0.5)]'
           }
         `}
-        aria-label={isOpen ? 'Cerrar chat' : 'Abrir chat'}
+        aria-label={isOpen ? t('chat.aria_close') : t('chat.aria_open')}
       >
         {isOpen ? (
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00e5ff" strokeWidth="2.5" strokeLinecap="round">
@@ -155,12 +164,12 @@ export default function ChatWidget() {
           </div>
           <div className="flex-1 min-w-0">
             <h3 className="text-sm font-bold text-white truncate">Symmetrical Bot</h3>
-            <p className="text-xs text-[#00e5ff]/70 font-mono">Asistente virtual</p>
+            <p className="text-xs text-[#00e5ff]/70 font-mono">{t('chat.subtitle')}</p>
           </div>
           <button
             onClick={() => setIsOpen(false)}
             className="text-white/40 hover:text-white transition-colors p-1"
-            aria-label="Cerrar"
+            aria-label={t('chat.aria_close')}
           >
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
               <line x1="18" y1="6" x2="6" y2="18" />
@@ -228,7 +237,7 @@ export default function ChatWidget() {
             value={input}
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={handleKeyDown}
-            placeholder="Escribí tu mensaje..."
+            placeholder={t('chat.placeholder')}
             disabled={isTyping}
             className="
               flex-1
@@ -255,7 +264,7 @@ export default function ChatWidget() {
                 : 'bg-[rgba(255,255,255,0.03)] text-white/20 cursor-not-allowed'
               }
             `}
-            aria-label="Enviar mensaje"
+            aria-label={t('chat.aria_send')}
           >
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
               <line x1="22" y1="2" x2="11" y2="13" />
