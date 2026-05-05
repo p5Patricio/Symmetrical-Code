@@ -2,6 +2,7 @@
   "nav": {
     "home": "Inicio",
     "projects": "Proyectos",
+    "services": "Servicios",
     "team": "Equipo",
     "contact": "Contacto"
   },
@@ -24,39 +25,196 @@
     "availability": "Disponible para nuevos proyectos",
     "follow_us": "Síguenos"
   },
+  "services": {
+    "label": "Lo que hacemos",
+    "title": "Servicios",
+    "subtitle": "Soluciones digitales de punta a punta, diseñadas para el rendimiento, la escalabilidad y el impacto duradero.",
+    "learn_more": "Más información",
+    "modal_includes": "Qué incluye",
+    "modal_highlights": "Puntos clave",
+    "modal_cta": "Iniciar un proyecto",
+    "items": [
+      {
+        "title": "Desarrollo Web",
+        "description": "Aplicaciones web a medida con frameworks modernos y arquitectura limpia que crecen con tu negocio.",
+        "longDescription": "Diseñamos y construimos aplicaciones web de alto rendimiento desde cero. Nuestro enfoque combina tecnología de vanguardia con arquitectura limpia y mantenible. Ya sea que necesites una landing page, una plataforma SaaS compleja o cualquier cosa intermedia, entregamos soluciones rápidas, accesibles y construidas para durar. Cada línea de código está escrita pensando en la escalabilidad y el mantenimiento a largo plazo.",
+        "highlights": [
+          "Arquitectura personalizada según tus necesidades",
+          "Diseño responsivo mobile-first",
+          "Puntuaciones superiores a 90 en todos los Core Web Vitals",
+          "Cumplimiento de accesibilidad (WCAG 2.1)"
+        ],
+        "bullets": [
+          "React, Next.js y TypeScript",
+          "APIs RESTful y GraphQL",
+          "Optimización de rendimiento",
+          "UI responsiva y accesible"
+        ]
+      },
+      {
+        "title": "Backend y APIs",
+        "description": "Sistemas server-side robustos, bases de datos e integraciones diseñados para alta disponibilidad.",
+        "longDescription": "Construimos la columna vertebral de tu aplicación: sistemas server-side confiables, seguros y escalables. Desde APIs REST simples hasta arquitecturas distribuidas complejas, diseñamos soluciones que soportan carga real y se integran sin problemas con servicios de terceros. Nuestros backends están documentados, monitoreados y construidos pensando en la resiliencia para que tu producto se mantenga en línea.",
+        "highlights": [
+          "Diseñados para alta disponibilidad y cero tiempo de inactividad",
+          "Documentación completa de API con OpenAPI / Swagger",
+          "Diseño y optimización de esquemas de base de datos",
+          "Rate limiting, caché y endurecimiento de seguridad"
+        ],
+        "bullets": [
+          "Servicios Node.js y Python",
+          "Bases de datos SQL y NoSQL",
+          "Integraciones con terceros",
+          "Autenticación y seguridad"
+        ]
+      },
+      {
+        "title": "Cloud y DevOps",
+        "description": "Pipelines CI/CD, contenedores e infraestructura en la nube para entregar con velocidad y confianza.",
+        "longDescription": "Configuramos la infraestructura que permite a tu equipo moverse rápido y desplegar con seguridad. Pipelines automatizados, orquestación de contenedores y arquitectura cloud-native significan menos incendios y más tiempo construyendo funcionalidades. Hacemos que la infraestructura en la nube sea accesible y manejable, sin importar el tamaño de tu equipo.",
+        "highlights": [
+          "Infraestructura como Código (Terraform / CDK)",
+          "Despliegues sin tiempo de inactividad",
+          "Auto-escalado y optimización de costos",
+          "Observabilidad completa: logs, métricas y alertas"
+        ],
+        "bullets": [
+          "AWS, GCP y Azure",
+          "Docker y Kubernetes",
+          "Automatización CI/CD",
+          "Monitoreo y alertas"
+        ]
+      },
+      {
+        "title": "Seguridad y Compliance",
+        "description": "Revisiones de código, pruebas de penetración y buenas prácticas para proteger tus sistemas y datos.",
+        "longDescription": "La seguridad no es un añadido: está tejida en todo lo que construimos. Realizamos auditorías de seguridad exhaustivas, implementamos cifrado y autenticación segura, y te ayudamos a alinearte con los estándares de la industria y los requisitos de cumplimiento. Ya sea que estés preparando un lanzamiento o necesites una revisión completa de seguridad de un sistema existente, estamos aquí.",
+        "highlights": [
+          "Evaluación de vulnerabilidades OWASP Top 10",
+          "Flujos de autenticación seguros (OAuth 2.0, MFA)",
+          "Cifrado de datos de extremo a extremo",
+          "Asesoría en GDPR y cumplimiento normativo"
+        ],
+        "bullets": [
+          "Auditorías de seguridad",
+          "Mejores prácticas OWASP",
+          "Cifrado de datos",
+          "Consultoría de cumplimiento"
+        ]
+      },
+      {
+        "title": "Diseño UI / UX",
+        "description": "Interfaces centradas en el usuario con sistemas de diseño que deleitan y convierten.",
+        "longDescription": "El buen software merece buen diseño. Creamos interfaces intuitivas, hermosas e intencionales, desde wireframes iniciales hasta sistemas de diseño pulidos. Equilibramos la estética con la usabilidad, asegurándonos de que cada interacción se sienta sin esfuerzo. Nuestro proceso de diseño es colaborativo, iterativo y siempre centrado en el usuario final.",
+        "highlights": [
+          "UX basado en investigación con flujos de usuario reales",
+          "Sistemas de diseño escalables y librerías de componentes",
+          "Prototipos interactivos en Figma antes de escribir una línea de código",
+          "Diseño en movimiento y especificación de micro-interacciones"
+        ],
+        "bullets": [
+          "Sistemas de diseño y tokens",
+          "Prototipado en Figma",
+          "Accesibilidad (WCAG)",
+          "Motion y micro-interacciones"
+        ]
+      },
+      {
+        "title": "Analítica y Optimización",
+        "description": "Insights basados en datos y ajuste de rendimiento para hacer crecer tu producto digital.",
+        "longDescription": "Te ayudamos a entender cómo está funcionando tu producto y dónde mejorar. Desde dashboards de analítica personalizados hasta auditorías SEO y pruebas A/B, te damos los datos que necesitas para tomar decisiones con confianza. También afinamos el rendimiento de tu aplicación para que cargue más rápido, posicione mejor y convierta más visitantes en clientes.",
+        "highlights": [
+          "Seguimiento de eventos personalizados y análisis de embudos",
+          "Auditoría SEO e implementación de datos estructurados",
+          "Configuración de pruebas A/B y multivariable",
+          "Plan de mejora de Core Web Vitals"
+        ],
+        "bullets": [
+          "Dashboards personalizados",
+          "Optimización SEO",
+          "Pruebas A/B",
+          "Core Web Vitals"
+        ]
+      }
+    ]
+  },
   "projects": {
     "label": "Nuestro trabajo",
     "title": "Proyectos",
     "subtitle": "Soluciones reales para problemas reales. Cada proyecto es una oportunidad de superar expectativas.",
     "view_demo": "Ver demo",
     "view_code": "Ver código",
+    "view_detail": "Ver detalle",
+    "view_all": "Galería completa de proyectos",
+    "gallery_label": "Portafolio completo",
+    "gallery_title": "Todos los proyectos",
+    "filter_all": "Todos",
+    "back": "Volver al sitio",
     "items": [
       {
         "title": "Proyecto Alpha",
         "description": "Aplicación web fullstack con dashboard de analítica en tiempo real y autenticación avanzada.",
-        "tags": [
-          "React",
-          "Node.js",
-          "PostgreSQL"
-        ]
+        "tags": ["React", "Node.js", "PostgreSQL"]
       },
       {
         "title": "Proyecto Beta",
         "description": "E-commerce con integración de pagos, panel de administración y sistema de inventario automatizado.",
-        "tags": [
-          "Next.js",
-          "Stripe",
-          "MongoDB"
-        ]
+        "tags": ["Next.js", "Stripe", "MongoDB"]
       },
       {
         "title": "Proyecto Gamma",
         "description": "Plataforma SaaS B2B con arquitectura de microservicios y API REST documentada.",
-        "tags": [
-          "TypeScript",
-          "Docker",
-          "AWS"
-        ]
+        "tags": ["TypeScript", "Docker", "AWS"]
+      }
+    ],
+    "all_items": [
+      {
+        "title": "Proyecto Alpha",
+        "description": "Aplicación web fullstack con dashboard de analítica en tiempo real y autenticación avanzada.",
+        "tags": ["React", "Node.js", "PostgreSQL"],
+        "category": "Web App"
+      },
+      {
+        "title": "Proyecto Beta",
+        "description": "E-commerce con integración de pagos, panel de administración y sistema de inventario automatizado.",
+        "tags": ["Next.js", "Stripe", "MongoDB"],
+        "category": "E-commerce"
+      },
+      {
+        "title": "Proyecto Gamma",
+        "description": "Plataforma SaaS B2B con arquitectura de microservicios y API REST documentada.",
+        "tags": ["TypeScript", "Docker", "AWS"],
+        "category": "SaaS"
+      },
+      {
+        "title": "Proyecto Delta",
+        "description": "Herramienta de colaboración en tiempo real con soporte WebSocket y edición de texto enriquecido.",
+        "tags": ["React", "Socket.io", "Redis"],
+        "category": "Web App"
+      },
+      {
+        "title": "Proyecto Epsilon",
+        "description": "PWA mobile-first para gestión de servicios en campo con soporte offline.",
+        "tags": ["PWA", "IndexedDB", "Node.js"],
+        "category": "Mobile"
+      },
+      {
+        "title": "Proyecto Zeta",
+        "description": "Dashboard interno de RRHH con acceso por roles, reportes y exportación a PDF.",
+        "tags": ["Vue.js", "Express", "MySQL"],
+        "category": "SaaS"
+      },
+      {
+        "title": "Proyecto Eta",
+        "description": "Plataforma de facturación multi-tenant integrada con Stripe y automatización de cobros.",
+        "tags": ["Next.js", "Stripe", "PostgreSQL"],
+        "category": "E-commerce"
+      },
+      {
+        "title": "Proyecto Theta",
+        "description": "Sitio de marketing headless CMS con edge caching y puntuación 99 en Lighthouse.",
+        "tags": ["Astro", "Sanity", "Cloudflare"],
+        "category": "Web App"
       }
     ]
   },
@@ -121,14 +279,14 @@
     "card_ts_desc": "Código robusto"
   },
   "chat": {
-  "welcome": "¡Hola! Soy el asistente de Symmetrical Code. ¿En qué puedo ayudarte hoy?",
-  "subtitle": "Asistente virtual",
-  "placeholder": "Escribí tu mensaje...",
-  "aria_open": "Abrir chat",
-  "aria_close": "Cerrar chat",
-  "aria_send": "Enviar mensaje",
-  "error_unknown": "Error desconocido del servidor",
-  "error_connect": "No se pudo conectar con el servidor",
-  "error_message": "⚠️ Lo siento, estoy teniendo problemas para conectarme. Por favor, asegurate de que el servidor esté corriendo en http://localhost:3001"
-}
+    "welcome": "¡Hola! Soy el asistente de Symmetrical Code. ¿En qué puedo ayudarte hoy?",
+    "subtitle": "Asistente virtual",
+    "placeholder": "Escribí tu mensaje...",
+    "aria_open": "Abrir chat",
+    "aria_close": "Cerrar chat",
+    "aria_send": "Enviar mensaje",
+    "error_unknown": "Error desconocido del servidor",
+    "error_connect": "No se pudo conectar con el servidor",
+    "error_message": "⚠️ Lo siento, estoy teniendo problemas para conectarme. Por favor, asegurate de que el servidor esté corriendo en http://localhost:3001"
+  }
 }

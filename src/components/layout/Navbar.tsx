@@ -11,9 +11,8 @@ export default function Navbar() {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
 
-      // Active section detection
-      const sections = ['projects', 'team', 'contact'];
-      for (const id of sections.reverse()) {
+      const sections = ['contact', 'team', 'projects', 'services'];
+      for (const id of sections) {
         const el = document.getElementById(id);
         if (el && window.scrollY >= el.offsetTop - 120) {
           setActiveSection(id);
@@ -37,6 +36,7 @@ export default function Navbar() {
   };
 
   const navLinks = [
+    { key: 'nav.services', id: 'services' },
     { key: 'nav.projects', id: 'projects' },
     { key: 'nav.team', id: 'team' },
     { key: 'nav.contact', id: 'contact' },

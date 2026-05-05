@@ -2,6 +2,7 @@
   "nav": {
     "home": "Home",
     "projects": "Projects",
+    "services": "Services",
     "team": "Team",
     "contact": "Contact"
   },
@@ -24,39 +25,196 @@
     "availability": "Available for new projects",
     "follow_us": "Follow us"
   },
+  "services": {
+    "label": "What we do",
+    "title": "Services",
+    "subtitle": "End-to-end digital solutions crafted for performance, scalability, and lasting impact.",
+    "learn_more": "Learn more",
+    "modal_includes": "What's included",
+    "modal_highlights": "Key highlights",
+    "modal_cta": "Start a project",
+    "items": [
+      {
+        "title": "Web Development",
+        "description": "Custom web applications built with modern frameworks and clean architecture that scale with your business.",
+        "longDescription": "We design and build high-performance web applications from scratch. Our approach combines cutting-edge technology with clean, maintainable architecture. Whether you need a landing page, a complex SaaS platform, or anything in between, we deliver solutions that are fast, accessible, and built to last. Every line of code is written with scalability and long-term maintainability in mind.",
+        "highlights": [
+          "Custom architecture tailored to your needs",
+          "Mobile-first, responsive design",
+          "Performance scores above 90 on all Core Web Vitals",
+          "Accessibility-compliant (WCAG 2.1)"
+        ],
+        "bullets": [
+          "React, Next.js & TypeScript",
+          "RESTful & GraphQL APIs",
+          "Performance optimization",
+          "Responsive & accessible UI"
+        ]
+      },
+      {
+        "title": "Backend & APIs",
+        "description": "Robust server-side systems, databases, and integrations designed for reliability and high throughput.",
+        "longDescription": "We build the backbone of your application — reliable, secure, and scalable server-side systems. From simple REST APIs to complex distributed architectures, we design solutions that handle real-world load and integrate seamlessly with third-party services. Our backends are documented, monitored, and built with failure in mind so your product stays online.",
+        "highlights": [
+          "Designed for high availability and zero downtime",
+          "Full API documentation with OpenAPI / Swagger",
+          "Database schema design and optimization",
+          "Rate limiting, caching, and security hardening"
+        ],
+        "bullets": [
+          "Node.js & Python services",
+          "SQL & NoSQL databases",
+          "Third-party integrations",
+          "Authentication & security"
+        ]
+      },
+      {
+        "title": "Cloud & DevOps",
+        "description": "CI/CD pipelines, containerization, and cloud infrastructure to ship faster with confidence.",
+        "longDescription": "We set up the infrastructure that lets your team move fast and deploy safely. Automated pipelines, container orchestration, and cloud-native architecture mean fewer fire drills and more time building features. We make cloud infrastructure approachable and manageable, no matter the size of your team.",
+        "highlights": [
+          "Infrastructure as Code (Terraform / CDK)",
+          "Zero-downtime deployments",
+          "Auto-scaling and cost optimization",
+          "Full observability: logs, metrics, and alerts"
+        ],
+        "bullets": [
+          "AWS, GCP & Azure",
+          "Docker & Kubernetes",
+          "CI/CD automation",
+          "Monitoring & alerting"
+        ]
+      },
+      {
+        "title": "Security & Compliance",
+        "description": "Code reviews, penetration testing, and best practices to keep your systems and data protected.",
+        "longDescription": "Security is not an afterthought — it's woven into everything we build. We conduct thorough security audits, implement encryption and secure authentication, and help you align with industry standards and compliance requirements. Whether you're preparing for a launch or need a full security review of an existing system, we've got you covered.",
+        "highlights": [
+          "OWASP Top 10 vulnerability assessment",
+          "Secure authentication flows (OAuth 2.0, MFA)",
+          "End-to-end data encryption",
+          "GDPR and compliance advisory"
+        ],
+        "bullets": [
+          "Security audits",
+          "OWASP best practices",
+          "Data encryption",
+          "Compliance consulting"
+        ]
+      },
+      {
+        "title": "UI / UX Design",
+        "description": "User-centered interfaces with thoughtful design systems that delight and convert.",
+        "longDescription": "Great software deserves great design. We create interfaces that are intuitive, beautiful, and intentional — from initial wireframes to polished design systems. We balance aesthetics with usability, ensuring every interaction feels effortless. Our design process is collaborative, iterative, and always focused on the end user.",
+        "highlights": [
+          "Research-driven UX with real user flows",
+          "Scalable design systems and component libraries",
+          "Interactive Figma prototypes before a line of code",
+          "Motion design and micro-interaction specification"
+        ],
+        "bullets": [
+          "Design systems & tokens",
+          "Figma prototyping",
+          "Accessibility (WCAG)",
+          "Motion & micro-interactions"
+        ]
+      },
+      {
+        "title": "Analytics & Optimization",
+        "description": "Data-driven insights and performance tuning to grow and improve your digital product.",
+        "longDescription": "We help you understand how your product is performing and where to improve it. From custom analytics dashboards to SEO audits and A/B testing, we give you the data you need to make confident decisions. We also tune your application's performance so it loads faster, ranks higher, and converts more visitors into customers.",
+        "highlights": [
+          "Custom event tracking and funnel analysis",
+          "SEO audit and structured data implementation",
+          "A/B and multivariate testing setup",
+          "Core Web Vitals improvement plan"
+        ],
+        "bullets": [
+          "Custom dashboards",
+          "SEO optimization",
+          "A/B testing",
+          "Core Web Vitals"
+        ]
+      }
+    ]
+  },
   "projects": {
     "label": "Our work",
     "title": "Projects",
     "subtitle": "Real solutions for real problems. Every project is an opportunity to exceed expectations.",
     "view_demo": "View demo",
     "view_code": "View code",
+    "view_detail": "View detail",
+    "view_all": "Full project gallery",
+    "gallery_label": "Complete portfolio",
+    "gallery_title": "All projects",
+    "filter_all": "All",
+    "back": "Back to site",
     "items": [
       {
         "title": "Project Alpha",
         "description": "Fullstack web application with real-time analytics dashboard and advanced authentication.",
-        "tags": [
-          "React",
-          "Node.js",
-          "PostgreSQL"
-        ]
+        "tags": ["React", "Node.js", "PostgreSQL"]
       },
       {
         "title": "Project Beta",
         "description": "E-commerce with payment integration, admin panel, and automated inventory management.",
-        "tags": [
-          "Next.js",
-          "Stripe",
-          "MongoDB"
-        ]
+        "tags": ["Next.js", "Stripe", "MongoDB"]
       },
       {
         "title": "Project Gamma",
         "description": "B2B SaaS platform with microservices architecture and documented REST API.",
-        "tags": [
-          "TypeScript",
-          "Docker",
-          "AWS"
-        ]
+        "tags": ["TypeScript", "Docker", "AWS"]
+      }
+    ],
+    "all_items": [
+      {
+        "title": "Project Alpha",
+        "description": "Fullstack web application with real-time analytics dashboard and advanced authentication.",
+        "tags": ["React", "Node.js", "PostgreSQL"],
+        "category": "Web App"
+      },
+      {
+        "title": "Project Beta",
+        "description": "E-commerce with payment integration, admin panel, and automated inventory management.",
+        "tags": ["Next.js", "Stripe", "MongoDB"],
+        "category": "E-commerce"
+      },
+      {
+        "title": "Project Gamma",
+        "description": "B2B SaaS platform with microservices architecture and documented REST API.",
+        "tags": ["TypeScript", "Docker", "AWS"],
+        "category": "SaaS"
+      },
+      {
+        "title": "Project Delta",
+        "description": "Real-time collaboration tool with WebSocket support and rich text editing.",
+        "tags": ["React", "Socket.io", "Redis"],
+        "category": "Web App"
+      },
+      {
+        "title": "Project Epsilon",
+        "description": "Mobile-first PWA for field service management with offline support.",
+        "tags": ["PWA", "IndexedDB", "Node.js"],
+        "category": "Mobile"
+      },
+      {
+        "title": "Project Zeta",
+        "description": "Internal HR dashboard with role-based access, reporting, and PDF export.",
+        "tags": ["Vue.js", "Express", "MySQL"],
+        "category": "SaaS"
+      },
+      {
+        "title": "Project Eta",
+        "description": "Multi-tenant billing platform integrated with Stripe and automated invoicing.",
+        "tags": ["Next.js", "Stripe", "PostgreSQL"],
+        "category": "E-commerce"
+      },
+      {
+        "title": "Project Theta",
+        "description": "Headless CMS-driven marketing site with edge caching and 99 Lighthouse score.",
+        "tags": ["Astro", "Sanity", "Cloudflare"],
+        "category": "Web App"
       }
     ]
   },
@@ -121,14 +279,14 @@
     "card_ts_desc": "Robust code"
   },
   "chat": {
-  "welcome": "Hi! I'm the Symmetrical Code assistant. How can I help you today?",
-  "subtitle": "Virtual assistant",
-  "placeholder": "Type your message...",
-  "aria_open": "Open chat",
-  "aria_close": "Close chat",
-  "aria_send": "Send message",
-  "error_unknown": "Unknown server error",
-  "error_connect": "Could not connect to the server",
-  "error_message": "⚠️ Sorry, I'm having trouble connecting. Please make sure the server is running at http://localhost:3001"
-}
+    "welcome": "Hi! I'm the Symmetrical Code assistant. How can I help you today?",
+    "subtitle": "Virtual assistant",
+    "placeholder": "Type your message...",
+    "aria_open": "Open chat",
+    "aria_close": "Close chat",
+    "aria_send": "Send message",
+    "error_unknown": "Unknown server error",
+    "error_connect": "Could not connect to the server",
+    "error_message": "⚠️ Sorry, I'm having trouble connecting. Please make sure the server is running at http://localhost:3001"
+  }
 }
