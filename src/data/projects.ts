@@ -5,6 +5,7 @@ export interface Project {
   tags: string[];
   category: string;
   githubUrl: string;
+  ogImageUrl: string;
   demoUrl?: string;
   backendUrl?: string;
 }
@@ -19,6 +20,7 @@ export const projects: Project[] = [
     tags: ["TypeScript", "React", "Node.js"],
     category: "Web App",
     githubUrl: "https://github.com/p5Patricio/fittrack-pro-frontend",
+    ogImageUrl: "https://opengraph.githubassets.com/1/p5Patricio/fittrack-pro-frontend",
     backendUrl: "https://github.com/p5Patricio/fittrack-pro-backend",
   },
   {
@@ -30,6 +32,7 @@ export const projects: Project[] = [
     tags: ["Python", "OpenAI", "Audio"],
     category: "AI / ML",
     githubUrl: "https://github.com/p5Patricio/WisprLocal",
+    ogImageUrl: "https://opengraph.githubassets.com/1/p5Patricio/WisprLocal",
   },
   {
     title: "Clasificador Entrenador NBA",
@@ -40,6 +43,7 @@ export const projects: Project[] = [
     tags: ["Python", "TypeScript", "Machine Learning"],
     category: "AI / ML",
     githubUrl: "https://github.com/p5Patricio/Clasificador_Entrenador-NBA",
+    ogImageUrl: "https://opengraph.githubassets.com/1/p5Patricio/Clasificador_Entrenador-NBA",
   },
   {
     title: "Portafolio Sakura",
@@ -50,6 +54,7 @@ export const projects: Project[] = [
     tags: ["TypeScript", "HTML", "CSS"],
     category: "Web App",
     githubUrl: "https://github.com/p5Patricio/Portafolio-Sakura",
+    ogImageUrl: "https://opengraph.githubassets.com/1/p5Patricio/Portafolio-Sakura",
   },
   {
     title: "Intérprete LSM",
@@ -60,6 +65,7 @@ export const projects: Project[] = [
     tags: ["Python", "Computer Vision", "NLP"],
     category: "AI / ML",
     githubUrl: "https://github.com/p5Patricio/Interprete-LSM",
+    ogImageUrl: "https://opengraph.githubassets.com/1/p5Patricio/Interprete-LSM",
   },
   {
     title: "Infinite Tic-Tac-Toe",
@@ -70,6 +76,7 @@ export const projects: Project[] = [
     tags: ["TypeScript", "JavaScript", "Game"],
     category: "Game",
     githubUrl: "https://github.com/p5Patricio/infinite-tic-tac-toe",
+    ogImageUrl: "https://opengraph.githubassets.com/1/p5Patricio/infinite-tic-tac-toe",
   },
   {
     title: "Art Classifier",
@@ -80,6 +87,7 @@ export const projects: Project[] = [
     tags: ["Python", "AI", "Computer Vision"],
     category: "AI / ML",
     githubUrl: "https://github.com/p5Patricio/Art_Classifier",
+    ogImageUrl: "https://opengraph.githubassets.com/1/p5Patricio/Art_Classifier",
   },
   {
     title: "Mi Portafolio TS",
@@ -90,6 +98,7 @@ export const projects: Project[] = [
     tags: ["TypeScript", "React", "CSS"],
     category: "Web App",
     githubUrl: "https://github.com/p5Patricio/mi-portafolio-ts",
+    ogImageUrl: "https://opengraph.githubassets.com/1/p5Patricio/mi-portafolio-ts",
   },
   {
     title: "Sistema de Inventario",
@@ -100,6 +109,7 @@ export const projects: Project[] = [
     tags: ["Vue", "JavaScript", "HTML"],
     category: "Web App",
     githubUrl: "https://github.com/p5Patricio/inventario-frontend",
+    ogImageUrl: "https://opengraph.githubassets.com/1/p5Patricio/inventario-frontend",
   },
   {
     title: "Fashion Web",
@@ -110,5 +120,6 @@ export const projects: Project[] = [
     tags: ["HTML", "CSS", "Responsive"],
     category: "Web App",
     githubUrl: "https://github.com/p5Patricio/fashionWeb",
+    ogImageUrl: "https://opengraph.githubassets.com/1/p5Patricio/fashionWeb",
   },
 ];
