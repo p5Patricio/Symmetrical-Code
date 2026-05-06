@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
+import { projects } from '../../data/projects';
 
 const ExternalLinkIcon = () => (
   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -245,6 +246,9 @@ type Project = {
   tags: string[];
   category?: string;
   longDescription?: string;
+  githubUrl?: string;
+  demoUrl?: string;
+  backendUrl?: string;
 };
 
 // ── Detail Modal ──────────────────────────────────────────────────────────────
@@ -259,12 +263,9 @@ const DetailModal = ({ project, index, onClose }: {
     return () => window.removeEventListener('keydown', onKey);
   }, [onClose]);
 
-  const demoLinks: Record<number, string> = {
-    0: 'https://sma-eventos.netlify.app/',
-  };
-  const codeLinks: Record<number, string> = {
-    0: 'https://github.com/mariodelgadoh/eventos-san-miguel-de-allende.git',
-  };
+  const demoUrl = project.demoUrl;
+  const codeUrl = project.githubUrl;
+  const backendUrl = project.backendUrl;
 
   return (
     <div
@@ -326,17 +327,19 @@ const DetailModal = ({ project, index, onClose }: {
           </div>
 
           <div className="flex gap-3 pt-4" style={{ borderTop: '1px solid rgba(0,229,255,0.08)' }}>
+            {demoUrl && (
+              <a
+                href={demoUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-primary flex items-center gap-2 font-mono text-xs tracking-widest uppercase px-6 py-3"
+                style={{ textDecoration: 'none' }}
+              >
+                <ExternalLinkIcon />{t('projects.view_demo')}
+              </a>
+            )}
             <a
-              href={demoLinks[index] ?? '#'}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-primary flex items-center gap-2 font-mono text-xs tracking-widest uppercase px-6 py-3"
-              style={{ textDecoration: 'none' }}
-            >
-              <ExternalLinkIcon />{t('projects.view_demo')}
-            </a>
-            <a
-              href={codeLinks[index] ?? '#'}
+              href={codeUrl ?? '#'}
               target="_blank"
               rel="noopener noreferrer"
               className="btn-outline flex items-center gap-2 font-mono text-xs tracking-widest uppercase px-6 py-3"
@@ -344,6 +347,17 @@ const DetailModal = ({ project, index, onClose }: {
             >
               <GithubIcon />{t('projects.view_code')}
             </a>
+            {backendUrl && (
+              <a
+                href={backendUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-outline flex items-center gap-2 font-mono text-xs tracking-widest uppercase px-6 py-3"
+                style={{ textDecoration: 'none' }}
+              >
+                <GithubIcon />Backend
+              </a>
+            )}
           </div>
         </div>
       </div>
@@ -360,8 +374,11 @@ export default function Projects() {
   const [galleryScrolled, setGalleryScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
-  const items = t('projects.items', { returnObjects: true }) as Project[];
-  const allItems = t('projects.all_items', { returnObjects: true }) as Project[];
+  const allItems: Project[] = projects.map((p) => ({
+    ...p,
+    description: i18n.language === 'es' ? p.descriptionEs : p.descriptionEn,
+  }));
+  const items = allItems.slice(0, 3);
 
   const categories = ['all', ...Array.from(new Set(allItems.map((p) => p.category || '')))];
   const filtered = activeFilter === 'all' ? allItems : allItems.filter((p) => p.category === activeFilter);
