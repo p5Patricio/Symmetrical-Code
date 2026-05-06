@@ -88,7 +88,6 @@ const ProjectImage = ({ index, title }: { index: number; title: string }) => {
 };
 
 // ── Per-project carousel slides config ───────────────────────────────────────
-// Ruta corregida: public/Proyectos/Mario/Proyecto1/
 const PROJECT_SLIDES: Record<number, Array<{ type: 'image'; src: string } | { type: 'placeholder' }>> = {
   0: [
     { type: 'image', src: '/proyectos/Mario/Proyecto1/eventos1.png' },
@@ -366,8 +365,11 @@ export default function Projects() {
   const categories = ['all', ...Array.from(new Set(allItems.map((p) => p.category || '')))];
   const filtered = activeFilter === 'all' ? allItems : allItems.filter((p) => p.category === activeFilter);
 
+  // ── Nav links now include Technologies ─────────────────────────────────────
   const navLinks = [
+    { key: 'nav.home', id: 'home' },
     { key: 'nav.services', id: 'services' },
+    { key: 'nav.technologies', id: 'technologies' },
     { key: 'nav.projects', id: 'projects' },
     { key: 'nav.team', id: 'team' },
     { key: 'nav.contact', id: 'contact' },

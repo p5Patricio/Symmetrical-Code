@@ -49,7 +49,7 @@ const technologies = [
 // Duplicar tecnologías para efecto infinito
 const duplicatedTechnologies = [...technologies, ...technologies, ...technologies];
 
-// ── Tech Card Component ───────────────────────────────────────────────────────
+// ── Tech Card Component (Mismo estilo que tu diseño original) ─────────────────
 const TechCard = ({ tech, isHovered }: { tech: typeof technologies[0]; isHovered: boolean }) => {
   const getIconFilter = (name: string, hovered: boolean) => {
     if (name === 'GitHub' || name === 'Vercel') {
@@ -194,6 +194,15 @@ export default function Technologies() {
   const handleMouseLeave = () => setIsPaused(false);
 
   // Tamaño de tarjeta responsivo
+  const getCardWidth = () => {
+    if (typeof window !== 'undefined') {
+      if (window.innerWidth < 640) return '75px';
+      if (window.innerWidth < 768) return '85px';
+      return '95px';
+    }
+    return '90px';
+  };
+
   const [cardWidth, setCardWidth] = useState('90px');
 
   useEffect(() => {
@@ -209,34 +218,34 @@ export default function Technologies() {
 
   return (
     <section id="technologies" className="relative py-16 sm:py-24 md:py-32 overflow-hidden">
-      {/* Left glow accent (como en servicios) */}
+      {/* Right glow accent */}
       <div
-        className="absolute top-0 left-0 w-1/3 h-full opacity-5 pointer-events-none"
-        style={{ background: 'linear-gradient(to right, #1565ff, transparent)' }}
+        className="absolute top-0 right-0 w-1/3 h-full opacity-5 pointer-events-none"
+        style={{ background: 'linear-gradient(to left, #1565ff, transparent)' }}
       />
 
-      {/* Subtle grid lines (mismo estilo que servicios) */}
+      {/* Subtle grid */}
       <div
         className="absolute inset-0 pointer-events-none opacity-[0.03]"
         style={{
           backgroundImage:
             'linear-gradient(rgba(0,229,255,1) 1px, transparent 1px), linear-gradient(90deg, rgba(0,229,255,1) 1px, transparent 1px)',
-          backgroundSize: '80px 80px',
+          backgroundSize: '60px 60px',
         }}
       />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
-        {/* Section header - MISMO ESTILO QUE SERVICIOS */}
+        {/* Section header - responsivo */}
         <div className="mb-12 sm:mb-16 md:mb-20">
-          <div className="flex items-center gap-3 mb-4">
+          <div className="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4">
             <span className="section-label text-[10px] sm:text-xs">{t('technologies.label')}</span>
             <span className="flex-1 h-px bg-[rgba(0,229,255,0.1)]" />
           </div>
-          <div className="flex flex-col md:flex-row md:items-end gap-6 justify-between">
-            <h2 className="font-syne font-black text-4xl sm:text-5xl md:text-6xl text-white">
+          <div className="flex flex-col md:flex-row md:items-end gap-4 sm:gap-6 justify-between">
+            <h2 className="font-syne font-black text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-white">
               {t('technologies.title')}
             </h2>
-            <p className="text-white/40 text-xs sm:text-sm max-w-xs leading-relaxed md:text-right">
+            <p className="text-white/40 text-[11px] sm:text-xs md:text-sm max-w-xs leading-relaxed md:text-right">
               {t('technologies.subtitle')}
             </p>
           </div>
@@ -270,12 +279,12 @@ export default function Technologies() {
           ))}
         </div>
 
-        {/* Indicador responsivo - mismo estilo que "learn more" de servicios */}
+        {/* Indicador responsivo */}
         <div className="text-center mt-6 sm:mt-8 md:mt-8">
           <p 
-            className="font-mono text-[9px] sm:text-[10px] md:text-[11px] tracking-[2px] sm:tracking-[3px] uppercase text-white/30"
+            className="text-white/25 text-[8px] sm:text-[9px] md:text-[10px] tracking-[1px] sm:tracking-[2px] uppercase font-mono"
           >
-            ← {t('technologies.scroll_hint') || 'DESLIZA O PASA EL MOUSE PARA PAUSAR'} →
+            ← DESLIZA O PASA EL MOUSE PARA PAUSAR →
           </p>
         </div>
       </div>
