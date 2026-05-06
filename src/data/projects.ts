@@ -12,6 +12,19 @@ export interface Project {
 
 export const projects: Project[] = [
   {
+    title: "Rey Asesino",
+    descriptionEs:
+      "Aplicación web fullstack en producción. Plataforma interactiva con frontend moderno y backend robusto desplegada en Vercel.",
+    descriptionEn:
+      "Fullstack web application in production. Interactive platform with modern frontend and robust backend deployed on Vercel.",
+    tags: ["TypeScript", "React", "Node.js"],
+    category: "Web App",
+    githubUrl: "https://github.com/p5Patricio/reyasesino-frontend",
+    ogImageUrl: "/proyectos/Patricio/Rey Asesino/banner.webp",
+    demoUrl: "https://reyasesino-frontend.vercel.app/",
+    backendUrl: "https://github.com/p5Patricio/reyasesino-backend",
+  },
+  {
     title: "FitTrack Pro",
     descriptionEs:
       "Aplicación fullstack de seguimiento fitness con frontend moderno y backend escalable. Registra entrenamientos, progreso y métricas de salud.",
@@ -20,7 +33,7 @@ export const projects: Project[] = [
     tags: ["TypeScript", "React", "Node.js"],
     category: "Web App",
     githubUrl: "https://github.com/p5Patricio/fittrack-pro-frontend",
-    ogImageUrl: "https://opengraph.githubassets.com/1/p5Patricio/fittrack-pro-frontend",
+    ogImageUrl: "/proyectos/Patricio/FitTrack Pro/banner.webp",
     backendUrl: "https://github.com/p5Patricio/fittrack-pro-backend",
   },
   {
@@ -32,7 +45,7 @@ export const projects: Project[] = [
     tags: ["Python", "OpenAI", "Audio"],
     category: "AI / ML",
     githubUrl: "https://github.com/p5Patricio/WisprLocal",
-    ogImageUrl: "https://opengraph.githubassets.com/1/p5Patricio/WisprLocal",
+    ogImageUrl: "/proyectos/Patricio/WisprLocal/banner.webp",
   },
   {
     title: "Clasificador Entrenador NBA",
@@ -43,18 +56,7 @@ export const projects: Project[] = [
     tags: ["Python", "TypeScript", "Machine Learning"],
     category: "AI / ML",
     githubUrl: "https://github.com/p5Patricio/Clasificador_Entrenador-NBA",
-    ogImageUrl: "https://opengraph.githubassets.com/1/p5Patricio/Clasificador_Entrenador-NBA",
-  },
-  {
-    title: "Portafolio Sakura",
-    descriptionEs:
-      "Portafolio web con estética inspirada en cultura japonesa. Diseño visual único con animaciones fluidas y experiencia inmersiva.",
-    descriptionEn:
-      "Web portfolio with Japanese culture inspired aesthetics. Unique visual design with fluid animations and immersive experience.",
-    tags: ["TypeScript", "HTML", "CSS"],
-    category: "Web App",
-    githubUrl: "https://github.com/p5Patricio/Portafolio-Sakura",
-    ogImageUrl: "https://opengraph.githubassets.com/1/p5Patricio/Portafolio-Sakura",
+    ogImageUrl: "/proyectos/Patricio/Clasificador Entrenador NBA/banner.webp",
   },
   {
     title: "Intérprete LSM",
@@ -65,7 +67,7 @@ export const projects: Project[] = [
     tags: ["Python", "Computer Vision", "NLP"],
     category: "AI / ML",
     githubUrl: "https://github.com/p5Patricio/Interprete-LSM",
-    ogImageUrl: "https://opengraph.githubassets.com/1/p5Patricio/Interprete-LSM",
+    ogImageUrl: "/proyectos/Patricio/Intérprete-LSM/banner.webp",
   },
   {
     title: "Infinite Tic-Tac-Toe",
@@ -76,7 +78,7 @@ export const projects: Project[] = [
     tags: ["TypeScript", "JavaScript", "Game"],
     category: "Game",
     githubUrl: "https://github.com/p5Patricio/infinite-tic-tac-toe",
-    ogImageUrl: "https://opengraph.githubassets.com/1/p5Patricio/infinite-tic-tac-toe",
+    ogImageUrl: "/proyectos/Patricio/Infinite Tic-Tac-Toe/banner.webp",
   },
   {
     title: "Art Classifier",
@@ -87,39 +89,6 @@ export const projects: Project[] = [
     tags: ["Python", "AI", "Computer Vision"],
     category: "AI / ML",
     githubUrl: "https://github.com/p5Patricio/Art_Classifier",
-    ogImageUrl: "https://opengraph.githubassets.com/1/p5Patricio/Art_Classifier",
-  },
-  {
-    title: "Mi Portafolio TS",
-    descriptionEs:
-      "Portafolio personal desarrollado con React y TypeScript. Diseño moderno, responsivo y optimizado para rendimiento.",
-    descriptionEn:
-      "Personal portfolio built with React and TypeScript. Modern, responsive and performance-optimized design.",
-    tags: ["TypeScript", "React", "CSS"],
-    category: "Web App",
-    githubUrl: "https://github.com/p5Patricio/mi-portafolio-ts",
-    ogImageUrl: "https://opengraph.githubassets.com/1/p5Patricio/mi-portafolio-ts",
-  },
-  {
-    title: "Sistema de Inventario",
-    descriptionEs:
-      "Sistema de gestión de inventario con interfaz Vue.js. Control de stock, productos y generación de reportes.",
-    descriptionEn:
-      "Inventory management system with Vue.js interface. Stock control, products and report generation.",
-    tags: ["Vue", "JavaScript", "HTML"],
-    category: "Web App",
-    githubUrl: "https://github.com/p5Patricio/inventario-frontend",
-    ogImageUrl: "https://opengraph.githubassets.com/1/p5Patricio/inventario-frontend",
-  },
-  {
-    title: "Fashion Web",
-    descriptionEs:
-      "Página web de moda con diseño elegante y responsive. HTML y CSS puro con enfoque visual y experiencia de usuario.",
-    descriptionEn:
-      "Fashion website with elegant and responsive design. Pure HTML and CSS with visual focus and user experience.",
-    tags: ["HTML", "CSS", "Responsive"],
-    category: "Web App",
-    githubUrl: "https://github.com/p5Patricio/fashionWeb",
-    ogImageUrl: "https://opengraph.githubassets.com/1/p5Patricio/fashionWeb",
+    ogImageUrl: "/proyectos/Patricio/Art Classifier/banner.webp",
   },
 ];

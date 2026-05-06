@@ -11,7 +11,7 @@ export default function Navbar() {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
 
-      const sections = ['contact', 'team', 'projects', 'services'];
+      const sections = ['contact', 'team', 'projects', 'technologies', 'services', 'home'];
       for (const id of sections) {
         const el = document.getElementById(id);
         if (el && window.scrollY >= el.offsetTop - 120) {
@@ -36,7 +36,9 @@ export default function Navbar() {
   };
 
   const navLinks = [
+    { key: 'nav.home', id: 'home' },
     { key: 'nav.services', id: 'services' },
+    { key: 'nav.technologies', id: 'technologies' },
     { key: 'nav.projects', id: 'projects' },
     { key: 'nav.team', id: 'team' },
     { key: 'nav.contact', id: 'contact' },

@@ -3,6 +3,7 @@
     "home": "Inicio",
     "projects": "Proyectos",
     "services": "Servicios",
+    "technologies": "Tecnologías",
     "team": "Equipo",
     "contact": "Contacto"
   },
@@ -137,6 +138,12 @@
         ]
       }
     ]
+  },
+  "technologies": {
+    "label": "Nuestro stack",
+    "title": "Tecnologías",
+    "subtitle": "Las herramientas y lenguajes que usamos para construir productos digitales confiables y escalables.",
+    "count_label": "tecnologías"
   },
   "projects": {
     "label": "Nuestro trabajo",

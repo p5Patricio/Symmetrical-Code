@@ -1,7 +1,6 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { projects } from '../../data/projects';
-import ExpandedProjectCard from './ExpandedProjectCard';
 
 const ExternalLinkIcon = () => (
   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -17,9 +16,23 @@ const GithubIcon = () => (
   </svg>
 );
 
+const CloseIcon = () => (
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" />
+  </svg>
+);
+
 const ArrowLeftIcon = () => (
   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
     <line x1="19" y1="12" x2="5" y2="12" /><polyline points="12 19 5 12 12 5" />
+  </svg>
+);
+
+const ChevronIcon = ({ dir }: { dir: 'left' | 'right' }) => (
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+    {dir === 'left'
+      ? <polyline points="15 18 9 12 15 6" />
+      : <polyline points="9 18 15 12 9 6" />}
   </svg>
 );
 
@@ -97,18 +110,240 @@ const ImageWithFallback = ({
   );
 };
 
-type Project = {
+// ── Carousel ──────────────────────────────────────────────────────────────────
+const Carousel = ({ projectIndex, title, ogImageUrl }: { projectIndex: number; title: string; ogImageUrl: string }) => {
+  const slides = [
+    { type: 'image' as const, src: ogImageUrl },
+  ];
+  const [current, setCurrent] = useState(0);
+  const [animating, setAnimating] = useState(false);
+  const [direction, setDirection] = useState<'left' | 'right'>('right');
+
+  const go = useCallback((next: number, dir: 'left' | 'right') => {
+    if (animating) return;
+    setDirection(dir);
+    setAnimating(true);
+    setTimeout(() => {
+      setCurrent(next);
+      setAnimating(false);
+    }, 300);
+  }, [animating]);
+
+  const prev = () => go((current - 1 + slides.length) % slides.length, 'left');
+  const next = () => go((current + 1) % slides.length, 'right');
+
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'ArrowLeft') prev();
+      if (e.key === 'ArrowRight') next();
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  });
+
+  const slide = slides[current];
+
+  return (
+    <div className="relative w-full h-full overflow-hidden select-none">
+      <div
+        className="w-full h-full transition-all duration-300"
+        style={{
+          opacity: animating ? 0 : 1,
+          transform: animating
+            ? `translateX(${direction === 'right' ? '-3%' : '3%'})`
+            : 'translateX(0)',
+        }}
+      >
+        {slide.type === 'image' ? (
+          <ImageWithFallback
+            src={slide.src}
+            alt={`${title} - slide ${current + 1}`}
+            fallback={<ProjectImage index={projectIndex} title={title} />}
+          />
+        ) : (
+          <ProjectImage index={projectIndex} title={title} />
+        )}
+      </div>
+
+      <div className="absolute inset-0 pointer-events-none"
+        style={{ background: 'linear-gradient(to top, #040810 0%, transparent 55%)' }} />
+
+      {slides.length > 1 && (
+        <>
+          <button
+            onClick={prev}
+            className="absolute left-3 top-1/2 -translate-y-1/2 z-10 p-2 transition-all duration-200 text-white/60 hover:text-[#00e5ff]"
+            style={{
+              background: 'rgba(2,4,8,0.7)',
+              border: '1px solid rgba(0,229,255,0.2)',
+              backdropFilter: 'blur(8px)',
+            }}
+          >
+            <ChevronIcon dir="left" />
+          </button>
+          <button
+            onClick={next}
+            className="absolute right-3 top-1/2 -translate-y-1/2 z-10 p-2 transition-all duration-200 text-white/60 hover:text-[#00e5ff]"
+            style={{
+              background: 'rgba(2,4,8,0.7)',
+              border: '1px solid rgba(0,229,255,0.2)',
+              backdropFilter: 'blur(8px)',
+            }}
+          >
+            <ChevronIcon dir="right" />
+          </button>
+
+          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-10 flex items-center gap-2">
+            {slides.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => go(i, i > current ? 'right' : 'left')}
+                className="transition-all duration-300"
+                style={{
+                  width: i === current ? '20px' : '6px',
+                  height: '6px',
+                  background: i === current ? '#00e5ff' : 'rgba(0,229,255,0.3)',
+                  border: 'none',
+                  outline: 'none',
+                }}
+              />
+            ))}
+          </div>
+
+          <span className="absolute top-4 left-4 z-10 font-mono text-[10px] tracking-widest text-white/50"
+            style={{
+              background: 'rgba(2,4,8,0.6)',
+              border: '1px solid rgba(0,229,255,0.15)',
+              padding: '3px 10px',
+              backdropFilter: 'blur(8px)',
+            }}>
+            {String(current + 1).padStart(2, '0')} / {String(slides.length).padStart(2, '0')}
+          </span>
+        </>
+      )}
+    </div>
+  );
+};
+
+type ProjectView = {
   title: string;
   description: string;
-  descriptionEs: string;
-  descriptionEn: string;
   tags: string[];
-  category: string;
-  longDescription?: string;
+  category?: string;
   githubUrl: string;
   ogImageUrl: string;
   demoUrl?: string;
   backendUrl?: string;
+};
+
+// ── Detail Modal ──────────────────────────────────────────────────────────────
+const DetailModal = ({ project, index, onClose }: {
+  project: ProjectView; index: number; onClose: () => void;
+}) => {
+  const { t } = useTranslation();
+
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') onClose(); };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [onClose]);
+
+  return (
+    <div
+      className="fixed inset-0 z-[400] flex items-center justify-center p-4 md:p-8"
+      style={{ background: 'rgba(2,4,8,0.92)', backdropFilter: 'blur(20px)' }}
+      onClick={onClose}
+    >
+      <div
+        className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto"
+        style={{
+          background: 'linear-gradient(135deg, #070e1c 0%, #040810 100%)',
+          border: '1px solid rgba(0,229,255,0.18)',
+          boxShadow: '0 0 100px rgba(0,229,255,0.06), 0 40px 80px rgba(0,0,0,0.7)',
+        }}
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div className="w-full h-64 md:h-80 relative overflow-hidden">
+          <Carousel projectIndex={index} title={project.title} ogImageUrl={project.ogImageUrl} />
+
+          {project.category && (
+            <span className="absolute top-4 left-4 z-20 font-mono text-[10px] tracking-widest uppercase px-3 py-1"
+              style={{ background: 'rgba(0,229,255,0.1)', border: '1px solid rgba(0,229,255,0.3)', color: '#00e5ff' }}>
+              {project.category}
+            </span>
+          )}
+
+          <button onClick={onClose}
+            className="absolute top-4 right-4 z-20 p-2 transition-colors text-white/50 hover:text-[#00e5ff]"
+            style={{ background: 'rgba(2,4,8,0.75)', border: '1px solid rgba(0,229,255,0.2)' }}>
+            <CloseIcon />
+          </button>
+
+          <span className="absolute bottom-6 right-5 z-10 font-syne font-black text-6xl opacity-10 text-[#00e5ff] select-none pointer-events-none">
+            {String(index + 1).padStart(2, '0')}
+          </span>
+        </div>
+
+        <div className="p-8 flex flex-col gap-6">
+          <div>
+            <span className="font-mono text-[10px] text-[#00e5ff]/40 tracking-widest">
+              _{String(index + 1).padStart(2, '0')}
+            </span>
+            <h3 className="font-syne font-black text-2xl md:text-3xl text-white mt-1">
+              {project.title}
+            </h3>
+          </div>
+
+          <p className="text-white/50 text-sm leading-relaxed">
+            {project.description}
+          </p>
+
+          <div className="flex flex-wrap gap-2">
+            {project.tags.map((tag) => (
+              <span key={tag} className="font-mono text-xs px-3 py-1"
+                style={{ color: 'rgba(0,229,255,0.75)', border: '1px solid rgba(0,229,255,0.2)', background: 'rgba(0,229,255,0.04)' }}>
+                {tag}
+              </span>
+            ))}
+          </div>
+
+          <div className="flex gap-3 pt-4" style={{ borderTop: '1px solid rgba(0,229,255,0.08)' }}>
+            {project.demoUrl && (
+              <a
+                href={project.demoUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-primary flex items-center gap-2 font-mono text-xs tracking-widest uppercase px-6 py-3"
+                style={{ textDecoration: 'none' }}
+              >
+                <ExternalLinkIcon />{t('projects.view_demo')}
+              </a>
+            )}
+            <a
+              href={project.githubUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-outline flex items-center gap-2 font-mono text-xs tracking-widest uppercase px-6 py-3"
+              style={{ textDecoration: 'none' }}
+            >
+              <GithubIcon />{t('projects.view_code')}
+            </a>
+            {project.backendUrl && (
+              <a
+                href={project.backendUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-outline flex items-center gap-2 font-mono text-xs tracking-widest uppercase px-6 py-3"
+                style={{ textDecoration: 'none' }}
+              >
+                <GithubIcon />Backend
+              </a>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 };
 
 // ── Main Export ───────────────────────────────────────────────────────────────
@@ -116,17 +351,11 @@ export default function Projects() {
   const { t, i18n } = useTranslation();
   const [galleryOpen, setGalleryOpen] = useState(false);
   const [activeFilter, setActiveFilter] = useState('all');
-  const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
+  const [selectedProject, setSelectedProject] = useState<{ project: ProjectView; index: number } | null>(null);
   const [galleryScrolled, setGalleryScrolled] = useState(false);
-
-  const handleCardClick = (globalIndex: number) => {
-    setExpandedIndex((prev) => (prev === globalIndex ? null : globalIndex));
-  };
-
-  const handleCloseExpanded = () => setExpandedIndex(null);
   const [menuOpen, setMenuOpen] = useState(false);
 
-  const allItems: Project[] = projects.map((p) => ({
+  const allItems: ProjectView[] = projects.map((p) => ({
     ...p,
     description: i18n.language === 'es' ? p.descriptionEs : p.descriptionEn,
   }));
@@ -194,74 +423,54 @@ export default function Projects() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {items.map((project, i) => {
-              const globalIndex = allItems.findIndex((p) => p.title === project.title);
-              if (expandedIndex === globalIndex) {
-                return (
-                  <ExpandedProjectCard
-                    key={`expanded-${globalIndex}`}
-                    project={project}
-                    onClose={handleCloseExpanded}
-                  />
-                );
-              }
-              return (
-                <article key={i} onClick={() => handleCardClick(globalIndex)}
-                  className="glass-card flex flex-col group cursor-pointer overflow-hidden gap-0">
-                  <div className="w-full h-44 relative overflow-hidden">
-                    {i === 0 ? (
-                      <ImageWithFallback
-                        src="/proyectos/Mario/Proyecto1/eventos1.png"
-                        alt={project.title}
-                        fallback={<ProjectImage index={i} title={project.title} />}
-                      />
-                    ) : (
-                      <ProjectImage index={i} title={project.title} />
-                    )}
-                    <div className="absolute inset-0 flex items-end justify-center pb-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                      style={{ background: 'linear-gradient(to top, rgba(2,4,8,0.85) 0%, transparent 60%)' }}>
-                      <span className="font-mono text-[10px] tracking-widest text-[#00e5ff] uppercase">
-                        {t('projects.view_detail')} →
-                      </span>
-                    </div>
+            {items.map((project, i) => (
+              <article key={i} onClick={() => setSelectedProject({ project, index: i })}
+                className="glass-card flex flex-col group cursor-pointer overflow-hidden gap-0">
+                <div className="w-full h-44 relative overflow-hidden">
+                  <ImageWithFallback src={project.ogImageUrl} alt={project.title} fallback={<ProjectImage index={i} title={project.title} />} />
+                  <div className="absolute inset-0 flex items-end justify-center pb-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                    style={{ background: 'linear-gradient(to top, rgba(2,4,8,0.85) 0%, transparent 60%)' }}>
+                    <span className="font-mono text-[10px] tracking-widest text-[#00e5ff] uppercase">
+                      {t('projects.view_detail')} →
+                    </span>
                   </div>
+                </div>
 
-                  <div className="p-8 flex flex-col gap-5 flex-1">
-                    <div className="flex items-center justify-between">
-                      <span className="font-mono text-xs text-[#00e5ff]/30 tracking-widest">
-                        _{String(i + 1).padStart(2, '0')}
-                      </span>
-                      <div className={`w-9 h-9 rounded-sm bg-gradient-to-br ${featuredGradients[i]} flex items-center justify-center border border-[rgba(0,229,255,0.15)]`}>
-                        <div className="w-2.5 h-2.5 border border-[#00e5ff]/50 rotate-45" />
-                      </div>
-                    </div>
-                    <div className="flex-1">
-                      <h3 className="font-syne font-bold text-xl text-white mb-3 group-hover:text-[#00e5ff] transition-colors duration-300">
-                        {project.title}
-                      </h3>
-                      <p className="text-white/40 text-sm leading-relaxed">{project.description}</p>
-                    </div>
-                    <div className="flex flex-wrap gap-2">
-                      {project.tags.map((tag) => (
-                        <span key={tag} className="font-mono text-xs text-[#00e5ff]/60 border border-[rgba(0,229,255,0.15)] px-2.5 py-1">
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                    <div className="flex gap-4 pt-2 border-t border-[rgba(0,229,255,0.08)]">
-                      <button onClick={(e) => e.stopPropagation()}
-                        className="flex items-center gap-2 font-mono text-xs text-white/40 hover:text-[#00e5ff] transition-colors">
-                        <ExternalLinkIcon />{t('projects.view_demo')}
-                      </button>
-                      <button onClick={(e) => e.stopPropagation()}
-                        className="flex items-center gap-2 font-mono text-xs text-white/40 hover:text-[#00e5ff] transition-colors">
-                        <GithubIcon />{t('projects.view_code')}
-                      </button>
+                <div className="p-8 flex flex-col gap-5 flex-1">
+                  <div className="flex items-center justify-between">
+                    <span className="font-mono text-xs text-[#00e5ff]/30 tracking-widest">
+                      _{String(i + 1).padStart(2, '0')}
+                    </span>
+                    <div className={`w-9 h-9 rounded-sm bg-gradient-to-br ${featuredGradients[i]} flex items-center justify-center border border-[rgba(0,229,255,0.15)]`}>
+                      <div className="w-2.5 h-2.5 border border-[#00e5ff]/50 rotate-45" />
                     </div>
                   </div>
-                </article>
-              );
-            })}
+                  <div className="flex-1">
+                    <h3 className="font-syne font-bold text-xl text-white mb-3 group-hover:text-[#00e5ff] transition-colors duration-300">
+                      {project.title}
+                    </h3>
+                    <p className="text-white/40 text-sm leading-relaxed">{project.description}</p>
+                  </div>
+                  <div className="flex flex-wrap gap-2">
+                    {project.tags.map((tag) => (
+                      <span key={tag} className="font-mono text-xs text-[#00e5ff]/60 border border-[rgba(0,229,255,0.15)] px-2.5 py-1">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                  <div className="flex gap-4 pt-2 border-t border-[rgba(0,229,255,0.08)]">
+                    <button onClick={(e) => e.stopPropagation()}
+                      className="flex items-center gap-2 font-mono text-xs text-white/40 hover:text-[#00e5ff] transition-colors">
+                      <ExternalLinkIcon />{t('projects.view_demo')}
+                    </button>
+                    <button onClick={(e) => e.stopPropagation()}
+                      className="flex items-center gap-2 font-mono text-xs text-white/40 hover:text-[#00e5ff] transition-colors">
+                      <GithubIcon />{t('projects.view_code')}
+                    </button>
+                  </div>
+                </div>
+              </article>
+            ))}
           </div>
 
           <div className="flex justify-center mt-14">
@@ -370,29 +579,12 @@ export default function Projects() {
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
                 {filtered.map((project, i) => {
                   const globalIndex = allItems.findIndex((p) => p.title === project.title);
-                  if (expandedIndex === globalIndex) {
-                    return (
-                      <ExpandedProjectCard
-                        key={`expanded-${globalIndex}`}
-                        project={project}
-                        onClose={handleCloseExpanded}
-                      />
-                    );
-                  }
                   return (
                     <article key={i}
-                      onClick={() => handleCardClick(globalIndex)}
+                      onClick={() => setSelectedProject({ project, index: globalIndex })}
                       className="glass-card flex flex-col group cursor-pointer overflow-hidden gap-0">
                       <div className="w-full h-40 relative overflow-hidden">
-                        {globalIndex === 0 ? (
-                          <ImageWithFallback
-                            src="/proyectos/Mario/Proyecto1/eventos1.png"
-                            alt={project.title}
-                            fallback={<ProjectImage index={globalIndex} title={project.title} />}
-                          />
-                        ) : (
-                          <ProjectImage index={globalIndex} title={project.title} />
-                        )}
+                        <ImageWithFallback src={project.ogImageUrl} alt={project.title} fallback={<ProjectImage index={globalIndex} title={project.title} />} />
                         <div className="absolute inset-0 flex items-end justify-center pb-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                           style={{ background: 'linear-gradient(to top, rgba(2,4,8,0.85) 0%, transparent 60%)' }}>
                           <span className="font-mono text-[9px] tracking-widest text-[#00e5ff] uppercase">
@@ -434,7 +626,14 @@ export default function Projects() {
         </div>
       )}
 
-
+      {/* ── Detail Modal ──────────────────────────────────────────────────── */}
+      {selectedProject && (
+        <DetailModal
+          project={selectedProject.project}
+          index={selectedProject.index}
+          onClose={() => setSelectedProject(null)}
+        />
+      )}
     </>
   );
 }
