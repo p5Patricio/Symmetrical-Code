@@ -1,290 +1,344 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 
-const technologies = [
-  { name: 'JavaScript', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg' },
-  { name: 'TypeScript', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg' },
-  { name: 'React', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg' },
-  { name: 'Vue.js', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vuejs/vuejs-original.svg' },
-  { name: 'Node.js', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg' },
-  { name: 'Python', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg' },
-  { name: 'Flutter', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flutter/flutter-original.svg' },
-  { name: 'Dart', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/dart/dart-original.svg' },
-  { name: 'HTML5', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg' },
-  { name: 'CSS3', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg' },
-  { name: 'C++', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg' },
-  { name: 'C', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/c/c-original.svg' },
-  { name: 'C#', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/csharp/csharp-original.svg' },
-  { name: 'MySQL', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg' },
-  { name: 'PostgreSQL', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg' },
-  { name: 'MongoDB', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg' },
-  { name: 'SQLite', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sqlite/sqlite-original.svg' },
-  { name: 'Supabase', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/supabase/supabase-original.svg' },
-  { name: 'Docker', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg' },
-  { name: 'Git', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg' },
-  { name: 'GitHub', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg' },
-  { name: 'Bootstrap', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bootstrap/bootstrap-original.svg' },
-  { name: 'MATLAB', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/matlab/matlab-original.svg' },
-  { name: 'Android Studio', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/androidstudio/androidstudio-original.svg' },
-  { name: 'VS Code', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg' },
-  { name: 'Adobe XD', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/xd/xd-plain.svg' },
-  { name: 'Netlify', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/netlify/netlify-original.svg' },
-  { name: 'Vercel', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vercel/vercel-original.svg' },
-  {
-    name: 'Render',
-    svgIcon: (
-      <svg width="52" height="10" viewBox="0 0 110 21" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-        <path d="M38.1801 3.45902C41.7067 3.45902 43.9994 5.45905 43.9994 8.67133C43.9994 11.0232 42.6512 12.7708 40.5375 13.5165L44.6811 20.6218H41.6077L37.7421 13.8798H33.4728V20.6218H30.8259V3.45902H38.1801ZM33.469 5.84911V11.5165H38.0544C40.1567 11.5165 41.2421 10.3387 41.2421 8.67133C41.2421 6.96576 40.1605 5.84911 38.0544 5.84911H33.469Z" />
-        <path d="M51.4145 8.22773C54.9412 8.22773 57.2339 10.8587 57.2339 14.1093C57.2339 14.4878 57.2073 14.8817 57.1349 15.2718H47.7508C47.865 17.0921 49.4151 18.5223 51.506 18.5223C53.0179 18.5223 54.2252 17.876 55.1316 16.4496L56.9711 17.7919C55.8514 19.8149 53.6463 20.878 51.506 20.878C47.8536 20.878 45.1686 18.1705 45.1686 14.5682C45.1686 10.9467 47.7508 8.22773 51.4145 8.22773ZM54.7013 13.398C54.5489 11.6924 53.1284 10.4878 51.3879 10.4878C49.537 10.4878 48.124 11.6886 47.8117 13.398H54.7013Z" />
-        <path d="M59.5495 20.6218V8.48012H62.0555V10.0098C62.4592 9.39027 63.6055 8.22773 65.7725 8.22773C69.0973 8.22773 70.8492 10.3004 70.8492 13.2488V20.6218H68.3547V13.7804C68.3547 11.7689 67.2578 10.6063 65.3803 10.6063C63.5408 10.6063 62.044 11.7689 62.044 13.7804V20.6218H59.5495Z" />
-        <path d="M78.9766 8.22773C81.0293 8.22773 82.389 8.98491 83.284 10.136V2.81274H85.7785V20.6218H83.284V18.9659C82.389 20.117 81.0293 20.8742 78.9766 20.8742C75.5375 20.8742 72.9058 18.2164 72.9058 14.4878C72.9058 10.7555 75.5375 8.22773 78.9766 8.22773ZM75.3966 14.4878C75.3966 16.725 76.9466 18.6217 79.2774 18.6217C81.6082 18.6217 83.2687 16.725 83.2687 14.4878C83.2687 12.2507 81.593 10.4801 79.2774 10.4801C76.9466 10.4763 75.3966 12.2469 75.3966 14.4878Z" />
-        <path d="M94.1382 8.22773C97.6648 8.22773 99.9575 10.8587 99.9575 14.1093C99.9575 14.4878 99.9309 14.8817 99.8585 15.2718H90.4744C90.5886 17.0921 92.1387 18.5223 94.2295 18.5223C95.7415 18.5223 96.9488 17.876 97.8552 16.4496L99.6947 17.7919C98.575 19.8149 96.3699 20.878 94.2295 20.878C90.5772 20.878 87.8922 18.1705 87.8922 14.5682C87.8884 10.9467 90.4706 8.22773 94.1382 8.22773ZM97.4249 13.398C97.2725 11.6924 95.852 10.4878 94.1115 10.4878C92.2606 10.4878 90.8476 11.6886 90.5353 13.398H97.4249Z" />
-        <path d="M102.368 20.6218V8.48012H104.874V10.136C105.556 8.809 106.702 8.22773 108.024 8.22773C108.968 8.22773 109.688 8.52983 109.688 8.52983L109.425 10.832C109.288 10.7823 108.744 10.5528 107.952 10.5528C106.615 10.5528 104.878 11.2603 104.878 14.006V20.6218H102.368Z" />
-        <path d="M15.6491 0.00582604C12.9679 -0.120371 10.7133 1.81847 10.3286 4.373C10.3134 4.49154 10.2905 4.60627 10.2715 4.72099C9.67356 7.90268 6.88955 10.3119 3.5457 10.3119C2.35364 10.3119 1.23395 10.006 0.258977 9.47058C0.140914 9.40557 0 9.4897 0 9.62354V10.3081V20.6218H10.2677V12.8894C10.2677 11.4668 11.4178 10.3119 12.8346 10.3119H15.4015C18.3074 10.3119 20.6458 7.89121 20.5315 4.94662C20.4287 2.29649 18.2884 0.132023 15.6491 0.00582604Z" />
-      </svg>
-    ),
-  },
-];
+const CloseIcon = () => (
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" />
+  </svg>
+);
 
-// Duplicar tecnologías para efecto infinito
-const duplicatedTechnologies = [...technologies, ...technologies, ...technologies];
+const ArrowRightIcon = () => (
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" />
+  </svg>
+);
 
-// ── Tech Card Component ───────────────────────────────────────────────────────
-const TechCard = ({ tech, isHovered }: { tech: typeof technologies[0]; isHovered: boolean }) => {
-  const getIconFilter = (name: string, hovered: boolean) => {
-    if (name === 'GitHub' || name === 'Vercel') {
-      if (hovered) {
-        return 'brightness(0) invert(1) drop-shadow(0 0 8px rgba(0,229,255,0.35))';
-      }
-      return 'brightness(0) invert(1)';
-    }
-    
-    if (name === 'Adobe XD') {
-      if (hovered) {
-        return 'brightness(0) invert(1) drop-shadow(0 0 8px rgba(0,229,255,0.35))';
-      }
-      return 'brightness(0) invert(1)';
-    }
-    
-    if (name === 'Netlify') {
-      if (hovered) {
-        return 'brightness(1.8) saturate(1.8) drop-shadow(0 0 12px rgba(0,229,255,0.5))';
-      }
-      return 'brightness(1.5) saturate(1.6)';
-    }
-    
-    if (hovered) {
-      return 'brightness(1) saturate(1) drop-shadow(0 0 8px rgba(0,229,255,0.35))';
-    }
-    
-    return 'brightness(0.7) saturate(0.75)';
-  };
+const serviceIcons: Record<number, JSX.Element> = {
+  0: (
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+      <rect x="2" y="3" width="20" height="14" rx="2" />
+      <path d="M8 21h8M12 17v4" />
+    </svg>
+  ),
+  1: (
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+      <path d="M12 2L2 7l10 5 10-5-10-5z" />
+      <path d="M2 17l10 5 10-5" />
+      <path d="M2 12l10 5 10-5" />
+    </svg>
+  ),
+  2: (
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+      <circle cx="12" cy="12" r="3" />
+      <path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83" />
+    </svg>
+  ),
+  3: (
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+    </svg>
+  ),
+  4: (
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+      <polyline points="16 18 22 12 16 6" />
+      <polyline points="8 6 2 12 8 18" />
+    </svg>
+  ),
+  5: (
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+      <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
+    </svg>
+  ),
+};
+
+// Iconos grandes para el modal
+const serviceIconsLarge: Record<number, JSX.Element> = {
+  0: (
+    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2">
+      <rect x="2" y="3" width="20" height="14" rx="2" />
+      <path d="M8 21h8M12 17v4" />
+    </svg>
+  ),
+  1: (
+    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2">
+      <path d="M12 2L2 7l10 5 10-5-10-5z" />
+      <path d="M2 17l10 5 10-5" />
+      <path d="M2 12l10 5 10-5" />
+    </svg>
+  ),
+  2: (
+    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2">
+      <circle cx="12" cy="12" r="3" />
+      <path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83" />
+    </svg>
+  ),
+  3: (
+    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2">
+      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+    </svg>
+  ),
+  4: (
+    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2">
+      <polyline points="16 18 22 12 16 6" />
+      <polyline points="8 6 2 12 8 18" />
+    </svg>
+  ),
+  5: (
+    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2">
+      <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
+    </svg>
+  ),
+};
+
+type ServiceItem = {
+  title: string;
+  description: string;
+  bullets: string[];
+  longDescription?: string;
+  highlights?: string[];
+};
+
+// ── Service Detail Modal ──────────────────────────────────────────────────────
+const ServiceModal = ({
+  service,
+  index,
+  onClose,
+}: {
+  service: ServiceItem;
+  index: number;
+  onClose: () => void;
+}) => {
+  const { t } = useTranslation();
+
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') onClose(); };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [onClose]);
 
   return (
     <div
-      className="relative flex flex-col items-center justify-center overflow-hidden cursor-default bg-[var(--card-bg)] rounded-xl transition-all duration-300 hover:shadow-lg hover:-translate-y-1"
-      style={{ aspectRatio: '1 / 1' }}
+      className="fixed inset-0 z-[400] flex items-center justify-center p-4 md:p-8"
+      style={{ background: 'rgba(2,4,8,0.92)', backdropFilter: 'blur(20px)' }}
+      onClick={onClose}
     >
-      {/* Corner accent on hover */}
       <div
-        className="absolute top-0 right-0 w-10 h-10 pointer-events-none transition-opacity duration-500"
+        className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto"
         style={{
-          opacity: isHovered ? 1 : 0,
-          background: 'linear-gradient(225deg, rgba(0,229,255,0.2) 0%, transparent 70%)',
+          background: 'linear-gradient(135deg, #070e1c 0%, #040810 100%)',
+          border: '1px solid rgba(0,229,255,0.18)',
+          boxShadow: '0 0 100px rgba(0,229,255,0.06), 0 40px 80px rgba(0,0,0,0.7)',
         }}
-      />
-
-      {/* Corner brackets */}
-      <div
-        className="absolute top-2 left-2 w-2.5 h-2.5 border-t border-l transition-opacity duration-300"
-        style={{ borderColor: '#00e5ff', opacity: isHovered ? 0.7 : 0 }}
-      />
-      <div
-        className="absolute bottom-2 right-2 w-2.5 h-2.5 border-b border-r transition-opacity duration-300"
-        style={{ borderColor: '#00e5ff', opacity: isHovered ? 0.7 : 0 }}
-      />
-
-      {/* Icon */}
-      <div
-        className="flex items-center justify-center transition-all duration-300"
-        style={{
-          transform: isHovered ? 'translateY(-6px) scale(1.12)' : 'translateY(0) scale(1)',
-        }}
+        onClick={(e) => e.stopPropagation()}
       >
-        {tech.svgIcon ? (
-          <div
-            className="transition-all duration-300"
-            style={{
-              color: isHovered ? '#00e5ff' : '#ffffff',
-              filter: isHovered ? 'drop-shadow(0 0 8px rgba(0,229,255,0.35))' : 'none',
-            }}
-          >
-            {tech.svgIcon}
+        {/* Header hero */}
+        <div className="relative w-full px-8 pt-10 pb-8 overflow-hidden"
+          style={{ background: 'linear-gradient(135deg, rgba(0,229,255,0.05) 0%, transparent 60%)' }}>
+          {/* Corner decorations */}
+          <div className="absolute top-4 left-4 w-5 h-5 border-t border-l opacity-40" style={{ borderColor: '#00e5ff' }} />
+          <div className="absolute top-4 right-14 w-5 h-5 border-t border-r opacity-40" style={{ borderColor: '#00e5ff' }} />
+          <div className="absolute bottom-4 left-4 w-5 h-5 border-b border-l opacity-20" style={{ borderColor: '#00e5ff' }} />
+
+          {/* Big number watermark */}
+          <span className="absolute top-4 right-16 font-syne font-black text-8xl opacity-5 text-[#00e5ff] select-none pointer-events-none leading-none">
+            {String(index + 1).padStart(2, '0')}
+          </span>
+
+          {/* Close button */}
+          <button onClick={onClose}
+            className="absolute top-4 right-4 z-20 p-2 transition-colors text-white/50 hover:text-[#00e5ff]"
+            style={{ background: 'rgba(2,4,8,0.75)', border: '1px solid rgba(0,229,255,0.2)' }}>
+            <CloseIcon />
+          </button>
+
+          {/* Icon + title */}
+          <div className="flex items-start gap-6">
+            <div className="w-16 h-16 flex items-center justify-center border border-[rgba(0,229,255,0.3)] text-[#00e5ff] shrink-0"
+              style={{
+                background: 'rgba(0,229,255,0.06)',
+                clipPath: 'polygon(10% 0%, 100% 0%, 90% 100%, 0% 100%)',
+              }}>
+              {serviceIconsLarge[index]}
+            </div>
+            <div>
+              <span className="font-mono text-[10px] text-[#00e5ff]/40 tracking-widest">
+                _{String(index + 1).padStart(2, '0')}
+              </span>
+              <h3 className="font-syne font-black text-2xl md:text-3xl text-white mt-1">
+                {service.title}
+              </h3>
+            </div>
           </div>
-        ) : (
-          <img
-            src={tech.icon}
-            alt={tech.name}
-            className="w-7 h-7 sm:w-8 sm:h-8 md:w-9 md:h-9 object-contain transition-all duration-300"
-            style={{
-              filter: getIconFilter(tech.name, isHovered),
-            }}
-          />
-        )}
-      </div>
+        </div>
 
-      {/* Name tooltip */}
-      <div
-        className="absolute inset-x-0 bottom-0 flex items-end justify-center pb-2 transition-all duration-300"
-        style={{
-          opacity: isHovered ? 1 : 0,
-          transform: isHovered ? 'translateY(0)' : 'translateY(5px)',
-        }}
-      >
-        <span
-          className="font-mono text-[7px] sm:text-[8px] md:text-[8px] tracking-widest text-center leading-tight px-1 truncate w-full text-center"
-          style={{ color: '#00e5ff', textShadow: '0 0 10px rgba(0,229,255,0.5)' }}
-        >
-          {tech.name}
-        </span>
-      </div>
+        {/* Body */}
+        <div className="px-8 pb-8 flex flex-col gap-6">
+          {/* Long description */}
+          <p className="text-white/55 text-sm leading-relaxed" style={{ borderTop: '1px solid rgba(0,229,255,0.08)', paddingTop: '1.5rem' }}>
+            {service.longDescription || service.description}
+          </p>
 
-      {/* Bottom cyan line sweep */}
-      <div
-        className="absolute bottom-0 left-0 h-px transition-all duration-500"
-        style={{
-          width: isHovered ? '100%' : '0%',
-          background: 'linear-gradient(to right, transparent, rgba(0,229,255,0.7), transparent)',
-        }}
-      />
+          {/* Highlights (if available) */}
+          {service.highlights && service.highlights.length > 0 && (
+            <div className="flex flex-col gap-3">
+              <span className="font-mono text-[10px] tracking-widest text-[#00e5ff]/50 uppercase">
+                {t('services.modal_highlights')}
+              </span>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {service.highlights.map((highlight, i) => (
+                  <div key={i} className="flex items-start gap-3 p-3"
+                    style={{ background: 'rgba(0,229,255,0.03)', border: '1px solid rgba(0,229,255,0.08)' }}>
+                    <span className="text-[#00e5ff]/60 mt-0.5 shrink-0">◆</span>
+                    <span className="text-white/60 text-xs leading-relaxed">{highlight}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Bullets */}
+          <div className="flex flex-col gap-3" style={{ borderTop: '1px solid rgba(0,229,255,0.08)', paddingTop: '1.5rem' }}>
+            <span className="font-mono text-[10px] tracking-widest text-[#00e5ff]/50 uppercase">
+              {t('services.modal_includes')}
+            </span>
+            <ul className="flex flex-col gap-2">
+              {service.bullets.map((bullet, j) => (
+                <li key={j} className="flex items-start gap-3 font-mono text-xs text-white/45">
+                  <span className="mt-0.5 text-[#00e5ff]/60 shrink-0">▸</span>
+                  {bullet}
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* CTA */}
+          <div className="pt-4" style={{ borderTop: '1px solid rgba(0,229,255,0.08)' }}>
+            <a
+              href="#contact"
+              onClick={onClose}
+              className="btn-primary inline-flex items-center gap-2 font-mono text-xs tracking-widest uppercase px-6 py-3"
+              style={{ textDecoration: 'none' }}
+            >
+              {t('services.modal_cta')} <ArrowRightIcon />
+            </a>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
 
-// ── Main Export con Carrusel Responsivo ───────────────────────────────────────
-export default function Technologies() {
+// ── Main Export ───────────────────────────────────────────────────────────────
+export default function Services() {
   const { t } = useTranslation();
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
-  const [isPaused, setIsPaused] = useState(false);
-  const carouselRef = useRef<HTMLDivElement>(null);
-  const animationRef = useRef<number>();
-  const scrollSpeed = 0.6;
+  const [selectedService, setSelectedService] = useState<{ service: ServiceItem; index: number } | null>(null);
 
-  const animate = () => {
-    if (carouselRef.current && !isPaused) {
-      if (carouselRef.current.scrollLeft >= carouselRef.current.scrollWidth / 3) {
-        carouselRef.current.scrollLeft = carouselRef.current.scrollLeft - carouselRef.current.scrollWidth / 3;
-      } else {
-        carouselRef.current.scrollLeft += scrollSpeed;
-      }
-    }
-    animationRef.current = requestAnimationFrame(animate);
-  };
-
-  useEffect(() => {
-    animationRef.current = requestAnimationFrame(animate);
-    return () => {
-      if (animationRef.current) {
-        cancelAnimationFrame(animationRef.current);
-      }
-    };
-  }, [isPaused]);
-
-  const handleMouseEnter = () => setIsPaused(true);
-  const handleMouseLeave = () => setIsPaused(false);
-
-  // Tamaño de tarjeta responsivo
-  const [cardWidth, setCardWidth] = useState('90px');
-
-  useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth < 640) setCardWidth('75px');
-      else if (window.innerWidth < 768) setCardWidth('85px');
-      else setCardWidth('95px');
-    };
-    handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
+  const items = t('services.items', { returnObjects: true }) as ServiceItem[];
 
   return (
-    <section id="technologies" className="relative py-16 sm:py-24 md:py-32 overflow-hidden">
-      {/* Left glow accent (como en servicios) */}
-      <div
-        className="absolute top-0 left-0 w-1/3 h-full opacity-5 pointer-events-none"
-        style={{ background: 'linear-gradient(to right, #1565ff, transparent)' }}
-      />
-
-      {/* Subtle grid lines (mismo estilo que servicios) */}
-      <div
-        className="absolute inset-0 pointer-events-none opacity-[0.03]"
-        style={{
-          backgroundImage:
-            'linear-gradient(rgba(0,229,255,1) 1px, transparent 1px), linear-gradient(90deg, rgba(0,229,255,1) 1px, transparent 1px)',
-          backgroundSize: '80px 80px',
-        }}
-      />
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6">
-        {/* Section header - MISMO ESTILO QUE SERVICIOS */}
-        <div className="mb-12 sm:mb-16 md:mb-20">
-          <div className="flex items-center gap-3 mb-4">
-            <span className="section-label text-[10px] sm:text-xs">{t('technologies.label')}</span>
-            <span className="flex-1 h-px bg-[rgba(0,229,255,0.1)]" />
-          </div>
-          <div className="flex flex-col md:flex-row md:items-end gap-6 justify-between">
-            <h2 className="font-syne font-black text-4xl sm:text-5xl md:text-6xl text-white">
-              {t('technologies.title')}
-            </h2>
-            <p className="text-white/40 text-xs sm:text-sm max-w-xs leading-relaxed md:text-right">
-              {t('technologies.subtitle')}
-            </p>
-          </div>
-        </div>
-
-        {/* Carrusel Responsivo */}
+    <>
+      <section id="services" className="relative py-32 overflow-hidden">
+        {/* Left glow accent */}
         <div
-          ref={carouselRef}
-          className="flex gap-2 sm:gap-3 overflow-x-auto cursor-grab active:cursor-grabbing pb-4"
+          className="absolute top-0 left-0 w-1/3 h-full opacity-5 pointer-events-none"
+          style={{ background: 'linear-gradient(to right, #1565ff, transparent)' }}
+        />
+
+        {/* Subtle grid lines */}
+        <div className="absolute inset-0 pointer-events-none opacity-[0.03]"
           style={{
-            scrollbarWidth: 'none',
-            msOverflowStyle: 'none',
-            overflowX: 'auto',
-            WebkitOverflowScrolling: 'touch',
+            backgroundImage: 'linear-gradient(rgba(0,229,255,1) 1px, transparent 1px), linear-gradient(90deg, rgba(0,229,255,1) 1px, transparent 1px)',
+            backgroundSize: '80px 80px',
           }}
-          onMouseEnter={handleMouseEnter}
-          onMouseLeave={handleMouseLeave}
-        >
-          {duplicatedTechnologies.map((tech, index) => (
-            <div
-              key={index}
-              className="flex-shrink-0 transition-all duration-300"
-              style={{ width: cardWidth }}
-              onMouseEnter={() => setHoveredIndex(index)}
-              onMouseLeave={() => setHoveredIndex(null)}
-              onTouchStart={() => setHoveredIndex(index)}
-              onTouchEnd={() => setTimeout(() => setHoveredIndex(null), 500)}
-            >
-              <TechCard tech={tech} isHovered={hoveredIndex === index} />
+        />
+
+        <div className="max-w-7xl mx-auto px-6">
+          {/* Section header */}
+          <div className="mb-20">
+            <div className="flex items-center gap-3 mb-4">
+              <span className="section-label">{t('services.label')}</span>
+              <span className="flex-1 h-px bg-[rgba(0,229,255,0.1)]" />
             </div>
-          ))}
-        </div>
+            <div className="flex flex-col md:flex-row md:items-end gap-6 justify-between">
+              <h2 className="font-syne font-black text-5xl md:text-6xl text-white">
+                {t('services.title')}
+              </h2>
+              <p className="text-white/40 text-sm max-w-xs leading-relaxed md:text-right">
+                {t('services.subtitle')}
+              </p>
+            </div>
+          </div>
 
-        {/* Indicador responsivo - mismo estilo que "learn more" de servicios */}
-        <div className="text-center mt-6 sm:mt-8 md:mt-8">
-          <p 
-            className="font-mono text-[9px] sm:text-[10px] md:text-[11px] tracking-[2px] sm:tracking-[3px] uppercase text-white/30"
-          >
-            ← {t('technologies.scroll_hint') || 'DESLIZA O PASA EL MOUSE PARA PAUSAR'} →
-          </p>
-        </div>
-      </div>
+          {/* Services grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {items.map((service, i) => (
+              <article
+                key={i}
+                className="glass-card p-8 flex flex-col gap-5 group relative overflow-hidden"
+              >
+                {/* Corner accent */}
+                <div className="absolute top-0 right-0 w-16 h-16 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+                  style={{
+                    background: 'linear-gradient(225deg, rgba(0,229,255,0.12) 0%, transparent 70%)',
+                  }}
+                />
 
-      <style>{`
-        .hide-scrollbar::-webkit-scrollbar {
-          display: none;
-        }
-      `}</style>
-    </section>
+                {/* Index + icon row */}
+                <div className="flex items-center justify-between">
+                  <span className="font-mono text-xs text-[#00e5ff]/25 tracking-widest">
+                    _{String(i + 1).padStart(2, '0')}
+                  </span>
+                  <div className="w-11 h-11 flex items-center justify-center border border-[rgba(0,229,255,0.2)] text-[#00e5ff]/60 group-hover:text-[#00e5ff] group-hover:border-[#00e5ff]/50 transition-all duration-300"
+                    style={{ clipPath: 'polygon(10% 0%, 100% 0%, 90% 100%, 0% 100%)' }}
+                  >
+                    {serviceIcons[i]}
+                  </div>
+                </div>
+
+                {/* Title */}
+                <h3 className="font-syne font-bold text-xl text-white group-hover:text-[#00e5ff] transition-colors duration-300">
+                  {service.title}
+                </h3>
+
+                {/* Description */}
+                <p className="text-white/40 text-sm leading-relaxed flex-1">
+                  {service.description}
+                </p>
+
+                {/* Bullet list */}
+                <ul className="flex flex-col gap-2 pt-4 border-t border-[rgba(0,229,255,0.06)]">
+                  {service.bullets.map((bullet, j) => (
+                    <li key={j} className="flex items-start gap-2 font-mono text-[11px] text-white/35">
+                      <span className="mt-0.5 text-[#00e5ff]/50 shrink-0">▸</span>
+                      {bullet}
+                    </li>
+                  ))}
+                </ul>
+
+                {/* Learn More button */}
+                <button
+                  onClick={() => setSelectedService({ service, index: i })}
+                  className="mt-2 flex items-center gap-2 font-mono text-[11px] tracking-widest uppercase text-[#00e5ff]/50 hover:text-[#00e5ff] transition-all duration-200 group/btn self-start"
+                >
+                  <span className="border-b border-[#00e5ff]/20 group-hover/btn:border-[#00e5ff]/60 transition-colors pb-px">
+                    {t('services.learn_more')}
+                  </span>
+                  <ArrowRightIcon />
+                </button>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Service Detail Modal ─────────────────────────────────────────── */}
+      {selectedService && (
+        <ServiceModal
+          service={selectedService.service}
+          index={selectedService.index}
+          onClose={() => setSelectedService(null)}
+        />
+      )}
+    </>
   );
 }
