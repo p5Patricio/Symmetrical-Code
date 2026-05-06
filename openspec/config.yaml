@@ -1,0 +1,48 @@
+schema: spec-driven
+
+context: |
+  Tech stack: React 18.3.1 + Vite 8 + TypeScript 5.8 + Tailwind CSS 3.4
+  Architecture: Component-based SPA with i18n (i18next), 3D scenes (three.js)
+  Testing: No test runner installed
+  Style: ESLint 10 + TypeScript strict mode
+
+strict_tdd: false
+
+testing:
+  strict_tdd: false
+  detected: "2026-05-05"
+  runner: NOT FOUND
+  layers:
+    unit: NOT AVAILABLE
+    integration: NOT INSTALLED
+    e2e: NOT INSTALLED
+  coverage: NOT AVAILABLE
+  quality:
+    linter: ESLint (eslint .)
+    type_checker: tsc (npm run build)
+    formatter: NOT AVAILABLE
+
+rules:
+  proposal:
+    - Include rollback plan for risky changes
+    - Identify affected components and i18n keys
+  specs:
+    - Use Given/When/Then format for scenarios
+    - Use RFC 2119 keywords (MUST, SHALL, SHOULD, MAY)
+    - Cover desktop and mobile interactions separately
+  design:
+    - Include component hierarchy diagrams for complex UI
+    - Document animation/transition decisions with rationale
+  tasks:
+    - Group tasks by phase (design, component structure, styling, interactions)
+    - Use hierarchical numbering (1.1, 1.2, etc.)
+    - Keep tasks small enough to complete in one session
+  apply:
+    - Follow existing React + Tailwind patterns
+    - Maintain i18n support for all user-facing text
+    - Use type-only imports for TypeScript types
+  verify:
+    - Run TypeScript build (npm run build) before completing
+    - Check responsive behavior manually
+  archive:
+    - Warn before merging destructive deltas (large removals)

@@ -263,7 +263,7 @@ function MemberModal({ member, onClose }) {
                 alignItems: 'center',
                 gap: '8px',
               }}>
-                <CalendarIcon style={{ color: member.color, width: '14px', height: '14px' }} />
+                <span style={{ color: member.color, width: '14px', height: '14px', display: 'inline-flex' }}><CalendarIcon /></span>
                 <span style={{ fontFamily: 'monospace', fontSize: '11px', color: 'rgba(255,255,255,0.7)' }}>{member.experience}</span>
               </div>
               <div style={{
@@ -287,7 +287,7 @@ function MemberModal({ member, onClose }) {
                 alignItems: 'center',
                 gap: '8px',
               }}>
-                <LocationIcon style={{ color: member.color, width: '14px', height: '14px' }} />
+                <span style={{ color: member.color, width: '14px', height: '14px', display: 'inline-flex' }}><LocationIcon /></span>
                 <span style={{ fontFamily: 'monospace', fontSize: '11px', color: 'rgba(255,255,255,0.7)' }}>{member.location.split(',')[0]}</span>
               </div>
             </div>
@@ -456,7 +456,7 @@ function MemberCard({ member, index, onOpen }) {
         boxShadow: hovered 
           ? `0 0 0 1px ${member.color}15, 0 25px 45px rgba(0,0,0,0.5), 0 0 40px ${member.color}08` 
           : '0 8px 25px rgba(0,0,0,0.3)',
-        transition: 'border-color 0.3s ease, box-shadow 0.4s ease',
+
       }}
     >
       <div style={{

@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
+import { projects } from '../../data/projects';
 
 const ExternalLinkIcon = () => (
   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -87,22 +88,6 @@ const ProjectImage = ({ index, title }: { index: number; title: string }) => {
   );
 };
 
-// ── Per-project carousel slides config ───────────────────────────────────────
-const PROJECT_SLIDES: Record<number, Array<{ type: 'image'; src: string } | { type: 'placeholder' }>> = {
-  0: [
-    { type: 'image', src: '/proyectos/Mario/Proyecto1/eventos1.png' },
-    { type: 'image', src: '/proyectos/Mario/Proyecto1/eventos2.png' },
-    { type: 'image', src: '/proyectos/Mario/Proyecto1/eventos3.png' },
-  ],
-};
-
-const getSlides = (index: number) =>
-  PROJECT_SLIDES[index] ?? [
-    { type: 'placeholder' },
-    { type: 'placeholder' },
-    { type: 'placeholder' },
-  ];
-
 // ── Image with fallback to placeholder ───────────────────────────────────────
 const ImageWithFallback = ({
   src,
@@ -126,8 +111,10 @@ const ImageWithFallback = ({
 };
 
 // ── Carousel ──────────────────────────────────────────────────────────────────
-const Carousel = ({ projectIndex, title }: { projectIndex: number; title: string }) => {
-  const slides = getSlides(projectIndex);
+const Carousel = ({ projectIndex, title, ogImageUrl }: { projectIndex: number; title: string; ogImageUrl: string }) => {
+  const slides = [
+    { type: 'image' as const, src: ogImageUrl },
+  ];
   const [current, setCurrent] = useState(0);
   const [animating, setAnimating] = useState(false);
   const [direction, setDirection] = useState<'left' | 'right'>('right');
@@ -169,7 +156,7 @@ const Carousel = ({ projectIndex, title }: { projectIndex: number; title: string
       >
         {slide.type === 'image' ? (
           <ImageWithFallback
-            src={(slide as { type: 'image'; src: string }).src}
+            src={slide.src}
             alt={`${title} - slide ${current + 1}`}
             fallback={<ProjectImage index={projectIndex} title={title} />}
           />
@@ -238,17 +225,20 @@ const Carousel = ({ projectIndex, title }: { projectIndex: number; title: string
   );
 };
 
-type Project = {
+type ProjectView = {
   title: string;
   description: string;
   tags: string[];
   category?: string;
-  longDescription?: string;
+  githubUrl: string;
+  ogImageUrl: string;
+  demoUrl?: string;
+  backendUrl?: string;
 };
 
 // ── Detail Modal ──────────────────────────────────────────────────────────────
 const DetailModal = ({ project, index, onClose }: {
-  project: Project; index: number; onClose: () => void;
+  project: ProjectView; index: number; onClose: () => void;
 }) => {
   const { t } = useTranslation();
 
@@ -257,13 +247,6 @@ const DetailModal = ({ project, index, onClose }: {
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
   }, [onClose]);
-
-  const demoLinks: Record<number, string> = {
-    0: 'https://sma-eventos.netlify.app/',
-  };
-  const codeLinks: Record<number, string> = {
-    0: 'https://github.com/mariodelgadoh/eventos-san-miguel-de-allende.git',
-  };
 
   return (
     <div
@@ -281,7 +264,7 @@ const DetailModal = ({ project, index, onClose }: {
         onClick={(e) => e.stopPropagation()}
       >
         <div className="w-full h-64 md:h-80 relative overflow-hidden">
-          <Carousel projectIndex={index} title={project.title} />
+          <Carousel projectIndex={index} title={project.title} ogImageUrl={project.ogImageUrl} />
 
           {project.category && (
             <span className="absolute top-4 left-4 z-20 font-mono text-[10px] tracking-widest uppercase px-3 py-1"
@@ -312,7 +295,7 @@ const DetailModal = ({ project, index, onClose }: {
           </div>
 
           <p className="text-white/50 text-sm leading-relaxed">
-            {project.longDescription || project.description}
+            {project.description}
           </p>
 
           <div className="flex flex-wrap gap-2">
@@ -325,17 +308,19 @@ const DetailModal = ({ project, index, onClose }: {
           </div>
 
           <div className="flex gap-3 pt-4" style={{ borderTop: '1px solid rgba(0,229,255,0.08)' }}>
+            {project.demoUrl && (
+              <a
+                href={project.demoUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-primary flex items-center gap-2 font-mono text-xs tracking-widest uppercase px-6 py-3"
+                style={{ textDecoration: 'none' }}
+              >
+                <ExternalLinkIcon />{t('projects.view_demo')}
+              </a>
+            )}
             <a
-              href={demoLinks[index] ?? '#'}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-primary flex items-center gap-2 font-mono text-xs tracking-widest uppercase px-6 py-3"
-              style={{ textDecoration: 'none' }}
-            >
-              <ExternalLinkIcon />{t('projects.view_demo')}
-            </a>
-            <a
-              href={codeLinks[index] ?? '#'}
+              href={project.githubUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="btn-outline flex items-center gap-2 font-mono text-xs tracking-widest uppercase px-6 py-3"
@@ -343,6 +328,17 @@ const DetailModal = ({ project, index, onClose }: {
             >
               <GithubIcon />{t('projects.view_code')}
             </a>
+            {project.backendUrl && (
+              <a
+                href={project.backendUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-outline flex items-center gap-2 font-mono text-xs tracking-widest uppercase px-6 py-3"
+                style={{ textDecoration: 'none' }}
+              >
+                <GithubIcon />Backend
+              </a>
+            )}
           </div>
         </div>
       </div>
@@ -355,21 +351,21 @@ export default function Projects() {
   const { t, i18n } = useTranslation();
   const [galleryOpen, setGalleryOpen] = useState(false);
   const [activeFilter, setActiveFilter] = useState('all');
-  const [selectedProject, setSelectedProject] = useState<{ project: Project; index: number } | null>(null);
+  const [selectedProject, setSelectedProject] = useState<{ project: ProjectView; index: number } | null>(null);
   const [galleryScrolled, setGalleryScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
-  const items = t('projects.items', { returnObjects: true }) as Project[];
-  const allItems = t('projects.all_items', { returnObjects: true }) as Project[];
+  const allItems: ProjectView[] = projects.map((p) => ({
+    ...p,
+    description: i18n.language === 'es' ? p.descriptionEs : p.descriptionEn,
+  }));
+  const items = allItems.slice(0, 3);
 
   const categories = ['all', ...Array.from(new Set(allItems.map((p) => p.category || '')))];
   const filtered = activeFilter === 'all' ? allItems : allItems.filter((p) => p.category === activeFilter);
 
-  // ── Nav links now include Technologies ─────────────────────────────────────
   const navLinks = [
-    { key: 'nav.home', id: 'home' },
     { key: 'nav.services', id: 'services' },
-    { key: 'nav.technologies', id: 'technologies' },
     { key: 'nav.projects', id: 'projects' },
     { key: 'nav.team', id: 'team' },
     { key: 'nav.contact', id: 'contact' },
@@ -431,15 +427,7 @@ export default function Projects() {
               <article key={i} onClick={() => setSelectedProject({ project, index: i })}
                 className="glass-card flex flex-col group cursor-pointer overflow-hidden gap-0">
                 <div className="w-full h-44 relative overflow-hidden">
-                  {i === 0 ? (
-                    <ImageWithFallback
-                      src="/proyectos/Mario/Proyecto1/eventos1.png"
-                      alt={project.title}
-                      fallback={<ProjectImage index={i} title={project.title} />}
-                    />
-                  ) : (
-                    <ProjectImage index={i} title={project.title} />
-                  )}
+                  <ImageWithFallback src={project.ogImageUrl} alt={project.title} fallback={<ProjectImage index={i} title={project.title} />} />
                   <div className="absolute inset-0 flex items-end justify-center pb-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                     style={{ background: 'linear-gradient(to top, rgba(2,4,8,0.85) 0%, transparent 60%)' }}>
                     <span className="font-mono text-[10px] tracking-widest text-[#00e5ff] uppercase">
@@ -596,15 +584,7 @@ export default function Projects() {
                       onClick={() => setSelectedProject({ project, index: globalIndex })}
                       className="glass-card flex flex-col group cursor-pointer overflow-hidden gap-0">
                       <div className="w-full h-40 relative overflow-hidden">
-                        {globalIndex === 0 ? (
-                          <ImageWithFallback
-                            src="/proyectos/Mario/Proyecto1/eventos1.png"
-                            alt={project.title}
-                            fallback={<ProjectImage index={globalIndex} title={project.title} />}
-                          />
-                        ) : (
-                          <ProjectImage index={globalIndex} title={project.title} />
-                        )}
+                        <ImageWithFallback src={project.ogImageUrl} alt={project.title} fallback={<ProjectImage index={globalIndex} title={project.title} />} />
                         <div className="absolute inset-0 flex items-end justify-center pb-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                           style={{ background: 'linear-gradient(to top, rgba(2,4,8,0.85) 0%, transparent 60%)' }}>
                           <span className="font-mono text-[9px] tracking-widest text-[#00e5ff] uppercase">

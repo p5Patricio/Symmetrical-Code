@@ -170,20 +170,24 @@ export default function Technologies() {
   const animationRef = useRef<number>();
   const scrollSpeed = 0.6;
 
-  const animate = () => {
-    if (carouselRef.current && !isPaused) {
-      if (carouselRef.current.scrollLeft >= carouselRef.current.scrollWidth / 3) {
-        carouselRef.current.scrollLeft = carouselRef.current.scrollLeft - carouselRef.current.scrollWidth / 3;
-      } else {
-        carouselRef.current.scrollLeft += scrollSpeed;
-      }
-    }
-    animationRef.current = requestAnimationFrame(animate);
-  };
-
   useEffect(() => {
+    let running = true;
+    const animate = () => {
+      if (!running) return;
+      if (carouselRef.current && !isPaused) {
+        if (carouselRef.current.scrollLeft >= carouselRef.current.scrollWidth / 3) {
+          carouselRef.current.scrollLeft = carouselRef.current.scrollLeft - carouselRef.current.scrollWidth / 3;
+        } else {
+          carouselRef.current.scrollLeft += scrollSpeed;
+        }
+      }
+      if (running) {
+        animationRef.current = requestAnimationFrame(animate);
+      }
+    };
     animationRef.current = requestAnimationFrame(animate);
     return () => {
+      running = false;
       if (animationRef.current) {
         cancelAnimationFrame(animationRef.current);
       }
@@ -192,16 +196,6 @@ export default function Technologies() {
 
   const handleMouseEnter = () => setIsPaused(true);
   const handleMouseLeave = () => setIsPaused(false);
-
-  // Tamaño de tarjeta responsivo
-  const getCardWidth = () => {
-    if (typeof window !== 'undefined') {
-      if (window.innerWidth < 640) return '75px';
-      if (window.innerWidth < 768) return '85px';
-      return '95px';
-    }
-    return '90px';
-  };
 
   const [cardWidth, setCardWidth] = useState('90px');
 
@@ -289,11 +283,6 @@ export default function Technologies() {
         </div>
       </div>
 
-      <style>{`
-        .hide-scrollbar::-webkit-scrollbar {
-          display: none;
-        }
-      `}</style>
     </section>
   );
 }

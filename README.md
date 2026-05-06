@@ -1,73 +1,92 @@
-# React + TypeScript + Vite
+# 🌐 Symmetrical Code - Website
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Sitio web oficial de **Symmetrical Code**, un Software Studio especializado en desarrollo de soluciones digitales a medida.
 
-Currently, two official plugins are available:
+> ⚠️ **IMPORTANTE:** El desarrollo activo está en la rama **`patodev`**. La rama `main` se mantiene como código estable.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## ✨ Features
 
-## React Compiler
+- 🎨 **Diseño moderno** con Tailwind CSS y tema dark/cyber
+- 🌎 **Internacionalización** (i18n) con soporte para español e inglés
+- 🤖 **Chatbot integrado** — Widget flotante conectado al backend vía Groq API
+- 📱 **Responsive** — Se adapta a mobile, tablet y desktop
+- ⚡ **Performance** — Construido con Vite para builds ultra-rápidas
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 🛠️ Tecnologías
 
-## Expanding the ESLint configuration
+- React 18 + TypeScript
+- Vite
+- Tailwind CSS
+- i18next (internacionalización)
+- Three.js (efectos 3D en Hero)
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 🚀 Empezar
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+```bash
+# Clonar el repo
+git clone https://github.com/p5Patricio/Symmetrical-Code.git
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+# Cambiar a la rama de desarrollo
+git checkout patodev
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+# Instalar dependencias
+npm install
+
+# Correr en desarrollo
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+El sitio arranca en `http://localhost:5173`.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## 🤖 Chatbot
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+El sitio incluye un **widget de chatbot** en la esquina inferior derecha que se conecta al backend para responder preguntas sobre Symmetrical Code.
+
+### Configuración del chatbot
+
+Creá un archivo `.env` basado en `.env.example`:
+
+```bash
+cp .env.example .env
 ```
+
+Asegurate de que la URL del backend sea correcta:
+
+```env
+VITE_API_URL=http://localhost:3001/api/chat
+```
+
+> Para que el chatbot funcione, también necesitás correr el [backend del chatbot](https://github.com/p5Patricio/Symmetrical-Code-Backend).
+
+## 📁 Estructura
+
+```
+src/
+├── components/
+│   ├── chat/
+│   │   └── ChatWidget.tsx      # Widget del chatbot
+│   ├── layout/
+│   │   ├── Navbar.tsx
+│   │   └── Footer.tsx
+│   └── sections/
+│       ├── HeroSection.tsx
+│       ├── ProjectsSection.tsx
+│       ├── TeamSection.tsx
+│       └── ContactSection.tsx
+├── pages/
+│   └── HomePage.tsx
+├── i18n/
+│   ├── index.ts
+│   └── locales/
+│       ├── es.json
+│       └── en.json
+└── App.tsx
+```
+
+## 📱 Integración WhatsApp
+
+El chatbot también está preparado para funcionar en WhatsApp. Ver el repo del backend para más detalles.
+
+## 🏷️ Licencia
+
+MIT - Symmetrical Code Team
