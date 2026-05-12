@@ -6,7 +6,7 @@ interface ChatMessage {
   text: string;
 }
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001/api/chat';
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001';
 
 export default function ChatWidget() {
   const { t, i18n } = useTranslation();
@@ -55,7 +55,7 @@ export default function ChatWidget() {
     setError(null);
 
     try {
-      const response = await fetch(API_URL, {
+      const response = await fetch(`${API_URL}/api/chat`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
