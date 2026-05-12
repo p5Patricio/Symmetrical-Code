@@ -1,94 +1,391 @@
 export interface Project {
   title: string;
+  titleEs: string;
+  titleEn: string;
   descriptionEs: string;
   descriptionEn: string;
   tags: string[];
   category: string;
   githubUrl: string;
   ogImageUrl: string;
+  galleryImages?: string[];
   demoUrl?: string;
   backendUrl?: string;
+  frontendUrl?: string;
 }
 
+// Mapa de iconos por tecnología usando devicons CDN
+export const techIconMap: Record<string, string> = {
+  JavaScript: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg',
+  TypeScript: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg',
+  React: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg',
+  'Vue.js': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vuejs/vuejs-original.svg',
+  'Node.js': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg',
+  Python: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg',
+  Flutter: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flutter/flutter-original.svg',
+  Dart: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/dart/dart-original.svg',
+  HTML5: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg',
+  CSS3: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg',
+  'C++': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg',
+  C: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/c/c-original.svg',
+  'C#': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/csharp/csharp-original.svg',
+  MySQL: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg',
+  PostgreSQL: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg',
+  MongoDB: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg',
+  SQLite: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sqlite/sqlite-original.svg',
+  Supabase: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/supabase/supabase-original.svg',
+  Docker: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg',
+  Git: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg',
+  GitHub: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg',
+  Bootstrap: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bootstrap/bootstrap-original.svg',
+  MATLAB: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/matlab/matlab-original.svg',
+  'Android Studio': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/androidstudio/androidstudio-original.svg',
+  'VS Code': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg',
+  Vercel: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vercel/vercel-original.svg',
+  Netlify: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/netlify/netlify-original.svg',
+  FastAPI: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/fastapi/fastapi-original.svg',
+  TensorFlow: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tensorflow/tensorflow-original.svg',
+  PyTorch: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pytorch/pytorch-original.svg',
+  OpenAI: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/openai/openai-original.svg',
+  // fallbacks para tags genéricos
+  'Machine Learning': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg',
+  'Computer Vision': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/opencv/opencv-original.svg',
+  NLP: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg',
+  Audio: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg',
+  AI: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg',
+  Game: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg',
+  CLI: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg',
+  PyGame: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg',
+  'Canvas API': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg',
+};
+
 export const projects: Project[] = [
-  {
-    title: "Rey Asesino",
+    {
+    title: 'TaskFlow',
+    titleEs: 'TaskFlow',
+    titleEn: 'TaskFlow',
     descriptionEs:
-      "Aplicación web fullstack en producción. Plataforma interactiva con frontend moderno y backend robusto desplegada en Vercel.",
+      'Gestor de tareas tipo Kanban con sincronización en tiempo real, etiquetas, fechas límite y vistas de calendario integradas.',
     descriptionEn:
-      "Fullstack web application in production. Interactive platform with modern frontend and robust backend deployed on Vercel.",
-    tags: ["TypeScript", "React", "Node.js"],
-    category: "Web App",
-    githubUrl: "https://github.com/p5Patricio/reyasesino-frontend",
-    ogImageUrl: "/proyectos/Patricio/Rey Asesino/banner.webp",
-    demoUrl: "https://reyasesino-frontend.vercel.app/",
-    backendUrl: "https://github.com/p5Patricio/reyasesino-backend",
+      'Kanban-style task manager with real-time sync, labels, deadlines and integrated calendar views.',
+    tags: ['React', 'TypeScript', 'Supabase'],
+    category: 'Web App',
+    githubUrl: 'https://github.com/p5Patricio/taskflow',
+    ogImageUrl: '/proyectos/Patricio/TaskFlow/banner.webp',
+    galleryImages: ['/proyectos/Patricio/TaskFlow/banner.webp'],
   },
   {
-    title: "FitTrack Pro",
+    title: 'Rey Asesino',
+    titleEs: 'Rey Asesino',
+    titleEn: 'Assassin King',
     descriptionEs:
-      "Aplicación fullstack de seguimiento fitness con frontend moderno y backend escalable. Registra entrenamientos, progreso y métricas de salud.",
+      'Aplicación web fullstack en producción. Plataforma interactiva con frontend moderno y backend robusto desplegada en Vercel.',
     descriptionEn:
-      "Fullstack fitness tracking app with modern frontend and scalable backend. Logs workouts, progress and health metrics.",
-    tags: ["TypeScript", "React", "Node.js"],
-    category: "Web App",
-    githubUrl: "https://github.com/p5Patricio/fittrack-pro-frontend",
-    ogImageUrl: "/proyectos/Patricio/FitTrack Pro/banner.webp",
-    backendUrl: "https://github.com/p5Patricio/fittrack-pro-backend",
+      'Fullstack web application in production. Interactive platform with modern frontend and robust backend deployed on Vercel.',
+    tags: ['TypeScript', 'React', 'Node.js'],
+    category: 'Web App',
+    githubUrl: 'https://github.com/p5Patricio/reyasesino-frontend',
+    ogImageUrl: '/proyectos/Patricio/Rey Asesino/banner.webp',
+    galleryImages: ['/proyectos/Patricio/Rey Asesino/banner.webp'],
+    demoUrl: 'https://reyasesino-frontend.vercel.app/',
+    backendUrl: 'https://github.com/p5Patricio/reyasesino-backend',
+  },
+    {
+    title: 'Eventos SMA',
+    titleEs: 'Eventos SMA',
+    titleEn: 'SMA Events',
+    descriptionEs:
+      'Esta plataforma web está enfocada en la visualización y gestión de eventos culturales y sociales en San Miguel de Allende. Su objetivo principal es ofrecer a los usuarios un espacio donde puedan consultar información actualizada sobre actividades, festividades y eventos relevantes de la ciudad. La aplicación permite mostrar eventos de forma dinámica, utilizando una arquitectura moderna que combina frontend y backend. Además, integra una base de datos para almacenar y gestionar la información de los eventos, lo que facilita su actualización y escalabilidad. El proyecto también destaca por el uso de despliegues en la nube, utilizando diferentes plataformas para frontend y backend, lo que refleja buenas prácticas de desarrollo moderno y separación de responsabilidades.',
+    descriptionEn:
+      'This web platform focuses on the visualization and management of cultural and social events in San Miguel de Allende. Its main objective is to offer users a space where they can access updated information about activities, festivities, and relevant events in the city. The application allows dynamic display of events using a modern architecture that combines frontend and backend. It also integrates a database to store and manage event information, facilitating updates and scalability. The project also stands out for its cloud deployments, using different platforms for frontend and backend, reflecting modern development best practices and separation of concerns.',
+    tags: ['TypeScript', 'JavaScript', 'HTML5', 'CSS3', 'MongoDB', 'GitHub', 'Netlify', 'Render'],
+    category: 'Web App',
+    githubUrl: 'https://github.com/mariodelgadoh/eventos-san-miguel-de-allende.git',
+    ogImageUrl: '/proyectos/Mario/EventosSMA/EventosSMA.png',
+    demoUrl: 'https://sma-eventos.netlify.app/',
+    galleryImages: ['/proyectos/Mario/EventosSMA/EventosSMA.png', '/proyectos/Mario/EventosSMA/eventos1.jpg', '/proyectos/Mario/EventosSMA/eventos2.jpg'
+      , '/proyectos/Mario/EventosSMA/eventos3.jpg', '/proyectos/Mario/EventosSMA/eventos4.jpg', '/proyectos/Mario/EventosSMA/eventos5.jpg'
+      , '/proyectos/Mario/EventosSMA/eventos6.jpg', '/proyectos/Mario/EventosSMA/eventos7.jpg', '/proyectos/Mario/EventosSMA/eventos8.jpg'
+      , '/proyectos/Mario/EventosSMA/eventos9.jpg', '/proyectos/Mario/EventosSMA/eventos10.jpg'
+    ], 
   },
   {
-    title: "WisprLocal",
+    title: 'SnakeAI',
+    titleEs: 'SnakeAI',
+    titleEn: 'SnakeAI',
     descriptionEs:
-      "Herramienta de transcripción de audio local usando Whisper de OpenAI. Procesamiento de voz a texto sin conexión a internet.",
+      'Implementación del juego Snake con un agente de aprendizaje por refuerzo (Q-Learning). Visualización del entrenamiento en tiempo real.',
+    descriptionEn:
+      'Snake game implementation with a reinforcement learning agent (Q-Learning). Real-time training visualization.',
+    tags: ['Python', 'PyGame', 'Machine Learning'],
+    category: 'Game',
+    githubUrl: 'https://github.com/p5Patricio/snake-ai',
+    ogImageUrl: '/proyectos/Patricio/SnakeAI/banner.webp',
+    galleryImages: ['/proyectos/Patricio/SnakeAI/banner.webp'],
+  },
+  {
+    title: 'FitTrack Pro',
+    titleEs: 'FitTrack Pro',
+    titleEn: 'FitTrack Pro',
+    descriptionEs:
+      'Aplicación fullstack de seguimiento fitness con frontend moderno y backend escalable. Registra entrenamientos, progreso y métricas de salud.',
+    descriptionEn:
+      'Fullstack fitness tracking app with modern frontend and scalable backend. Logs workouts, progress and health metrics.',
+    tags: ['TypeScript', 'React', 'Node.js'],
+    category: 'Web App',
+    githubUrl: 'https://github.com/p5Patricio/fittrack-pro-frontend',
+    ogImageUrl: '/proyectos/Patricio/FitTrack Pro/banner.webp',
+    galleryImages: ['/proyectos/Patricio/FitTrack Pro/banner.webp'],
+    backendUrl: 'https://github.com/p5Patricio/fittrack-pro-backend',
+  },
+{
+    title: 'Trámites Burócratas MX',
+    titleEs: 'Trámites Burócratas MX',
+    titleEn: 'Bureaucratic Procedures MX',
+    descriptionEs:
+      'Trámites Burócratas MX es una plataforma web diseñada para facilitar el acceso a información sobre trámites gubernamentales en México. El sistema permite a los usuarios consultar requisitos, procesos y detalles relacionados con distintos trámites burocráticos de manera rápida y organizada. El objetivo principal del proyecto es reducir la dificultad que enfrentan muchas personas al buscar información dispersa o confusa sobre procedimientos administrativos, ofreciendo una interfaz intuitiva y accesible desde cualquier dispositivo. La aplicación utiliza una base de datos en la nube para gestionar la información de los trámites y está desplegada en una plataforma de hosting para garantizar disponibilidad en línea.',
+    descriptionEn:
+      'This web platform focuses on the visualization and management of cultural and social events in San Miguel de Allende. Its main objective is to offer users a space where they can access updated information about activities, festivities, and relevant events in the city. The application allows dynamic display of events using a modern architecture that combines frontend and backend. It also integrates a database to store and manage event information, facilitating updates and scalability. The project also stands out for its cloud deployments, using different platforms for frontend and backend, reflecting modern development best practices and separation of concerns.',
+    tags: ['Vue.js', 'JavaScript', 'HTML5', 'CSS3', 'MongoDB', 'GitHub', 'Supabase', 'Netlify'],
+    category: 'Web App',
+    githubUrl: 'https://github.com/mariodelgadoh/Tramites-Burocratas-MX.git',
+    ogImageUrl: '/proyectos/Mario/Tramites/Tramites.png',
+    demoUrl: 'https://tramites-burocratas.netlify.app/',
+    galleryImages: ['/proyectos/Mario/Tramites/Tramites.png', '/proyectos/Mario/Tramites/tramites1.jpg', '/proyectos/Mario/Tramites/tramites2.jpg',
+      '/proyectos/Mario/Tramites/tramites3.jpg','/proyectos/Mario/Tramites/tramites4.jpg','/proyectos/Mario/Tramites/tramites5.jpg',
+      '/proyectos/Mario/Tramites/tramites6.jpg','/proyectos/Mario/Tramites/tramites7.jpg','/proyectos/Mario/Tramites/tramites8.jpg',
+      '/proyectos/Mario/Tramites/tramites9.jpg','/proyectos/Mario/Tramites/tramites10.jpg',
+    ],
+  },
+  {
+    title: 'AudioMood',
+    titleEs: 'AudioMood',
+    titleEn: 'AudioMood',
+    descriptionEs:
+      'Clasificador de emociones a partir de audio usando redes neuronales convolucionales. Detecta el estado de ánimo en grabaciones de voz en menos de un segundo.',
+    descriptionEn:
+      'Emotion classifier from audio using convolutional neural networks. Detects mood in voice recordings in under one second.',
+    tags: ['Python', 'PyTorch', 'Audio'],
+    category: 'AI / ML',
+    githubUrl: 'https://github.com/p5Patricio/audiomood',
+    ogImageUrl: '/proyectos/Patricio/AudioMood/banner.webp',
+    galleryImages: ['/proyectos/Patricio/AudioMood/banner.webp'],
+  },
+  {
+    title: 'WisprLocal',
+    titleEs: 'WisprLocal',
+    titleEn: 'WisprLocal',
+    descriptionEs:
+      'Herramienta de transcripción de audio local usando Whisper de OpenAI. Procesamiento de voz a texto sin conexión a internet.',
     descriptionEn:
       "Local audio transcription tool using OpenAI's Whisper. Offline speech-to-text processing.",
-    tags: ["Python", "OpenAI", "Audio"],
-    category: "AI / ML",
-    githubUrl: "https://github.com/p5Patricio/WisprLocal",
-    ogImageUrl: "/proyectos/Patricio/WisprLocal/banner.webp",
+    tags: ['Python', 'OpenAI', 'Audio'],
+    category: 'AI / ML',
+    githubUrl: 'https://github.com/p5Patricio/WisprLocal',
+    ogImageUrl: '/proyectos/Patricio/WisprLocal/banner.webp',
+    galleryImages: ['/proyectos/Patricio/WisprLocal/banner.webp'],
   },
   {
-    title: "Clasificador Entrenador NBA",
+    title: 'Banderas del Mundo - Aplicación Web Interactiva',
+    titleEs: 'Banderas del Mundo - Aplicación Web Interactiva',
+    titleEn: 'World Flags - Interactive Web Application',
     descriptionEs:
-      "Sistema de IA que clasifica entrenadores de la NBA usando machine learning. Análisis predictivo de rendimiento deportivo.",
+      'Esta aplicación web interactiva permite explorar y visualizar banderas de distintos países del mundo. La aplicación consume una API externa (REST Countries API) para obtener información actualizada sobre los países, incluyendo sus banderas, capitales, poblaciones, idiomas y otras características relevantes. El objetivo principal del proyecto es ofrecer una experiencia visual atractiva y dinámica, donde el usuario pueda interactuar con los datos en tiempo real. Sirve como práctica para el consumo de APIs, manipulación del DOM y desarrollo de interfaces modernas en el frontend.',
     descriptionEn:
-      "AI system that classifies NBA coaches using machine learning. Predictive sports performance analysis.",
-    tags: ["Python", "TypeScript", "Machine Learning"],
-    category: "AI / ML",
-    githubUrl: "https://github.com/p5Patricio/Clasificador_Entrenador-NBA",
-    ogImageUrl: "/proyectos/Patricio/Clasificador Entrenador NBA/banner.webp",
+      'This interactive web application allows you to explore and view flags from different countries around the world. The application consumes an external API (REST Countries API) to obtain up-to-date information about countries, including their flags, capitals, populations, languages, and other relevant characteristics. The main objective of the project is to offer an attractive and dynamic visual experience, where the user can interact with data in real time. It serves as practice for API consumption, DOM manipulation, and modern frontend interface development.',
+    tags: ['HTML5', 'CSS3', 'JavaScript', 'API REST', 'Vercel', 'GitHub'],
+    category: 'Game',
+    githubUrl: 'https://github.com/mariodelgadoh/banderas.git',
+    ogImageUrl: '/proyectos/Mario/Banderas/banderas.jpg',
+    demoUrl: 'https://banderamaestra.vercel.app/',
+    galleryImages: ['/proyectos/Mario/Banderas/banderas.jpg','/proyectos/Mario/Banderas/banderas1.jpg', '/proyectos/Mario/Banderas/banderas2.jpg', '/proyectos/Mario/Banderas/banderas3.jpg',
+      '/proyectos/Mario/Banderas/banderas4.jpg', '/proyectos/Mario/Banderas/banderas5.jpg', '/proyectos/Mario/Banderas/banderas6.jpg', '/proyectos/Mario/Banderas/banderas7.jpg',
+      '/proyectos/Mario/Banderas/banderas8.jpg', '/proyectos/Mario/Banderas/banderas9.jpg', '/proyectos/Mario/Banderas/banderas10.jpg'
+    ],
   },
   {
-    title: "Intérprete LSM",
+    title: 'EcoTracker',
+    titleEs: 'EcoTracker',
+    titleEn: 'EcoTracker',
     descriptionEs:
-      "Intérprete de Lenguaje de Señas Mexicano basado en computer vision. Traducción de señas a texto en tiempo real.",
+      'Aplicación web para calcular y visualizar tu huella de carbono personal. Sugiere acciones de impacto con gamificación para fomentar hábitos sostenibles.',
     descriptionEn:
-      "Mexican Sign Language interpreter based on computer vision. Real-time sign-to-text translation.",
-    tags: ["Python", "Computer Vision", "NLP"],
-    category: "AI / ML",
-    githubUrl: "https://github.com/p5Patricio/Interprete-LSM",
-    ogImageUrl: "/proyectos/Patricio/Intérprete-LSM/banner.webp",
+      'Web app to calculate and visualize your personal carbon footprint. Suggests impactful actions with gamification to build sustainable habits.',
+    tags: ['React', 'Node.js', 'MongoDB'],
+    category: 'Web App',
+    githubUrl: 'https://github.com/p5Patricio/ecotracker',
+    ogImageUrl: '/proyectos/Patricio/EcoTracker/banner.webp',
+    galleryImages: ['/proyectos/Patricio/EcoTracker/banner.webp'],
   },
   {
-    title: "Infinite Tic-Tac-Toe",
+    title: 'Clasificador Entrenador NBA',
+    titleEs: 'Clasificador Entrenador NBA',
+    titleEn: 'NBA Coach Classifier',
     descriptionEs:
-      "Juego de gato infinito con mecánicas innovadoras. Desarrollado con TypeScript para una experiencia interactiva y adictiva.",
+      'Sistema de IA que clasifica entrenadores de la NBA usando machine learning. Análisis predictivo de rendimiento deportivo.',
     descriptionEn:
-      "Infinite tic-tac-toe game with innovative mechanics. Built with TypeScript for an interactive and addictive experience.",
-    tags: ["TypeScript", "JavaScript", "Game"],
-    category: "Game",
-    githubUrl: "https://github.com/p5Patricio/infinite-tic-tac-toe",
-    ogImageUrl: "/proyectos/Patricio/Infinite Tic-Tac-Toe/banner.webp",
+      'AI system that classifies NBA coaches using machine learning. Predictive sports performance analysis.',
+    tags: ['Python', 'TypeScript', 'Machine Learning'],
+    category: 'AI / ML',
+    githubUrl: 'https://github.com/p5Patricio/Clasificador_Entrenador-NBA',
+    ogImageUrl: '/proyectos/Patricio/Clasificador Entrenador NBA/banner.webp',
+    galleryImages: ['/proyectos/Patricio/Clasificador Entrenador NBA/banner.webp'],
   },
   {
-    title: "Art Classifier",
+    title: 'Pokédex Web App',
+    titleEs: 'Pokédex Web App',
+    titleEn: 'Pokédex Web App',
     descriptionEs:
-      "Clasificador de obras de arte usando inteligencia artificial. Identifica estilos, artistas y movimientos artísticos automáticamente.",
+      'Este proyecto es una aplicación web interactiva tipo Pokédex, que permite consultar información detallada de distintos Pokémon de manera dinámica. La aplicación consume datos desde una API externa (PokéAPI) para mostrar información como nombre, imagen, habilidades, tipos y otras características relevantes de cada Pokémon. El objetivo principal del proyecto es demostrar habilidades en desarrollo frontend, manejo de datos asíncronos y diseño de interfaces amigables para el usuario.',
     descriptionEn:
-      "Artwork classifier using artificial intelligence. Automatically identifies styles, artists and art movements.",
-    tags: ["Python", "AI", "Computer Vision"],
-    category: "AI / ML",
-    githubUrl: "https://github.com/p5Patricio/Art_Classifier",
-    ogImageUrl: "/proyectos/Patricio/Art Classifier/banner.webp",
+      'This project is an interactive Pokédex-style web application that allows querying detailed information about different Pokémon dynamically. The application consumes data from an external API (PokéAPI) to display information such as name, image, abilities, types, and other relevant characteristics of each Pokémon. The main objective of the project is to demonstrate skills in frontend development, asynchronous data handling, and user-friendly interface design.',
+    tags: ['HTML5', 'CSS3', 'JavaScript', 'Fetch API', 'PokéAPI', 'Vercel', 'GitHub', 'React'],
+    category: 'Game',
+    githubUrl: 'https://github.com/mariodelgadoh/pokedex.git',
+    ogImageUrl: '/proyectos/Mario/Pokedex/pokedex.jpg',
+    demoUrl: 'https://banderamaestra.vercel.app/',
+    galleryImages: ['/proyectos/Mario/Pokedex/pokedex.jpg', '/proyectos/Mario/Pokedex/pokedex-details.jpg', '/proyectos/Mario/Pokedex/pokedex-end-game.jpg', '/proyectos/Mario/Pokedex/pokedex-generation.jpg',
+      '/proyectos/Mario/Pokedex/pokedex-list.jpg', '/proyectos/Mario/Pokedex/pokedex-main.jpg', '/proyectos/Mario/Pokedex/pokedex-Memory-Game.jpg', '/proyectos/Mario/Pokedex/pokedex-menu-games.jpg',
+      '/proyectos/Mario/Pokedex/pokedex-results.jpg', '/proyectos/Mario/Pokedex/pokedex-search.jpg'
+     ],
+  },
+  {
+    title: 'DevPortfolio CLI',
+    titleEs: 'DevPortfolio CLI',
+    titleEn: 'DevPortfolio CLI',
+    descriptionEs:
+      'Herramienta de línea de comandos para generar portafolios de desarrollador estáticos desde un archivo JSON. Exporta a HTML, PDF y Markdown.',
+    descriptionEn:
+      'Command-line tool to generate static developer portfolios from a JSON config file. Exports to HTML, PDF and Markdown.',
+    tags: ['Node.js', 'TypeScript', 'CLI'],
+    category: 'Web App',
+    githubUrl: 'https://github.com/p5Patricio/devportfolio-cli',
+    ogImageUrl: '/proyectos/Patricio/DevPortfolio CLI/banner.webp',
+    galleryImages: ['/proyectos/Patricio/DevPortfolio CLI/banner.webp'],
+  },
+  {
+    title: 'Intérprete LSM',
+    titleEs: 'Intérprete LSM',
+    titleEn: 'LSM Interpreter',
+    descriptionEs:
+      'Intérprete de Lenguaje de Señas Mexicano basado en computer vision. Traducción de señas a texto en tiempo real.',
+    descriptionEn:
+      'Mexican Sign Language interpreter based on computer vision. Real-time sign-to-text translation.',
+    tags: ['Python', 'Computer Vision', 'NLP'],
+    category: 'AI / ML',
+    githubUrl: 'https://github.com/p5Patricio/Interprete-LSM',
+    ogImageUrl: '/proyectos/Patricio/Intérprete-LSM/banner.webp',
+    galleryImages: ['/proyectos/Patricio/Intérprete-LSM/banner.webp'],
+  },
+  {
+    title: 'ERP Enlaces Terrestres Nacionales (ETN)',
+    titleEs: 'ERP Enlaces Terrestres Nacionales (ETN)',
+    titleEn: 'ERP Enlaces Terrestres Nacionales (ETN)',
+    descriptionEs:
+      'Sistema ERP desarrollado para la empresa de transporte Enlaces Terrestres Nacionales (ETN) que integra y gestiona eficientemente las operaciones internas a través de siete departamentos principales: Recursos Humanos, Finanzas, Inventarios, Compras, Proveedores, Ventas y Logística. El sistema cuenta con un usuario Admin con acceso total, así como usuarios generales y responsables para cada área.',
+    descriptionEn:
+      'ERP system developed for the transportation company Enlaces Terrestres Nacionales (ETN) that integrates and efficiently manages internal operations through seven main departments: Human Resources, Finance, Inventory, Purchasing, Suppliers, Sales, and Logistics. The system has an Admin user with full access, as well as general users and managers for each area.',
+    tags: ['Python', 'Tkinter', 'SQLite', 'Matplotlib', 'Hashlib'],
+    category: 'ERP',
+    githubUrl: 'https://github.com/mariodelgadoh/erp-etn-mario-delgado.git',
+    ogImageUrl: '/proyectos/Mario/ERP-ETN/etn.jpg',
+    galleryImages: ['/proyectos/Mario/ERP-ETN/etn.jpg', '/proyectos/Mario/ERP-ETN/admin.png', '/proyectos/Mario/ERP-ETN/compras.png', '/proyectos/Mario/ERP-ETN/erp-login.png',
+      '/proyectos/Mario/ERP-ETN/finanzas.png', '/proyectos/Mario/ERP-ETN/inventario.png', '/proyectos/Mario/ERP-ETN/logistica.png', '/proyectos/Mario/ERP-ETN/proveedores.png',
+      '/proyectos/Mario/ERP-ETN/rh.png', '/proyectos/Mario/ERP-ETN/venta.png', '/proyectos/Mario/ERP-ETN/reporte.png'
+    ],
+  },
+    {
+    title: 'DevPortfolio CLI',
+    titleEs: 'DevPortfolio CLI',
+    titleEn: 'DevPortfolio CLI',
+    descriptionEs:
+      'Herramienta de línea de comandos para generar portafolios de desarrollador estáticos desde un archivo JSON. Exporta a HTML, PDF y Markdown.',
+    descriptionEn:
+      'Command-line tool to generate static developer portfolios from a JSON config file. Exports to HTML, PDF and Markdown.',
+    tags: ['Node.js', 'TypeScript', 'CLI'],
+    category: 'Web App',
+    githubUrl: 'https://github.com/p5Patricio/devportfolio-cli',
+    ogImageUrl: '/proyectos/Patricio/DevPortfolio CLI/banner.webp',
+    galleryImages: ['/proyectos/Patricio/DevPortfolio CLI/banner.webp'],
+  },
+  {
+    title: 'Infinite Tic-Tac-Toe',
+    titleEs: 'Gato Infinito',
+    titleEn: 'Infinite Tic-Tac-Toe',
+    descriptionEs:
+      'Juego de gato infinito con mecánicas innovadoras. Desarrollado con TypeScript para una experiencia interactiva y adictiva.',
+    descriptionEn:
+      'Infinite tic-tac-toe game with innovative mechanics. Built with TypeScript for an interactive and addictive experience.',
+    tags: ['TypeScript', 'JavaScript', 'Game'],
+    category: 'Game',
+    githubUrl: 'https://github.com/p5Patricio/infinite-tic-tac-toe',
+    ogImageUrl: '/proyectos/Patricio/Infinite Tic-Tac-Toe/banner.webp',
+    galleryImages: ['/proyectos/Patricio/Infinite Tic-Tac-Toe/banner.webp'],
+  },
+  {
+    title: 'Simulador de Órbitas Planetarias',
+    titleEs: 'Simulador de Órbitas Planetarias',
+    titleEn: 'Planetary Orbits Simulator',
+    descriptionEs:
+      'Programa de Simulación de Órbitas Planetarias y Cálculo del Error Cuadrático Medio. En el ámbito de la astronomía y la exploración espacial, la comprensión precisa de las órbitas planetarias es crucial para diversas aplicaciones, que van desde la investigación científica hasta el diseño de misiones espaciales. Este proyecto se enfoca en el desarrollo de un programa, accesible a través de una página web, que permite simular las órbitas planetarias dentro del sistema solar. La evaluación de la exactitud de las simulaciones se realiza mediante el uso del error cuadrático medio (ECM). El programa emplea métodos numéricos avanzados, como el método de Newton-Raphson, para el cálculo de la anomalía excéntrica y la minimización del error cuadrático.',
+    descriptionEn:
+      'Planetary Orbits Simulation Program and Mean Squared Error Calculation. In the field of astronomy and space exploration, precise understanding of planetary orbits is crucial for various applications, ranging from scientific research to space mission design. This project focuses on developing a program, accessible through a web page, that allows simulating planetary orbits within the solar system. The accuracy of the simulations is evaluated using the mean squared error (MSE). The program employs advanced numerical methods, such as the Newton-Raphson method, for calculating eccentric anomaly and minimizing quadratic error.',
+    tags: ['JavaScript', 'HTML5', 'CSS3', 'Metodos Numéricos', 'Newton-Raphson', 'GitHub'],
+    category: 'Web App',
+    githubUrl: 'https://github.com/mariodelgadoh/orbitasplanetarias.git',
+    ogImageUrl: '/proyectos/Mario/Orbitas/sistemasolar.jpg',
+    galleryImages: ['/proyectos/Mario/Orbitas/sistemasolar.jpg', '/proyectos/Mario/Orbitas/orbitas-inicio.png', '/proyectos/Mario/Orbitas/orbitas-anomalia.png', '/proyectos/Mario/Orbitas/orbitas-excentricidad.png',
+      '/proyectos/Mario/Orbitas/orbitas-info.png', '/proyectos/Mario/Orbitas/orbitas-operaciones.png', '/proyectos/Mario/Orbitas/orbitas-planetas.png', '/proyectos/Mario/Orbitas/orbitas-resultados.png',
+      '/proyectos/Mario/Orbitas/orbitas-sistemasolar.png', '/proyectos/Mario/Orbitas/orbitas-tabla.png', '/proyectos/Mario/Orbitas/orbitas-visualizacion.png'
+    ],
+  },
+  {
+    title: 'DevPortfolio CLI',
+    titleEs: 'DevPortfolio CLI',
+    titleEn: 'DevPortfolio CLI',
+    descriptionEs:
+      'Herramienta de línea de comandos para generar portafolios de desarrollador estáticos desde un archivo JSON. Exporta a HTML, PDF y Markdown.',
+    descriptionEn:
+      'Command-line tool to generate static developer portfolios from a JSON config file. Exports to HTML, PDF and Markdown.',
+    tags: ['Node.js', 'TypeScript', 'CLI'],
+    category: 'Web App',
+    githubUrl: 'https://github.com/p5Patricio/devportfolio-cli',
+    ogImageUrl: '/proyectos/Patricio/DevPortfolio CLI/banner.webp',
+    galleryImages: ['/proyectos/Patricio/DevPortfolio CLI/banner.webp'],
+  },
+  {
+    title: 'Art Classifier',
+    titleEs: 'Clasificador de Arte',
+    titleEn: 'Art Classifier',
+    descriptionEs:
+      'Clasificador de obras de arte usando inteligencia artificial. Identifica estilos, artistas y movimientos artísticos automáticamente.',
+    descriptionEn:
+      'Artwork classifier using artificial intelligence. Automatically identifies styles, artists and art movements.',
+    tags: ['Python', 'AI', 'Computer Vision'],
+    category: 'AI / ML',
+    githubUrl: 'https://github.com/p5Patricio/Art_Classifier',
+    ogImageUrl: '/proyectos/Patricio/Art Classifier/banner.webp',
+    galleryImages: ['/proyectos/Patricio/Art Classifier/banner.webp'],
+  },
+  {
+    title: 'Fitodex',
+    titleEs: 'Fitodex',
+    titleEn: 'Fitodex',
+    descriptionEs:
+      'Conoce más sobre Fitodex, nuestra misión y visión. Somos una empresa agrícola dedicada a la producción y venta de cultivos, insecticidas y otros productos relacionados. Nuestra misión es ofrecer soluciones efectivas y sostenibles para el manejo de plagas y la mejora de los cultivos, garantizando la calidad y eficacia de nuestros productos. Nuestra visión es ser líderes en el sector agrícola, proporcionando innovaciones que promuevan prácticas agrícolas responsables y sostenibles, contribuyendo al crecimiento y éxito de nuestros clientes.' +
+      ' Fitodex ha sido desarrollada para facilitar el acceso a información técnica sobre pesticidas y fertilizantes, dirigida a productores agrícolas, técnicos y profesionales del sector agropecuario. Su función principal es permitir una búsqueda ágil y precisa de productos mediante el nombre comercial o el ingrediente activo, brindando apoyo en la toma de decisiones relacionadas con el manejo fitosanitario de los cultivos.',
+    descriptionEn:
+      'Learn more about Fitodex, our mission and vision. We are an agricultural company dedicated to the production and sale of crops, insecticides and other related products. Our mission is to offer effective and sustainable solutions for pest management and crop improvement, guaranteeing the quality and effectiveness of our products. Our vision is to be leaders in the agricultural sector, providing innovations that promote responsible and sustainable agricultural practices, contributing to the growth and success of our clients.' +
+      ' At Fitodex, we are committed to excellence in agricultural solutions, combining science, technology and sustainability to meet the needs of our customers and contribute to a more productive and environmentally friendly agriculture.',
+    tags: ['Vue.js', 'JavaScript', 'Node.js', 'MongoDB', 'Docker', 'HTML5', 'CSS3', 'GitHub'],
+    category: 'Web App',
+    githubUrl: 'https://github.com/mariodelgadoh/frontend-fitodex.git',
+    ogImageUrl: '/proyectos/Mario/Fitodex/fito.png',
+    demoUrl: 'https://frontend-fitodex.fly.dev/',
+    galleryImages: ['/proyectos/Mario/Fitodex/fito.png', '/proyectos/Mario/Fitodex/inicio.png', '/proyectos/Mario/Fitodex/cultivos.png', '/proyectos/Mario/Fitodex/insecticidas.png',
+      '/proyectos/Mario/Fitodex/ug.png', '/proyectos/Mario/Fitodex/busqueda.png', '/proyectos/Mario/Fitodex/detalles.png', '/proyectos/Mario/Fitodex/ubicacion.png',
+      '/proyectos/Mario/Fitodex/editar.png', '/proyectos/Mario/Fitodex/usuarios.png', '/proyectos/Mario/Fitodex/login.png'
+     ],
+    backendUrl: 'https://github.com/mariodelgadoh/backend-fitodex',
   },
 ];

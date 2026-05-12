@@ -153,77 +153,12 @@
     "view_code": "Ver código",
     "view_detail": "Ver detalle",
     "view_all": "Galería completa de proyectos",
+    "gallery": "Galería",
     "gallery_label": "Portafolio completo",
     "gallery_title": "Todos los proyectos",
     "filter_all": "Todos",
     "back": "Volver al sitio",
-    "items": [
-      {
-        "title": "Proyecto Alpha",
-        "description": "Aplicación web fullstack con dashboard de analítica en tiempo real y autenticación avanzada.",
-        "tags": ["React", "Node.js", "PostgreSQL"]
-      },
-      {
-        "title": "Proyecto Beta",
-        "description": "E-commerce con integración de pagos, panel de administración y sistema de inventario automatizado.",
-        "tags": ["Next.js", "Stripe", "MongoDB"]
-      },
-      {
-        "title": "Proyecto Gamma",
-        "description": "Plataforma SaaS B2B con arquitectura de microservicios y API REST documentada.",
-        "tags": ["TypeScript", "Docker", "AWS"]
-      }
-    ],
-    "all_items": [
-      {
-        "title": "Proyecto Alpha",
-        "description": "Aplicación web fullstack con dashboard de analítica en tiempo real y autenticación avanzada.",
-        "tags": ["React", "Node.js", "PostgreSQL"],
-        "category": "Web App"
-      },
-      {
-        "title": "Proyecto Beta",
-        "description": "E-commerce con integración de pagos, panel de administración y sistema de inventario automatizado.",
-        "tags": ["Next.js", "Stripe", "MongoDB"],
-        "category": "E-commerce"
-      },
-      {
-        "title": "Proyecto Gamma",
-        "description": "Plataforma SaaS B2B con arquitectura de microservicios y API REST documentada.",
-        "tags": ["TypeScript", "Docker", "AWS"],
-        "category": "SaaS"
-      },
-      {
-        "title": "Proyecto Delta",
-        "description": "Herramienta de colaboración en tiempo real con soporte WebSocket y edición de texto enriquecido.",
-        "tags": ["React", "Socket.io", "Redis"],
-        "category": "Web App"
-      },
-      {
-        "title": "Proyecto Epsilon",
-        "description": "PWA mobile-first para gestión de servicios en campo con soporte offline.",
-        "tags": ["PWA", "IndexedDB", "Node.js"],
-        "category": "Mobile"
-      },
-      {
-        "title": "Proyecto Zeta",
-        "description": "Dashboard interno de RRHH con acceso por roles, reportes y exportación a PDF.",
-        "tags": ["Vue.js", "Express", "MySQL"],
-        "category": "SaaS"
-      },
-      {
-        "title": "Proyecto Eta",
-        "description": "Plataforma de facturación multi-tenant integrada con Stripe y automatización de cobros.",
-        "tags": ["Next.js", "Stripe", "PostgreSQL"],
-        "category": "E-commerce"
-      },
-      {
-        "title": "Proyecto Theta",
-        "description": "Sitio de marketing headless CMS con edge caching y puntuación 99 en Lighthouse.",
-        "tags": ["Astro", "Sanity", "Cloudflare"],
-        "category": "Web App"
-      }
-    ]
+    "single_image": "Solo una imagen disponible"
   },
   "team": {
     "label": "Los que hacen magia",
