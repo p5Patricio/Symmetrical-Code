@@ -27,114 +27,114 @@
     "follow_us": "Follow us"
   },
   "services": {
-    "label": "What we do",
-    "title": "Services",
-    "subtitle": "End-to-end digital solutions crafted for performance, scalability, and lasting impact.",
-    "learn_more": "Learn more",
-    "modal_includes": "What's included",
-    "modal_highlights": "Key highlights",
-    "modal_cta": "Start a project",
+    "label": "Our Solutions",
+    "title": "Empowering Your Business",
+    "subtitle": "We build technology with a clear purpose: to grow your company and simplify your life.",
+    "learn_more": "View more details",
+    "modal_includes": "What you'll get",
+    "modal_highlights": "Why choose us",
+    "modal_cta": "Tell us about your project",
     "items": [
       {
-        "title": "Web Development",
-        "description": "Custom web applications built with modern frameworks and clean architecture that scale with your business.",
-        "longDescription": "We design and build high-performance web applications from scratch. Our approach combines cutting-edge technology with clean, maintainable architecture. Whether you need a landing page, a complex SaaS platform, or anything in between, we deliver solutions that are fast, accessible, and built to last. Every line of code is written with scalability and long-term maintainability in mind.",
+        "title": "Pages & Apps that Sell",
+        "description": "Your online presence with professional design, incredible speed, and optimized to convert visitors into customers.",
+        "longDescription": "We design and build websites that don't just look good — they work for you. We focus on user experience and performance so your customers find what they need fast and without friction. From landing pages to online stores, we create your window to the digital world.",
         "highlights": [
-          "Custom architecture tailored to your needs",
-          "Mobile-first, responsive design",
-          "Performance scores above 90 on all Core Web Vitals",
-          "Accessibility-compliant (WCAG 2.1)"
+          "Modern design that builds trust",
+          "Fast loading on any device",
+          "Easy for your customers to use",
+          "Ready to rank on Google (SEO)"
         ],
         "bullets": [
-          "React, Next.js & TypeScript",
-          "RESTful & GraphQL APIs",
-          "Performance optimization",
-          "Responsive & accessible UI"
+          "Professional Design",
+          "Optimized Speed",
+          "Mobile-Friendly",
+          "Easy to Manage"
         ]
       },
       {
-        "title": "Backend & APIs",
-        "description": "Robust server-side systems, databases, and integrations designed for reliability and high throughput.",
-        "longDescription": "We build the backbone of your application — reliable, secure, and scalable server-side systems. From simple REST APIs to complex distributed architectures, we design solutions that handle real-world load and integrate seamlessly with third-party services. Our backends are documented, monitored, and built with failure in mind so your product stays online.",
+        "title": "Intelligent Systems",
+        "description": "We automate your processes and connect your tools so you can focus on what really matters.",
+        "longDescription": "We create the brain of your operation. We connect your databases, payment tools, and third-party systems into a robust and secure platform. If you have a repetitive task, we automate it. If you have scattered data, we organize it.",
         "highlights": [
-          "Designed for high availability and zero downtime",
-          "Full API documentation with OpenAPI / Swagger",
-          "Database schema design and optimization",
-          "Rate limiting, caching, and security hardening"
+          "Automation of manual tasks",
+          "Connection with payments and social media",
+          "Secure handling of your information",
+          "Systems that grow with your business"
         ],
         "bullets": [
-          "Node.js & Python services",
-          "SQL & NoSQL databases",
-          "Third-party integrations",
-          "Authentication & security"
+          "Process Automation",
+          "Payment Integration",
+          "Secure Databases",
+          "Scalable Systems"
         ]
       },
       {
-        "title": "Cloud & DevOps",
-        "description": "CI/CD pipelines, containerization, and cloud infrastructure to ship faster with confidence.",
-        "longDescription": "We set up the infrastructure that lets your team move fast and deploy safely. Automated pipelines, container orchestration, and cloud-native architecture mean fewer fire drills and more time building features. We make cloud infrastructure approachable and manageable, no matter the size of your team.",
+        "title": "Your Business Always Online",
+        "description": "Cloud infrastructure so your page never goes down and supports thousands of visits smoothly.",
+        "longDescription": "We take care of all the technical complexity behind the scenes. We set up cloud servers that automatically adjust to the number of people visiting you, ensuring your investment is efficient and your site is always available.",
         "highlights": [
-          "Infrastructure as Code (Terraform / CDK)",
-          "Zero-downtime deployments",
-          "Auto-scaling and cost optimization",
-          "Full observability: logs, metrics, and alerts"
+          "99.9% uptime guaranteed",
+          "Cloud cost optimization",
+          "Security against attacks",
+          "Automatic updates"
         ],
         "bullets": [
-          "AWS, GCP & Azure",
-          "Docker & Kubernetes",
-          "CI/CD automation",
-          "Monitoring & alerting"
+          "Cloud Infrastructure",
+          "Advanced Security",
+          "Total Scalability",
+          "Continuous Support"
         ]
       },
       {
-        "title": "Security & Compliance",
-        "description": "Code reviews, penetration testing, and best practices to keep your systems and data protected.",
-        "longDescription": "Security is not an afterthought — it's woven into everything we build. We conduct thorough security audits, implement encryption and secure authentication, and help you align with industry standards and compliance requirements. Whether you're preparing for a launch or need a full security review of an existing system, we've got you covered.",
+        "title": "Protection & Trust",
+        "description": "Bank-level security to protect your data and your customers' privacy at all times.",
+        "longDescription": "Security is not optional. We protect your intellectual property and your users' sensitive data following the highest industry standards. We conduct constant audits to ensure your business is a safe place to transact.",
         "highlights": [
-          "OWASP Top 10 vulnerability assessment",
-          "Secure authentication flows (OAuth 2.0, MFA)",
-          "End-to-end data encryption",
-          "GDPR and compliance advisory"
+          "Encryption of sensitive data",
+          "Protection against hackers",
+          "Compliance with privacy laws",
+          "Regular security audits"
         ],
         "bullets": [
-          "Security audits",
-          "OWASP best practices",
-          "Data encryption",
-          "Compliance consulting"
+          "Data Shielding",
+          "Attack Prevention",
+          "Guaranteed Privacy",
+          "Expert Consulting"
         ]
       },
       {
-        "title": "UI / UX Design",
-        "description": "User-centered interfaces with thoughtful design systems that delight and convert.",
-        "longDescription": "Great software deserves great design. We create interfaces that are intuitive, beautiful, and intentional — from initial wireframes to polished design systems. We balance aesthetics with usability, ensuring every interaction feels effortless. Our design process is collaborative, iterative, and always focused on the end user.",
+        "title": "Amazing Experiences",
+        "description": "We design interfaces your customers will love using, focused on ease and elegance.",
+        "longDescription": "Good design is invisible: it just works. We create intuitive digital experiences that guide your users toward the action you want. From the first sketch to the final product, every detail is thought out to delight those who use it.",
         "highlights": [
-          "Research-driven UX with real user flows",
-          "Scalable design systems and component libraries",
-          "Interactive Figma prototypes before a line of code",
-          "Motion design and micro-interaction specification"
+          "Easy to navigate interfaces",
+          "Prototypes so you see before building",
+          "Design reflecting your brand",
+          "Tests with real users"
         ],
         "bullets": [
-          "Design systems & tokens",
-          "Figma prototyping",
-          "Accessibility (WCAG)",
-          "Motion & micro-interactions"
+          "Intuitive Design",
+          "Visual Prototyping",
+          "Brand Image",
+          "User Focus"
         ]
       },
       {
-        "title": "Analytics & Optimization",
-        "description": "Data-driven insights and performance tuning to grow and improve your digital product.",
-        "longDescription": "We help you understand how your product is performing and where to improve it. From custom analytics dashboards to SEO audits and A/B testing, we give you the data you need to make confident decisions. We also tune your application's performance so it loads faster, ranks higher, and converts more visitors into customers.",
+        "title": "Measurable Results",
+        "description": "We give you the tools to understand your customers and improve your sales based on real data.",
+        "longDescription": "What isn't measured can't be improved. We help you install and understand control dashboards that show you exactly what's happening in your digital business. This way you can invest with confidence where you actually get results.",
         "highlights": [
-          "Custom event tracking and funnel analysis",
-          "SEO audit and structured data implementation",
-          "A/B and multivariate testing setup",
-          "Core Web Vitals improvement plan"
+          "Easy to understand reports",
+          "Sales and conversion tracking",
+          "Continuous result improvement",
+          "Customer behavior analysis"
         ],
         "bullets": [
-          "Custom dashboards",
-          "SEO optimization",
-          "A/B testing",
-          "Core Web Vitals"
+          "Clear Dashboards",
+          "Sales Optimization",
+          "Monthly Reports",
+          "Data Strategy"
         ]
       }
     ]

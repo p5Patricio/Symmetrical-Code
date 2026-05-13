@@ -90,6 +90,15 @@ const serviceIconsLarge: Record<number, JSX.Element> = {
   ),
 };
 
+const serviceColors: Record<number, string> = {
+  0: 'var(--svc-web)',
+  1: 'var(--svc-systems)',
+  2: 'var(--svc-cloud)',
+  3: 'var(--svc-security)',
+  4: 'var(--svc-uiux)',
+  5: 'var(--svc-analytics)',
+};
+
 type ServiceItem = {
   title: string;
   description: string;
@@ -126,45 +135,41 @@ const ServiceModal = ({
         className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto"
         style={{
           background: 'linear-gradient(135deg, #070e1c 0%, #040810 100%)',
-          border: '1px solid rgba(0,229,255,0.18)',
-          boxShadow: '0 0 100px rgba(0,229,255,0.06), 0 40px 80px rgba(0,0,0,0.7)',
+          border: '1px solid rgba(255,255,255,0.1)',
+          boxShadow: '0 0 100px rgba(0,0,0,0.8), 0 40px 80px rgba(0,0,0,0.7)',
         }}
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header hero */}
-        <div className="relative w-full px-8 pt-10 pb-8 overflow-hidden"
-          style={{ background: 'linear-gradient(135deg, rgba(0,229,255,0.05) 0%, transparent 60%)' }}>
-          {/* Corner decorations */}
-          <div className="absolute top-4 left-4 w-5 h-5 border-t border-l opacity-40" style={{ borderColor: '#00e5ff' }} />
-          <div className="absolute top-4 right-14 w-5 h-5 border-t border-r opacity-40" style={{ borderColor: '#00e5ff' }} />
-          <div className="absolute bottom-4 left-4 w-5 h-5 border-b border-l opacity-20" style={{ borderColor: '#00e5ff' }} />
-
+        <div className="relative w-full px-8 pt-12 pb-8 overflow-hidden"
+          style={{ background: `linear-gradient(135deg, ${serviceColors[index]}15 0%, transparent 60%)` }}>
+          
           {/* Big number watermark */}
-          <span className="absolute top-4 right-16 font-syne font-black text-8xl opacity-5 text-[#00e5ff] select-none pointer-events-none leading-none">
+          <span className="absolute top-4 right-16 font-syne font-black text-8xl opacity-5 text-white select-none pointer-events-none leading-none">
             {String(index + 1).padStart(2, '0')}
           </span>
 
           {/* Close button */}
           <button onClick={onClose}
-            className="absolute top-4 right-4 z-20 p-2 transition-colors text-white/50 hover:text-[#00e5ff]"
-            style={{ background: 'rgba(2,4,8,0.75)', border: '1px solid rgba(0,229,255,0.2)' }}>
+            className="absolute top-6 right-6 z-20 p-2 transition-all text-white/30 hover:text-white hover:scale-110"
+            style={{ background: 'rgba(255,255,255,0.05)', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.1)' }}>
             <CloseIcon />
           </button>
 
           {/* Icon + title */}
-          <div className="flex items-start gap-6">
-            <div className="w-16 h-16 flex items-center justify-center border border-[rgba(0,229,255,0.3)] text-[#00e5ff] shrink-0"
+          <div className="flex items-start gap-8">
+            <div className="w-20 h-20 flex items-center justify-center border border-white/10 text-white rounded-2xl shrink-0"
               style={{
-                background: 'rgba(0,229,255,0.06)',
-                clipPath: 'polygon(10% 0%, 100% 0%, 90% 100%, 0% 100%)',
+                background: 'rgba(255,255,255,0.03)',
+                boxShadow: `0 10px 30px ${serviceColors[index]}20`
               }}>
               {serviceIconsLarge[index]}
             </div>
-            <div>
-              <span className="font-mono text-[10px] text-[#00e5ff]/40 tracking-widest">
-                _{String(index + 1).padStart(2, '0')}
+            <div className="pt-2">
+              <span className="font-mono text-[10px] text-white/30 tracking-[0.3em] uppercase block mb-2">
+                Service Catalog
               </span>
-              <h3 className="font-syne font-black text-2xl md:text-3xl text-white mt-1">
+              <h3 className="font-syne font-black text-3xl md:text-4xl text-white tracking-tight">
                 {service.title}
               </h3>
             </div>
@@ -172,24 +177,24 @@ const ServiceModal = ({
         </div>
 
         {/* Body */}
-        <div className="px-8 pb-8 flex flex-col gap-6">
+        <div className="px-8 pb-10 flex flex-col gap-8">
           {/* Long description */}
-          <p className="text-white/55 text-sm leading-relaxed" style={{ borderTop: '1px solid rgba(0,229,255,0.08)', paddingTop: '1.5rem' }}>
+          <p className="text-white/60 text-lg leading-relaxed font-medium" style={{ borderTop: '1px solid rgba(255,255,255,0.05)', paddingTop: '2rem' }}>
             {service.longDescription || service.description}
           </p>
 
           {/* Highlights (if available) */}
           {service.highlights && service.highlights.length > 0 && (
-            <div className="flex flex-col gap-3">
-              <span className="font-mono text-[10px] tracking-widest text-[#00e5ff]/50 uppercase">
+            <div className="flex flex-col gap-4">
+              <span className="font-mono text-[10px] tracking-widest text-white/30 uppercase font-bold">
                 {t('services.modal_highlights')}
               </span>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                {service.highlights.map((highlight, i) => (
-                  <div key={i} className="flex items-start gap-3 p-3"
-                    style={{ background: 'rgba(0,229,255,0.03)', border: '1px solid rgba(0,229,255,0.08)' }}>
-                    <span className="text-[#00e5ff]/60 mt-0.5 shrink-0">◆</span>
-                    <span className="text-white/60 text-xs leading-relaxed">{highlight}</span>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {service.highlights.map((highlight, i: number) => (
+                  <div key={i} className="flex items-start gap-4 p-5 rounded-2xl"
+                    style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.05)' }}>
+                    <div className="w-1.5 h-1.5 rounded-full mt-2 shrink-0" style={{ background: serviceColors[index] }} />
+                    <span className="text-white/70 text-sm leading-relaxed">{highlight}</span>
                   </div>
                 ))}
               </div>
@@ -197,14 +202,14 @@ const ServiceModal = ({
           )}
 
           {/* Bullets */}
-          <div className="flex flex-col gap-3" style={{ borderTop: '1px solid rgba(0,229,255,0.08)', paddingTop: '1.5rem' }}>
-            <span className="font-mono text-[10px] tracking-widest text-[#00e5ff]/50 uppercase">
+          <div className="flex flex-col gap-4" style={{ borderTop: '1px solid rgba(255,255,255,0.05)', paddingTop: '2rem' }}>
+            <span className="font-mono text-[10px] tracking-widest text-white/30 uppercase font-bold">
               {t('services.modal_includes')}
             </span>
-            <ul className="flex flex-col gap-2">
+            <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-3">
               {service.bullets.map((bullet, j) => (
-                <li key={j} className="flex items-start gap-3 font-mono text-xs text-white/45">
-                  <span className="mt-0.5 text-[#00e5ff]/60 shrink-0">▸</span>
+                <li key={j} className="flex items-center gap-3 text-sm text-white/50">
+                  <span className="text-white/20">▸</span>
                   {bullet}
                 </li>
               ))}
@@ -212,11 +217,11 @@ const ServiceModal = ({
           </div>
 
           {/* CTA */}
-          <div className="pt-4" style={{ borderTop: '1px solid rgba(0,229,255,0.08)' }}>
+          <div className="pt-6" style={{ borderTop: '1px solid rgba(255,255,255,0.05)' }}>
             <a
               href="#contact"
               onClick={onClose}
-              className="btn-primary inline-flex items-center gap-2 font-mono text-xs tracking-widest uppercase px-6 py-3"
+              className="btn-primary inline-flex items-center justify-center gap-3 font-bold text-sm tracking-widest uppercase px-10 py-5 rounded-xl w-full sm:w-auto"
               style={{ textDecoration: 'none' }}
             >
               {t('services.modal_cta')} <ArrowRightIcon />
@@ -237,79 +242,81 @@ export default function Services() {
 
   return (
     <>
-      <section id="services" className="relative py-32 overflow-hidden">
-        {/* Left glow accent */}
-        <div
-          className="absolute top-0 left-0 w-1/3 h-full opacity-5 pointer-events-none"
-          style={{ background: 'linear-gradient(to right, #1565ff, transparent)' }}
-        />
+      <section id="services" className="relative py-32 overflow-hidden bg-[#020408]">
+        {/* Decorative elements */}
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-600/5 blur-[120px] rounded-full -mr-64 -mt-64 pointer-events-none" />
+        <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-cyan-600/5 blur-[120px] rounded-full -ml-64 -mb-64 pointer-events-none" />
 
         {/* Subtle grid lines */}
-        <div className="absolute inset-0 pointer-events-none opacity-[0.03]"
+        <div className="absolute inset-0 pointer-events-none opacity-[0.02]"
           style={{
             backgroundImage: 'linear-gradient(rgba(0,229,255,1) 1px, transparent 1px), linear-gradient(90deg, rgba(0,229,255,1) 1px, transparent 1px)',
-            backgroundSize: '80px 80px',
+            backgroundSize: '100px 100px',
           }}
         />
 
-        <div className="max-w-7xl mx-auto px-6">
+        <div className="max-w-7xl mx-auto px-6 relative z-10">
           {/* Section header */}
           <div className="mb-20">
-            <div className="flex items-center gap-3 mb-4">
-              <span className="section-label">{t('services.label')}</span>
-              <span className="flex-1 h-px bg-[rgba(0,229,255,0.1)]" />
+            <div className="flex items-center gap-3 mb-6">
+              <span className="section-label text-[#00e5ff] tracking-[0.4em]">{t('services.label')}</span>
+              <div className="h-px flex-1 bg-gradient-to-right from-[#00e5ff]/20 to-transparent" />
             </div>
-            <div className="flex flex-col md:flex-row md:items-end gap-6 justify-between">
-              <h2 className="font-syne font-black text-5xl md:text-6xl text-white">
+            <div className="flex flex-col md:flex-row md:items-end gap-8 justify-between">
+              <h2 className="font-syne font-black text-5xl md:text-7xl text-white leading-[1.1]">
                 {t('services.title')}
               </h2>
-              <p className="text-white/40 text-sm max-w-xs leading-relaxed md:text-right">
+              <p className="text-white/50 text-lg max-w-md leading-relaxed md:text-right font-medium">
                 {t('services.subtitle')}
               </p>
             </div>
           </div>
 
           {/* Services grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {items.map((service, i) => (
               <article
                 key={i}
-                className="glass-card p-8 flex flex-col gap-5 group relative overflow-hidden"
+                className="glass-card-enhanced p-10 flex flex-col gap-6 group"
               >
-                {/* Corner accent */}
-                <div className="absolute top-0 right-0 w-16 h-16 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
-                  style={{
-                    background: 'linear-gradient(225deg, rgba(0,229,255,0.12) 0%, transparent 70%)',
-                  }}
+                {/* Glowing Orb Background */}
+                <div 
+                  className="glowing-orb -top-10 -right-10" 
+                  style={{ background: serviceColors[i] }}
                 />
 
                 {/* Index + icon row */}
-                <div className="flex items-center justify-between">
-                  <span className="font-mono text-xs text-[#00e5ff]/25 tracking-widest">
-                    _{String(i + 1).padStart(2, '0')}
+                <div className="flex items-center justify-between relative z-10">
+                  <span className="font-mono text-sm text-white/10 group-hover:text-white/20 transition-colors tracking-tighter">
+                    {String(i + 1).padStart(2, '0')}
                   </span>
-                  <div className="w-11 h-11 flex items-center justify-center border border-[rgba(0,229,255,0.2)] text-[#00e5ff]/60 group-hover:text-[#00e5ff] group-hover:border-[#00e5ff]/50 transition-all duration-300"
-                    style={{ clipPath: 'polygon(10% 0%, 100% 0%, 90% 100%, 0% 100%)' }}
+                  <div className="w-14 h-14 flex items-center justify-center border border-white/5 bg-white/[0.02] text-white/40 group-hover:text-white group-hover:border-white/20 transition-all duration-500 rounded-2xl rotate-3 group-hover:rotate-0"
+                    style={{ 
+                      boxShadow: 'inset 0 0 20px rgba(255,255,255,0.02)',
+                      borderColor: `rgba(${serviceColors[i] === 'var(--svc-web)' ? '0,229,255' : '21,101,255'}, 0.1)`
+                    }}
                   >
-                    {serviceIcons[i]}
+                    <div className="transition-transform duration-500 group-hover:scale-110">
+                      {serviceIcons[i]}
+                    </div>
                   </div>
                 </div>
 
-                {/* Title */}
-                <h3 className="font-syne font-bold text-xl text-white group-hover:text-[#00e5ff] transition-colors duration-300">
-                  {service.title}
-                </h3>
-
-                {/* Description */}
-                <p className="text-white/40 text-sm leading-relaxed flex-1">
-                  {service.description}
-                </p>
+                {/* Content */}
+                <div className="relative z-10 flex flex-col gap-4">
+                  <h3 className="font-syne font-extrabold text-2xl text-white group-hover:text-white transition-colors duration-300">
+                    {service.title}
+                  </h3>
+                  <p className="text-white/40 group-hover:text-white/60 text-base leading-relaxed transition-colors duration-300">
+                    {service.description}
+                  </p>
+                </div>
 
                 {/* Bullet list */}
-                <ul className="flex flex-col gap-2 pt-4 border-t border-[rgba(0,229,255,0.06)]">
-                  {service.bullets.map((bullet, j) => (
-                    <li key={j} className="flex items-start gap-2 font-mono text-[11px] text-white/35">
-                      <span className="mt-0.5 text-[#00e5ff]/50 shrink-0">▸</span>
+                <ul className="flex flex-col gap-3 pt-6 border-t border-white/5 relative z-10">
+                  {service.bullets.slice(0, 4).map((bullet, j) => (
+                    <li key={j} className="flex items-center gap-3 text-sm text-white/30 group-hover:text-white/50 transition-colors">
+                      <div className="w-1.5 h-1.5 rounded-full" style={{ background: serviceColors[i], opacity: 0.4 }} />
                       {bullet}
                     </li>
                   ))}
@@ -318,12 +325,14 @@ export default function Services() {
                 {/* Learn More button */}
                 <button
                   onClick={() => setSelectedService({ service, index: i })}
-                  className="mt-2 flex items-center gap-2 font-mono text-[11px] tracking-widest uppercase text-[#00e5ff]/50 hover:text-[#00e5ff] transition-all duration-200 group/btn self-start"
+                  className="mt-4 flex items-center gap-3 font-bold text-xs tracking-widest uppercase text-white/40 hover:text-white transition-all duration-300 group/btn self-start relative z-10"
                 >
-                  <span className="border-b border-[#00e5ff]/20 group-hover/btn:border-[#00e5ff]/60 transition-colors pb-px">
+                  <span className="border-b-2 border-transparent group-hover/btn:border-current transition-all pb-1">
                     {t('services.learn_more')}
                   </span>
-                  <ArrowRightIcon />
+                  <div className="group-hover/btn:translate-x-1 transition-transform">
+                    <ArrowRightIcon />
+                  </div>
                 </button>
               </article>
             ))}
