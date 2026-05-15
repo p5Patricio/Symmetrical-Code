@@ -1,0 +1,51 @@
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 100;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2rem;
+  height: 60px;
+
+  background-color: #0a0a0a;
+  border-bottom: 1px solid #1e3a2f;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.4);
+}
+
+/* Nombre / logo */
+.navbar__brand span {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #4fc3a1;        /* verde suave */
+  letter-spacing: 0.05em;
+}
+
+/* Lista sin estilos de lista */
+.navbar__links {
+  list-style: none;
+  display: flex;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0;
+}
+
+/* Botones de navegación */
+.navbar__btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 0.95rem;
+  color: #a0c4ff;        /* azul claro */
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+  transition: background 0.2s, color 0.2s;
+}
+
+.navbar__btn:hover {
+  background-color: #1a2e40;   /* azul oscuro sutil */
+  color: #ffffff;
+}

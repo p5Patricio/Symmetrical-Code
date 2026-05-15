@@ -592,7 +592,7 @@ export default function Projects() {
     description: lang === 'es' ? p.descriptionEs : p.descriptionEn,
   }));
 
-  const featuredTitles = ['TaskFlow', 'Rey Asesino', 'Eventos SMA'];
+  const featuredTitles = ['TravelApp', 'Rey Asesino', 'Eventos SMA'];
   const items = featuredTitles
     .map(t => allItems.find(p => p.title === t || projects.find(pr => pr.title === t && (lang === 'es' ? pr.titleEs : pr.titleEn) === p.title)))
     .filter(Boolean) as ProjectView[];

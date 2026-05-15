@@ -61,18 +61,18 @@ export const techIconMap: Record<string, string> = {
 
 export const projects: Project[] = [
     {
-    title: 'TaskFlow',
-    titleEs: 'TaskFlow',
-    titleEn: 'TaskFlow',
+    title: 'TravelApp',
+    titleEs: 'TravelApp',
+    titleEn: 'TravelApp',
     descriptionEs:
-      'Gestor de tareas tipo Kanban con sincronización en tiempo real, etiquetas, fechas límite y vistas de calendario integradas.',
+      'Aplicación de viaje con información de destinos, atracciones y actividades.',
     descriptionEn:
-      'Kanban-style task manager with real-time sync, labels, deadlines and integrated calendar views.',
-    tags: ['React', 'TypeScript', 'Supabase'],
+      'Travel application with information about destinations, attractions and activities.',
+    tags: ['Flutter', 'Dart', 'Firebase'],
     category: 'Web App',
-    githubUrl: 'https://github.com/p5Patricio/taskflow',
-    ogImageUrl: '/proyectos/Patricio/TaskFlow/banner.webp',
-    galleryImages: ['/proyectos/Patricio/TaskFlow/banner.webp'],
+    githubUrl: ' ',
+    ogImageUrl: '/proyectos/Lalo/TravelApp/banner.png',
+    galleryImages: ['/proyectos/Lalo/TravelApp/img0.png', '/proyectos/Lalo/TravelApp/img1.png', '/proyectos/Lalo/TravelApp/img2.png'],
   },
   {
     title: 'Rey Asesino',
