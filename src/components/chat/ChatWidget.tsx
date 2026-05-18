@@ -6,7 +6,7 @@ interface ChatMessage {
   text: string;
 }
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001/api/chat';
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001';
 
 export default function ChatWidget() {
   const { t, i18n } = useTranslation();
@@ -21,7 +21,6 @@ export default function ChatWidget() {
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  // Cuando cambia el idioma, actualizar SOLO el mensaje de bienvenida (índice 0)
   useEffect(() => {
     setMessages((prev) =>
       prev.map((msg, idx) =>
@@ -32,12 +31,10 @@ export default function ChatWidget() {
     );
   }, [i18n.language, t]);
 
-  // Auto-scroll al último mensaje
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages, isTyping]);
 
-  // Focus en input cuando se abre el chat
   useEffect(() => {
     if (isOpen) {
       setTimeout(() => inputRef.current?.focus(), 300);
@@ -55,13 +52,13 @@ export default function ChatWidget() {
     setError(null);
 
     try {
-      const response = await fetch(API_URL, {
+      const response = await fetch(`${API_URL}/api/chat`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           message: text,
           history: messages,
-          language: i18n.language, // enviamos el idioma actual al backend
+          language: i18n.language,
         }),
       });
 
@@ -97,11 +94,11 @@ export default function ChatWidget() {
 
   return (
     <>
-      {/* Botón flotante */}
+      {/* Botón flotante — z-[200] para superar la galería (z-[150]) y modales (z-[400]) */}
       <button
         onClick={() => setIsOpen(!isOpen)}
         className={`
-          fixed bottom-6 right-6 z-50
+          fixed bottom-6 right-6
           w-14 h-14 rounded-full
           flex items-center justify-center
           text-xl font-bold
@@ -111,6 +108,7 @@ export default function ChatWidget() {
             : 'bg-gradient-to-br from-[#00e5ff] to-[#1565ff] text-[#020408] hover:scale-110 hover:shadow-[0_0_40px_rgba(0,229,255,0.5)]'
           }
         `}
+        style={{ zIndex: 450 }}
         aria-label={isOpen ? t('chat.aria_close') : t('chat.aria_open')}
       >
         {isOpen ? (
@@ -125,10 +123,10 @@ export default function ChatWidget() {
         )}
       </button>
 
-      {/* Panel de chat */}
+      {/* Panel de chat — mismo z-index que el botón */}
       <div
         className={`
-          fixed bottom-24 right-6 z-50
+          fixed bottom-24 right-6
           w-[360px] max-w-[calc(100vw-48px)]
           h-[500px] max-h-[calc(100vh-140px)]
           rounded-2xl
@@ -142,6 +140,7 @@ export default function ChatWidget() {
           }
         `}
         style={{
+          zIndex: 450,
           background: 'rgba(7, 13, 20, 0.95)',
           border: '1px solid rgba(0, 229, 255, 0.15)',
           backdropFilter: 'blur(20px)',
@@ -179,12 +178,13 @@ export default function ChatWidget() {
         </div>
 
         {/* Área de mensajes */}
-        <div className="flex-1 overflow-y-auto px-4 py-4 space-y-4 scroll-smooth">
+        <div
+          className="flex-1 overflow-y-auto px-4 py-4 space-y-4 scroll-smooth"
+          style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+        >
+          <style>{`.chat-messages::-webkit-scrollbar { display: none; }`}</style>
           {messages.map((msg, idx) => (
-            <div
-              key={idx}
-              className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
-            >
+            <div key={idx} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
               <div
                 className={`
                   max-w-[85%] px-4 py-2.5 rounded-2xl text-sm leading-relaxed
@@ -199,7 +199,6 @@ export default function ChatWidget() {
             </div>
           ))}
 
-          {/* Indicador de "escribiendo..." */}
           {isTyping && (
             <div className="flex justify-start">
               <div className="bg-[rgba(255,255,255,0.03)] border border-[rgba(0,229,255,0.08)] rounded-2xl rounded-bl-md px-4 py-3">

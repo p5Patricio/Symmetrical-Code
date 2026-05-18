@@ -15,19 +15,51 @@ const GlobeIcon = () => (
   </svg>
 );
 
+// URL del backend - cambia esto cuando deployes a producción
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001';
+
 export default function Contact() {
   const { t } = useTranslation();
+
+  // Estados de los campos del formulario
+  const [nombre, setNombre] = useState('');
+  const [email, setEmail] = useState('');
+  const [mensaje, setMensaje] = useState('');
+
+  // Estados de control de UI
   const [sent, setSent] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
-    // Simulate send
-    setTimeout(() => {
-      setLoading(false);
+    setError(null);
+
+    try {
+      const response = await fetch(`${API_URL}/api/contact`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ nombre, email, mensaje }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok || !data.success) {
+        throw new Error(data.error || 'No se pudo enviar el mensaje.');
+      }
+
+      // Éxito: limpiar campos y mostrar pantalla de confirmación
+      setNombre('');
+      setEmail('');
+      setMensaje('');
       setSent(true);
-    }, 1500);
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : 'Error desconocido';
+      setError(msg);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -74,7 +106,6 @@ export default function Contact() {
               </div>
             </div>
 
-            {/* Decorative */}
             <div className="hidden lg:block mt-auto">
               <div className="w-full h-px bg-gradient-to-r from-[#00e5ff]/30 to-transparent" />
               <div className="mt-4 font-mono text-xs text-white/20 tracking-widest">
@@ -108,7 +139,12 @@ export default function Contact() {
                     <input
                       type="text"
                       required
-                      className="bg-transparent border border-[rgba(0,229,255,0.12)] text-white text-sm px-4 py-3 outline-none focus:border-[rgba(0,229,255,0.4)] transition-colors placeholder:text-white/20 font-mono"
+                      minLength={2}
+                      maxLength={100}
+                      value={nombre}
+                      onChange={(e) => setNombre(e.target.value)}
+                      disabled={loading}
+                      className="bg-transparent border border-[rgba(0,229,255,0.12)] text-white text-sm px-4 py-3 outline-none focus:border-[rgba(0,229,255,0.4)] transition-colors placeholder:text-white/20 font-mono disabled:opacity-50"
                       placeholder="John Doe"
                     />
                   </div>
@@ -119,7 +155,10 @@ export default function Contact() {
                     <input
                       type="email"
                       required
-                      className="bg-transparent border border-[rgba(0,229,255,0.12)] text-white text-sm px-4 py-3 outline-none focus:border-[rgba(0,229,255,0.4)] transition-colors placeholder:text-white/20 font-mono"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      disabled={loading}
+                      className="bg-transparent border border-[rgba(0,229,255,0.12)] text-white text-sm px-4 py-3 outline-none focus:border-[rgba(0,229,255,0.4)] transition-colors placeholder:text-white/20 font-mono disabled:opacity-50"
                       placeholder="john@example.com"
                     />
                   </div>
@@ -131,11 +170,23 @@ export default function Contact() {
                   </label>
                   <textarea
                     required
+                    minLength={10}
+                    maxLength={2000}
                     rows={6}
-                    className="bg-transparent border border-[rgba(0,229,255,0.12)] text-white text-sm px-4 py-3 outline-none focus:border-[rgba(0,229,255,0.4)] transition-colors placeholder:text-white/20 font-mono resize-none"
+                    value={mensaje}
+                    onChange={(e) => setMensaje(e.target.value)}
+                    disabled={loading}
+                    className="bg-transparent border border-[rgba(0,229,255,0.12)] text-white text-sm px-4 py-3 outline-none focus:border-[rgba(0,229,255,0.4)] transition-colors placeholder:text-white/20 font-mono resize-none disabled:opacity-50"
                     placeholder={t('contact.form_message')}
                   />
                 </div>
+
+                {/* Mensaje de error */}
+                {error && (
+                  <div className="border border-red-500/40 bg-red-500/10 px-4 py-3 rounded text-sm text-red-300 font-mono">
+                    {error}
+                  </div>
+                )}
 
                 <button
                   type="submit"

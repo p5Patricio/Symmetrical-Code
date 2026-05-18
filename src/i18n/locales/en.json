@@ -153,77 +153,12 @@
     "view_code": "View code",
     "view_detail": "View detail",
     "view_all": "Full project gallery",
+    "gallery": "Gallery",
     "gallery_label": "Complete portfolio",
     "gallery_title": "All projects",
     "filter_all": "All",
     "back": "Back to site",
-    "items": [
-      {
-        "title": "Project Alpha",
-        "description": "Fullstack web application with real-time analytics dashboard and advanced authentication.",
-        "tags": ["React", "Node.js", "PostgreSQL"]
-      },
-      {
-        "title": "Project Beta",
-        "description": "E-commerce with payment integration, admin panel, and automated inventory management.",
-        "tags": ["Next.js", "Stripe", "MongoDB"]
-      },
-      {
-        "title": "Project Gamma",
-        "description": "B2B SaaS platform with microservices architecture and documented REST API.",
-        "tags": ["TypeScript", "Docker", "AWS"]
-      }
-    ],
-    "all_items": [
-      {
-        "title": "Project Alpha",
-        "description": "Fullstack web application with real-time analytics dashboard and advanced authentication.",
-        "tags": ["React", "Node.js", "PostgreSQL"],
-        "category": "Web App"
-      },
-      {
-        "title": "Project Beta",
-        "description": "E-commerce with payment integration, admin panel, and automated inventory management.",
-        "tags": ["Next.js", "Stripe", "MongoDB"],
-        "category": "E-commerce"
-      },
-      {
-        "title": "Project Gamma",
-        "description": "B2B SaaS platform with microservices architecture and documented REST API.",
-        "tags": ["TypeScript", "Docker", "AWS"],
-        "category": "SaaS"
-      },
-      {
-        "title": "Project Delta",
-        "description": "Real-time collaboration tool with WebSocket support and rich text editing.",
-        "tags": ["React", "Socket.io", "Redis"],
-        "category": "Web App"
-      },
-      {
-        "title": "Project Epsilon",
-        "description": "Mobile-first PWA for field service management with offline support.",
-        "tags": ["PWA", "IndexedDB", "Node.js"],
-        "category": "Mobile"
-      },
-      {
-        "title": "Project Zeta",
-        "description": "Internal HR dashboard with role-based access, reporting, and PDF export.",
-        "tags": ["Vue.js", "Express", "MySQL"],
-        "category": "SaaS"
-      },
-      {
-        "title": "Project Eta",
-        "description": "Multi-tenant billing platform integrated with Stripe and automated invoicing.",
-        "tags": ["Next.js", "Stripe", "PostgreSQL"],
-        "category": "E-commerce"
-      },
-      {
-        "title": "Project Theta",
-        "description": "Headless CMS-driven marketing site with edge caching and 99 Lighthouse score.",
-        "tags": ["Astro", "Sanity", "Cloudflare"],
-        "category": "Web App"
-      }
-    ]
+    "single_image": "Only one image available"
   },
   "team": {
     "label": "The ones doing magic",

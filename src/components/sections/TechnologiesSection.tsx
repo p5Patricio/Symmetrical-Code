@@ -68,7 +68,7 @@ const TechCard = ({ tech, isHovered }: { tech: typeof technologies[0]; isHovered
     
     if (name === 'Netlify') {
       if (hovered) {
-        return 'brightness(1.8) saturate(1.8) drop-shadow(0 0 12px rgba(0,229,255,0.5))';
+        return 'brightness(1.😎 saturate(1.😎 drop-shadow(0 0 12px rgba(0,229,255,0.5))';
       }
       return 'brightness(1.5) saturate(1.6)';
     }
