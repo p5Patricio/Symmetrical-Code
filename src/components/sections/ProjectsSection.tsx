@@ -112,9 +112,9 @@ const ImageWithFallback = ({ src, alt, fallback }: { src: string; alt: string; f
 
 // ── Zoomable Image ────────────────────────────────────────────────────────────
 const ZoomableImage = ({
-  src, alt, fallback, projectIndex, title,
+  src, alt, fallback,
 }: {
-  src: string; alt: string; fallback: React.ReactNode; projectIndex: number; title: string;
+  src: string; alt: string; fallback: React.ReactNode;
 }) => {
   const [scale, setScale] = useState(1);
   const [position, setPosition] = useState({ x: 0, y: 0 });
@@ -380,8 +380,6 @@ const GalleryModal = ({ title, images, projectIndex, onClose }: {
               src={images[current]}
               alt={`${title} - ${current + 1}`}
               fallback={<ProjectImage index={projectIndex} title={title} />}
-              projectIndex={projectIndex}
-              title={title}
             />
           </div>
 
