@@ -11,11 +11,7 @@ export default function Navbar() {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
 
-<<<<<<< HEAD
-      const sections = ['contact', 'team', 'projects', 'services', 'home'];
-=======
-      const sections = ['team', 'projects', 'technologies', 'services', 'home'];
->>>>>>> origin/mariodev
+      const sections = ['team', 'projects', 'services', 'home'];
       for (const id of sections) {
         const el = document.getElementById(id);
         if (el && window.scrollY >= el.offsetTop - 120) {

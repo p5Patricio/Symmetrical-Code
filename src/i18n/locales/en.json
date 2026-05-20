@@ -3,13 +3,7 @@
     "home": "Home",
     "projects": "Projects",
     "services": "Services",
-<<<<<<< HEAD
-    "team": "Studio",
-    "contact": "Contact"
-=======
-    "technologies": "Technologies",
-    "team": "Team"
->>>>>>> origin/mariodev
+    "team": "Studio"
   },
   "hero": {
     "label": "Software Studio",
