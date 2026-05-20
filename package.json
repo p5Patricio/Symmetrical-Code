@@ -16,11 +16,8 @@
     "react": "18.3.1",
     "react-dom": "18.3.1",
     "react-i18next": "^15.7.4",
-<<<<<<< HEAD
-    "react-router-dom": "^7.15.1",
-=======
     "react-icons": "^5.6.0",
->>>>>>> origin/mariodev
+    "react-router-dom": "^7.15.1",
     "three": "^0.184.0"
   },
   "devDependencies": {
