@@ -11,7 +11,7 @@ export default function Navbar() {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
 
-      const sections = ['contact', 'team', 'projects', 'technologies', 'services', 'home'];
+      const sections = ['team', 'projects', 'technologies', 'services', 'home'];
       for (const id of sections) {
         const el = document.getElementById(id);
         if (el && window.scrollY >= el.offsetTop - 120) {
@@ -41,7 +41,6 @@ export default function Navbar() {
     { key: 'nav.technologies', id: 'technologies' },
     { key: 'nav.projects', id: 'projects' },
     { key: 'nav.team', id: 'team' },
-    { key: 'nav.contact', id: 'contact' },
   ];
 
   return (
@@ -87,7 +86,6 @@ export default function Navbar() {
 
         {/* Right Controls */}
         <div className="flex items-center gap-4">
-          {/* Language Toggle */}
           <button
             onClick={toggleLang}
             className="font-mono text-xs tracking-widest border border-[rgba(0,229,255,0.25)] text-[#00e5ff]/70 hover:text-[#00e5ff] hover:border-[#00e5ff]/50 px-3 py-1.5 rounded transition-all duration-200"
@@ -95,7 +93,6 @@ export default function Navbar() {
             {i18n.language === 'es' ? 'EN' : 'ES'}
           </button>
 
-          {/* Mobile Menu Button */}
           <button
             onClick={() => setMenuOpen(!menuOpen)}
             className="md:hidden flex flex-col gap-1.5 p-2"
