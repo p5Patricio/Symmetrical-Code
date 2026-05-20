@@ -1,277 +1,85 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 
-interface ChatMessage {
-  role: 'user' | 'model';
-  text: string;
-}
-
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001';
-
 export default function ChatWidget() {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
+  const [hovered, setHovered] = useState(false);
+  const [showTooltip, setShowTooltip] = useState(false);
 
-  const [isOpen, setIsOpen] = useState(false);
-  const [messages, setMessages] = useState<ChatMessage[]>([
-    { role: 'model', text: t('chat.welcome') },
-  ]);
-  const [input, setInput] = useState('');
-  const [isTyping, setIsTyping] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const messagesEndRef = useRef<HTMLDivElement>(null);
-  const inputRef = useRef<HTMLInputElement>(null);
-
+  // Mostrar el tooltip automáticamente después de 2 segundos
   useEffect(() => {
-    setMessages((prev) =>
-      prev.map((msg, idx) =>
-        idx === 0 && msg.role === 'model'
-          ? { ...msg, text: t('chat.welcome') }
-          : msg
-      )
-    );
-  }, [i18n.language, t]);
-
-  useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [messages, isTyping]);
-
-  useEffect(() => {
-    if (isOpen) {
-      setTimeout(() => inputRef.current?.focus(), 300);
-    }
-  }, [isOpen]);
-
-  const sendMessage = async () => {
-    const text = input.trim();
-    if (!text || isTyping) return;
-
-    const userMsg: ChatMessage = { role: 'user', text };
-    setMessages((prev) => [...prev, userMsg]);
-    setInput('');
-    setIsTyping(true);
-    setError(null);
-
-    try {
-      const response = await fetch(`${API_URL}/api/chat`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          message: text,
-          history: messages,
-          language: i18n.language,
-        }),
-      });
-
-      if (!response.ok) {
-        throw new Error(`Error ${response.status}: ${response.statusText}`);
+    const timer = setTimeout(() => {
+      // Solo mostrar si no se ha cerrado manualmente en esta sesión
+      const dismissed = sessionStorage.getItem('whatsapp_tooltip_dismissed');
+      if (!dismissed) {
+        setShowTooltip(true);
       }
+    }, 2000);
+    return () => clearTimeout(timer);
+  }, []);
 
-      const data = await response.json();
-
-      if (data.success) {
-        setMessages((prev) => [...prev, { role: 'model', text: data.reply }]);
-      } else {
-        throw new Error(data.error || t('chat.error_unknown'));
-      }
-    } catch (err) {
-      const errorMsg = err instanceof Error ? err.message : t('chat.error_connect');
-      setError(errorMsg);
-      setMessages((prev) => [
-        ...prev,
-        { role: 'model', text: t('chat.error_message') },
-      ]);
-    } finally {
-      setIsTyping(false);
-    }
+  const handleDismiss = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setShowTooltip(false);
+    sessionStorage.setItem('whatsapp_tooltip_dismissed', 'true');
   };
 
-  const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter' && !e.shiftKey) {
-      e.preventDefault();
-      sendMessage();
-    }
-  };
+  // WhatsApp Link - Se actualizará con el número real cuando el usuario lo provea
+  const whatsappUrl = "https://wa.me/XXXXXXXXXXX"; 
+
+  const WhatsAppIcon = () => (
+    <svg 
+      width="28" 
+      height="28" 
+      viewBox="0 0 24 24" 
+      fill="currentColor"
+      style={{ transform: 'translateY(-2px)' }} // Subido 2px como pediste
+    >
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.353-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+    </svg>
+  );
 
   return (
-    <>
-      {/* Botón flotante — z-[200] para superar la galería (z-[150]) y modales (z-[400]) */}
-      <button
-        onClick={() => setIsOpen(!isOpen)}
+    <div className="fixed bottom-6 right-6 z-[450] flex items-center gap-3">
+      {/* Tooltip Card Autoprompt */}
+      <div 
         className={`
-          fixed bottom-6 right-6
-          w-14 h-14 rounded-full
-          flex items-center justify-center
-          text-xl font-bold
-          transition-all duration-300 ease-out
-          ${isOpen
-            ? 'bg-[#070d14] border border-[rgba(0,229,255,0.3)] rotate-90'
-            : 'bg-gradient-to-br from-[#00e5ff] to-[#1565ff] text-[#020408] hover:scale-110 hover:shadow-[0_0_40px_rgba(0,229,255,0.5)]'
-          }
+          relative bg-[#070d14] border border-[rgba(0,229,255,0.3)] px-4 py-2.5 rounded-xl
+          transition-all duration-500 ease-out shadow-[0_10px_30px_rgba(0,0,0,0.5)]
+          ${(showTooltip || hovered) ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-4 pointer-events-none'}
         `}
-        style={{ zIndex: 450 }}
-        aria-label={isOpen ? t('chat.aria_close') : t('chat.aria_open')}
       >
-        {isOpen ? (
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00e5ff" strokeWidth="2.5" strokeLinecap="round">
-            <line x1="18" y1="6" x2="6" y2="18" />
-            <line x1="6" y1="6" x2="18" y2="18" />
-          </svg>
-        ) : (
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
-          </svg>
-        )}
-      </button>
-
-      {/* Panel de chat — mismo z-index que el botón */}
-      <div
-        className={`
-          fixed bottom-24 right-6
-          w-[360px] max-w-[calc(100vw-48px)]
-          h-[500px] max-h-[calc(100vh-140px)]
-          rounded-2xl
-          flex flex-col
-          overflow-hidden
-          transition-all duration-300 ease-out
-          origin-bottom-right
-          ${isOpen
-            ? 'opacity-100 scale-100 translate-y-0'
-            : 'opacity-0 scale-90 translate-y-4 pointer-events-none'
-          }
-        `}
-        style={{
-          zIndex: 450,
-          background: 'rgba(7, 13, 20, 0.95)',
-          border: '1px solid rgba(0, 229, 255, 0.15)',
-          backdropFilter: 'blur(20px)',
-          boxShadow: '0 0 60px rgba(0, 229, 255, 0.1), 0 20px 40px rgba(0, 0, 0, 0.5)',
-        }}
-      >
-        {/* Header */}
-        <div
-          className="flex items-center gap-3 px-5 py-4 shrink-0"
-          style={{
-            borderBottom: '1px solid rgba(0, 229, 255, 0.1)',
-            background: 'linear-gradient(135deg, rgba(0,229,255,0.08) 0%, rgba(21,101,255,0.05) 100%)',
-          }}
+        <button 
+          onClick={handleDismiss}
+          className="absolute -top-2 -right-2 w-5 h-5 bg-[#020408] border border-white/10 rounded-full flex items-center justify-center text-[10px] text-white/40 hover:text-white hover:border-[#00e5ff]/40 transition-colors"
+          aria-label="Cerrar aviso"
         >
-          <div className="relative">
-            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#00e5ff] to-[#1565ff] flex items-center justify-center text-[#020408] text-lg font-bold">
-              S
-            </div>
-            <span className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-green-400 rounded-full border-2 border-[#070d14]" />
-          </div>
-          <div className="flex-1 min-w-0">
-            <h3 className="text-sm font-bold text-white truncate">Symmetrical Bot</h3>
-            <p className="text-xs text-[#00e5ff]/70 font-mono">{t('chat.subtitle')}</p>
-          </div>
-          <button
-            onClick={() => setIsOpen(false)}
-            className="text-white/40 hover:text-white transition-colors p-1"
-            aria-label={t('chat.aria_close')}
-          >
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
-              <line x1="18" y1="6" x2="6" y2="18" />
-              <line x1="6" y1="6" x2="18" y2="18" />
-            </svg>
-          </button>
-        </div>
-
-        {/* Área de mensajes */}
-        <div
-          className="flex-1 overflow-y-auto px-4 py-4 space-y-4 scroll-smooth"
-          style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
-        >
-          <style>{`.chat-messages::-webkit-scrollbar { display: none; }`}</style>
-          {messages.map((msg, idx) => (
-            <div key={idx} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-              <div
-                className={`
-                  max-w-[85%] px-4 py-2.5 rounded-2xl text-sm leading-relaxed
-                  ${msg.role === 'user'
-                    ? 'bg-gradient-to-br from-[#00e5ff] to-[#1565ff] text-[#020408] font-medium rounded-br-md'
-                    : 'bg-[rgba(255,255,255,0.03)] text-[#e2e8f0] border border-[rgba(0,229,255,0.08)] rounded-bl-md'
-                  }
-                `}
-              >
-                {msg.text}
-              </div>
-            </div>
-          ))}
-
-          {isTyping && (
-            <div className="flex justify-start">
-              <div className="bg-[rgba(255,255,255,0.03)] border border-[rgba(0,229,255,0.08)] rounded-2xl rounded-bl-md px-4 py-3">
-                <div className="flex gap-1.5">
-                  <span className="w-2 h-2 rounded-full bg-[#00e5ff]/50 animate-bounce" style={{ animationDelay: '0ms' }} />
-                  <span className="w-2 h-2 rounded-full bg-[#00e5ff]/50 animate-bounce" style={{ animationDelay: '150ms' }} />
-                  <span className="w-2 h-2 rounded-full bg-[#00e5ff]/50 animate-bounce" style={{ animationDelay: '300ms' }} />
-                </div>
-              </div>
-            </div>
-          )}
-
-          {error && (
-            <div className="flex justify-center">
-              <span className="text-xs text-red-400/80 bg-red-400/5 border border-red-400/10 rounded-full px-3 py-1">
-                {error}
-              </span>
-            </div>
-          )}
-
-          <div ref={messagesEndRef} />
-        </div>
-
-        {/* Input */}
-        <div
-          className="shrink-0 px-4 py-3 flex gap-2"
-          style={{
-            borderTop: '1px solid rgba(0, 229, 255, 0.08)',
-            background: 'rgba(2, 4, 8, 0.6)',
-          }}
-        >
-          <input
-            ref={inputRef}
-            type="text"
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            onKeyDown={handleKeyDown}
-            placeholder={t('chat.placeholder')}
-            disabled={isTyping}
-            className="
-              flex-1
-              bg-[rgba(255,255,255,0.03)]
-              border border-[rgba(0,229,255,0.12)]
-              rounded-xl
-              px-4 py-2.5
-              text-sm text-white
-              placeholder:text-white/25
-              focus:outline-none focus:border-[rgba(0,229,255,0.4)] focus:shadow-[0_0_15px_rgba(0,229,255,0.1)]
-              transition-all
-              disabled:opacity-50
-            "
-          />
-          <button
-            onClick={sendMessage}
-            disabled={!input.trim() || isTyping}
-            className={`
-              w-10 h-10 rounded-xl
-              flex items-center justify-center
-              transition-all duration-200
-              ${input.trim() && !isTyping
-                ? 'bg-gradient-to-br from-[#00e5ff] to-[#1565ff] text-[#020408] hover:scale-105 hover:shadow-[0_0_20px_rgba(0,229,255,0.4)]'
-                : 'bg-[rgba(255,255,255,0.03)] text-white/20 cursor-not-allowed'
-              }
-            `}
-            aria-label={t('chat.aria_send')}
-          >
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-              <line x1="22" y1="2" x2="11" y2="13" />
-              <polygon points="22 2 15 22 11 13 2 9 22 2" />
-            </svg>
-          </button>
-        </div>
+          ✕
+        </button>
+        <p className="text-white text-[11px] font-mono tracking-wider whitespace-nowrap pr-2">
+          {t('contact.whatsapp_tooltip', { defaultValue: 'Contáctanos por WhatsApp' })}
+        </p>
       </div>
-    </>
+
+      {/* WhatsApp Button */}
+      <a
+        href={whatsappUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        onMouseEnter={() => setHovered(true)}
+        onMouseLeave={() => setHovered(false)}
+        className="
+          w-14 h-14 rounded-full shrink-0
+          flex items-center justify-center
+          transition-all duration-300 ease-out
+          bg-gradient-to-br from-[#00e5ff] to-[#1565ff] text-[#020408]
+          hover:scale-110 hover:shadow-[0_0_40px_rgba(0,229,255,0.5)]
+        "
+        aria-label="WhatsApp"
+      >
+        <WhatsAppIcon />
+      </a>
+    </div>
   );
 }

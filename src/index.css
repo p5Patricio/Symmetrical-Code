@@ -139,7 +139,6 @@ body {
 /* Enhanced Glass Card with Orb */
 .glass-card-enhanced {
   background: rgba(255, 255, 255, 0.01);
-  border: 1px solid rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(12px);
   position: relative;
   overflow: hidden;
@@ -147,7 +146,6 @@ body {
 }
 
 .glass-card-enhanced:hover {
-  border-color: rgba(255, 255, 255, 0.15);
   transform: translateY(-8px);
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
 }

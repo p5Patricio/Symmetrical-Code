@@ -3,7 +3,6 @@
     "home": "Inicio",
     "projects": "Proyectos",
     "services": "Servicios",
-    "technologies": "Tecnologías",
     "team": "Equipo",
     "contact": "Contacto"
   },
@@ -28,8 +27,8 @@
   },
   "services": {
     "label": "Nuestras Soluciones",
-    "title": "Potenciamos tu Negocio",
-    "subtitle": "Creamos tecnología con un propósito claro: hacer crecer tu empresa y simplificar tu vida.",
+    "title": "Soluciones Digitales a Medida",
+    "subtitle": "Desde aplicaciones web hasta sistemas inteligentes, construimos la tecnología que tu empresa necesita para escalar.",
     "learn_more": "Ver más detalles",
     "modal_includes": "Lo que recibirás",
     "modal_highlights": "Por qué elegirnos",
@@ -139,12 +138,6 @@
       }
     ]
   },
-  "technologies": {
-    "label": "Nuestro stack",
-    "title": "Tecnologías",
-    "subtitle": "Las herramientas y lenguajes que usamos para construir productos digitales confiables y escalables.",
-    "count_label": "tecnologías"
-  },
   "projects": {
     "label": "Nuestro trabajo",
     "title": "Proyectos",
@@ -161,32 +154,26 @@
     "single_image": "Solo una imagen disponible"
   },
   "team": {
-    "label": "Los que hacen magia",
-    "title": "El equipo",
-    "subtitle": "Un equipo de desarrolladores apasionados, comprometidos con la excelencia técnica y el detalle.",
-    "know_more": "Saber más",
-    "modal_portfolio": "Portafolio",
-    "modal_experience": "Experiencia",
-    "modal_projects": "Proyectos",
-    "modal_location": "Ubicación",
-    "footer_developers": "Developers · Guanajuato, MX",
-    "members": {
-      "eduardo": {
-        "bio": "Apasionado del frontend y la experiencia de usuario. Especialista en interfaces modernas, animaciones y diseño que convierte.",
-        "specialty": "UI / UX & Frontend",
-        "detail": "Eduardo lidera el desarrollo de interfaces de usuario con un enfoque en accesibilidad, rendimiento y estética. Su dominio de React y las animaciones CSS lo convierte en el responsable de que cada píxel tenga intención. Ha construido más de 12 proyectos que combinan funcionalidad con experiencia visual memorable."
+    "label": "Nuestro Estudio",
+    "title": "¿Por qué Symmetrical Code?",
+    "subtitle": "Combinamos ingeniería de software de alto nivel con un enfoque integral orientado a potenciar tu negocio.",
+    "pillars": [
+      {
+        "title": "Arquitectura de Software",
+        "description": "No solo escribimos código; diseñamos sistemas robustos y escalables. Dividimos nuestras tareas en especialidades (Frontend, Backend y DevOps) para asegurar que cada pieza del software reciba atención experta.",
+        "details": ["Arquitectura Limpia", "Bases de datos optimizadas", "Nube e Infraestructura"]
       },
-      "patricio": {
-        "bio": "Arquitecto de sistemas backend con enfoque en escalabilidad, seguridad y APIs de alto rendimiento.",
-        "specialty": "Backend & DevOps",
-        "detail": "Patricio diseña y mantiene la columna vertebral de los proyectos. Su experiencia en arquitectura de microservicios, bases de datos relacionales y contenedores Docker garantiza sistemas que escalan sin dolor. Apasionado de la seguridad y las buenas prácticas de ingeniería."
+      {
+        "title": "Estándares de Calidad",
+        "description": "La confianza se construye con software que no falla. Implementamos pruebas automatizadas (tests), revisiones de código rigurosas y auditorías de seguridad en cada entrega.",
+        "details": ["Pruebas de Software", "Seguridad Bancaria", "Código Mantenible"]
       },
-      "mario": {
-        "bio": "Fullstack developer con visión de producto. Lidera proyectos de inicio a producción con arquitectura sólida.",
-        "specialty": "Fullstack & Cloud",
-        "detail": "Mario conecta las piezas. Con visión integral de producto y experiencia fullstack, lleva proyectos desde el wireframe hasta el deploy en AWS. Su expertise en Next.js y MongoDB le permite construir plataformas completas con SEO, rendimiento y escalabilidad desde el día uno."
+      {
+        "title": "Diseño que Convierte",
+        "description": "El software debe ser una herramienta comercial. Creamos interfaces intuitivas pensadas para el usuario final, optimizando la velocidad y la facilidad de uso para maximizar tus ventas.",
+        "details": ["UI / UX Moderno", "Velocidad Extrema", "Enfoque en Conversión"]
       }
-    }
+    ]
   },
   "contact": {
     "label": "Hablemos",

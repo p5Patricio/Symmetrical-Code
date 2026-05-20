@@ -11,7 +11,7 @@ export default function Navbar() {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
 
-      const sections = ['contact', 'team', 'projects', 'technologies', 'services', 'home'];
+      const sections = ['contact', 'team', 'projects', 'services', 'home'];
       for (const id of sections) {
         const el = document.getElementById(id);
         if (el && window.scrollY >= el.offsetTop - 120) {
@@ -38,7 +38,6 @@ export default function Navbar() {
   const navLinks = [
     { key: 'nav.home', id: 'home' },
     { key: 'nav.services', id: 'services' },
-    { key: 'nav.technologies', id: 'technologies' },
     { key: 'nav.projects', id: 'projects' },
     { key: 'nav.team', id: 'team' },
     { key: 'nav.contact', id: 'contact' },
@@ -74,7 +73,7 @@ export default function Navbar() {
             <button
               key={link.id}
               onClick={() => scrollTo(link.id)}
-              className={`font-mono text-xs tracking-widest uppercase transition-all duration-200 ${
+              className={`font-mono text-[13px] tracking-[0.15em] uppercase transition-all duration-200 ${
                 activeSection === link.id
                   ? 'text-[#00e5ff]'
                   : 'text-white/50 hover:text-white'

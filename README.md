@@ -2,90 +2,91 @@
 
 Sitio web oficial de **Symmetrical Code**, un Software Studio especializado en desarrollo de soluciones digitales a medida.
 
-> ⚠️ **IMPORTANTE:** El desarrollo activo está en la rama **`patodev`**. La rama `main` se mantiene como código estable.
+> ⚠️ **IMPORTANTE:** El desarrollo activo está en la rama **`patodev`**. 
+> Se ha migrado el gestor de paquetes a **PNPM** para mayor seguridad y eficiencia.
 
 ## ✨ Features
 
-- 🎨 **Diseño moderno** con Tailwind CSS y tema dark/cyber
-- 🌎 **Internacionalización** (i18n) con soporte para español e inglés
-- 🤖 **Chatbot integrado** — Widget flotante conectado al backend vía Groq API
-- 📱 **Responsive** — Se adapta a mobile, tablet y desktop
-- ⚡ **Performance** — Construido con Vite para builds ultra-rápidas
+- 🎨 **Diseño moderno** con Tailwind CSS y tema dark/cyber.
+- 🌎 **Internacionalización** (i18n) con soporte para español e inglés.
+- 📱 **Responsive** — Optimizado específicamente para dispositivos móviles.
+- ⚡ **Performance** — Arquitectura SPA con **React Router** y carga optimizada.
+- 🛡️ **Testing** — Suite de pruebas con **Vitest** cubriendo navegación e integridad.
+- 💬 **WhatsApp Direct** — Botón de contacto directo con aviso automático (autoprompt).
 
 ## 🛠️ Tecnologías
 
-- React 18 + TypeScript
-- Vite
-- Tailwind CSS
-- i18next (internacionalización)
-- Three.js (efectos 3D en Hero)
+- **React 18 + TypeScript**
+- **PNPM** (Package Manager)
+- **React Router** (Navegación nativa)
+- **Vitest + React Testing Library** (Testing)
+- **Tailwind CSS**
+- **i18next** (Traducciones)
+- **Three.js** (Efectos 3D en Hero)
 
-## 🚀 Empezar
+## 🚀 Instalación y Ejecución
+
+Para asegurar la integridad de las dependencias, es **obligatorio** usar `pnpm`.
 
 ```bash
-# Clonar el repo
+# 1. Clonar el repo (si no lo tienes)
 git clone https://github.com/p5Patricio/Symmetrical-Code.git
 
-# Cambiar a la rama de desarrollo
+# 2. Cambiar a la rama de desarrollo
 git checkout patodev
 
-# Instalar dependencias
-npm install
+# 3. Instalar dependencias con PNPM
+pnpm install
 
-# Correr en desarrollo
-npm run dev
+# 4. Correr en desarrollo
+pnpm run dev
+
+# 5. Ejecutar tests
+pnpm test
 ```
 
-El sitio arranca en `http://localhost:5173`.
+El sitio arranca por defecto en `http://localhost:5173` (o el siguiente puerto disponible).
 
-## 🤖 Chatbot
+## 📁 Nueva Estructura de Navegación
 
-El sitio incluye un **widget de chatbot** en la esquina inferior derecha que se conecta al backend para responder preguntas sobre Symmetrical Code.
+Hemos pasado de un modelo de superposición (overlays) a **Rutas Reales**:
+- `/` - Landing Page (Hero, Servicios, Estudio, Contacto).
+- `/proyectos` - Galería completa de proyectos.
 
-### Configuración del chatbot
+### Cambios Clave:
+- **Sección Servicios:** Rediseño minimalista, rectangular y sin modales para comunicación directa.
+- **Sección Estudio:** Nuevo layout horizontal ("Arquitectónico") centrado en pilares de ingeniería.
+- **WhatsApp Button:** Reemplaza al antiguo Chatbot. Incluye un tooltip que aparece automáticamente a los 2s.
 
-Creá un archivo `.env` basado en `.env.example`:
+## 🧪 Testing
+
+Para mantener la calidad de **Software Studio**, el proyecto cuenta con tests automatizados:
 
 ```bash
-cp .env.example .env
+# Ejecutar todos los tests (Integridad, i18n, Rutas)
+pnpm test
 ```
 
-Asegurate de que la URL del backend sea correcta:
+**Nota para devs:** Si agregas una sección o cambias una traducción, asegúrate de que los tests de `i18n` sigan pasando para evitar mostrar llaves técnicas (`hero.title`) al usuario.
 
-```env
-VITE_API_URL=http://localhost:3001/api/chat
-```
-
-> Para que el chatbot funcione, también necesitás correr el [backend del chatbot](https://github.com/p5Patricio/Symmetrical-Code-Backend).
-
-## 📁 Estructura
+## 📁 Directorios
 
 ```
 src/
 ├── components/
 │   ├── chat/
-│   │   └── ChatWidget.tsx      # Widget del chatbot
+│   │   └── ChatWidget.tsx      # Botón de WhatsApp
 │   ├── layout/
-│   │   ├── Navbar.tsx
+│   │   ├── Navbar.tsx          # Navbar Global
+│   │   ├── GalleryNavbar.tsx   # Navbar específica de Galería
 │   │   └── Footer.tsx
-│   └── sections/
-│       ├── HeroSection.tsx
-│       ├── ProjectsSection.tsx
-│       ├── TeamSection.tsx
-│       └── ContactSection.tsx
+│   └── sections/               # Componentes de la Landing
 ├── pages/
-│   └── HomePage.tsx
-├── i18n/
-│   ├── index.ts
-│   └── locales/
-│       ├── es.json
-│       └── en.json
-└── App.tsx
+│   ├── HomePage.tsx            # Contenedor de la Landing (/)
+│   └── ProjectsPage.tsx        # Página de Galería (/proyectos)
+├── test/                       # Suite de tests (Vitest)
+└── i18n/                       # Configuración y locales
 ```
-
-## 📱 Integración WhatsApp
-
-El chatbot también está preparado para funcionar en WhatsApp. Ver el repo del backend para más detalles.
 
 ## 🏷️ Licencia
 

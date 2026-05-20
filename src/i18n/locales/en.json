@@ -3,8 +3,7 @@
     "home": "Home",
     "projects": "Projects",
     "services": "Services",
-    "technologies": "Technologies",
-    "team": "Team",
+    "team": "Studio",
     "contact": "Contact"
   },
   "hero": {
@@ -28,8 +27,8 @@
   },
   "services": {
     "label": "Our Solutions",
-    "title": "Empowering Your Business",
-    "subtitle": "We build technology with a clear purpose: to grow your company and simplify your life.",
+    "title": "Custom Digital Solutions",
+    "subtitle": "From web applications to intelligent systems, we build the technology your business needs to scale.",
     "learn_more": "View more details",
     "modal_includes": "What you'll get",
     "modal_highlights": "Why choose us",
@@ -139,12 +138,6 @@
       }
     ]
   },
-  "technologies": {
-    "label": "Our stack",
-    "title": "Technologies",
-    "subtitle": "The tools and languages we use to build reliable, scalable digital products.",
-    "count_label": "technologies"
-  },
   "projects": {
     "label": "Our work",
     "title": "Projects",
@@ -161,32 +154,26 @@
     "single_image": "Only one image available"
   },
   "team": {
-    "label": "The ones doing magic",
-    "title": "The team",
-    "subtitle": "A team of passionate developers, committed to technical excellence and attention to detail.",
-    "know_more": "Know more",
-    "modal_portfolio": "Portfolio",
-    "modal_experience": "Experience",
-    "modal_projects": "Projects",
-    "modal_location": "Location",
-    "footer_developers": "Developers · Guanajuato, MX",
-    "members": {
-      "eduardo": {
-        "bio": "Passionate about frontend and user experience. Specialist in modern interfaces, animations and design that converts.",
-        "specialty": "UI / UX & Frontend",
-        "detail": "Eduardo leads user interface development with a focus on accessibility, performance and aesthetics. His mastery of React and CSS animations makes him responsible for every pixel having intention. He has built over 12 projects that combine functionality with memorable visual experience."
+    "label": "The Studio",
+    "title": "Why Symmetrical Code?",
+    "subtitle": "We combine high-level software engineering with a comprehensive approach geared towards empowering your business.",
+    "pillars": [
+      {
+        "title": "Software Architecture",
+        "description": "We don't just write code; we design robust and scalable systems. We divide our tasks into specialties (Frontend, Backend, and DevOps) to ensure each piece of software receives expert attention.",
+        "details": ["Clean Architecture", "Optimized Databases", "Cloud & Infrastructure"]
       },
-      "patricio": {
-        "bio": "Backend systems architect focused on scalability, security and high-performance APIs.",
-        "specialty": "Backend & DevOps",
-        "detail": "Patricio designs and maintains the backbone of projects. His experience in microservices architecture, relational databases and Docker containers ensures systems that scale painlessly. Passionate about security and good engineering practices."
+      {
+        "title": "Quality Standards",
+        "description": "Trust is built with software that doesn't fail. We implement automated tests, rigorous code reviews, and security audits in every delivery.",
+        "details": ["Software Testing", "Bank-Level Security", "Maintainable Code"]
       },
-      "mario": {
-        "bio": "Fullstack developer with product vision. Leads projects from start to production with solid architecture.",
-        "specialty": "Fullstack & Cloud",
-        "detail": "Mario connects the pieces. With comprehensive product vision and fullstack experience, he takes projects from wireframe to AWS deploy. His expertise in Next.js and MongoDB allows him to build complete platforms with SEO, performance and scalability from day one."
+      {
+        "title": "Design that Converts",
+        "description": "Software must be a business tool. We create intuitive interfaces designed for the end-user, optimizing speed and ease of use to maximize your sales.",
+        "details": ["Modern UI / UX", "Extreme Speed", "Conversion Focus"]
       }
-    }
+    ]
   },
   "contact": {
     "label": "Let's talk",
