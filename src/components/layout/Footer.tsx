@@ -217,7 +217,7 @@ export default function Footer() {
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(0, 0, 0, 0.9);
+            background: rgba(0, 0, 0, 0.92);
             backdrop-filter: blur(8px);
             z-index: 9998;
             animation: fadeIn 0.3s ease;
@@ -232,10 +232,10 @@ export default function Footer() {
             max-width: 700px;
             height: 80vh;
             max-height: 600px;
-            background: #0A0D14;
+            background: #000000;
             border-radius: 24px;
             border: 1px solid rgba(0, 229, 255, 0.2);
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8), 0 0 40px rgba(0, 180, 220, 0.06);
             z-index: 9999;
             display: flex;
             flex-direction: column;
@@ -327,7 +327,7 @@ export default function Footer() {
           }
 
           .modal-content-wrapper::-webkit-scrollbar-track {
-            background: #1a1f2e;
+            background: #111111;
             border-radius: 10px;
             margin: 8px 0;
           }
@@ -343,7 +343,7 @@ export default function Footer() {
 
           .modal-content-wrapper {
             scrollbar-width: thin;
-            scrollbar-color: #00e5ff #1a1f2e;
+            scrollbar-color: #00e5ff #111111;
           }
 
           .modal-section {
@@ -384,7 +384,7 @@ export default function Footer() {
             display: flex;
             justify-content: center;
             flex-shrink: 0;
-            background: rgba(0, 0, 0, 0.2);
+            background: rgba(0, 0, 0, 0.3);
           }
 
           .modal-button {
@@ -399,7 +399,7 @@ export default function Footer() {
             font-family: 'Inter', system-ui, sans-serif;
             font-size: 16px;
             font-weight: 600;
-            color: #0A0D14;
+            color: #000000;
             background: #00e5ff;
             cursor: pointer;
             transition: all 0.25s ease;
@@ -456,11 +456,13 @@ export default function Footer() {
 
   return (
     <footer style={{
-      background: '#0A0D14',
+      background: '#000000',
       borderTop: '1px solid rgba(0, 229, 255, 0.15)',
       position: 'relative',
       marginTop: 'auto',
+      overflow: 'hidden',
     }}>
+      {/* Top gradient line */}
       <div style={{
         position: 'absolute',
         top: 0,
@@ -470,7 +472,20 @@ export default function Footer() {
         background: 'linear-gradient(90deg, transparent, #00e5ff, #00e5ff, transparent)',
       }} />
 
-      <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '60px 40px 40px' }}>
+      {/* Glow radial — igual al resplandor del logo */}
+      <div style={{
+        position: 'absolute',
+        top: '20%',
+        left: '50%',
+        transform: 'translateX(-50%)',
+        width: '800px',
+        height: '400px',
+        background: 'radial-gradient(ellipse at center, rgba(0, 180, 220, 0.07) 0%, transparent 65%)',
+        pointerEvents: 'none',
+        zIndex: 0,
+      }} />
+
+      <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '60px 40px 40px', position: 'relative', zIndex: 1 }}>
 
         <div style={{
           display: 'flex',
@@ -557,7 +572,7 @@ export default function Footer() {
                       onMouseEnter={e => {
                         const target = e.currentTarget as HTMLElement;
                         target.style.background = '#00e5ff';
-                        target.style.color = '#0A0D14';
+                        target.style.color = '#000000';
                         target.style.borderColor = '#00e5ff';
                         target.style.transform = 'translateY(-2px)';
                       }}
@@ -703,7 +718,7 @@ export default function Footer() {
                   fontFamily: "'Inter', system-ui, sans-serif",
                   fontSize: '13px',
                   fontWeight: 600,
-                  color: '#0A0D14',
+                  color: '#000000',
                   textDecoration: 'none',
                   padding: '10px 20px',
                   background: '#00e5ff',
@@ -727,7 +742,7 @@ export default function Footer() {
                   target.style.boxShadow = '0 4px 12px rgba(0, 229, 255, 0.2)';
                 }}
               >
-                <FaWhatsapp size={16} style={{ color: '#0A0D14' }} />
+                <FaWhatsapp size={16} style={{ color: '#000000' }} />
                 {t('footer.cta')}
               </a>
             </div>
