@@ -1,4 +1,5 @@
 import Hero from "../components/sections/HeroSection";
+import Projects from "../pages/ProjectsPage";
 import Services from "../components/sections/ServicesSection";
 import Team from "../components/sections/TeamSection";
 import Footer from '../components/layout/Footer';
@@ -8,6 +9,7 @@ export default function HomePage() {
     <main className="noise">
       <Hero />
       <Services />
+      <Projects />
       <Team />
       <Footer />
     </main>

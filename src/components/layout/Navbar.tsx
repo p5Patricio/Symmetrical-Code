@@ -10,7 +10,12 @@ export default function Navbar() {
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
-      const sections = ['team', 'services', 'home'];
+
+<<<<<<< HEAD
+      const sections = ['contact', 'team', 'projects', 'services', 'home'];
+=======
+      const sections = ['team', 'projects', 'technologies', 'services', 'home'];
+>>>>>>> origin/mariodev
       for (const id of sections) {
         const el = document.getElementById(id);
         if (el && window.scrollY >= el.offsetTop - 120) {
@@ -19,26 +24,28 @@ export default function Navbar() {
         }
       }
       setActiveSection('');
-      };
+    };
 
-      window.addEventListener('scroll', handleScroll, { passive: true });
-      return () => window.removeEventListener('scroll', handleScroll);
-      }, []);
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
-      const toggleLang = () => {
-      i18n.changeLanguage(i18n.language === 'es' ? 'en' : 'es');
-      };
+  const toggleLang = () => {
+    i18n.changeLanguage(i18n.language === 'es' ? 'en' : 'es');
+  };
 
-      const scrollTo = (id: string) => {
-      document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
-      setMenuOpen(false);
-      };
+  const scrollTo = (id: string) => {
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+    setMenuOpen(false);
+  };
 
-      const navLinks = [
-      { key: 'nav.home', id: 'home' },
-      { key: 'nav.services', id: 'services' },
-      { key: 'nav.team', id: 'team' },
-      ];
+  const navLinks = [
+    { key: 'nav.home', id: 'home' },
+    { key: 'nav.services', id: 'services' },
+    { key: 'nav.projects', id: 'projects' },
+    { key: 'nav.team', id: 'team' },
+  ];
+
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${

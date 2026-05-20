@@ -1,8 +1,15 @@
 {
   "nav": {
     "home": "Home",
+    "projects": "Projects",
     "services": "Services",
-    "team": "Studio"
+<<<<<<< HEAD
+    "team": "Studio",
+    "contact": "Contact"
+=======
+    "technologies": "Technologies",
+    "team": "Team"
+>>>>>>> origin/mariodev
   },
   "hero": {
     "label": "Software Studio",
