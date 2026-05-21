@@ -58,7 +58,7 @@ Revert `ProjectsSection.tsx` to previous commit (pre-expandable). Remove `simple
 
 ## Dependencies
 
-- `simple-icons` npm package (SVG tech logos)
+- `simple-icons` package package (SVG tech logos)
 - Framer Motion (optional, can use CSS transitions)
 
 ## Success Criteria
@@ -71,5 +71,5 @@ Revert `ProjectsSection.tsx` to previous commit (pre-expandable). Remove `simple
 - [ ] Close button (X) collapses the expanded card
 - [ ] Each tag shows its corresponding technology SVG icon
 - [ ] OG images load or fallback gracefully
-- [ ] TypeScript build passes (`npm run build`)
+- [ ] TypeScript build passes (`pnpm build`)
 - [ ] Responsive behavior verified at 320px, 768px, 1440px

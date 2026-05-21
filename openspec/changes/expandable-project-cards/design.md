@@ -20,7 +20,7 @@ Replace the modal-based detail view with an inline expandable card using CSS Gri
 
 | Option | Tradeoff | Decision |
 |--------|----------|----------|
-| `simple-icons` npm | 500+ icons, +~200KB SVG data | Rejected — most icons unused, heavy for 10 tags |
+| `simple-icons` package | 500+ icons, +~200KB SVG data | Rejected — most icons unused, heavy for 10 tags |
 | Inline SVG mapping | Manual maintenance, zero bundle cost | **Chosen** — only ~10 techs needed |
 
 **Rationale**: We need icons for ~10 technologies (React, Python, TypeScript, Vue, etc.). A static mapping object with inline SVG paths is maintainable and costs zero bytes beyond the paths themselves.
@@ -84,7 +84,7 @@ interface ExpandedProjectCardProps {
 
 | Layer | What to Test | Approach |
 |-------|-------------|----------|
-| Build | TypeScript compilation | `npm run build` — zero errors |
+| Build | TypeScript compilation | `pnpm build` — zero errors |
 | Visual | Responsive layouts | Manual check at 320px, 768px, 1440px |
 | Visual | OG image fallback | Block network request, verify placeholder shows |
 

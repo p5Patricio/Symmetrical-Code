@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { projects } from '../data/projects';
 import GalleryNavbar from '../components/layout/GalleryNavbar';
 
 // --- Types ---
 interface ProjectView {
-  id: string;
+  id?: string;
   title: string;
   description: string;
   category: string;
@@ -16,7 +16,7 @@ interface ProjectView {
   githubUrl?: string;
   backendUrl?: string;
   frontendUrl?: string;
-  galleryImages: string[];
+  galleryImages?: string[];
 }
 
 // --- Icons (Internal) ---
@@ -43,10 +43,6 @@ const CloseIcon = () => (
 );
 
 // --- Subcomponents ---
-const TechBadgeSm = ({ tag }: { tag: string }) => (
-  <span className="px-1.5 py-0.5 rounded-sm bg-white/5 border border-white/10 text-white/50 text-[8px] font-mono tracking-tighter uppercase">{tag}</span>
-);
-
 const ImageWithFallback = ({ src, alt, fallback }: { src?: string; alt: string; fallback: React.ReactNode }) => {
   const [error, setError] = useState(false);
   if (!src || error) return <>{fallback}</>;
@@ -127,7 +123,6 @@ const DetailModal = ({ project, index, onClose }: { project: ProjectView; index:
 export default function Projects({ isFullPage = false }: { isFullPage?: boolean }) {
   const { t, i18n } = useTranslation();
   const navigate = useNavigate();
-  const location = useLocation();
   const [activeFilter, setActiveFilter] = useState('all');
   const [selectedProject, setSelectedProject] = useState<{ project: ProjectView; index: number } | null>(null);
   const [galleryScrolled, setGalleryScrolled] = useState(false);
@@ -165,8 +160,6 @@ export default function Projects({ isFullPage = false }: { isFullPage?: boolean 
       if (el) el.scrollIntoView({ behavior: 'smooth' });
     }, isFullPage ? 500 : 0);
   };
-
-  const featuredGradients = ['from-[#00e5ff]/20 to-[#1565ff]/10', 'from-[#1565ff]/20 to-[#00e5ff]/10', 'from-[#00e5ff]/15 to-transparent'];
 
   if (isFullPage) {
     return (

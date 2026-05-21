@@ -76,7 +76,7 @@ export default function Team() {
                 </span>
                 <div 
                   className="w-12 h-12 flex items-center justify-center rounded-xl border border-white/10 text-white/40 group-hover:text-white group-hover:border-[#00e5ff]/40 transition-all duration-500"
-                  style={{ color: hovered => hovered ? pillarColors[i] : 'inherit' }}
+                  style={{ color: pillarColors[i] }}
                 >
                   {pillarIcons[i]}
                 </div>

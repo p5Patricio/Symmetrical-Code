@@ -106,7 +106,7 @@ export default function Navbar() {
 
       {/* Mobile Menu */}
       <div className={`md:hidden overflow-hidden transition-all duration-300 ${menuOpen ? 'max-h-64' : 'max-h-0'}`}>
-        <div className="bg-[#020408]/95 backdrop-blur-xl border-b border-[rgba(0,229,255,0.08)] px-6 py-4 flex flex-col gap-4">
+        <div className="bg-[#000000]/95 backdrop-blur-xl border-b border-[rgba(0,229,255,0.08)] px-6 py-4 flex flex-col gap-4">
           {navLinks.map((link) => (
             <button
               key={link.id}

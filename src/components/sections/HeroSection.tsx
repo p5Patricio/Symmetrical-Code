@@ -9,27 +9,25 @@ const MailIcon = () => <svg width="14" height="14" viewBox="0 0 24 24" fill="non
 const MapIcon = () => <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0116 0z"/><circle cx="12" cy="12" r="3"/></svg>;
 const CodeIconSm = () => <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>;
 
-/* ── Iconos SVG para las cards ── */
-const IconReact = () => (
-  <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
-    <circle cx="12" cy="12" r="2.5" stroke="#00b4d8" strokeWidth="1.5" />
-    <ellipse cx="12" cy="12" rx="10" ry="4" stroke="#00b4d8" strokeWidth="1.2" />
-    <ellipse cx="12" cy="12" rx="10" ry="4" stroke="#00b4d8" strokeWidth="1.2" transform="rotate(60 12 12)" />
-    <ellipse cx="12" cy="12" rx="10" ry="4" stroke="#00b4d8" strokeWidth="1.2" transform="rotate(120 12 12)" />
+/* ── Iconos SVG para las cards del mockup ── */
+const IconIdea = () => (
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#00b4d8" strokeWidth="1.5">
+    <path d="M12 3v2M12 19v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M3 12h2M19 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" strokeLinecap="round" />
+    <path d="M9 14.5h6M10 17h4" strokeLinecap="round" />
+    <path d="M8.5 11a3.5 3.5 0 117 0c0 1.3-.72 2.12-1.45 2.83-.48.47-.8.78-.95 1.17h-2.2c-.15-.39-.47-.7-.95-1.17C9.22 13.12 8.5 12.3 8.5 11z" />
   </svg>
 );
-const IconNode = () => (
+const IconBalance = () => (
   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#86efac" strokeWidth="1.5">
-    <polygon points="12 2 22 8.5 22 15.5 12 22 2 15.5 2 8.5" />
-    <line x1="12" y1="2" x2="12" y2="22" />
-    <line x1="2" y1="8.5" x2="22" y2="15.5" />
-    <line x1="22" y1="8.5" x2="2" y2="15.5" />
+    <path d="M12 4v16M6 8h12M8 8l-3 6h6L8 8zM16 8l-3 6h6l-3-6z" strokeLinecap="round" strokeLinejoin="round" />
+    <path d="M9 20h6" strokeLinecap="round" />
   </svg>
 );
-const IconTS = () => (
+const IconLaunch = () => (
   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fde68a" strokeWidth="1.5">
-    <rect x="2" y="2" width="20" height="20" rx="3" />
-    <path d="M8 12h8M12 8v8" strokeLinecap="round" />
+    <path d="M12 3c3.2 1.4 5.2 3.9 6 7.5-2.3.4-4.4 1.4-6 3-1.6-1.6-3.7-2.6-6-3C6.8 6.9 8.8 4.4 12 3z" strokeLinejoin="round" />
+    <path d="M9 15l-1.5 4L12 17l4.5 2L15 15" strokeLinecap="round" strokeLinejoin="round" />
+    <circle cx="12" cy="9" r="1.5" />
   </svg>
 );
 
@@ -41,22 +39,22 @@ interface CodeLine {
 }
 
 const CODE_LINES: CodeLine[] = [
-  { html: `<span class="tk kw">import</span> <span class="tk var">React</span> <span class="tk kw">from</span> <span class="tk str">'react'</span>` },
+  { html: `<span class="tk kw">const</span> <span class="tk var">idea</span> <span class="tk op">=</span> <span class="tk str">'symmetrical'</span>` },
   { html: `` },
-  { html: `<span class="tk kw">export default</span> <span class="tk fn">function</span> <span class="tk fn">Hero</span>() {` },
+  { html: `<span class="tk kw">export default</span> <span class="tk fn">function</span> <span class="tk fn">Studio</span>() {` },
   { html: `  <span class="tk kw">return</span> (` },
   { html: `    <span class="tk tag">&lt;section</span> <span class="tk attr">className</span>=<span class="tk val">"hero"</span><span class="tk tag">&gt;</span>` },
-  { html: `      <span class="tk tag">&lt;h1&gt;</span>Symmetrical<span class="tk tag">&lt;/h1&gt;</span>` },
-  { html: `      <span class="tk tag">&lt;p&gt;</span>Diseño + código<span class="tk tag">&lt;/p&gt;</span>` },
+  { html: `      <span class="tk tag">&lt;h1&gt;</span>Symmetrical Code<span class="tk tag">&lt;/h1&gt;</span>` },
+  { html: `      <span class="tk tag">&lt;p&gt;</span>Ideas en equilibrio<span class="tk tag">&lt;/p&gt;</span>` },
   { html: `      <span class="tk tag">&lt;Button</span> <span class="tk attr">variant</span>=<span class="tk val">"primary"</span><span class="tk tag">&gt;</span>` },
-  { html: `        Ver proyectos` },
+  { html: `        Iniciar conversación` },
   { html: `      <span class="tk tag">&lt;/Button&gt;</span>` },
   { html: `    <span class="tk tag">&lt;/section&gt;</span>` },
   { html: `  )` },
   { html: `}` },
   { html: `` },
-  { html: `<span class="tk cmt">// buildWebsite() →</span>` },
-  { html: `<span class="tk kw">const</span> <span class="tk var">app</span> <span class="tk op">=</span> <span class="tk fn">buildWebsite</span>()` },
+  { html: `<span class="tk cmt">// balanceIdea() →</span>` },
+  { html: `<span class="tk kw">const</span> <span class="tk var">launch</span> <span class="tk op">=</span> <span class="tk fn">buildWithCare</span>(idea)` },
 ];
 
 /* ══════════════════════════════════════════
@@ -406,9 +404,9 @@ function CodeToWebScene() {
         </div>
         <div className="sc-web-cards">
           {[
-            { Icon: IconReact, bg: 'rgba(0,180,216,.12)', title: 'React', desc: t('scene.card_react_desc') },
-            { Icon: IconNode, bg: 'rgba(134,239,172,.12)', title: 'Node.js', desc: t('scene.card_node_desc') },
-            { Icon: IconTS, bg: 'rgba(253,230,138,.12)', title: 'TypeScript', desc: t('scene.card_ts_desc') },
+            { Icon: IconIdea, bg: 'rgba(0,180,216,.12)', title: t('scene.card_idea_title'), desc: t('scene.card_idea_desc') },
+            { Icon: IconBalance, bg: 'rgba(134,239,172,.12)', title: t('scene.card_balance_title'), desc: t('scene.card_balance_desc') },
+            { Icon: IconLaunch, bg: 'rgba(253,230,138,.12)', title: t('scene.card_launch_title'), desc: t('scene.card_launch_desc') },
           ].map(({ Icon, bg, title, desc }) => (
             <div key={title} className="sc-web-card">
               <div className="sc-card-icon" style={{ background: bg }}>
@@ -437,12 +435,11 @@ function CodeToWebScene() {
 export default function Hero() {
   const { t } = useTranslation();
 
-  const stats = [
+  const principles = [
     { value: t('hero.stat_1_value'), label: t('hero.stat_1_label') },
     { value: t('hero.stat_2_value'), label: t('hero.stat_2_label') },
     { value: t('hero.stat_3_value'), label: t('hero.stat_3_label') },
   ];
-  const techs = ['React', 'TypeScript', 'Node.js', 'Next.js', 'Docker', 'AWS'];
 
   return (
     <section id="home" className="relative overflow-hidden grid-bg" style={{ minHeight: '100vh' }}>
@@ -495,7 +492,7 @@ export default function Hero() {
             style={{ animationDelay: '0.35s', animationFillMode: 'forwards' }}
           >
             <button
-              onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })}
+              onClick={() => document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' })}
               className="btn-primary px-6 py-3 rounded-none font-syne font-bold text-sm tracking-wider"
             >
               {t('hero.cta_primary')}
@@ -508,12 +505,12 @@ export default function Hero() {
             </button>
           </div>
 
-          {/* Stats — se envuelven mejor en móvil */}
+          {/* Principios — sin métricas infladas mientras el estudio inicia */}
           <div
             className="flex flex-wrap gap-5 sm:gap-6 mb-7 opacity-0 animate-fade-up"
             style={{ animationDelay: '0.42s', animationFillMode: 'forwards' }}
           >
-            {stats.map((s, i) => (
+            {principles.map((s, i) => (
               <div key={i} className="border-l-2 border-[rgba(0,229,255,0.22)] pl-4">
                 <div className="font-syne font-black text-lg sm:text-xl gradient-text">{s.value}</div>
                 <div className="font-mono text-[0.65rem] text-white/35 mt-0.5 leading-tight">{s.label}</div>
@@ -546,14 +543,10 @@ export default function Hero() {
 
             <div className="hidden sm:block w-px self-stretch bg-[rgba(0,229,255,0.1)]" />
 
-            <div className="flex flex-col gap-2.5">
-              <div className="flex flex-wrap gap-1.5">
-                {techs.map((tech) => (
-                  <span key={tech} className="font-mono text-[0.62rem] text-[#00e5ff]/55 border border-[rgba(0,229,255,0.13)] px-2 py-0.5">
-                    {tech}
-                  </span>
-                ))}
-              </div>
+            <div className="flex flex-col gap-3 max-w-sm">
+              <p className="font-mono text-[0.66rem] leading-relaxed text-white/35 border-l border-[rgba(0,229,255,0.18)] pl-3">
+                {t('hero.foundation_note')}
+              </p>
               <div className="flex items-center gap-3 mt-0.5">
                 <span className="font-mono text-[0.58rem] text-white/20 tracking-widest uppercase">
                   {t('hero.follow_us')}

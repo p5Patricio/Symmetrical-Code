@@ -20,7 +20,7 @@ Chain strategy: size-exception
 
 - [ ] 1.1 Add `ogImageUrl` field to `Project` interface and all entries in `src/data/projects.ts`
 - [ ] 1.2 Create `src/components/sections/TechIcon.tsx` with SVG mapping for React, Python, TypeScript, Vue, Node.js, JavaScript, HTML, CSS, Docker, AWS, AI, ML, Game, Computer Vision, NLP, OpenAI, Audio, Responsive, Stripe, PostgreSQL, MongoDB, MySQL
-- [ ] 1.3 Verify `npm run build` passes after Phase 1
+- [ ] 1.3 Verify `pnpm build` passes after Phase 1
 
 ## Phase 2: Core Implementation
 
@@ -39,7 +39,7 @@ Chain strategy: size-exception
 
 ## Phase 4: Verification
 
-- [ ] 4.1 Run `npm run build` — zero TypeScript errors
+- [ ] 4.1 Run `pnpm build` — zero TypeScript errors
 - [ ] 4.2 Verify responsive behavior at 320px, 768px, 1440px viewports
 - [ ] 4.3 Verify OG images load; test fallback when image fails
 - [ ] 4.4 Verify all 10 projects expand correctly with correct links and icons

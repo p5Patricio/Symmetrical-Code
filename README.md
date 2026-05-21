@@ -1,93 +1,130 @@
-# 🌐 Symmetrical Code - Website
+# Symmetrical Code — Frontend
 
-Sitio web oficial de **Symmetrical Code**, un Software Studio especializado en desarrollo de soluciones digitales a medida.
+Sitio web oficial de **Symmetrical Code**, un Software Studio en etapa inicial. La página comunica una propuesta honesta: construir productos digitales con claridad, equilibrio entre diseño y código, y una base preparada para crecer.
 
-> ⚠️ **IMPORTANTE:** El desarrollo activo está en la rama **`patodev`**. 
-> Se ha migrado el gestor de paquetes a **PNPM** para mayor seguridad y eficiencia.
+> **Rama activa:** `patodev`  
+> **Package manager obligatorio:** `pnpm`  
+> **No usar:** `npm install`, `npm run`, `package-lock.json` ni `yarn.lock` en este frontend.
 
-## ✨ Features
-
-- 🎨 **Diseño moderno** con Tailwind CSS y tema dark/cyber.
-- 🌎 **Internacionalización** (i18n) con soporte para español e inglés.
-- 📱 **Responsive** — Optimizado específicamente para dispositivos móviles.
-- ⚡ **Performance** — Arquitectura SPA con **React Router** y carga optimizada.
-- 🛡️ **Testing** — Suite de pruebas con **Vitest** cubriendo navegación e integridad.
-- 💬 **WhatsApp Direct** — Botón de contacto directo con aviso automático (autoprompt).
-
-## 🛠️ Tecnologías
-
-- **React 18 + TypeScript**
-- **PNPM** (Package Manager)
-- **React Router** (Navegación nativa)
-- **Vitest + React Testing Library** (Testing)
-- **Tailwind CSS**
-- **i18next** (Traducciones)
-- **Three.js** (Efectos 3D en Hero)
-
-## 🚀 Instalación y Ejecución
-
-Para asegurar la integridad de las dependencias, es **obligatorio** usar `pnpm`.
+## Quick path para colaboradores
 
 ```bash
-# 1. Clonar el repo (si no lo tienes)
+# 1. Clonar el repositorio
 git clone https://github.com/p5Patricio/Symmetrical-Code.git
+cd Symmetrical-Code
 
-# 2. Cambiar a la rama de desarrollo
+# 2. Trabajar sobre la rama activa
 git checkout patodev
 
-# 3. Instalar dependencias con PNPM
+# 3. Instalar dependencias
 pnpm install
 
-# 4. Correr en desarrollo
-pnpm run dev
+# 4. Ejecutar en desarrollo
+pnpm dev
 
-# 5. Ejecutar tests
-pnpm test
+# 5. Validar antes de subir cambios
+pnpm lint
+pnpm test -- --run
+pnpm build
 ```
 
-El sitio arranca por defecto en `http://localhost:5173` (o el siguiente puerto disponible).
+La app local normalmente abre en:
 
-## 📁 Nueva Estructura de Navegación
-
-Hemos pasado de un modelo de superposición (overlays) a **Rutas Reales**:
-- `/` - Landing Page (Hero, Servicios, Estudio, Contacto).
-- `/proyectos` - Galería completa de proyectos.
-
-### Cambios Clave:
-- **Sección Servicios:** Rediseño minimalista, rectangular y sin modales para comunicación directa.
-- **Sección Estudio:** Nuevo layout horizontal ("Arquitectónico") centrado en pilares de ingeniería.
-- **WhatsApp Button:** Reemplaza al antiguo Chatbot. Incluye un tooltip que aparece automáticamente a los 2s.
-
-## 🧪 Testing
-
-Para mantener la calidad de **Software Studio**, el proyecto cuenta con tests automatizados:
-
-```bash
-# Ejecutar todos los tests (Integridad, i18n, Rutas)
-pnpm test
+```txt
+http://localhost:5173
 ```
 
-**Nota para devs:** Si agregas una sección o cambias una traducción, asegúrate de que los tests de `i18n` sigan pasando para evitar mostrar llaves técnicas (`hero.title`) al usuario.
+Si ese puerto está ocupado, Vite usará el siguiente disponible y lo mostrará en la terminal.
 
-## 📁 Directorios
+## Qué se está haciendo ahora
 
-```
+| Área | Decisión actual |
+| --- | --- |
+| Inicio / Hero | Mensaje orientado a startup inicial: sin prometer años de experiencia, clientes o métricas infladas. |
+| Slogan actual | **“Diseño y código en equilibrio para tu idea”**. |
+| Animación del hero | Se conserva la ventanita que genera código, pero el contenido ahora comunica proceso y marca. |
+| Tarjetas tecnológicas | Se removieron del inicio las tarjetas/chips como React, TypeScript, Node.js, Next.js, Docker y AWS. |
+| Package manager | El frontend usa exclusivamente PNPM. |
+| Idiomas | Todo texto visible debe existir en español e inglés dentro de `src/i18n/locales/`. |
+
+## Cómo se utiliza la página
+
+La landing está pensada como una página pública para explicar qué ofrece Symmetrical Code y guiar al visitante hacia contacto.
+
+| Sección | Propósito | Archivo principal |
+| --- | --- | --- |
+| Inicio | Presenta el slogan, propuesta de valor y animación visual. | `src/components/sections/HeroSection.tsx` |
+| Servicios | Explica las soluciones digitales ofrecidas. | `src/components/sections/ServicesSection.tsx` |
+| Proyectos | Muestra la galería y casos disponibles. | `src/pages/ProjectsPage.tsx` |
+| Equipo / Estudio | Comunica pilares de trabajo del estudio. | `src/components/sections/TeamSection.tsx` |
+| Footer | Contacto, redes y modales legales. | `src/components/layout/Footer.tsx` |
+| WhatsApp | Botón flotante de contacto directo. | `src/components/chat/ChatWidget.tsx` |
+
+### Navegación
+
+- `/` muestra la landing completa.
+- `/proyectos` muestra la galería de proyectos en página completa.
+- El botón flotante de WhatsApp queda visible sobre la página para contacto rápido.
+
+## Reglas de contenido
+
+Para mantener la comunicación coherente con la etapa actual del estudio:
+
+- Evitar frases que impliquen clientes, experiencia comprobada o métricas que todavía no se tienen.
+- Preferir mensajes sobre claridad, acompañamiento, proceso, diseño útil y código limpio.
+- No volver a agregar chips de tecnologías en el hero/inicio salvo que se decida explícitamente.
+- Si se cambia un texto visible, actualizar `es.json` y `en.json` con las mismas llaves.
+
+## Flujo de trabajo recomendado
+
+1. Crear cambios pequeños y fáciles de revisar.
+2. Validar con PNPM:
+   ```bash
+   pnpm lint
+   pnpm test -- --run
+   pnpm build
+   ```
+3. Revisar visualmente en navegador con `pnpm dev`.
+4. Hacer commit a `patodev`.
+5. Subir cambios:
+   ```bash
+   git push origin patodev
+   ```
+
+## Estructura útil
+
+```txt
 src/
 ├── components/
-│   ├── chat/
-│   │   └── ChatWidget.tsx      # Botón de WhatsApp
-│   ├── layout/
-│   │   ├── Navbar.tsx          # Navbar Global
-│   │   ├── GalleryNavbar.tsx   # Navbar específica de Galería
-│   │   └── Footer.tsx
-│   └── sections/               # Componentes de la Landing
-├── pages/
-│   ├── HomePage.tsx            # Contenedor de la Landing (/)
-│   └── ProjectsPage.tsx        # Página de Galería (/proyectos)
-├── test/                       # Suite de tests (Vitest)
-└── i18n/                       # Configuración y locales
+│   ├── chat/                  # WhatsApp flotante
+│   ├── layout/                # Navbar, GalleryNavbar, Footer
+│   └── sections/              # Secciones de la landing
+├── i18n/
+│   ├── index.ts               # Configuración i18n
+│   └── locales/               # Textos ES/EN
+├── pages/                     # Rutas principales
+└── test/                      # Setup y pruebas Vitest
 ```
 
-## 🏷️ Licencia
+## Scripts disponibles
 
-MIT - Symmetrical Code Team
+| Comando | Uso |
+| --- | --- |
+| `pnpm dev` | Levanta el servidor local de desarrollo. |
+| `pnpm lint` | Revisa reglas de ESLint. |
+| `pnpm test -- --run` | Ejecuta pruebas una sola vez. |
+| `pnpm build` | Compila TypeScript y genera build de producción. |
+| `pnpm preview` | Sirve el build generado localmente. |
+
+## Checklist antes de entregar
+
+- [ ] No se agregó `package-lock.json` ni comandos de npm.
+- [ ] `pnpm lint` pasa.
+- [ ] `pnpm test -- --run` pasa.
+- [ ] `pnpm build` pasa.
+- [ ] La página se revisó visualmente en navegador.
+- [ ] Los textos nuevos existen en español e inglés.
+
+## Licencia
+
+MIT — Symmetrical Code Team

@@ -19,7 +19,7 @@ testing:
   coverage: NOT AVAILABLE
   quality:
     linter: ESLint (eslint .)
-    type_checker: tsc (npm run build)
+    type_checker: tsc (pnpm build)
     formatter: NOT AVAILABLE
 
 rules:
@@ -42,7 +42,7 @@ rules:
     - Maintain i18n support for all user-facing text
     - Use type-only imports for TypeScript types
   verify:
-    - Run TypeScript build (npm run build) before completing
+    - Run TypeScript build (pnpm build) before completing
     - Check responsive behavior manually
   archive:
     - Warn before merging destructive deltas (large removals)

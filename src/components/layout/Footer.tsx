@@ -156,7 +156,7 @@ export default function Footer() {
     }
   };
 
-  const Modal = ({ type, onClose }: { type: 'privacidad' | 'terminos' | 'cookies', onClose: () => void }) => {
+  const renderModal = (type: 'privacidad' | 'terminos' | 'cookies', onClose: () => void) => {
     const content = modalContent[type];
     const Icon = content.icon;
 
@@ -827,15 +827,7 @@ export default function Footer() {
         </div>
       </div>
 
-      {activeModal === 'privacidad' && (
-        <Modal type="privacidad" onClose={() => setActiveModal(null)} />
-      )}
-      {activeModal === 'terminos' && (
-        <Modal type="terminos" onClose={() => setActiveModal(null)} />
-      )}
-      {activeModal === 'cookies' && (
-        <Modal type="cookies" onClose={() => setActiveModal(null)} />
-      )}
+      {activeModal && renderModal(activeModal, () => setActiveModal(null))}
     </footer>
   );
 }
