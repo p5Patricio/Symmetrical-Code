@@ -118,6 +118,16 @@ export default function Navbar() {
           ))}
         </div>
       </div>
+
+      {/* Bottom gradient line */}
+      <div style={{
+        position: 'absolute',
+        bottom: 0,
+        left: 0,
+        right: 0,
+        height: '1px',
+        background: 'linear-gradient(90deg, transparent, #00e5ff, #00e5ff, transparent)',
+      }} />
     </header>
   );
 }

@@ -1,11 +1,5 @@
 import { useTranslation } from 'react-i18next';
 
-const ArrowRightIcon = () => (
-  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-    <line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" />
-  </svg>
-);
-
 const serviceIcons: Record<number, JSX.Element> = {
   0: (
     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
@@ -107,8 +101,8 @@ export default function Services() {
               }}
             >
               {/* Glowing Orb Background */}
-              <div 
-                className="glowing-orb -top-10 -right-10" 
+              <div
+                className="glowing-orb -top-10 -right-10"
                 style={{ background: serviceColors[i] }}
               />
 
@@ -117,22 +111,21 @@ export default function Services() {
                 <span className="font-mono text-sm text-white/10 group-hover:text-white/20 transition-colors tracking-tighter">
                   {String(i + 1).padStart(2, '0')}
                 </span>
-                <div className="w-14 h-14 flex items-center justify-center border border-white/10 bg-white/[0.03] text-white/40 group-hover:text-white transition-all duration-500 rounded-lg relative overflow-hidden"
-                  style={{ 
+                <div
+                  className="w-14 h-14 flex items-center justify-center border border-white/10 bg-white/[0.03] text-white/40 group-hover:text-white transition-all duration-500 rounded-lg relative overflow-hidden"
+                  style={{
                     boxShadow: 'inset 0 0 20px rgba(255,255,255,0.02)',
                   }}
                 >
                   {/* Background Glow on Hover */}
-                  <div 
+                  <div
                     className="absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity duration-500"
                     style={{ background: serviceColors[i] }}
                   />
-                  
                   <div className="relative z-10 transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] group-hover:scale-110 group-hover:-translate-y-0.5">
                     {serviceIcons[i]}
                   </div>
                 </div>
-
               </div>
 
               {/* Content */}
@@ -145,7 +138,7 @@ export default function Services() {
                 </p>
               </div>
 
-              {/* Bullet list - Show all items */}
+              {/* Bullet list */}
               <div className="flex flex-col gap-3 md:gap-4 pt-5 md:pt-6 border-t border-white/5 relative z-10 mt-auto">
                 <ul className="flex flex-col gap-2 md:gap-3">
                   {service.bullets.map((bullet, j) => (
@@ -155,15 +148,6 @@ export default function Services() {
                     </li>
                   ))}
                 </ul>
-                
-                {/* Contact link instead of Learn More */}
-                <a
-                  href="#contact"
-                  className="flex items-center gap-3 font-bold text-xs tracking-widest uppercase text-[#00e5ff]/60 hover:text-[#00e5ff] transition-all duration-300 mt-2"
-                >
-                  <span>{t('contact.label')}</span>
-                  <ArrowRightIcon />
-                </a>
               </div>
             </article>
           ))}

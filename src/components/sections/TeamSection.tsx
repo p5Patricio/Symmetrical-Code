@@ -62,11 +62,11 @@ export default function Team() {
           </div>
         </div>
 
-        {/* Studio Pillars - New Layout */}
+        {/* Studio Pillars */}
         <div className="flex flex-col gap-1px bg-white/5 border border-white/5 rounded-3xl overflow-hidden">
           {pillars.map((pillar, i) => (
-            <div 
-              key={i} 
+            <div
+              key={i}
               className="group relative bg-[#020408] hover:bg-white/[0.02] transition-colors duration-500 p-8 md:p-12 flex flex-col md:flex-row gap-8 md:items-center border-b border-white/5 last:border-b-0"
             >
               {/* Pillar Number/Icon */}
@@ -74,7 +74,7 @@ export default function Team() {
                 <span className="font-mono text-4xl font-black text-white/5 group-hover:text-[#00e5ff]/20 transition-colors duration-500">
                   0{i + 1}
                 </span>
-                <div 
+                <div
                   className="w-12 h-12 flex items-center justify-center rounded-xl border border-white/10 text-white/40 group-hover:text-white group-hover:border-[#00e5ff]/40 transition-all duration-500"
                   style={{ color: pillarColors[i] }}
                 >
@@ -95,7 +95,7 @@ export default function Team() {
               {/* Pillar Tags */}
               <div className="md:w-1/4 flex flex-wrap gap-2 md:justify-end">
                 {pillar.details.map((detail, j) => (
-                  <span 
+                  <span
                     key={j}
                     className="font-mono text-[9px] px-3 py-1 rounded-md border border-white/10 bg-white/5 text-white/40 group-hover:text-white/70 transition-all uppercase tracking-wider"
                   >
@@ -110,16 +110,16 @@ export default function Team() {
           ))}
         </div>
 
-        {/* Confidence Statement - Minimalist */}
+        {/* Confidence Statement */}
         <div className="mt-24 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           <div>
             <h4 className="font-syne font-bold text-white text-2xl mb-4 italic">
-              "Ingeniería real para problemas reales."
+              {t('team.quote')}
             </h4>
             <div className="h-1 w-12 bg-[#00e5ff]" />
           </div>
           <p className="text-white/40 text-sm leading-relaxed border-l border-white/10 pl-8">
-            En Symmetrical Code no delegamos tu proyecto a terceros ni a juniors sin supervisión. Cada línea de código es revisada por nuestro equipo core, asegurando que recibas un producto que no solo funciona hoy, sino que escala para el mañana.
+            {t('team.quote_body')}
           </p>
         </div>
       </div>

@@ -7,9 +7,9 @@
   },
   "hero": {
     "label": "Software Studio",
-    "title": "Diseño y código",
-    "title_highlight": "en equilibrio",
-    "title_end": "para tu idea",
+    "title": "Ingeniería real",
+    "title_highlight": "para problemas",
+    "title_end": "reales.",
     "subtitle": "Convertimos ideas claras en productos digitales simples, rápidos y listos para crecer contigo desde el primer lanzamiento.",
     "cta_primary": "Explorar servicios",
     "cta_secondary": "Platicar una idea",
@@ -151,27 +151,42 @@
     "gallery_title": "Todos los proyectos",
     "filter_all": "Todos",
     "back": "Volver al sitio",
-    "single_image": "Solo una imagen disponible"
+    "single_image": "Solo una imagen disponible",
+    "explore": "Explorar"
   },
   "team": {
-    "label": "Nuestro Estudio",
+    "label": "Nuestro Equipo",
     "title": "¿Por qué Symmetrical Code?",
     "subtitle": "Combinamos ingeniería de software de alto nivel con un enfoque integral orientado a potenciar tu negocio.",
+    "quote": "\"Ingeniería real para problemas reales.\"",
+    "quote_body": "En Symmetrical Code no delegamos tu proyecto a terceros ni a juniors sin supervisión. Cada línea de código es revisada por nuestro equipo core, asegurando que recibas un producto que no solo funciona hoy, sino que escala para el mañana.",
     "pillars": [
       {
         "title": "Arquitectura de Software",
         "description": "No solo escribimos código; diseñamos sistemas robustos y escalables. Dividimos nuestras tareas en especialidades (Frontend, Backend y DevOps) para asegurar que cada pieza del software reciba atención experta.",
-        "details": ["Arquitectura Limpia", "Bases de datos optimizadas", "Nube e Infraestructura"]
+        "details": [
+          "Arquitectura Limpia",
+          "Bases de datos optimizadas",
+          "Nube e Infraestructura"
+        ]
       },
       {
         "title": "Estándares de Calidad",
         "description": "La confianza se construye con software que no falla. Implementamos pruebas automatizadas (tests), revisiones de código rigurosas y auditorías de seguridad en cada entrega.",
-        "details": ["Pruebas de Software", "Seguridad Bancaria", "Código Mantenible"]
+        "details": [
+          "Pruebas de Software",
+          "Seguridad Bancaria",
+          "Código Mantenible"
+        ]
       },
       {
         "title": "Diseño que Convierte",
         "description": "El software debe ser una herramienta comercial. Creamos interfaces intuitivas pensadas para el usuario final, optimizando la velocidad y la facilidad de uso para maximizar tus ventas.",
-        "details": ["UI / UX Moderno", "Velocidad Extrema", "Enfoque en Conversión"]
+        "details": [
+          "UI / UX Moderno",
+          "Velocidad Extrema",
+          "Enfoque en Conversión"
+        ]
       }
     ]
   },

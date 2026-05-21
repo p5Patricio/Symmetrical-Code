@@ -25,7 +25,6 @@ export default function GalleryNavbar({
     { key: 'nav.services', id: 'services' },
     { key: 'nav.projects', id: 'projects' },
     { key: 'nav.team', id: 'team' },
-    { key: 'nav.contact', id: 'contact' },
   ];
 
   return (
@@ -71,6 +70,16 @@ export default function GalleryNavbar({
           </button>
         </div>
       </nav>
+
+      {/* Bottom gradient line */}
+      <div style={{
+        position: 'absolute',
+        bottom: 0,
+        left: 0,
+        right: 0,
+        height: '1px',
+        background: 'linear-gradient(90deg, transparent, #00e5ff, #00e5ff, transparent)',
+      }} />
     </header>
   );
 }

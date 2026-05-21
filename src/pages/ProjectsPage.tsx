@@ -216,9 +216,8 @@ export default function Projects({ isFullPage = false }: { isFullPage?: boolean 
               <div className="p-8 flex flex-col gap-6">
                 <h3 className="font-syne font-black text-2xl text-white group-hover:text-[#00e5ff] transition-colors">{project.title}</h3>
                 <p className="text-white/40 text-sm leading-relaxed line-clamp-3">{project.description}</p>
-                <div className="mt-auto pt-6 border-t border-white/5 flex items-center justify-between">
-                  <span className="font-mono text-[10px] text-white/20 uppercase tracking-widest">Case Study</span>
-                  <span className="text-[#00e5ff] text-xs font-bold uppercase tracking-tighter flex items-center gap-2">Explore <ExternalLinkIcon /></span>
+                <div className="mt-auto pt-6 border-t border-white/5 flex items-center justify-end">
+                  <span className="text-[#00e5ff] text-xs font-bold uppercase tracking-tighter flex items-center gap-2">{t('projects.explore')} <ExternalLinkIcon /></span>
                 </div>
               </div>
             </article>
