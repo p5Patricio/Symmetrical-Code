@@ -101,8 +101,8 @@ const DetailModal = ({ project, index, totalProjects, onNext, onPrev, onClose }:
 
   return (
     <>
-      <div className="fixed inset-0 z-[400] bg-[#020408]/95 backdrop-blur-2xl flex items-center justify-center p-4" onClick={onClose}>
-        <div className="w-full max-w-5xl max-h-[95vh] overflow-y-auto bg-gradient-to-br from-[#070d14] to-[#03060a] border border-white/10 rounded-2xl relative shadow-2xl flex flex-col md:flex-row" onClick={e => e.stopPropagation()}>
+      <div className="fixed inset-0 z-[400] bg-[#020408]/95 backdrop-blur-2xl flex flex-col items-center justify-center p-4" onClick={onClose}>
+        <div className="w-full max-w-5xl max-h-[85vh] overflow-y-auto bg-gradient-to-br from-[#070d14] to-[#03060a] border border-white/10 rounded-2xl relative shadow-2xl flex flex-col md:flex-row mb-8" onClick={e => e.stopPropagation()}>
           <button onClick={onClose} className="absolute top-6 right-6 p-2 text-white/30 hover:text-white transition-colors z-20"><CloseIcon /></button>
           
           <div className="relative w-full md:w-1/2 h-64 md:h-auto min-h-[400px] bg-[#03060a]">
@@ -134,28 +134,32 @@ const DetailModal = ({ project, index, totalProjects, onNext, onPrev, onClose }:
                 {project.githubUrl && <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2 font-mono text-[11px] tracking-wider uppercase px-5 py-3 bg-white/5 border border-white/10 text-white/70 rounded-md transition-all hover:bg-white/10"><GithubIcon />Source Code</a>}
                 <button onClick={() => setGalleryOpen(true)} className="flex items-center justify-center gap-2 font-mono text-[11px] tracking-wider uppercase px-5 py-3 bg-white/5 border border-white/10 text-white/70 rounded-md transition-all hover:bg-white/10"><ImagesIcon />{t('projects.gallery')}</button>
               </div>
-
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-4">
-                  <button onClick={onPrev} className="group flex items-center gap-2 text-white/30 hover:text-white transition-all">
-                    <div className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center group-hover:border-[#00e5ff]/50 group-hover:bg-[#00e5ff]/10">
-                      <ChevronLeft />
-                    </div>
-                    <span className="font-mono text-[10px] uppercase tracking-widest hidden sm:block">Prev</span>
-                  </button>
-                  <button onClick={onNext} className="group flex items-center gap-2 text-white/30 hover:text-white transition-all text-right">
-                    <span className="font-mono text-[10px] uppercase tracking-widest hidden sm:block">Next</span>
-                    <div className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center group-hover:border-[#00e5ff]/50 group-hover:bg-[#00e5ff]/10">
-                      <ChevronRight />
-                    </div>
-                  </button>
-                </div>
-                <div className="text-right">
-                  <span className="font-mono text-[11px] text-[#00e5ff]/40 block uppercase tracking-tighter">_{String(index + 1).padStart(2, '0')} / {String(totalProjects).padStart(2, '0')}</span>
-                </div>
-              </div>
             </div>
           </div>
+        </div>
+
+        {/* Outer Navigation */}
+        <div className="flex flex-col items-center gap-6" onClick={e => e.stopPropagation()}>
+           <div className="flex items-center gap-8">
+              <button onClick={onPrev} className="group flex items-center gap-3 text-white/40 hover:text-[#00e5ff] transition-all">
+                <div className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center group-hover:border-[#00e5ff]/40 group-hover:bg-[#00e5ff]/5">
+                  <ChevronLeft />
+                </div>
+                <span className="font-mono text-[11px] uppercase tracking-[.2em] font-bold">{t('projects.prev_project', { defaultValue: 'Ver anterior proyecto' })}</span>
+              </button>
+
+              <div className="h-8 w-px bg-white/10 hidden sm:block" />
+
+              <button onClick={onNext} className="group flex items-center gap-3 text-white/40 hover:text-[#00e5ff] transition-all text-right">
+                <span className="font-mono text-[11px] uppercase tracking-[.2em] font-bold">{t('projects.next_project', { defaultValue: 'Ver siguiente proyecto' })}</span>
+                <div className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center group-hover:border-[#00e5ff]/40 group-hover:bg-[#00e5ff]/5">
+                  <ChevronRight />
+                </div>
+              </button>
+           </div>
+           <div className="font-mono text-[10px] text-white/20 tracking-[.3em] uppercase">
+              {String(index + 1).padStart(2, '0')} / {String(totalProjects).padStart(2, '0')}
+           </div>
         </div>
       </div>
       {galleryOpen && <GalleryModal title={project.title} images={images} projectIndex={index} onClose={() => setGalleryOpen(false)} />}
@@ -244,17 +248,23 @@ export default function Projects({ isFullPage = false }: { isFullPage?: boolean 
                   <div className="p-6 flex flex-col gap-4 flex-1">
                     <div className="flex items-center justify-between">
                       <span className="font-mono text-[10px] text-[#00e5ff]/30 tracking-wider">_{String(globalIndex + 1).padStart(2, '0')}</span>
-                      <div className="flex gap-2">
-                        {project.tags.slice(0, 3).map(tag => (
-                          techIconMap[tag] && <img key={tag} src={techIconMap[tag]} alt={tag} className="w-4 h-4 opacity-40 group-hover:opacity-80 transition-opacity" title={tag} />
-                        ))}
-                      </div>
                     </div>
                     <h4 className="font-syne font-bold text-lg text-white group-hover:text-[#00e5ff] transition-colors leading-tight">{project.title}</h4>
                     <p className="text-white/40 text-xs leading-relaxed text-justify line-clamp-4">{project.description}</p>
+                    
+                    <div className="flex items-center gap-2 mt-2">
+                      {project.tags.slice(0, 6).map(tag => (
+                        techIconMap[tag] && (
+                          <div key={tag} className="w-7 h-7 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center p-1.5" title={tag}>
+                            <img src={techIconMap[tag]} alt={tag} className="w-full h-full object-contain opacity-60" />
+                          </div>
+                        )
+                      ))}
+                    </div>
+
                     <div className="mt-auto flex flex-wrap gap-1.5">
-                      {project.tags.map(tag => (
-                        <span key={tag} className="text-[9px] font-mono text-white/20 uppercase tracking-tighter">#{tag}</span>
+                      {project.tags.slice(0, 4).map(tag => (
+                        <span key={tag} className="text-[9px] font-mono text-white/10 uppercase tracking-tighter">#{tag}</span>
                       ))}
                     </div>
                   </div>
@@ -282,22 +292,24 @@ export default function Projects({ isFullPage = false }: { isFullPage?: boolean 
           {items.map((project, i) => {
              const globalIndex = allItems.findIndex(p => p.title === project.title);
              return (
-              <article key={i} onClick={() => setSelectedProject({ project, index: globalIndex })} className="glass-card-enhanced group cursor-pointer overflow-hidden border border-white/10 rounded-2xl flex flex-col min-h-[550px]">
+              <article key={i} onClick={() => setSelectedProject({ project, index: globalIndex })} className="glass-card-enhanced group cursor-pointer overflow-hidden border border-white/10 rounded-2xl flex flex-col min-h-[580px]">
                 <div className="h-56 overflow-hidden shrink-0 relative">
                   <ImageWithFallback src={project.ogImageUrl} alt={project.title} fallback={<ProjectImage index={i} title={project.title} />} />
-                  <div className="absolute top-4 right-4 flex gap-2">
-                    {project.tags.slice(0, 4).map(tag => (
-                      techIconMap[tag] && (
-                        <div key={tag} className="w-8 h-8 rounded-full bg-[#020408]/80 backdrop-blur-md border border-white/10 flex items-center justify-center p-1.5">
-                          <img src={techIconMap[tag]} alt={tag} className="w-full h-full object-contain" />
-                        </div>
-                      )
-                    ))}
-                  </div>
                 </div>
                 <div className="p-8 flex flex-col gap-6 flex-1">
                   <h3 className="font-syne font-black text-2xl text-white group-hover:text-[#00e5ff] transition-colors">{project.title}</h3>
                   <p className="text-white/40 text-sm leading-relaxed line-clamp-4">{project.description}</p>
+                  
+                  <div className="flex items-center gap-3">
+                    {project.tags.slice(0, 6).map(tag => (
+                      techIconMap[tag] && (
+                        <div key={tag} className="w-9 h-9 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center p-2 group-hover:border-[#00e5ff]/20 transition-all" title={tag}>
+                          <img src={techIconMap[tag]} alt={tag} className="w-full h-full object-contain opacity-50 group-hover:opacity-100 transition-opacity" />
+                        </div>
+                      )
+                    ))}
+                  </div>
+
                   <div className="mt-auto pt-6 border-t border-white/5 flex items-center justify-between">
                     <span className="font-mono text-[10px] text-white/20 uppercase tracking-widest">{project.category}</span>
                     <span className="text-[#00e5ff] text-xs font-bold uppercase tracking-tighter flex items-center gap-2">Explore <ExternalLinkIcon /></span>
