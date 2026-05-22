@@ -59,7 +59,7 @@ const ProjectImage = ({ index, title }: { index: number; title: string }) => {
   );
 };
 
-const GalleryModal = ({ title, images, projectIndex, onClose }: { title: string; images: string[]; projectIndex: number; onClose: () => void }) => {
+const GalleryModal = ({ title, images, onClose }: { title: string; images: string[]; onClose: () => void }) => {
   const [current, setCurrent] = useState(0);
   useEffect(() => {
     const handleKey = (e: KeyboardEvent) => {
@@ -174,7 +174,7 @@ const DetailModal = ({ project, index, totalProjects, onNext, onPrev, onClose }:
            </div>
         </div>
       </div>
-      {galleryOpen && <GalleryModal title={project.title} images={images} projectIndex={index} onClose={() => setGalleryOpen(false)} />}
+      {galleryOpen && <GalleryModal title={project.title} images={images} onClose={() => setGalleryOpen(false)} />}
     </>
   );
 };

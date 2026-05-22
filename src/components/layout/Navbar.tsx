@@ -171,7 +171,7 @@ export default function Navbar() {
 
           {/* Enlaces del menú móvil */}
           <div className="flex flex-col items-center gap-2 w-full max-w-[220px]">
-            {navLinks.map((link, idx) => (
+            {navLinks.map((link) => (
               <button
                 key={link.id}
                 onClick={() => scrollTo(link.id)}
