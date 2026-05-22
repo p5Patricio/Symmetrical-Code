@@ -1,7 +1,7 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import { projects } from '../data/projects';
+import { projects, techIconMap } from '../data/projects';
 import GalleryNavbar from '../components/layout/GalleryNavbar';
 
 // --- Types ---
@@ -85,30 +85,74 @@ const GalleryModal = ({ title, images, onClose }: { title: string; images: strin
   );
 };
 
-const DetailModal = ({ project, index, onClose }: { project: ProjectView; index: number; onClose: () => void }) => {
+const DetailModal = ({ project, index, totalProjects, onNext, onPrev, onClose }: { project: ProjectView; index: number; totalProjects: number; onNext: () => void; onPrev: () => void; onClose: () => void }) => {
   const { t } = useTranslation();
   const [galleryOpen, setGalleryOpen] = useState(false);
   const images = project.galleryImages && project.galleryImages.length > 0 ? project.galleryImages : [project.ogImageUrl];
   useEffect(() => {
-    const handleKey = (e: KeyboardEvent) => { if (e.key === 'Escape' && !galleryOpen) onClose(); };
+    const handleKey = (e: KeyboardEvent) => { 
+      if (e.key === 'Escape' && !galleryOpen) onClose(); 
+      if (e.key === 'ArrowRight' && !galleryOpen) onNext();
+      if (e.key === 'ArrowLeft' && !galleryOpen) onPrev();
+    };
     window.addEventListener('keydown', handleKey);
     return () => window.removeEventListener('keydown', handleKey);
-  }, [galleryOpen, onClose]);
+  }, [galleryOpen, onClose, onNext, onPrev]);
+
   return (
     <>
       <div className="fixed inset-0 z-[400] bg-[#020408]/95 backdrop-blur-2xl flex items-center justify-center p-4" onClick={onClose}>
-        <div className="w-full max-w-4xl max-h-[90vh] overflow-y-auto bg-gradient-to-br from-[#070d14] to-[#03060a] border border-white/10 rounded-2xl relative shadow-2xl" onClick={e => e.stopPropagation()}>
+        <div className="w-full max-w-5xl max-h-[95vh] overflow-y-auto bg-gradient-to-br from-[#070d14] to-[#03060a] border border-white/10 rounded-2xl relative shadow-2xl flex flex-col md:flex-row" onClick={e => e.stopPropagation()}>
           <button onClick={onClose} className="absolute top-6 right-6 p-2 text-white/30 hover:text-white transition-colors z-20"><CloseIcon /></button>
-          <div className="grid grid-cols-1 md:grid-cols-2">
-            <div className="relative h-64 md:h-full bg-[#03060a]"><ImageWithFallback src={project.ogImageUrl} alt={project.title} fallback={<ProjectImage index={index} title={project.title} />} /><div className="absolute inset-0 bg-gradient-to-t from-[#020408] via-transparent to-transparent md:bg-gradient-to-r md:from-transparent md:to-[#070d14]" /></div>
-            <div className="p-8 md:p-12 flex flex-col gap-8">
-              <div><span className="font-mono text-[10px] text-[#00e5ff]/40 tracking-widest uppercase mb-2 block">Project Case</span><h3 className="font-syne font-black text-3xl md:text-4xl text-white tracking-tight">{project.title}</h3><div className="w-12 h-1 bg-[#00e5ff] mt-4" /></div>
+          
+          <div className="relative w-full md:w-1/2 h-64 md:h-auto min-h-[400px] bg-[#03060a]">
+            <ImageWithFallback src={project.ogImageUrl} alt={project.title} fallback={<ProjectImage index={index} title={project.title} />} />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#020408] via-transparent to-transparent md:bg-gradient-to-r md:from-transparent md:to-[#070d14]" />
+          </div>
+
+          <div className="p-8 md:p-12 flex-1 flex flex-col gap-8 justify-between">
+            <div className="flex flex-col gap-6">
+              <div>
+                <span className="font-mono text-[10px] text-[#00e5ff]/40 tracking-widest uppercase mb-2 block">Project Case</span>
+                <h3 className="font-syne font-black text-3xl md:text-5xl text-white tracking-tight leading-tight">{project.title}</h3>
+                <div className="w-12 h-1 bg-[#00e5ff] mt-4" />
+              </div>
               <p className="text-white/50 leading-relaxed text-sm text-justify">{project.description}</p>
-              <div className="flex flex-wrap gap-2">{project.tags.map(tag => (<span key={tag} className="px-3 py-1 rounded-md border border-white/5 bg-white/5 text-white/40 text-[10px] font-mono uppercase tracking-wider">{tag}</span>))}</div>
-              <div className="flex flex-wrap gap-3 mt-4">
+              <div className="flex flex-wrap gap-2">
+                {project.tags.map(tag => (
+                  <div key={tag} className="flex items-center gap-1.5 px-3 py-1.5 rounded-md border border-white/5 bg-white/5 group/tag">
+                    {techIconMap[tag] && <img src={techIconMap[tag]} alt={tag} className="w-3.5 h-3.5 opacity-50 group-hover/tag:opacity-100 transition-opacity" />}
+                    <span className="text-white/40 group-hover/tag:text-white transition-colors text-[10px] font-mono uppercase tracking-wider">{tag}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="flex flex-col gap-8 pt-8 border-t border-white/5">
+              <div className="flex flex-wrap gap-3">
                 {project.demoUrl && <a href={project.demoUrl} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2 font-mono text-[11px] tracking-wider uppercase px-6 py-3 bg-[#00e5ff] text-[#020408] font-bold rounded-md transition-all hover:scale-105 hover:shadow-[0_0_25px_rgba(0,229,255,0.4)]"><ExternalLinkIcon />{t('projects.view_demo')}</a>}
                 {project.githubUrl && <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2 font-mono text-[11px] tracking-wider uppercase px-5 py-3 bg-white/5 border border-white/10 text-white/70 rounded-md transition-all hover:bg-white/10"><GithubIcon />Source Code</a>}
                 <button onClick={() => setGalleryOpen(true)} className="flex items-center justify-center gap-2 font-mono text-[11px] tracking-wider uppercase px-5 py-3 bg-white/5 border border-white/10 text-white/70 rounded-md transition-all hover:bg-white/10"><ImagesIcon />{t('projects.gallery')}</button>
+              </div>
+
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-4">
+                  <button onClick={onPrev} className="group flex items-center gap-2 text-white/30 hover:text-white transition-all">
+                    <div className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center group-hover:border-[#00e5ff]/50 group-hover:bg-[#00e5ff]/10">
+                      <ChevronLeft />
+                    </div>
+                    <span className="font-mono text-[10px] uppercase tracking-widest hidden sm:block">Prev</span>
+                  </button>
+                  <button onClick={onNext} className="group flex items-center gap-2 text-white/30 hover:text-white transition-all text-right">
+                    <span className="font-mono text-[10px] uppercase tracking-widest hidden sm:block">Next</span>
+                    <div className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center group-hover:border-[#00e5ff]/50 group-hover:bg-[#00e5ff]/10">
+                      <ChevronRight />
+                    </div>
+                  </button>
+                </div>
+                <div className="text-right">
+                  <span className="font-mono text-[11px] text-[#00e5ff]/40 block uppercase tracking-tighter">_{String(index + 1).padStart(2, '0')} / {String(totalProjects).padStart(2, '0')}</span>
+                </div>
               </div>
             </div>
           </div>
@@ -128,16 +172,16 @@ export default function Projects({ isFullPage = false }: { isFullPage?: boolean 
   const [galleryScrolled, setGalleryScrolled] = useState(false);
 
   const lang = i18n.language;
-  const allItems: ProjectView[] = projects.map(p => ({
+  const allItems: ProjectView[] = useMemo(() => projects.map(p => ({
     ...p,
     title: lang === 'es' ? p.titleEs : p.titleEn,
     description: lang === 'es' ? p.descriptionEs : p.descriptionEn,
-  }));
+  })), [lang]);
 
   const featuredTitles = ['TravelApp', 'Rey Asesino', 'Eventos SMA'];
-  const items = featuredTitles.map(ft => allItems.find(p => p.title === ft || projects.find(pr => pr.title === ft && (lang === 'es' ? pr.titleEs : pr.titleEn) === p.title))).filter(Boolean) as ProjectView[];
-  const categories = ['all', ...Array.from(new Set(allItems.map(p => p.category || '')))];
-  const filtered = activeFilter === 'all' ? allItems : allItems.filter(p => p.category === activeFilter);
+  const items = useMemo(() => featuredTitles.map(ft => allItems.find(p => p.title === ft || projects.find(pr => pr.title === ft && (lang === 'es' ? pr.titleEs : pr.titleEn) === p.title))).filter(Boolean) as ProjectView[], [allItems, lang]);
+  const categories = useMemo(() => ['all', ...Array.from(new Set(allItems.map(p => p.category || '')))], [allItems]);
+  const filtered = useMemo(() => activeFilter === 'all' ? allItems : allItems.filter(p => p.category === activeFilter), [activeFilter, allItems]);
 
   useEffect(() => {
     if (!isFullPage) return;
@@ -161,6 +205,19 @@ export default function Projects({ isFullPage = false }: { isFullPage?: boolean 
     }, isFullPage ? 500 : 0);
   };
 
+  const navigateProject = (direction: 'next' | 'prev') => {
+    if (!selectedProject) return;
+    const total = filtered.length;
+    const currentIndex = filtered.findIndex(p => p.title === selectedProject.project.title);
+    let nextIdx = direction === 'next' ? currentIndex + 1 : currentIndex - 1;
+    if (nextIdx >= total) nextIdx = 0;
+    if (nextIdx < 0) nextIdx = total - 1;
+    
+    const nextProject = filtered[nextIdx];
+    const globalIndex = allItems.findIndex(p => p.title === nextProject.title);
+    setSelectedProject({ project: nextProject, index: globalIndex });
+  };
+
   if (isFullPage) {
     return (
       <div className="fixed inset-0 z-[150] flex flex-col bg-[#020408]">
@@ -179,22 +236,34 @@ export default function Projects({ isFullPage = false }: { isFullPage?: boolean 
             {filtered.map((project, i) => {
               const globalIndex = allItems.findIndex(p => p.title === project.title);
               return (
-                <article key={i} onClick={() => setSelectedProject({ project, index: globalIndex })} className="group cursor-pointer overflow-hidden transition-all bg-white/[0.02] border border-white/5 rounded-lg hover:scale-[1.02]">
-                  <div className="w-full h-40 relative overflow-hidden">
+                <article key={i} onClick={() => setSelectedProject({ project, index: globalIndex })} className="group cursor-pointer overflow-hidden transition-all bg-white/[0.02] border border-white/5 rounded-lg hover:scale-[1.02] flex flex-col h-[500px]">
+                  <div className="w-full h-48 relative overflow-hidden shrink-0">
                     <ImageWithFallback src={project.ogImageUrl} alt={project.title} fallback={<ProjectImage index={globalIndex} title={project.title} />} />
                     <div className="absolute inset-0 flex items-center justify-center bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity"><span className="font-mono text-[10px] tracking-wider text-[#00e5ff] uppercase">{t('projects.view_detail')} →</span></div>
                   </div>
-                  <div className="p-5 flex flex-col gap-3">
-                    <span className="font-mono text-[10px] text-[#00e5ff]/30 tracking-wider">_{String(globalIndex + 1).padStart(2, '0')}</span>
-                    <h4 className="font-syne font-bold text-base text-white group-hover:text-[#00e5ff] transition-colors">{project.title}</h4>
-                    <p className="text-white/40 text-xs leading-relaxed text-justify line-clamp-2">{project.description}</p>
+                  <div className="p-6 flex flex-col gap-4 flex-1">
+                    <div className="flex items-center justify-between">
+                      <span className="font-mono text-[10px] text-[#00e5ff]/30 tracking-wider">_{String(globalIndex + 1).padStart(2, '0')}</span>
+                      <div className="flex gap-2">
+                        {project.tags.slice(0, 3).map(tag => (
+                          techIconMap[tag] && <img key={tag} src={techIconMap[tag]} alt={tag} className="w-4 h-4 opacity-40 group-hover:opacity-80 transition-opacity" title={tag} />
+                        ))}
+                      </div>
+                    </div>
+                    <h4 className="font-syne font-bold text-lg text-white group-hover:text-[#00e5ff] transition-colors leading-tight">{project.title}</h4>
+                    <p className="text-white/40 text-xs leading-relaxed text-justify line-clamp-4">{project.description}</p>
+                    <div className="mt-auto flex flex-wrap gap-1.5">
+                      {project.tags.map(tag => (
+                        <span key={tag} className="text-[9px] font-mono text-white/20 uppercase tracking-tighter">#{tag}</span>
+                      ))}
+                    </div>
                   </div>
                 </article>
               );
             })}
           </div>
         </div>
-        {selectedProject && <DetailModal project={selectedProject.project} index={selectedProject.index} onClose={() => setSelectedProject(null)} />}
+        {selectedProject && <DetailModal project={selectedProject.project} index={selectedProject.index} totalProjects={filtered.length} onNext={() => navigateProject('next')} onPrev={() => navigateProject('prev')} onClose={() => setSelectedProject(null)} />}
       </div>
     );
   }
@@ -210,19 +279,33 @@ export default function Projects({ isFullPage = false }: { isFullPage?: boolean 
           </div>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {items.map((project, i) => (
-            <article key={i} onClick={() => setSelectedProject({ project, index: allItems.findIndex(p => p.title === project.title) })} className="glass-card-enhanced group cursor-pointer overflow-hidden border border-white/10 rounded-2xl">
-              <div className="h-48 overflow-hidden"><ImageWithFallback src={project.ogImageUrl} alt={project.title} fallback={<ProjectImage index={i} title={project.title} />} /></div>
-              <div className="p-8 flex flex-col gap-6">
-                <h3 className="font-syne font-black text-2xl text-white group-hover:text-[#00e5ff] transition-colors">{project.title}</h3>
-                <p className="text-white/40 text-sm leading-relaxed line-clamp-3">{project.description}</p>
-                <div className="mt-auto pt-6 border-t border-white/5 flex items-center justify-between">
-                  <span className="font-mono text-[10px] text-white/20 uppercase tracking-widest">Case Study</span>
-                  <span className="text-[#00e5ff] text-xs font-bold uppercase tracking-tighter flex items-center gap-2">Explore <ExternalLinkIcon /></span>
+          {items.map((project, i) => {
+             const globalIndex = allItems.findIndex(p => p.title === project.title);
+             return (
+              <article key={i} onClick={() => setSelectedProject({ project, index: globalIndex })} className="glass-card-enhanced group cursor-pointer overflow-hidden border border-white/10 rounded-2xl flex flex-col min-h-[550px]">
+                <div className="h-56 overflow-hidden shrink-0 relative">
+                  <ImageWithFallback src={project.ogImageUrl} alt={project.title} fallback={<ProjectImage index={i} title={project.title} />} />
+                  <div className="absolute top-4 right-4 flex gap-2">
+                    {project.tags.slice(0, 4).map(tag => (
+                      techIconMap[tag] && (
+                        <div key={tag} className="w-8 h-8 rounded-full bg-[#020408]/80 backdrop-blur-md border border-white/10 flex items-center justify-center p-1.5">
+                          <img src={techIconMap[tag]} alt={tag} className="w-full h-full object-contain" />
+                        </div>
+                      )
+                    ))}
+                  </div>
                 </div>
-              </div>
-            </article>
-          ))}
+                <div className="p-8 flex flex-col gap-6 flex-1">
+                  <h3 className="font-syne font-black text-2xl text-white group-hover:text-[#00e5ff] transition-colors">{project.title}</h3>
+                  <p className="text-white/40 text-sm leading-relaxed line-clamp-4">{project.description}</p>
+                  <div className="mt-auto pt-6 border-t border-white/5 flex items-center justify-between">
+                    <span className="font-mono text-[10px] text-white/20 uppercase tracking-widest">{project.category}</span>
+                    <span className="text-[#00e5ff] text-xs font-bold uppercase tracking-tighter flex items-center gap-2">Explore <ExternalLinkIcon /></span>
+                  </div>
+                </div>
+              </article>
+             );
+          })}
         </div>
         <div className="mt-20 flex justify-center">
           <button onClick={() => navigate('/proyectos')} className="group flex items-center gap-4 font-mono text-xs tracking-[.3em] uppercase px-10 py-5 bg-white/5 border border-white/10 hover:border-[#00e5ff]/40 hover:bg-white/[0.08] transition-all rounded-full">
@@ -230,7 +313,7 @@ export default function Projects({ isFullPage = false }: { isFullPage?: boolean 
           </button>
         </div>
       </div>
-      {selectedProject && <DetailModal project={selectedProject.project} index={selectedProject.index} onClose={() => setSelectedProject(null)} />}
+      {selectedProject && <DetailModal project={selectedProject.project} index={selectedProject.index} totalProjects={items.length} onNext={() => navigateProject('next')} onPrev={() => navigateProject('prev')} onClose={() => setSelectedProject(null)} />}
     </section>
   );
 }
