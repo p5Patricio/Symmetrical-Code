@@ -240,29 +240,33 @@ export default function Projects({ isFullPage = false }: { isFullPage?: boolean 
             {filtered.map((project, i) => {
               const globalIndex = allItems.findIndex(p => p.title === project.title);
               return (
-                <article key={i} onClick={() => setSelectedProject({ project, index: globalIndex })} className="group cursor-pointer overflow-hidden transition-all bg-white/[0.02] border border-white/5 rounded-lg hover:scale-[1.02] flex flex-col h-[500px]">
+                <article key={i} onClick={() => setSelectedProject({ project, index: globalIndex })} className="group cursor-pointer overflow-hidden transition-all bg-white/[0.02] border border-white/5 rounded-lg hover:scale-[1.02] flex flex-col h-[540px]">
                   <div className="w-full h-48 relative overflow-hidden shrink-0">
                     <ImageWithFallback src={project.ogImageUrl} alt={project.title} fallback={<ProjectImage index={globalIndex} title={project.title} />} />
                     <div className="absolute inset-0 flex items-center justify-center bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity"><span className="font-mono text-[10px] tracking-wider text-[#00e5ff] uppercase">{t('projects.view_detail')} →</span></div>
                   </div>
-                  <div className="p-6 flex flex-col gap-4 flex-1">
-                    <div className="flex items-center justify-between">
+                  <div className="p-6 flex flex-col flex-1">
+                    <div className="flex items-center justify-between mb-3">
                       <span className="font-mono text-[10px] text-[#00e5ff]/30 tracking-wider">_{String(globalIndex + 1).padStart(2, '0')}</span>
                     </div>
-                    <h4 className="font-syne font-bold text-lg text-white group-hover:text-[#00e5ff] transition-colors leading-tight">{project.title}</h4>
-                    <p className="text-white/40 text-xs leading-relaxed text-justify line-clamp-4">{project.description}</p>
+                    <div className="min-h-[3.5rem] flex flex-col justify-start">
+                      <h4 className="font-syne font-bold text-lg text-white group-hover:text-[#00e5ff] transition-colors leading-tight">{project.title}</h4>
+                    </div>
+                    <div className="min-h-[5rem] mt-2">
+                      <p className="text-white/40 text-xs leading-relaxed text-justify line-clamp-4">{project.description}</p>
+                    </div>
                     
-                    <div className="flex items-center gap-2 mt-2">
+                    <div className="flex items-center gap-2 mt-4">
                       {project.tags.slice(0, 6).map(tag => (
                         techIconMap[tag] && (
-                          <div key={tag} className="w-7 h-7 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center p-1.5" title={tag}>
-                            <img src={techIconMap[tag]} alt={tag} className="w-full h-full object-contain opacity-60" />
+                          <div key={tag} className="w-7 h-7 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center p-1.5 shrink-0" title={tag}>
+                            <img src={techIconMap[tag]} alt={tag} className="w-full h-full object-contain opacity-60 group-hover:opacity-100 transition-opacity" />
                           </div>
                         )
                       ))}
                     </div>
 
-                    <div className="mt-auto flex flex-wrap gap-1.5">
+                    <div className="mt-auto pt-4 flex flex-wrap gap-1.5 border-t border-white/5">
                       {project.tags.slice(0, 4).map(tag => (
                         <span key={tag} className="text-[9px] font-mono text-white/10 uppercase tracking-tighter">#{tag}</span>
                       ))}
@@ -296,14 +300,18 @@ export default function Projects({ isFullPage = false }: { isFullPage?: boolean 
                 <div className="h-56 overflow-hidden shrink-0 relative">
                   <ImageWithFallback src={project.ogImageUrl} alt={project.title} fallback={<ProjectImage index={i} title={project.title} />} />
                 </div>
-                <div className="p-8 flex flex-col gap-6 flex-1">
-                  <h3 className="font-syne font-black text-2xl text-white group-hover:text-[#00e5ff] transition-colors">{project.title}</h3>
-                  <p className="text-white/40 text-sm leading-relaxed line-clamp-4">{project.description}</p>
+                <div className="p-8 flex flex-col flex-1">
+                  <div className="min-h-[4rem] flex flex-col justify-start mb-4">
+                    <h3 className="font-syne font-black text-2xl text-white group-hover:text-[#00e5ff] transition-colors leading-tight">{project.title}</h3>
+                  </div>
+                  <div className="min-h-[6rem] mb-6">
+                    <p className="text-white/40 text-sm leading-relaxed line-clamp-4">{project.description}</p>
+                  </div>
                   
                   <div className="flex items-center gap-3">
                     {project.tags.slice(0, 6).map(tag => (
                       techIconMap[tag] && (
-                        <div key={tag} className="w-9 h-9 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center p-2 group-hover:border-[#00e5ff]/20 transition-all" title={tag}>
+                        <div key={tag} className="w-9 h-9 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center p-2 group-hover:border-[#00e5ff]/20 transition-all shrink-0" title={tag}>
                           <img src={techIconMap[tag]} alt={tag} className="w-full h-full object-contain opacity-50 group-hover:opacity-100 transition-opacity" />
                         </div>
                       )
