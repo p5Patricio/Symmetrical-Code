@@ -17,7 +17,7 @@ export default function Footer() {
   ];
 
   const contactItems = [
-    { icon: FiMail, text: 'hola@symmetricalcode.com' },
+    { icon: FiMail, text: 'contacto@symmetricalcode.com' },
     { icon: FiClock, text: t('footer.schedule') },
     { icon: FiMapPin, text: t('footer.location') },
   ];
