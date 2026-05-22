@@ -268,9 +268,16 @@ export default function Projects({ isFullPage = false }: { isFullPage?: boolean 
                     
                     <div className="flex items-center gap-2 mt-4">
                       {uniqueTechTags.slice(0, 6).map(tag => (
-                        <div key={tag} className="w-7 h-7 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center p-1.5 shrink-0" title={tag}>
-                          <img src={techIconMap[tag]} alt={tag} className="w-full h-full object-contain opacity-60 group-hover:opacity-100 transition-opacity" />
-                        </div>
+                        techIconMap[tag] && (
+                          <div key={tag} className="w-7 h-7 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center p-1.5 shrink-0" title={tag}>
+                            <img 
+                              src={techIconMap[tag]} 
+                              alt={tag} 
+                              className="w-full h-full object-contain opacity-60 group-hover:opacity-100 transition-opacity" 
+                              onError={(e) => (e.currentTarget.style.display = 'none')}
+                            />
+                          </div>
+                        )
                       ))}
                     </div>
 
@@ -325,15 +332,20 @@ export default function Projects({ isFullPage = false }: { isFullPage?: boolean 
                   <div className="min-h-[6rem] mb-6">
                     <p className="text-white/40 text-sm leading-relaxed line-clamp-4">{project.description}</p>
                   </div>
-                  
                   <div className="flex items-center gap-3">
                     {uniqueTechTags.slice(0, 6).map(tag => (
-                      <div key={tag} className="w-9 h-9 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center p-2 group-hover:border-[#00e5ff]/20 transition-all shrink-0" title={tag}>
-                        <img src={techIconMap[tag]} alt={tag} className="w-full h-full object-contain opacity-50 group-hover:opacity-100 transition-opacity" />
-                      </div>
+                      techIconMap[tag] && (
+                        <div key={tag} className="w-9 h-9 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center p-2 group-hover:border-[#00e5ff]/20 transition-all shrink-0" title={tag}>
+                          <img 
+                            src={techIconMap[tag]} 
+                            alt={tag} 
+                            className="w-full h-full object-contain opacity-50 group-hover:opacity-100 transition-opacity" 
+                            onError={(e) => (e.currentTarget.style.display = 'none')}
+                          />
+                        </div>
+                      )
                     ))}
                   </div>
-
                   <div className="mt-auto pt-6 border-t border-white/5 flex items-center justify-between">
                     <span className="font-mono text-[10px] text-white/20 uppercase tracking-widest">{project.category}</span>
                     <span className="text-[#00e5ff] text-xs font-bold uppercase tracking-tighter flex items-center gap-2">Explore <ExternalLinkIcon /></span>
