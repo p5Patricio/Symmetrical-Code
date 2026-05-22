@@ -7,9 +7,9 @@
   },
   "hero": {
     "label": "Software Studio",
-    "title": "Design and code",
-    "title_highlight": "in balance",
-    "title_end": "for your idea",
+    "title": "Real engineering",
+    "title_highlight": "for real",
+    "title_end": "problems.",
     "subtitle": "We turn clear ideas into simple, fast digital products ready to grow with you from the first launch.",
     "cta_primary": "Explore services",
     "cta_secondary": "Talk through an idea",
@@ -145,38 +145,61 @@
     "view_demo": "View demo",
     "view_code": "View code",
     "view_detail": "View detail",
-    "view_all": "Full project gallery",
+    "view_all": "Full gallery",
     "gallery": "Gallery",
     "gallery_label": "Complete portfolio",
     "gallery_title": "All projects",
     "filter_all": "All",
+    "filter_web_app": "Web App",
+    "filter_ai_ml": "AI / ML",
+    "filter_game": "Game",
+    "filter_erp": "ERP",
     "back": "Back to site",
-    "single_image": "Only one image available"
+    "single_image": "Only one image available",
+    "explore": "Explore",
+    "case_label": "Project case",
+    "technologies": "Technologies",
+    "no_projects": "No projects in this category.",
+    "source_code": "Source code"
   },
   "team": {
-    "label": "The Studio",
+    "label": "Our Team",
     "title": "Why Symmetrical Code?",
     "subtitle": "We combine high-level software engineering with a comprehensive approach geared towards empowering your business.",
+    "quote": "\"Real engineering for real problems.\"",
+    "quote_body": "At Symmetrical Code we don't delegate your project to third parties or unsupervised juniors. Every line of code is reviewed by our core team, ensuring you receive a product that not only works today, but scales for tomorrow.",
     "pillars": [
       {
         "title": "Software Architecture",
         "description": "We don't just write code; we design robust and scalable systems. We divide our tasks into specialties (Frontend, Backend, and DevOps) to ensure each piece of software receives expert attention.",
-        "details": ["Clean Architecture", "Optimized Databases", "Cloud & Infrastructure"]
+        "details": [
+          "Clean Architecture",
+          "Optimized Databases",
+          "Cloud & Infrastructure"
+        ]
       },
       {
         "title": "Quality Standards",
         "description": "Trust is built with software that doesn't fail. We implement automated tests, rigorous code reviews, and security audits in every delivery.",
-        "details": ["Software Testing", "Bank-Level Security", "Maintainable Code"]
+        "details": [
+          "Software Testing",
+          "Bank-Level Security",
+          "Maintainable Code"
+        ]
       },
       {
         "title": "Design that Converts",
         "description": "Software must be a business tool. We create intuitive interfaces designed for the end-user, optimizing speed and ease of use to maximize your sales.",
-        "details": ["Modern UI / UX", "Extreme Speed", "Conversion Focus"]
+        "details": [
+          "Modern UI / UX",
+          "Extreme Speed",
+          "Conversion Focus"
+        ]
       }
     ]
   },
   "footer": {
-    "tagline": "Innovation and excellence in software development",
+    "tagline": "Real engineering for real problems.",
     "follow": "Follow us",
     "contact_title": "Contact",
     "schedule": "Mon - Fri: 9:00 AM - 6:00 PM",

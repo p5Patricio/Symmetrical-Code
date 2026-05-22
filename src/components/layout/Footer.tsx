@@ -22,9 +22,8 @@ export default function Footer() {
     { icon: FiMapPin, text: t('footer.location') },
   ];
 
-  const whatsappNumber = '5214731234567';
-  const chatbotMessage = encodeURIComponent(t('footer.whatsapp_message'));
-  const whatsappLink = `https://wa.me/${whatsappNumber}?text=${chatbotMessage}`;
+  // Misma URL que ChatWidget
+  const whatsappUrl = "https://wa.me/XXXXXXXXXXX";
 
   useEffect(() => {
     if (activeModal) {
@@ -470,9 +469,10 @@ export default function Footer() {
         right: 0,
         height: '1px',
         background: 'linear-gradient(90deg, transparent, #00e5ff, #00e5ff, transparent)',
+        pointerEvents: 'none',
       }} />
 
-      {/* Glow radial — igual al resplandor del logo */}
+      {/* Glow radial */}
       <div style={{
         position: 'absolute',
         top: '20%',
@@ -707,7 +707,7 @@ export default function Footer() {
               </p>
 
               <a
-                href={whatsappLink}
+                href={whatsappUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 style={{
@@ -728,6 +728,7 @@ export default function Footer() {
                   width: '100%',
                   border: 'none',
                   cursor: 'pointer',
+                  boxSizing: 'border-box',
                 }}
                 onMouseEnter={e => {
                   const target = e.currentTarget as HTMLElement;
@@ -763,66 +764,55 @@ export default function Footer() {
           justifyContent: 'space-between',
           alignItems: 'center',
           gap: '12px',
+          position: 'relative',
+          zIndex: 2,
         }}>
           <span style={{
             fontFamily: "'Inter', system-ui, sans-serif",
             fontSize: '11px',
             color: 'rgba(255,255,255,0.3)',
           }}>
-            © {new Date().getFullYear()} Symmetrical Code.
+             Symmetrical Code {new Date().getFullYear()}
           </span>
-          <div style={{ display: 'flex', gap: '24px', flexWrap: 'wrap', justifyContent: 'center' }}>
-            <button
-              onClick={() => setActiveModal('privacidad')}
-              style={{
-                fontFamily: "'Inter', system-ui, sans-serif",
-                fontSize: '11px',
-                color: 'rgba(255,255,255,0.4)',
-                transition: 'color 0.2s',
-                background: 'none',
-                border: 'none',
-                cursor: 'pointer',
-                padding: 0,
-              }}
-              onMouseEnter={e => (e.currentTarget as HTMLElement).style.color = '#00e5ff'}
-              onMouseLeave={e => (e.currentTarget as HTMLElement).style.color = 'rgba(255,255,255,0.4)'}
-            >
-              {t('footer.privacy')}
-            </button>
-            <button
-              onClick={() => setActiveModal('terminos')}
-              style={{
-                fontFamily: "'Inter', system-ui, sans-serif",
-                fontSize: '11px',
-                color: 'rgba(255,255,255,0.4)',
-                transition: 'color 0.2s',
-                background: 'none',
-                border: 'none',
-                cursor: 'pointer',
-                padding: 0,
-              }}
-              onMouseEnter={e => (e.currentTarget as HTMLElement).style.color = '#00e5ff'}
-              onMouseLeave={e => (e.currentTarget as HTMLElement).style.color = 'rgba(255,255,255,0.4)'}
-            >
-              {t('footer.terms')}
-            </button>
-            <button
-              onClick={() => setActiveModal('cookies')}
-              style={{
-                fontFamily: "'Inter', system-ui, sans-serif",
-                fontSize: '11px',
-                color: 'rgba(255,255,255,0.4)',
-                transition: 'color 0.2s',
-                background: 'none',
-                border: 'none',
-                cursor: 'pointer',
-                padding: 0,
-              }}
-              onMouseEnter={e => (e.currentTarget as HTMLElement).style.color = '#00e5ff'}
-              onMouseLeave={e => (e.currentTarget as HTMLElement).style.color = 'rgba(255,255,255,0.4)'}
-            >
-              {t('footer.cookies')}
-            </button>
+
+          <div style={{
+            display: 'flex',
+            gap: '8px',
+            flexWrap: 'wrap',
+            justifyContent: 'center',
+            margin: '-8px',
+          }}>
+            {(
+              [
+                { key: 'privacidad', label: t('footer.privacy') },
+                { key: 'terminos',   label: t('footer.terms') },
+                { key: 'cookies',    label: t('footer.cookies') },
+              ] as { key: 'privacidad' | 'terminos' | 'cookies'; label: string }[]
+            ).map(({ key, label }) => (
+              <button
+                key={key}
+                onClick={() => setActiveModal(key)}
+                style={{
+                  fontFamily: "'Inter', system-ui, sans-serif",
+                  fontSize: '11px',
+                  color: 'rgba(255,255,255,0.4)',
+                  transition: 'color 0.2s',
+                  background: 'none',
+                  border: 'none',
+                  cursor: 'pointer',
+                  padding: '8px 8px',
+                  minHeight: '36px',
+                  minWidth: '44px',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  lineHeight: 1,
+                }}
+                onMouseEnter={e => (e.currentTarget as HTMLElement).style.color = '#00e5ff'}
+                onMouseLeave={e => (e.currentTarget as HTMLElement).style.color = 'rgba(255,255,255,0.4)'}
+              >
+                {label}
+              </button>
+            ))}
           </div>
         </div>
       </div>

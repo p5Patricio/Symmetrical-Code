@@ -52,14 +52,14 @@ const ImageWithFallback = ({ src, alt, fallback }: { src?: string; alt: string; 
 const ProjectImage = ({ index, title }: { index: number; title: string }) => {
   const colors = ['bg-[#00e5ff]/10', 'bg-[#1565ff]/10', 'bg-[#7c3aed]/10'];
   return (
-    <div className={`w-full h-full ${colors[index % 3]} flex flex-col items-center justify-center p-6 gap-3 text-center`}>
-      <span className="font-syne font-black text-xl text-white/10 select-none uppercase tracking-tighter leading-none">{title}</span>
+    <div className={`w-full h-full ${colors[index % 3]} flex flex-col items-center justify-center p-4 sm:p-6 gap-2 sm:gap-3 text-center`}>
+      <span className="font-syne font-black text-base sm:text-xl text-white/10 select-none uppercase tracking-tighter leading-none">{title}</span>
       <div className="w-8 h-px bg-white/5" />
     </div>
   );
 };
 
-const GalleryModal = ({ title, images, onClose }: { title: string; images: string[]; projectIndex: number; onClose: () => void }) => {
+const GalleryModal = ({ title, images, projectIndex, onClose }: { title: string; images: string[]; projectIndex: number; onClose: () => void }) => {
   const [current, setCurrent] = useState(0);
   useEffect(() => {
     const handleKey = (e: KeyboardEvent) => {
@@ -72,14 +72,19 @@ const GalleryModal = ({ title, images, onClose }: { title: string; images: strin
   }, [images.length, onClose]);
   return (
     <div className="fixed inset-0 z-[500] bg-[#020408]/98 backdrop-blur-xl flex flex-col" onClick={onClose}>
-      <div className="flex items-center justify-between p-6">
-        <h3 className="font-syne font-black text-white text-xl uppercase tracking-tighter">{title}</h3>
+      <div className="flex items-center justify-between p-4 sm:p-6">
+        <h3 className="font-syne font-black text-white text-lg sm:text-xl uppercase tracking-tighter truncate max-w-[200px] sm:max-w-md">{title}</h3>
         <button onClick={onClose} className="p-2 text-white/40 hover:text-white transition-colors"><CloseIcon /></button>
       </div>
-      <div className="flex-1 relative flex items-center justify-center p-4 md:p-12">
-        <button onClick={(e) => { e.stopPropagation(); setCurrent(prev => (prev - 1 + images.length) % images.length); }} className="absolute left-4 z-10 p-3 rounded-full bg-white/5 text-white/40 hover:text-white hover:bg-white/10 transition-all"><ChevronLeft /></button>
-        <div className="relative w-full max-w-5xl h-full flex items-center justify-center" onClick={e => e.stopPropagation()}><img src={images[current]} alt={title} className="max-w-full max-h-full object-contain shadow-2xl rounded-sm" /></div>
-        <button onClick={(e) => { e.stopPropagation(); setCurrent(prev => (prev + 1) % images.length); }} className="absolute right-4 z-10 p-3 rounded-full bg-white/5 text-white/40 hover:text-white hover:bg-white/10 transition-all"><ChevronRight /></button>
+      <div className="flex-1 relative flex items-center justify-center p-3 sm:p-4 md:p-12">
+        <button onClick={(e) => { e.stopPropagation(); setCurrent(prev => (prev - 1 + images.length) % images.length); }} className="absolute left-2 sm:left-4 z-10 p-2 sm:p-3 rounded-full bg-white/5 text-white/40 hover:text-white hover:bg-white/10 transition-all"><ChevronLeft /></button>
+        <div className="relative w-full max-w-5xl h-full flex items-center justify-center" onClick={e => e.stopPropagation()}>
+          <img src={images[current]} alt={title} className="max-w-full max-h-full object-contain shadow-2xl rounded-sm" />
+        </div>
+        <button onClick={(e) => { e.stopPropagation(); setCurrent(prev => (prev + 1) % images.length); }} className="absolute right-2 sm:right-4 z-10 p-2 sm:p-3 rounded-full bg-white/5 text-white/40 hover:text-white hover:bg-white/10 transition-all"><ChevronRight /></button>
+      </div>
+      <div className="text-center pb-6">
+        <span className="font-mono text-[10px] text-white/30">{current + 1} / {images.length}</span>
       </div>
     </div>
   );
@@ -101,58 +106,65 @@ const DetailModal = ({ project, index, totalProjects, onNext, onPrev, onClose }:
 
   return (
     <>
-      <div className="fixed inset-0 z-[400] bg-[#020408]/95 backdrop-blur-2xl flex flex-col items-center justify-center p-4" onClick={onClose}>
-        <div className="w-full max-w-5xl max-h-[85vh] overflow-y-auto bg-gradient-to-br from-[#070d14] to-[#03060a] border border-white/10 rounded-2xl relative shadow-2xl flex flex-col md:flex-row mb-8" onClick={e => e.stopPropagation()}>
-          <button onClick={onClose} className="absolute top-6 right-6 p-2 text-white/30 hover:text-white transition-colors z-20"><CloseIcon /></button>
-          
-          <div className="relative w-full md:w-1/2 h-64 md:h-auto min-h-[400px] bg-[#03060a]">
-            <ImageWithFallback src={project.ogImageUrl} alt={project.title} fallback={<ProjectImage index={index} title={project.title} />} />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#020408] via-transparent to-transparent md:bg-gradient-to-r md:from-transparent md:to-[#070d14]" />
-          </div>
-
-          <div className="p-8 md:p-12 flex-1 flex flex-col gap-8 justify-between">
-            <div className="flex flex-col gap-6">
+      <div className="fixed inset-0 z-[400] bg-[#020408]/95 backdrop-blur-2xl flex flex-col items-center justify-center p-3 sm:p-4 overflow-y-auto" onClick={onClose}>
+        <div className="w-full max-w-4xl max-h-[90vh] overflow-y-auto bg-gradient-to-br from-[#070d14] to-[#03060a] border border-white/10 rounded-xl sm:rounded-2xl relative shadow-2xl mb-8 shrink-0" onClick={e => e.stopPropagation()}>
+          <button onClick={onClose} className="absolute top-4 right-4 sm:top-6 sm:right-6 p-2 text-white/30 hover:text-white transition-colors z-20"><CloseIcon /></button>
+          <div className="flex flex-col md:grid md:grid-cols-2">
+            <div className="relative h-56 sm:h-64 md:h-full bg-[#03060a]">
+              <ImageWithFallback src={project.ogImageUrl} alt={project.title} fallback={<ProjectImage index={index} title={project.title} />} />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#020408] via-transparent to-transparent md:bg-gradient-to-r md:from-transparent md:to-[#070d14]" />
+            </div>
+            <div className="p-5 sm:p-6 md:p-8 lg:p-12 flex flex-col gap-4 sm:gap-6 md:gap-8">
               <div>
-                <span className="font-mono text-[10px] text-[#00e5ff]/40 tracking-widest uppercase mb-2 block">Project Case</span>
-                <h3 className="font-syne font-black text-3xl md:text-5xl text-white tracking-tight leading-tight">{project.title}</h3>
-                <div className="w-12 h-1 bg-[#00e5ff] mt-4" />
+                <span className="font-mono text-[9px] sm:text-[10px] text-[#00e5ff]/40 tracking-widest uppercase mb-2 block">{t('projects.case_label', { defaultValue: 'Project Case' })}</span>
+                <h3 className="font-syne font-black text-2xl sm:text-3xl md:text-4xl text-white tracking-tight">{project.title}</h3>
+                <div className="w-10 sm:w-12 h-0.5 sm:h-1 bg-[#00e5ff] mt-3 sm:mt-4" />
               </div>
-              <p className="text-white/50 leading-relaxed text-sm text-justify">{project.description}</p>
+              <p className="text-white/50 leading-relaxed text-xs sm:text-sm text-justify">{project.description}</p>
+              
               <div className="flex flex-wrap gap-2">
                 {project.tags.map(tag => (
-                  <div key={tag} className="flex items-center gap-1.5 px-3 py-1.5 rounded-md border border-white/5 bg-white/5 group/tag">
-                    {techIconMap[tag] && <img src={techIconMap[tag]} alt={tag} className="w-3.5 h-3.5 opacity-50 group-hover/tag:opacity-100 transition-opacity" />}
-                    <span className="text-white/40 group-hover/tag:text-white transition-colors text-[10px] font-mono uppercase tracking-wider">{tag}</span>
+                  <div key={tag} className="flex items-center gap-1.5 px-2 sm:px-3 py-1 sm:py-1.5 rounded-md border border-white/5 bg-white/5 group/tag">
+                    {techIconMap[tag] && <img src={techIconMap[tag]} alt={tag} className="w-3 h-3 sm:w-3.5 sm:h-3.5 opacity-50 group-hover/tag:opacity-100 transition-opacity" />}
+                    <span className="text-white/40 group-hover/tag:text-white transition-colors text-[9px] sm:text-[10px] font-mono uppercase tracking-wider">{tag}</span>
                   </div>
                 ))}
               </div>
-            </div>
 
-            <div className="flex flex-col gap-8 pt-8 border-t border-white/5">
-              <div className="flex flex-wrap gap-3">
-                {project.demoUrl && <a href={project.demoUrl} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2 font-mono text-[11px] tracking-wider uppercase px-6 py-3 bg-[#00e5ff] text-[#020408] font-bold rounded-md transition-all hover:scale-105 hover:shadow-[0_0_25px_rgba(0,229,255,0.4)]"><ExternalLinkIcon />{t('projects.view_demo')}</a>}
-                {project.githubUrl && <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2 font-mono text-[11px] tracking-wider uppercase px-5 py-3 bg-white/5 border border-white/10 text-white/70 rounded-md transition-all hover:bg-white/10"><GithubIcon />Source Code</a>}
-                <button onClick={() => setGalleryOpen(true)} className="flex items-center justify-center gap-2 font-mono text-[11px] tracking-wider uppercase px-5 py-3 bg-white/5 border border-white/10 text-white/70 rounded-md transition-all hover:bg-white/10"><ImagesIcon />{t('projects.gallery')}</button>
+              <div className="flex flex-wrap gap-2 sm:gap-3 mt-2 sm:mt-4 pt-4 border-t border-white/5">
+                {project.demoUrl && (
+                  <a href={project.demoUrl} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-1.5 sm:gap-2 font-mono text-[10px] sm:text-[11px] tracking-wider uppercase px-3 sm:px-6 py-2 sm:py-3 bg-[#00e5ff] text-[#020408] font-bold rounded-md transition-all hover:scale-105 hover:shadow-[0_0_25px_rgba(0,229,255,0.4)]">
+                    <ExternalLinkIcon />{t('projects.view_demo')}
+                  </a>
+                )}
+                {project.githubUrl && (
+                  <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-1.5 sm:gap-2 font-mono text-[10px] sm:text-[11px] tracking-wider uppercase px-3 sm:px-5 py-2 sm:py-3 bg-white/5 border border-white/10 text-white/70 rounded-md transition-all hover:bg-white/10">
+                    <GithubIcon />Source
+                  </a>
+                )}
+                <button onClick={() => setGalleryOpen(true)} className="flex items-center justify-center gap-1.5 sm:gap-2 font-mono text-[10px] sm:text-[11px] tracking-wider uppercase px-3 sm:px-5 py-2 sm:py-3 bg-white/5 border border-white/10 text-white/70 rounded-md transition-all hover:bg-white/10">
+                  <ImagesIcon />{t('projects.gallery')}
+                </button>
               </div>
             </div>
           </div>
         </div>
 
         {/* Outer Navigation */}
-        <div className="flex flex-col items-center gap-6" onClick={e => e.stopPropagation()}>
-           <div className="flex items-center gap-8">
-              <button onClick={onPrev} className="group flex items-center gap-3 text-white/40 hover:text-[#00e5ff] transition-all">
-                <div className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center group-hover:border-[#00e5ff]/40 group-hover:bg-[#00e5ff]/5">
+        <div className="flex flex-col items-center gap-6 shrink-0" onClick={e => e.stopPropagation()}>
+           <div className="flex items-center gap-4 sm:gap-8">
+              <button onClick={onPrev} className="group flex items-center gap-2 sm:gap-3 text-white/40 hover:text-[#00e5ff] transition-all">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full border border-white/10 flex items-center justify-center group-hover:border-[#00e5ff]/40 group-hover:bg-[#00e5ff]/5">
                   <ChevronLeft />
                 </div>
-                <span className="font-mono text-[11px] uppercase tracking-[.2em] font-bold">{t('projects.prev_project', { defaultValue: 'Ver anterior proyecto' })}</span>
+                <span className="hidden sm:inline font-mono text-[11px] uppercase tracking-[.2em] font-bold">{t('projects.prev_project', { defaultValue: 'Ver anterior proyecto' })}</span>
               </button>
 
               <div className="h-8 w-px bg-white/10 hidden sm:block" />
 
-              <button onClick={onNext} className="group flex items-center gap-3 text-white/40 hover:text-[#00e5ff] transition-all text-right">
-                <span className="font-mono text-[11px] uppercase tracking-[.2em] font-bold">{t('projects.next_project', { defaultValue: 'Ver siguiente proyecto' })}</span>
-                <div className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center group-hover:border-[#00e5ff]/40 group-hover:bg-[#00e5ff]/5">
+              <button onClick={onNext} className="group flex items-center gap-2 sm:gap-3 text-white/40 hover:text-[#00e5ff] transition-all text-right">
+                <span className="hidden sm:inline font-mono text-[11px] uppercase tracking-[.2em] font-bold">{t('projects.next_project', { defaultValue: 'Ver siguiente proyecto' })}</span>
+                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full border border-white/10 flex items-center justify-center group-hover:border-[#00e5ff]/40 group-hover:bg-[#00e5ff]/5">
                   <ChevronRight />
                 </div>
               </button>
@@ -226,17 +238,31 @@ export default function Projects({ isFullPage = false }: { isFullPage?: boolean 
     return (
       <div className="fixed inset-0 z-[150] flex flex-col bg-[#020408]">
         <GalleryNavbar scrolled={galleryScrolled} onClose={() => navigate('/')} onNavigate={handleNavigation} activeSection="projects" />
-        <div id="gallery-scroll" className="flex-1 overflow-y-auto pt-20">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-8 sm:pt-12 pb-3 sm:pb-4 text-center">
-            <div className="flex items-center justify-center gap-3 mb-3 sm:mb-4"><div className="h-px w-12 bg-white/10" /><span className="section-label">{t('projects.gallery_label')}</span><div className="h-px w-12 bg-white/10" /></div>
-            <h3 className="font-syne font-black text-3xl sm:text-4xl md:text-5xl text-white uppercase tracking-tighter">{t('projects.gallery_title')}</h3>
+        <div id="gallery-scroll" className="flex-1 overflow-y-auto pt-16 sm:pt-20">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-6 sm:pt-8 md:pt-12 pb-2 sm:pb-4 text-center">
+            <div className="flex items-center justify-center gap-3 mb-3 sm:mb-4">
+              <div className="h-px w-8 sm:w-12 bg-white/10" />
+              <span className="section-label text-xs sm:text-sm">{t('projects.gallery_label')}</span>
+              <div className="h-px w-8 sm:w-12 bg-white/10" />
+            </div>
+            <h3 className="font-syne font-black text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-white uppercase tracking-tighter">
+              {t('projects.gallery_title')}
+            </h3>
           </div>
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 pb-4 sm:pb-6 flex justify-center flex-wrap gap-2">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 pb-3 sm:pb-4 md:pb-6 flex justify-center flex-wrap gap-1 sm:gap-2">
             {categories.filter(Boolean).map(cat => (
-              <button key={cat} onClick={() => setActiveFilter(cat)} className={`font-mono text-[10px] tracking-widest uppercase px-4 py-2 transition-all ${activeFilter === cat ? 'text-[#00e5ff] border-b border-[#00e5ff]' : 'text-white/40 hover:text-white'}`}>{cat === 'all' ? t('projects.filter_all') : cat}</button>
+              <button
+                key={cat}
+                onClick={() => setActiveFilter(cat)}
+                className={`font-mono text-[9px] sm:text-[10px] tracking-widest uppercase px-2 sm:px-4 py-1.5 sm:py-2 transition-all ${
+                  activeFilter === cat ? 'text-[#00e5ff] border-b border-[#00e5ff]' : 'text-white/40 hover:text-white'
+                }`}
+              >
+                {cat === 'all' ? t('projects.filter_all') : cat}
+              </button>
             ))}
           </div>
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 pb-20 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 pb-16 sm:pb-20 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
             {filtered.map((project, i) => {
               const globalIndex = allItems.findIndex(p => p.title === project.title);
               
@@ -250,26 +276,32 @@ export default function Projects({ isFullPage = false }: { isFullPage?: boolean 
               });
 
               return (
-                <article key={i} onClick={() => setSelectedProject({ project, index: globalIndex })} className="group cursor-pointer overflow-hidden transition-all bg-white/[0.02] border border-white/5 rounded-lg hover:scale-[1.02] flex flex-col h-[540px]">
-                  <div className="w-full h-48 relative overflow-hidden shrink-0">
+                <article
+                  key={i}
+                  onClick={() => setSelectedProject({ project, index: globalIndex })}
+                  className="group cursor-pointer overflow-hidden transition-all duration-300 bg-white/[0.02] border border-white/5 rounded-lg hover:scale-[1.02] hover:border-white/20 flex flex-col min-h-[480px] sm:min-h-[500px]"
+                >
+                  <div className="w-full h-36 sm:h-40 relative overflow-hidden shrink-0">
                     <ImageWithFallback src={project.ogImageUrl} alt={project.title} fallback={<ProjectImage index={globalIndex} title={project.title} />} />
-                    <div className="absolute inset-0 flex items-center justify-center bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity"><span className="font-mono text-[10px] tracking-wider text-[#00e5ff] uppercase">{t('projects.view_detail')} →</span></div>
+                    <div className="absolute inset-0 flex items-center justify-center bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity">
+                      <span className="font-mono text-[9px] sm:text-[10px] tracking-wider text-[#00e5ff] uppercase">{t('projects.view_detail')} →</span>
+                    </div>
                   </div>
-                  <div className="p-6 flex flex-col flex-1">
-                    <div className="flex items-center justify-between mb-3">
-                      <span className="font-mono text-[10px] text-[#00e5ff]/30 tracking-wider">_{String(globalIndex + 1).padStart(2, '0')}</span>
+                  <div className="p-4 sm:p-5 flex flex-col flex-1">
+                    <div className="flex items-center justify-between mb-2 sm:mb-3">
+                      <span className="font-mono text-[9px] sm:text-[10px] text-[#00e5ff]/30 tracking-wider">_{String(globalIndex + 1).padStart(2, '0')}</span>
                     </div>
-                    <div className="min-h-[3.5rem] flex flex-col justify-start">
-                      <h4 className="font-syne font-bold text-lg text-white group-hover:text-[#00e5ff] transition-colors leading-tight">{project.title}</h4>
+                    <div className="min-h-[3rem] sm:min-h-[3.5rem] flex flex-col justify-start">
+                      <h4 className="font-syne font-bold text-sm sm:text-base text-white group-hover:text-[#00e5ff] transition-colors leading-tight">{project.title}</h4>
                     </div>
-                    <div className="min-h-[5rem] mt-2">
-                      <p className="text-white/40 text-xs leading-relaxed text-justify line-clamp-4">{project.description}</p>
+                    <div className="min-h-[4rem] sm:min-h-[5rem] mt-2">
+                      <p className="text-white/40 text-xs sm:text-sm leading-relaxed text-justify line-clamp-3">{project.description}</p>
                     </div>
                     
-                    <div className="flex items-center gap-2 mt-4">
-                      {uniqueTechTags.slice(0, 6).map(tag => (
+                    <div className="flex items-center gap-1.5 sm:gap-2 mt-4">
+                      {uniqueTechTags.slice(0, 5).map(tag => (
                         techIconMap[tag] && (
-                          <div key={tag} className="w-7 h-7 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center p-1.5 shrink-0" title={tag}>
+                          <div key={tag} className="w-6 h-6 sm:w-7 sm:h-7 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center p-1 sm:p-1.5 shrink-0" title={tag}>
                             <img 
                               src={techIconMap[tag]} 
                               alt={tag} 
@@ -282,8 +314,8 @@ export default function Projects({ isFullPage = false }: { isFullPage?: boolean 
                     </div>
 
                     <div className="mt-auto pt-4 flex flex-wrap gap-1.5 border-t border-white/5">
-                      {project.tags.slice(0, 4).map(tag => (
-                        <span key={tag} className="text-[9px] font-mono text-white/10 uppercase tracking-tighter">#{tag}</span>
+                      {project.tags.slice(0, 3).map(tag => (
+                        <span key={tag} className="text-[8px] sm:text-[9px] font-mono text-white/10 uppercase tracking-tighter">#{tag}</span>
                       ))}
                     </div>
                   </div>
@@ -298,16 +330,30 @@ export default function Projects({ isFullPage = false }: { isFullPage?: boolean 
   }
 
   return (
-    <section id="projects" className="relative py-32 overflow-hidden">
-      <div className="max-w-7xl mx-auto px-6 relative z-10">
-        <div className="mb-20">
-          <div className="flex items-center gap-3 mb-6"><span className="section-label">{t('projects.label')}</span><div className="h-px flex-1 bg-white/5" /></div>
-          <div className="flex flex-col md:flex-row md:items-end gap-8 justify-between">
-            <h2 className="font-syne font-black text-5xl md:text-7xl text-white leading-none">{t('projects.title')}</h2>
-            <p className="text-white/40 text-lg max-w-xs leading-relaxed md:text-right">{t('projects.subtitle')}</p>
+    <section id="projects" className="relative py-20 sm:py-24 md:py-32 overflow-hidden bg-gradient-to-b from-[#020408] to-[#03060c]">
+      {/* Fondo decorativo */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-0 left-1/4 w-64 h-64 sm:w-80 sm:h-80 bg-[#00e5ff]/5 rounded-full blur-[100px]" />
+        <div className="absolute bottom-0 right-1/4 w-64 h-64 sm:w-80 sm:h-80 bg-[#00b4d8]/5 rounded-full blur-[100px]" />
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="mb-12 sm:mb-16 md:mb-20">
+          <div className="flex items-center gap-3 mb-4 sm:mb-6">
+            <span className="section-label text-xs sm:text-sm">{t('projects.label')}</span>
+            <div className="h-px flex-1 bg-gradient-to-r from-[#00e5ff]/20 to-transparent" />
+          </div>
+          <div className="flex flex-col md:flex-row md:items-end gap-6 md:gap-8 justify-between">
+            <h2 className="font-syne font-black text-3xl sm:text-5xl md:text-6xl lg:text-7xl text-white leading-[1.1]">
+              {t('projects.title')}
+            </h2>
+            <p className="text-white/40 text-base sm:text-lg max-w-xs leading-relaxed md:text-right">
+              {t('projects.subtitle')}
+            </p>
           </div>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 md:gap-8">
           {items.map((project, i) => {
              const globalIndex = allItems.findIndex(p => p.title === project.title);
              
@@ -321,21 +367,26 @@ export default function Projects({ isFullPage = false }: { isFullPage?: boolean 
              });
 
              return (
-              <article key={i} onClick={() => setSelectedProject({ project, index: globalIndex })} className="glass-card-enhanced group cursor-pointer overflow-hidden border border-white/10 rounded-2xl flex flex-col min-h-[580px]">
-                <div className="h-56 overflow-hidden shrink-0 relative">
+              <article
+                key={i}
+                onClick={() => setSelectedProject({ project, index: globalIndex })}
+                className="glass-card-enhanced group cursor-pointer overflow-hidden border border-white/10 rounded-xl sm:rounded-2xl transition-all duration-500 hover:border-white/20 hover:scale-[1.02] flex flex-col min-h-[500px]"
+              >
+                <div className="h-44 sm:h-48 overflow-hidden relative shrink-0">
                   <ImageWithFallback src={project.ogImageUrl} alt={project.title} fallback={<ProjectImage index={i} title={project.title} />} />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#020408] via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                 </div>
-                <div className="p-8 flex flex-col flex-1">
-                  <div className="min-h-[4rem] flex flex-col justify-start mb-4">
-                    <h3 className="font-syne font-black text-2xl text-white group-hover:text-[#00e5ff] transition-colors leading-tight">{project.title}</h3>
+                <div className="p-5 sm:p-6 md:p-8 flex flex-col flex-1">
+                  <div className="min-h-[3rem] sm:min-h-[4rem] flex flex-col justify-start mb-3 sm:mb-4">
+                    <h3 className="font-syne font-black text-xl sm:text-2xl text-white group-hover:text-[#00e5ff] transition-colors leading-tight">{project.title}</h3>
                   </div>
-                  <div className="min-h-[6rem] mb-6">
-                    <p className="text-white/40 text-sm leading-relaxed line-clamp-4">{project.description}</p>
+                  <div className="min-h-[4rem] sm:min-h-[6rem] mb-4 sm:mb-6">
+                    <p className="text-white/40 text-xs sm:text-sm leading-relaxed text-justify line-clamp-3">{project.description}</p>
                   </div>
-                  <div className="flex items-center gap-3">
-                    {uniqueTechTags.slice(0, 6).map(tag => (
+                  <div className="flex items-center gap-2 sm:gap-3">
+                    {uniqueTechTags.slice(0, 5).map(tag => (
                       techIconMap[tag] && (
-                        <div key={tag} className="w-9 h-9 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center p-2 group-hover:border-[#00e5ff]/20 transition-all shrink-0" title={tag}>
+                        <div key={tag} className="w-7 h-7 sm:w-9 sm:h-9 rounded-lg sm:rounded-xl bg-white/5 border border-white/10 flex items-center justify-center p-1.5 sm:p-2 group-hover:border-[#00e5ff]/20 transition-all shrink-0" title={tag}>
                           <img 
                             src={techIconMap[tag]} 
                             alt={tag} 
@@ -346,22 +397,48 @@ export default function Projects({ isFullPage = false }: { isFullPage?: boolean 
                       )
                     ))}
                   </div>
-                  <div className="mt-auto pt-6 border-t border-white/5 flex items-center justify-between">
-                    <span className="font-mono text-[10px] text-white/20 uppercase tracking-widest">{project.category}</span>
-                    <span className="text-[#00e5ff] text-xs font-bold uppercase tracking-tighter flex items-center gap-2">Explore <ExternalLinkIcon /></span>
+                  <div className="mt-auto pt-5 sm:pt-6 border-t border-white/5 flex items-center justify-between">
+                    <span className="font-mono text-[9px] sm:text-[10px] text-white/20 uppercase tracking-widest">{project.category}</span>
+                    <span className="text-[#00e5ff] text-[10px] sm:text-xs font-bold uppercase tracking-tighter flex items-center gap-1.5 sm:gap-2 group-hover:gap-3 transition-all">Explore <ExternalLinkIcon /></span>
                   </div>
                 </div>
               </article>
              );
           })}
         </div>
-        <div className="mt-20 flex justify-center">
-          <button onClick={() => navigate('/proyectos')} className="group flex items-center gap-4 font-mono text-xs tracking-[.3em] uppercase px-10 py-5 bg-white/5 border border-white/10 hover:border-[#00e5ff]/40 hover:bg-white/[0.08] transition-all rounded-full">
+
+        <div className="mt-12 sm:mt-16 md:mt-20 flex justify-center">
+          <button
+            onClick={() => navigate('/proyectos')}
+            className="group flex items-center gap-2 sm:gap-4 font-mono text-[10px] sm:text-xs tracking-[0.2em] sm:tracking-[.3em] uppercase px-6 sm:px-10 py-3 sm:py-5 bg-white/5 border border-white/10 hover:border-[#00e5ff]/40 hover:bg-white/[0.08] transition-all duration-300 rounded-full"
+          >
             <GridIcon /> {t('projects.view_all')}
           </button>
         </div>
       </div>
+
       {selectedProject && <DetailModal project={selectedProject.project} index={selectedProject.index} totalProjects={items.length} onNext={() => navigateProject('next')} onPrev={() => navigateProject('prev')} onClose={() => setSelectedProject(null)} />}
+
+      <style>{`
+        .line-clamp-2 {
+          display: -webkit-box;
+          -webkit-line-clamp: 2;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+        }
+        .line-clamp-3 {
+          display: -webkit-box;
+          -webkit-line-clamp: 3;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+        }
+        .line-clamp-4 {
+          display: -webkit-box;
+          -webkit-line-clamp: 4;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+        }
+      `}</style>
     </section>
   );
 }
