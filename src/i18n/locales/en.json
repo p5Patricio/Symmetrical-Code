@@ -264,6 +264,9 @@
     "cookies_s6_title": "Browser settings",
     "cookies_s6_body": "You can configure your browser to reject all cookies or to alert you when a cookie is being sent. Each browser has different procedures for managing cookies."
   },
+  "contact": {
+    "whatsapp_tooltip": "Contact us on WhatsApp"
+  },
   "scene": {
     "phase_typing": "⌨️ writing code...",
     "phase_compiling": "⚙️ compiling...",

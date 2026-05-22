@@ -264,6 +264,9 @@
     "cookies_s6_title": "Configuración del navegador",
     "cookies_s6_body": "Puede configurar su navegador para rechazar todas las cookies o para que le avise cuando se envía una cookie. Cada navegador tiene diferentes procedimientos para gestionar las cookies."
   },
+  "contact": {
+    "whatsapp_tooltip": "Contáctanos por WhatsApp"
+  },
   "scene": {
     "phase_typing": "⌨️ escribiendo código...",
     "phase_compiling": "⚙️ compilando...",

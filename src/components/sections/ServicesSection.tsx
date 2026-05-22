@@ -155,15 +155,6 @@ export default function Services() {
                     </li>
                   ))}
                 </ul>
-                
-                {/* Contact link */}
-                <a
-                  href="#contact"
-                  className="flex items-center gap-2 sm:gap-3 font-bold text-[10px] sm:text-xs tracking-widest uppercase text-[#00e5ff]/60 hover:text-[#00e5ff] transition-all duration-300 mt-2"
-                >
-                  <span>{t('contact.label', { defaultValue: 'Contact' })}</span>
-                  <ArrowRightIcon />
-                </a>
               </div>
             </article>
           ))}
