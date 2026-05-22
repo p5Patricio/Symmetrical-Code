@@ -5,7 +5,7 @@ export default function Navbar() {
   const { t, i18n } = useTranslation();
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState('');
+  const [activeSection, setActiveSection] = useState('home');
 
   useEffect(() => {
     const handleScroll = () => {
@@ -113,7 +113,7 @@ export default function Navbar() {
           <div className="flex items-center gap-2 sm:gap-3">
             <button
               onClick={toggleLang}
-              className="font-mono text-[10px] sm:text-xs tracking-widest border border-[rgba(0,229,255,0.3)] text-[#00e5ff]/80 hover:text-[#00e5ff] hover:border-[#00e5ff] px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full transition-all duration-200"
+              className="font-mono text-[10px] sm:text-xs tracking-widest border border-[rgba(0,229,255,0.3)] text-[#00e5ff]/80 hover:text-[#00e5ff] hover:border-[#00e5ff] px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-md transition-all duration-200"
             >
               {i18n.language === 'es' ? 'EN' : 'ES'}
             </button>
@@ -192,7 +192,7 @@ export default function Navbar() {
           {/* Botón de idioma en menú móvil */}
           <button
             onClick={toggleLang}
-            className="font-mono text-sm tracking-widest border border-[rgba(0,229,255,0.4)] text-[#00e5ff] hover:bg-[#00e5ff]/10 px-6 py-2 rounded-full transition-all duration-200"
+            className="font-mono text-sm tracking-widest border border-[rgba(0,229,255,0.4)] text-[#00e5ff] hover:bg-[#00e5ff]/10 px-6 py-2 rounded-md transition-all duration-200"
           >
             {i18n.language === 'es' ? 'ENGLISH' : 'ESPAÑOL'}
           </button>

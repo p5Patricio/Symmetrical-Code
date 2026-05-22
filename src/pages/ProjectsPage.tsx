@@ -298,7 +298,7 @@ export default function Projects({ isFullPage = false }: { isFullPage?: boolean 
                       <p className="text-white/40 text-xs sm:text-sm leading-relaxed text-justify line-clamp-3">{project.description}</p>
                     </div>
                     
-                    <div className="flex items-center gap-1.5 sm:gap-2 mt-4">
+                    <div className="flex items-center gap-1.5 sm:gap-2 mt-1.5">
                       {uniqueTechTags.slice(0, 5).map(tag => (
                         techIconMap[tag] && (
                           <div key={tag} className="w-6 h-6 sm:w-7 sm:h-7 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center p-1 sm:p-1.5 shrink-0" title={tag}>
@@ -383,7 +383,7 @@ export default function Projects({ isFullPage = false }: { isFullPage?: boolean 
                   <div className="min-h-[4rem] sm:min-h-[6rem] mb-4 sm:mb-6">
                     <p className="text-white/40 text-xs sm:text-sm leading-relaxed text-justify line-clamp-3">{project.description}</p>
                   </div>
-                  <div className="flex items-center gap-2 sm:gap-3">
+                  <div className="flex items-center gap-2 sm:gap-3 -mt-2.5">
                     {uniqueTechTags.slice(0, 5).map(tag => (
                       techIconMap[tag] && (
                         <div key={tag} className="w-7 h-7 sm:w-9 sm:h-9 rounded-lg sm:rounded-xl bg-white/5 border border-white/10 flex items-center justify-center p-1.5 sm:p-2 group-hover:border-[#00e5ff]/20 transition-all shrink-0" title={tag}>
