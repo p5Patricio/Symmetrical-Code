@@ -43,12 +43,12 @@ export const techIconMap: Record<string, string> = {
   'VS Code': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg',
   Vercel: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vercel/vercel-original.svg',
   Netlify: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/netlify/netlify-original.svg',
+  Render: 'https://worldvectorlogo.com/logos/render-1.svg',
   FastAPI: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/fastapi/fastapi-original.svg',
   TensorFlow: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tensorflow/tensorflow-original.svg',
   PyTorch: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pytorch/pytorch-original.svg',
   OpenAI: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/openai/openai-original.svg',
   Firebase: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg',
-  Render: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/googlecloud/googlecloud-original.svg',
   'API REST': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/matcha/matcha-original.svg',
   'Fetch API': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg',
   'PokéAPI': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg',
@@ -57,6 +57,7 @@ export const techIconMap: Record<string, string> = {
   Hashlib: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg',
   'Metodos Numéricos': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/matlab/matlab-original.svg',
   'Newton-Raphson': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/matlab/matlab-original.svg',
+  PyGame: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg',
   // fallbacks para tags genéricos
   'Machine Learning': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg',
   'Computer Vision': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/opencv/opencv-original.svg',
@@ -65,7 +66,6 @@ export const techIconMap: Record<string, string> = {
   AI: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg',
   Game: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg',
   CLI: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg',
-  PyGame: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg',
   'Canvas API': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg',
 };
 

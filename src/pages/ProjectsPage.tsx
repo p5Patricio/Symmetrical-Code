@@ -239,6 +239,16 @@ export default function Projects({ isFullPage = false }: { isFullPage?: boolean 
           <div className="max-w-7xl mx-auto px-4 sm:px-6 pb-20 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {filtered.map((project, i) => {
               const globalIndex = allItems.findIndex(p => p.title === project.title);
+              
+              // Evitar duplicados visuales (mismo icono base)
+              const seenIcons = new Set<string>();
+              const uniqueTechTags = project.tags.filter(tag => {
+                const icon = techIconMap[tag];
+                if (!icon || seenIcons.has(icon)) return false;
+                seenIcons.add(icon);
+                return true;
+              });
+
               return (
                 <article key={i} onClick={() => setSelectedProject({ project, index: globalIndex })} className="group cursor-pointer overflow-hidden transition-all bg-white/[0.02] border border-white/5 rounded-lg hover:scale-[1.02] flex flex-col h-[540px]">
                   <div className="w-full h-48 relative overflow-hidden shrink-0">
@@ -257,12 +267,10 @@ export default function Projects({ isFullPage = false }: { isFullPage?: boolean 
                     </div>
                     
                     <div className="flex items-center gap-2 mt-4">
-                      {project.tags.slice(0, 6).map(tag => (
-                        techIconMap[tag] && (
-                          <div key={tag} className="w-7 h-7 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center p-1.5 shrink-0" title={tag}>
-                            <img src={techIconMap[tag]} alt={tag} className="w-full h-full object-contain opacity-60 group-hover:opacity-100 transition-opacity" />
-                          </div>
-                        )
+                      {uniqueTechTags.slice(0, 6).map(tag => (
+                        <div key={tag} className="w-7 h-7 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center p-1.5 shrink-0" title={tag}>
+                          <img src={techIconMap[tag]} alt={tag} className="w-full h-full object-contain opacity-60 group-hover:opacity-100 transition-opacity" />
+                        </div>
                       ))}
                     </div>
 
@@ -295,6 +303,16 @@ export default function Projects({ isFullPage = false }: { isFullPage?: boolean 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {items.map((project, i) => {
              const globalIndex = allItems.findIndex(p => p.title === project.title);
+             
+             // Evitar duplicados visuales (mismo icono base)
+             const seenIcons = new Set<string>();
+             const uniqueTechTags = project.tags.filter(tag => {
+               const icon = techIconMap[tag];
+               if (!icon || seenIcons.has(icon)) return false;
+               seenIcons.add(icon);
+               return true;
+             });
+
              return (
               <article key={i} onClick={() => setSelectedProject({ project, index: globalIndex })} className="glass-card-enhanced group cursor-pointer overflow-hidden border border-white/10 rounded-2xl flex flex-col min-h-[580px]">
                 <div className="h-56 overflow-hidden shrink-0 relative">
@@ -309,12 +327,10 @@ export default function Projects({ isFullPage = false }: { isFullPage?: boolean 
                   </div>
                   
                   <div className="flex items-center gap-3">
-                    {project.tags.slice(0, 6).map(tag => (
-                      techIconMap[tag] && (
-                        <div key={tag} className="w-9 h-9 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center p-2 group-hover:border-[#00e5ff]/20 transition-all shrink-0" title={tag}>
-                          <img src={techIconMap[tag]} alt={tag} className="w-full h-full object-contain opacity-50 group-hover:opacity-100 transition-opacity" />
-                        </div>
-                      )
+                    {uniqueTechTags.slice(0, 6).map(tag => (
+                      <div key={tag} className="w-9 h-9 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center p-2 group-hover:border-[#00e5ff]/20 transition-all shrink-0" title={tag}>
+                        <img src={techIconMap[tag]} alt={tag} className="w-full h-full object-contain opacity-50 group-hover:opacity-100 transition-opacity" />
+                      </div>
                     ))}
                   </div>
 
