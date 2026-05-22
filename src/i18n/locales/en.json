@@ -1,0 +1,272 @@
+{
+  "nav": {
+    "home": "Home",
+    "projects": "Projects",
+    "services": "Services",
+    "team": "Studio"
+  },
+  "hero": {
+    "label": "Software Studio",
+    "title": "Design and code",
+    "title_highlight": "in balance",
+    "title_end": "for your idea",
+    "subtitle": "We turn clear ideas into simple, fast digital products ready to grow with you from the first launch.",
+    "cta_primary": "Explore services",
+    "cta_secondary": "Talk through an idea",
+    "stat_1_value": "Clarity",
+    "stat_1_label": "We define the idea before building",
+    "stat_2_value": "Balance",
+    "stat_2_label": "Useful design + clean code",
+    "stat_3_value": "Future",
+    "stat_3_label": "A foundation ready to grow",
+    "email": "contacto@symmetricalcode.com",
+    "location": "Guanajuato, Mexico · Remote",
+    "availability": "Open to new projects",
+    "foundation_note": "We are starting with a simple promise: listen carefully, build with care, and stay transparent from the first message.",
+    "follow_us": "Follow us"
+  },
+  "services": {
+    "label": "Our Solutions",
+    "title": "Custom Digital Solutions",
+    "subtitle": "From web applications to intelligent systems, we build the technology your business needs to scale.",
+    "learn_more": "View more details",
+    "modal_includes": "What you'll get",
+    "modal_highlights": "Why choose us",
+    "modal_cta": "Tell us about your project",
+    "items": [
+      {
+        "title": "Pages & Apps that Sell",
+        "description": "Your online presence with professional design, incredible speed, and optimized to convert visitors into customers.",
+        "longDescription": "We design and build websites that don't just look good — they work for you. We focus on user experience and performance so your customers find what they need fast and without friction. From landing pages to online stores, we create your window to the digital world.",
+        "highlights": [
+          "Modern design that builds trust",
+          "Fast loading on any device",
+          "Easy for your customers to use",
+          "Ready to rank on Google (SEO)"
+        ],
+        "bullets": [
+          "Professional Design",
+          "Optimized Speed",
+          "Mobile-Friendly",
+          "Easy to Manage"
+        ]
+      },
+      {
+        "title": "Intelligent Systems",
+        "description": "We automate your processes and connect your tools so you can focus on what really matters.",
+        "longDescription": "We create the brain of your operation. We connect your databases, payment tools, and third-party systems into a robust and secure platform. If you have a repetitive task, we automate it. If you have scattered data, we organize it.",
+        "highlights": [
+          "Automation of manual tasks",
+          "Connection with payments and social media",
+          "Secure handling of your information",
+          "Systems that grow with your business"
+        ],
+        "bullets": [
+          "Process Automation",
+          "Payment Integration",
+          "Secure Databases",
+          "Scalable Systems"
+        ]
+      },
+      {
+        "title": "Your Business Always Online",
+        "description": "Cloud infrastructure so your page never goes down and supports thousands of visits smoothly.",
+        "longDescription": "We take care of all the technical complexity behind the scenes. We set up cloud servers that automatically adjust to the number of people visiting you, ensuring your investment is efficient and your site is always available.",
+        "highlights": [
+          "99.9% uptime guaranteed",
+          "Cloud cost optimization",
+          "Security against attacks",
+          "Automatic updates"
+        ],
+        "bullets": [
+          "Cloud Infrastructure",
+          "Advanced Security",
+          "Total Scalability",
+          "Continuous Support"
+        ]
+      },
+      {
+        "title": "Protection & Trust",
+        "description": "Bank-level security to protect your data and your customers' privacy at all times.",
+        "longDescription": "Security is not optional. We protect your intellectual property and your users' sensitive data following the highest industry standards. We conduct constant audits to ensure your business is a safe place to transact.",
+        "highlights": [
+          "Encryption of sensitive data",
+          "Protection against hackers",
+          "Compliance with privacy laws",
+          "Regular security audits"
+        ],
+        "bullets": [
+          "Data Shielding",
+          "Attack Prevention",
+          "Guaranteed Privacy",
+          "Expert Consulting"
+        ]
+      },
+      {
+        "title": "Amazing Experiences",
+        "description": "We design interfaces your customers will love using, focused on ease and elegance.",
+        "longDescription": "Good design is invisible: it just works. We create intuitive digital experiences that guide your users toward the action you want. From the first sketch to the final product, every detail is thought out to delight those who use it.",
+        "highlights": [
+          "Easy to navigate interfaces",
+          "Prototypes so you see before building",
+          "Design reflecting your brand",
+          "Tests with real users"
+        ],
+        "bullets": [
+          "Intuitive Design",
+          "Visual Prototyping",
+          "Brand Image",
+          "User Focus"
+        ]
+      },
+      {
+        "title": "Measurable Results",
+        "description": "We give you the tools to understand your customers and improve your sales based on real data.",
+        "longDescription": "What isn't measured can't be improved. We help you install and understand control dashboards that show you exactly what's happening in your digital business. This way you can invest with confidence where you actually get results.",
+        "highlights": [
+          "Easy to understand reports",
+          "Sales and conversion tracking",
+          "Continuous result improvement",
+          "Customer behavior analysis"
+        ],
+        "bullets": [
+          "Clear Dashboards",
+          "Sales Optimization",
+          "Monthly Reports",
+          "Data Strategy"
+        ]
+      }
+    ]
+  },
+  "projects": {
+    "label": "Our work",
+    "title": "Projects",
+    "subtitle": "Real solutions for real problems. Every project is an opportunity to exceed expectations.",
+    "view_demo": "View demo",
+    "view_code": "View code",
+    "view_detail": "View detail",
+    "view_all": "Full project gallery",
+    "gallery": "Gallery",
+    "gallery_label": "Complete portfolio",
+    "gallery_title": "All projects",
+    "filter_all": "All",
+    "back": "Back to site",
+    "single_image": "Only one image available"
+  },
+  "team": {
+    "label": "The Studio",
+    "title": "Why Symmetrical Code?",
+    "subtitle": "We combine high-level software engineering with a comprehensive approach geared towards empowering your business.",
+    "pillars": [
+      {
+        "title": "Software Architecture",
+        "description": "We don't just write code; we design robust and scalable systems. We divide our tasks into specialties (Frontend, Backend, and DevOps) to ensure each piece of software receives expert attention.",
+        "details": ["Clean Architecture", "Optimized Databases", "Cloud & Infrastructure"]
+      },
+      {
+        "title": "Quality Standards",
+        "description": "Trust is built with software that doesn't fail. We implement automated tests, rigorous code reviews, and security audits in every delivery.",
+        "details": ["Software Testing", "Bank-Level Security", "Maintainable Code"]
+      },
+      {
+        "title": "Design that Converts",
+        "description": "Software must be a business tool. We create intuitive interfaces designed for the end-user, optimizing speed and ease of use to maximize your sales.",
+        "details": ["Modern UI / UX", "Extreme Speed", "Conversion Focus"]
+      }
+    ]
+  },
+  "footer": {
+    "tagline": "Innovation and excellence in software development",
+    "follow": "Follow us",
+    "contact_title": "Contact",
+    "schedule": "Mon - Fri: 9:00 AM - 6:00 PM",
+    "location": "Guanajuato, Guanajuato, Mexico",
+    "assistant_title": "24/7 Assistant",
+    "project_headline": "Got a project?",
+    "project_sub": "Let's talk.",
+    "project_desc": "Our virtual assistant is ready to help you. Get your questions answered or schedule a consultation in minutes.",
+    "cta": "Start a conversation",
+    "whatsapp_message": "Hello, I would like to get more information about your services.",
+    "privacy": "Privacy",
+    "terms": "Terms",
+    "cookies": "Cookies",
+    "modal_understood": "Got it",
+    "modal_last_updated": "Last updated: May 19, 2026",
+    "modal_privacy_title": "Privacy Policy",
+    "modal_terms_title": "Terms and Conditions",
+    "modal_cookies_title": "Cookie Policy",
+    "privacy_s1_title": "Information we collect",
+    "privacy_s1_body": "At Symmetrical Code, we collect information you provide directly to us, such as your name, email address, phone number, and any other information you choose to share when communicating with us through our website or services.",
+    "privacy_s2_title": "How we use your information",
+    "privacy_s2_body": "We use your information to provide, maintain, and improve our services, respond to your inquiries and requests, send you information about our services and promotions, and protect against fraud and unauthorized activity.",
+    "privacy_s3_title": "Sharing information",
+    "privacy_s3_body": "We do not sell, trade, or rent your personal information to third parties. We may share your information with service providers who help us operate our business, always under strict confidentiality obligations.",
+    "privacy_s4_title": "Data security",
+    "privacy_s4_body": "We implement technical and organizational security measures to protect your personal information against unauthorized access, alteration, disclosure, or destruction.",
+    "privacy_s5_title": "Your rights",
+    "privacy_s5_body": "You have the right to access, correct, or delete your personal information. To exercise these rights, contact us at contacto@symmetricalcode.com.",
+    "privacy_s6_title": "Data retention",
+    "privacy_s6_body": "We retain your personal information for as long as necessary to fulfill the purposes described in this policy, unless a longer retention period is required by law.",
+    "privacy_s7_title": "Changes to this policy",
+    "privacy_s7_body": "We may update this privacy policy periodically. We will notify you of any changes by posting the new policy on this page.",
+    "terms_s1_title": "Acceptance of terms",
+    "terms_s1_body": "By accessing and using the Symmetrical Code website, you agree to comply with these Terms and Conditions. If you do not agree with any part of these terms, you must not use our site.",
+    "terms_s2_title": "Service description",
+    "terms_s2_body": "Symmetrical Code offers software development services, technology consulting, and infrastructure solutions. We reserve the right to modify or discontinue any service without prior notice.",
+    "terms_s3_title": "Intellectual property",
+    "terms_s3_body": "All content on this website, including text, graphics, logos, icons, images, and software, is the property of Symmetrical Code or its content providers and is protected by copyright laws.",
+    "terms_s4_title": "Limitation of liability",
+    "terms_s4_body": "Symmetrical Code will not be liable for indirect, incidental, special, consequential, or punitive damages resulting from the use or inability to use our services.",
+    "terms_s5_title": "Applicable law",
+    "terms_s5_body": "These terms are governed by the laws of Mexico. Any dispute related to these terms will be resolved in the courts of Guanajuato, Mexico.",
+    "terms_s6_title": "Modifications",
+    "terms_s6_body": "We reserve the right to modify these terms at any time. Changes will be effective immediately upon publication.",
+    "cookies_s1_title": "What are cookies?",
+    "cookies_s1_body": "Cookies are small text files that websites place on your device when you visit them. They are widely used to make websites work more efficiently and to provide information to site owners.",
+    "cookies_s2_title": "Types of cookies we use",
+    "cookies_s2_essential_label": "Essential cookies:",
+    "cookies_s2_essential_body": "Necessary for the basic functioning of the site.",
+    "cookies_s2_performance_label": "Performance cookies:",
+    "cookies_s2_performance_body": "Help us understand how visitors interact with our site.",
+    "cookies_s2_functional_label": "Functional cookies:",
+    "cookies_s2_functional_body": "Allow us to remember your preferences to improve your experience.",
+    "cookies_s2_ads_label": "Advertising cookies:",
+    "cookies_s2_ads_body": "Used to display relevant ads.",
+    "cookies_s3_title": "How to control cookies",
+    "cookies_s3_body": "You can control and/or delete cookies as you wish. Most browsers allow you to reject all cookies or to alert you when a cookie is being sent. However, if you block cookies, some parts of our site may not function properly.",
+    "cookies_s4_title": "Third-party cookies",
+    "cookies_s4_body": "We may use third-party services that can also place cookies on your device. We have no control over these cookies and recommend reviewing the privacy policies of those services.",
+    "cookies_s5_title": "Consent",
+    "cookies_s5_body": "By continuing to use our website, you agree to the use of cookies in accordance with this policy.",
+    "cookies_s6_title": "Browser settings",
+    "cookies_s6_body": "You can configure your browser to reject all cookies or to alert you when a cookie is being sent. Each browser has different procedures for managing cookies."
+  },
+  "scene": {
+    "phase_typing": "⌨️ writing code...",
+    "phase_compiling": "⚙️ compiling...",
+    "phase_rendering": "🌐 rendering interface...",
+    "studio_tag": "Software Studio",
+    "studio_name": "Symmetrical",
+    "studio_highlight": "Code",
+    "studio_sub": "Ideas in balance, code with purpose.",
+    "btn_projects": "Services",
+    "btn_contact": "Contact",
+    "card_idea_title": "Idea",
+    "card_idea_desc": "Clear scope",
+    "card_balance_title": "Balance",
+    "card_balance_desc": "Design + logic",
+    "card_launch_title": "Launch",
+    "card_launch_desc": "Ready to grow"
+  },
+  "chat": {
+    "welcome": "Hi! I'm the Symmetrical Code assistant. How can I help you today?",
+    "subtitle": "Virtual assistant",
+    "placeholder": "Type your message...",
+    "aria_open": "Open chat",
+    "aria_close": "Close chat",
+    "aria_send": "Send message",
+    "error_unknown": "Unknown server error",
+    "error_connect": "Could not connect to the server",
+    "error_message": "⚠️ Sorry, I'm having trouble connecting. Please make sure the server is running at http://localhost:3001"
+  }
+}
