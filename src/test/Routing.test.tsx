@@ -25,7 +25,10 @@ vi.mock('../data/projects', () => ({
       id: '1', titleEs: 'Test Proj', descriptionEs: 'Desc', 
       tags: ['React'], ogImageUrl: '', galleryImages: [] 
     }
-  ]
+  ],
+  techIconMap: {
+    React: 'https://test-icon.svg'
+  }
 }));
 
 describe('Navegación y Enrutamiento', () => {
