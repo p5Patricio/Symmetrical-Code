@@ -122,20 +122,6 @@ export const projects: Project[] = [
     ], 
   },
   {
-    title: 'SnakeAI',
-    titleEs: 'SnakeAI',
-    titleEn: 'SnakeAI',
-    descriptionEs:
-      'Implementación del juego Snake con un agente de aprendizaje por refuerzo (Q-Learning). Visualización del entrenamiento en tiempo real.',
-    descriptionEn:
-      'Snake game implementation with a reinforcement learning agent (Q-Learning). Real-time training visualization.',
-    tags: ['Python', 'PyGame', 'Machine Learning'],
-    category: 'Game',
-    githubUrl: 'https://github.com/p5Patricio/snake-ai',
-    ogImageUrl: '/proyectos/Patricio/SnakeAI/banner.webp',
-    galleryImages: ['/proyectos/Patricio/SnakeAI/banner.webp'],
-  },
-  {
     title: 'FitTrack Pro',
     titleEs: 'FitTrack Pro',
     titleEn: 'FitTrack Pro',
@@ -170,20 +156,6 @@ export const projects: Project[] = [
     ],
   },
   {
-    title: 'AudioMood',
-    titleEs: 'AudioMood',
-    titleEn: 'AudioMood',
-    descriptionEs:
-      'Clasificador de emociones a partir de audio usando redes neuronales convolucionales. Detecta el estado de ánimo en grabaciones de voz en menos de un segundo.',
-    descriptionEn:
-      'Emotion classifier from audio using convolutional neural networks. Detects mood in voice recordings in under one second.',
-    tags: ['Python', 'PyTorch', 'Audio'],
-    category: 'AI / ML',
-    githubUrl: 'https://github.com/p5Patricio/audiomood',
-    ogImageUrl: '/proyectos/Patricio/AudioMood/banner.webp',
-    galleryImages: ['/proyectos/Patricio/AudioMood/banner.webp'],
-  },
-  {
     title: 'WisprLocal',
     titleEs: 'WisprLocal',
     titleEn: 'WisprLocal',
@@ -214,20 +186,6 @@ export const projects: Project[] = [
       '/proyectos/Mario/Banderas/banderas4.jpg', '/proyectos/Mario/Banderas/banderas5.jpg', '/proyectos/Mario/Banderas/banderas6.jpg', '/proyectos/Mario/Banderas/banderas7.jpg',
       '/proyectos/Mario/Banderas/banderas8.jpg', '/proyectos/Mario/Banderas/banderas9.jpg', '/proyectos/Mario/Banderas/banderas10.jpg'
     ],
-  },
-  {
-    title: 'EcoTracker',
-    titleEs: 'EcoTracker',
-    titleEn: 'EcoTracker',
-    descriptionEs:
-      'Aplicación web para calcular y visualizar tu huella de carbono personal. Sugiere acciones de impacto con gamificación para fomentar hábitos sostenibles.',
-    descriptionEn:
-      'Web app to calculate and visualize your personal carbon footprint. Suggests impactful actions with gamification to build sustainable habits.',
-    tags: ['React', 'Node.js', 'MongoDB'],
-    category: 'Web App',
-    githubUrl: 'https://github.com/p5Patricio/ecotracker',
-    ogImageUrl: '/proyectos/Patricio/EcoTracker/banner.webp',
-    galleryImages: ['/proyectos/Patricio/EcoTracker/banner.webp'],
   },
   {
     title: 'Clasificador Entrenador NBA',
@@ -262,20 +220,6 @@ export const projects: Project[] = [
      ],
   },
   {
-    title: 'DevPortfolio CLI',
-    titleEs: 'DevPortfolio CLI',
-    titleEn: 'DevPortfolio CLI',
-    descriptionEs:
-      'Herramienta de línea de comandos para generar portafolios de desarrollador estáticos desde un archivo JSON. Exporta a HTML, PDF y Markdown.',
-    descriptionEn:
-      'Command-line tool to generate static developer portfolios from a JSON config file. Exports to HTML, PDF and Markdown.',
-    tags: ['Node.js', 'TypeScript', 'CLI'],
-    category: 'Web App',
-    githubUrl: 'https://github.com/p5Patricio/devportfolio-cli',
-    ogImageUrl: '/proyectos/Patricio/DevPortfolio CLI/banner.webp',
-    galleryImages: ['/proyectos/Patricio/DevPortfolio CLI/banner.webp'],
-  },
-  {
     title: 'Intérprete LSM',
     titleEs: 'Intérprete LSM',
     titleEn: 'LSM Interpreter',
@@ -305,20 +249,6 @@ export const projects: Project[] = [
       '/proyectos/Mario/ERP-ETN/finanzas.png', '/proyectos/Mario/ERP-ETN/inventario.png', '/proyectos/Mario/ERP-ETN/logistica.png', '/proyectos/Mario/ERP-ETN/proveedores.png',
       '/proyectos/Mario/ERP-ETN/rh.png', '/proyectos/Mario/ERP-ETN/venta.png', '/proyectos/Mario/ERP-ETN/reporte.png'
     ],
-  },
-    {
-    title: 'DevPortfolio CLI',
-    titleEs: 'DevPortfolio CLI',
-    titleEn: 'DevPortfolio CLI',
-    descriptionEs:
-      'Herramienta de línea de comandos para generar portafolios de desarrollador estáticos desde un archivo JSON. Exporta a HTML, PDF y Markdown.',
-    descriptionEn:
-      'Command-line tool to generate static developer portfolios from a JSON config file. Exports to HTML, PDF and Markdown.',
-    tags: ['Node.js', 'TypeScript', 'CLI'],
-    category: 'Web App',
-    githubUrl: 'https://github.com/p5Patricio/devportfolio-cli',
-    ogImageUrl: '/proyectos/Patricio/DevPortfolio CLI/banner.webp',
-    galleryImages: ['/proyectos/Patricio/DevPortfolio CLI/banner.webp'],
   },
   {
     title: 'Infinite Tic-Tac-Toe',
@@ -350,20 +280,6 @@ export const projects: Project[] = [
       '/proyectos/Mario/Orbitas/orbitas-info.png', '/proyectos/Mario/Orbitas/orbitas-operaciones.png', '/proyectos/Mario/Orbitas/orbitas-planetas.png', '/proyectos/Mario/Orbitas/orbitas-resultados.png',
       '/proyectos/Mario/Orbitas/orbitas-sistemasolar.png', '/proyectos/Mario/Orbitas/orbitas-tabla.png', '/proyectos/Mario/Orbitas/orbitas-visualizacion.png'
     ],
-  },
-  {
-    title: 'DevPortfolio CLI',
-    titleEs: 'DevPortfolio CLI',
-    titleEn: 'DevPortfolio CLI',
-    descriptionEs:
-      'Herramienta de línea de comandos para generar portafolios de desarrollador estáticos desde un archivo JSON. Exporta a HTML, PDF y Markdown.',
-    descriptionEn:
-      'Command-line tool to generate static developer portfolios from a JSON config file. Exports to HTML, PDF and Markdown.',
-    tags: ['Node.js', 'TypeScript', 'CLI'],
-    category: 'Web App',
-    githubUrl: 'https://github.com/p5Patricio/devportfolio-cli',
-    ogImageUrl: '/proyectos/Patricio/DevPortfolio CLI/banner.webp',
-    galleryImages: ['/proyectos/Patricio/DevPortfolio CLI/banner.webp'],
   },
   {
     title: 'Art Classifier',
