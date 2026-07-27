@@ -10,7 +10,7 @@ export default function Footer() {
   const modalContentRef = useRef<HTMLDivElement>(null);
 
   const socialLinks = [
-    { label: 'Facebook', href: '#', icon: FaFacebookF },
+    { label: 'Facebook', href: 'https://www.facebook.com/profile.php?id=61591503452553', icon: FaFacebookF },
     { label: 'Instagram', href: '#', icon: FaInstagram },
     { label: 'X', href: '#', icon: SiX },
     { label: 'LinkedIn', href: '#', icon: FaLinkedinIn },
@@ -555,6 +555,8 @@ export default function Footer() {
                     <a
                       key={social.label}
                       href={social.href}
+                      target={social.href !== '#' ? '_blank' : undefined}
+                      rel={social.href !== '#' ? 'noopener noreferrer' : undefined}
                       aria-label={social.label}
                       style={{
                         display: 'flex',

@@ -6,7 +6,7 @@
     "team": "Studio"
   },
   "hero": {
-    "label": "Software Studio",
+    "label": "Software Development Studio",
     "title": "Real engineering",
     "title_highlight": "for real",
     "title_end": "problems.",
@@ -271,7 +271,7 @@
     "phase_typing": "⌨️ writing code...",
     "phase_compiling": "⚙️ compiling...",
     "phase_rendering": "🌐 rendering interface...",
-    "studio_tag": "Software Studio",
+    "studio_tag": "Software Development Studio",
     "studio_name": "Symmetrical",
     "studio_highlight": "Code",
     "studio_sub": "Ideas in balance, code with purpose.",

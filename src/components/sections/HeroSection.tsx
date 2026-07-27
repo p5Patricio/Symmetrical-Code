@@ -445,6 +445,8 @@ function CodeToWebScene() {
 export default function Hero() {
   const { t } = useTranslation();
 
+  const whatsappUrl = "https://wa.me/XXXXXXXXXXX";
+
   const principles = [
     { value: t('hero.stat_1_value'), label: t('hero.stat_1_label') },
     { value: t('hero.stat_2_value'), label: t('hero.stat_2_label') },
@@ -507,12 +509,14 @@ export default function Hero() {
             >
               {t('hero.cta_primary')}
             </button>
-            <button
-              onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
-              className="btn-outline px-6 py-3 rounded-none font-syne font-bold text-sm tracking-wider"
+            <a
+              href={whatsappUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-outline px-6 py-3 rounded-none font-syne font-bold text-sm tracking-wider inline-flex items-center justify-center"
             >
               {t('hero.cta_secondary')}
-            </button>
+            </a>
           </div>
 
           {/* Principios — sin métricas infladas mientras el estudio inicia */}
