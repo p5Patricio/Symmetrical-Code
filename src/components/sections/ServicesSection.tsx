@@ -148,6 +148,17 @@ export default function Services() {
                     </li>
                   ))}
                 </ul>
+                <div className="pt-2">
+                  <a
+                    href="#contact"
+                    className="inline-flex items-center gap-2 text-xs font-semibold text-[#00e5ff] hover:text-white transition-colors duration-300"
+                  >
+                    <span>{t('contact.label')}</span>
+                    <svg className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                    </svg>
+                  </a>
+                </div>
               </div>
             </article>
           ))}
