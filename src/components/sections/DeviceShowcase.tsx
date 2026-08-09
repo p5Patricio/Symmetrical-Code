@@ -19,9 +19,21 @@ const CODE_LINES: string[] = [
 /* Phone UI rows revealed one by one, in sync with the typing. */
 const PHONE_ROWS = 4;
 
+/* Display rectangles measured from the mockup artwork by sampling the dark
+   panel inside each bezel. Percentages, so they hold at any rendered size. */
+const LAPTOP_SCREEN = { left: 10.725, top: 11.739, width: 78.524, height: 76.521 };
+const PHONE_SCREEN = { left: 5.497, top: 3.112, width: 89.006, height: 93.848 };
+
 /* matchMedia is missing in jsdom and older browsers, so every query is guarded. */
 const matches = (query: string) =>
   typeof window.matchMedia === 'function' && window.matchMedia(query).matches;
+
+const asStyle = (r: { left: number; top: number; width: number; height: number }) => ({
+  left: `${r.left}%`,
+  top: `${r.top}%`,
+  width: `${r.width}%`,
+  height: `${r.height}%`,
+});
 
 export default function DeviceShowcase() {
   const rootRef = useRef<HTMLDivElement>(null);
@@ -105,24 +117,27 @@ export default function DeviceShowcase() {
     };
   }, []);
 
-  /* ── 3D tilt driven by scroll position + pointer parallax ── */
+  /* ── Float and parallax ──
+     The mockups are photographed head-on, so the camera angle is baked in.
+     Rotating them hard would fight that perspective; this stays subtle. */
   useEffect(() => {
     const root = rootRef.current;
     const stage = stageRef.current;
     if (!root || !stage) return;
     if (matches('(prefers-reduced-motion: reduce)')) return;
 
-    let scrollTilt = 0; // -1 .. 1
-    let pointerX = 0;   // -1 .. 1
-    let pointerY = 0;   // -1 .. 1
+    let drift = 0;    // -1 .. 1 from scroll position
+    let pointerX = 0; // -1 .. 1
+    let pointerY = 0; // -1 .. 1
     let frame = 0;
 
     const render = () => {
       frame = 0;
-      // Base pose keeps a subtle isometric feel; scroll and pointer nudge it.
-      const rotY = -14 + pointerX * 8 + scrollTilt * 5;
-      const rotX = 6 + pointerY * -5 + scrollTilt * -4;
-      stage.style.transform = `rotateX(${rotX.toFixed(2)}deg) rotateY(${rotY.toFixed(2)}deg)`;
+      const rotY = pointerX * 3.4;
+      const rotX = pointerY * -2.6;
+      const lift = drift * -14;
+      stage.style.transform =
+        `translate3d(0, ${lift.toFixed(2)}px, 0) rotateX(${rotX.toFixed(2)}deg) rotateY(${rotY.toFixed(2)}deg)`;
     };
     const schedule = () => {
       if (!frame) frame = requestAnimationFrame(render);
@@ -131,9 +146,8 @@ export default function DeviceShowcase() {
     const onScroll = () => {
       const rect = root.getBoundingClientRect();
       const vh = window.innerHeight || 1;
-      // 1 when the block enters from below, -1 once it has scrolled past the top.
       const centered = (rect.top + rect.height / 2 - vh / 2) / vh;
-      scrollTilt = Math.max(-1, Math.min(1, centered * 2));
+      drift = Math.max(-1, Math.min(1, centered * 2));
       schedule();
     };
 
@@ -174,48 +188,39 @@ export default function DeviceShowcase() {
       <div ref={stageRef} className="dv-stage">
         {/* ── Laptop ── */}
         <div className="dv-laptop">
-          <div className="dv-lid">
-            <div className="dv-camera" />
-            <div className="dv-screen">
-              <div className="dv-titlebar">
-                <span className="dv-dot" style={{ background: '#ff5f57' }} />
-                <span className="dv-dot" style={{ background: '#febc2e' }} />
-                <span className="dv-dot" style={{ background: '#28c840' }} />
-                <span className="dv-fname">build.ts</span>
-              </div>
-              <div ref={codeRef} className="dv-code" />
+          <img className="dv-shot" src="/mockups/laptop.webp" alt="" width={1400} height={910} />
+          <div className="dv-laptop-screen" style={asStyle(LAPTOP_SCREEN)}>
+            <div className="dv-titlebar">
+              <span className="dv-dot" style={{ background: '#ff5f57' }} />
+              <span className="dv-dot" style={{ background: '#febc2e' }} />
+              <span className="dv-dot" style={{ background: '#28c840' }} />
+              <span className="dv-fname">build.ts</span>
             </div>
-            <div className="dv-glare" />
+            <div ref={codeRef} className="dv-code" />
+            <div className="dv-screen-glare" />
           </div>
-          <div className="dv-hinge" />
-          <div className="dv-base">
-            <div className="dv-trackpad" />
-          </div>
-          <div className="dv-shadow" />
         </div>
 
         {/* ── Phone ── */}
-        <div ref={phoneRef} className="dv-phone">
-          <div className="dv-phone-frame">
-            <div className="dv-island" />
-            <div className="dv-phone-screen">
-              <div className="dv-row dv-row-head">
-                <div className="dv-avatar" />
-                <div className="dv-bars">
-                  <span className="dv-bar w-1" />
-                  <span className="dv-bar w-2" />
-                </div>
+        <div className="dv-phone">
+          <img className="dv-shot" src="/mockups/phone.webp" alt="" width={620} height={1222} />
+          <div ref={phoneRef} className="dv-phone-screen" style={asStyle(PHONE_SCREEN)}>
+            <div className="dv-row dv-row-head">
+              <div className="dv-avatar" />
+              <div className="dv-bars">
+                <span className="dv-bar w-1" />
+                <span className="dv-bar w-2" />
               </div>
-              <div className="dv-row dv-hero-card" />
-              <div className="dv-row dv-grid">
-                <span />
-                <span />
-                <span />
-                <span />
-              </div>
-              <div className="dv-row dv-cta">Deploy</div>
             </div>
-            <div className="dv-glare dv-glare-phone" />
+            <div className="dv-row dv-hero-card" />
+            <div className="dv-row dv-grid">
+              <span />
+              <span />
+              <span />
+              <span />
+            </div>
+            <div className="dv-row dv-cta">Deploy</div>
+            <div className="dv-screen-glare dv-screen-glare-phone" />
           </div>
         </div>
       </div>
@@ -227,122 +232,59 @@ export default function DeviceShowcase() {
           display: flex;
           align-items: center;
           justify-content: center;
-          /* Bottom padding leaves room for the phone, which hangs below the laptop. */
-          padding: 28px 0 92px;
-          perspective: 1400px;
+          padding: 24px 0 64px;
+          perspective: 1600px;
           perspective-origin: 50% 45%;
         }
 
         .dv-glow {
           position: absolute;
           left: 50%;
-          top: 50%;
+          top: 48%;
           transform: translate(-50%, -50%);
-          width: 118%;
-          height: 78%;
-          background: radial-gradient(ellipse at center, rgba(0, 180, 220, 0.16) 0%, transparent 68%);
-          filter: blur(28px);
+          width: 120%;
+          height: 80%;
+          background: radial-gradient(ellipse at center, rgba(0, 180, 220, 0.17) 0%, transparent 68%);
+          filter: blur(30px);
           pointer-events: none;
         }
 
         .dv-stage {
           position: relative;
-          width: 360px;
+          width: 460px;
           transform-style: preserve-3d;
-          transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+          transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
           will-change: transform;
+        }
+
+        .dv-shot {
+          display: block;
+          width: 100%;
+          height: auto;
+          user-select: none;
+          -webkit-user-drag: none;
         }
 
         /* ─────────── Laptop ─────────── */
         .dv-laptop {
           position: relative;
-          transform-style: preserve-3d;
+          filter: drop-shadow(0 26px 34px rgba(0, 0, 0, 0.72));
         }
 
-        .dv-lid {
-          position: relative;
-          width: 360px;
-          height: 236px;
-          border-radius: 12px 12px 4px 4px;
-          padding: 9px 9px 14px;
-          /* Anodised aluminium: a bright top-left facet rolling into shadow,
-             with a faint bounce light returning along the bottom edge. */
-          background:
-            linear-gradient(158deg,
-              #4a525c 0%,
-              #333941 18%,
-              #1d2228 46%,
-              #14181d 72%,
-              #262c34 100%);
-          box-shadow:
-            0 0 0 1px rgba(255, 255, 255, 0.07),
-            0 18px 40px -12px rgba(0, 0, 0, 0.9);
-          transform: rotateX(-3deg);
-          transform-origin: bottom center;
-          overflow: hidden;
-        }
-
-        /* Machined edge: crisp specular on the top lip, occlusion underneath. */
-        .dv-lid::after {
-          content: '';
+        .dv-laptop-screen {
           position: absolute;
-          inset: 0;
-          border-radius: inherit;
-          pointer-events: none;
-          z-index: 4;
-          box-shadow:
-            inset 0 1px 0 rgba(255, 255, 255, 0.30),
-            inset 1px 0 0 rgba(255, 255, 255, 0.08),
-            inset -1px 0 0 rgba(255, 255, 255, 0.05),
-            inset 0 -2px 3px rgba(0, 0, 0, 0.55);
-        }
-
-        .dv-camera {
-          position: absolute;
-          top: 4px;
-          left: 50%;
-          transform: translateX(-50%);
-          width: 4px;
-          height: 4px;
-          border-radius: 50%;
-          background: #0b0e12;
-          box-shadow: inset 0 0 2px rgba(120, 200, 230, 0.5);
-        }
-
-        .dv-screen {
-          position: relative;
-          width: 100%;
-          height: 100%;
-          border-radius: 5px;
-          background: linear-gradient(155deg, #070c14 0%, #04070c 60%, #060a11 100%);
-          /* The panel spills its own light onto the surrounding bezel. */
-          box-shadow:
-            inset 0 0 0 1px rgba(0, 229, 255, 0.1),
-            inset 0 0 40px rgba(0, 0, 0, 0.9),
-            0 0 22px rgba(0, 180, 220, 0.13),
-            0 0 4px rgba(0, 229, 255, 0.16);
           overflow: hidden;
           display: flex;
           flex-direction: column;
-        }
-
-        /* Vignette + bottom bounce, so the panel is not a flat black rectangle. */
-        .dv-screen::after {
-          content: '';
-          position: absolute;
-          inset: 0;
-          pointer-events: none;
-          z-index: 2;
-          background:
-            radial-gradient(115% 88% at 50% 34%, transparent 52%, rgba(0, 0, 0, 0.44) 100%),
-            linear-gradient(0deg, rgba(0, 180, 220, 0.05) 0%, transparent 22%);
+          background: linear-gradient(158deg, #070c14 0%, #04070c 62%, #060a11 100%);
+          box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.75);
         }
 
         .dv-titlebar {
           display: flex;
           align-items: center;
           gap: 5px;
-          padding: 7px 9px;
+          padding: 6px 9px;
           border-bottom: 1px solid rgba(255, 255, 255, 0.06);
           background: rgba(255, 255, 255, 0.02);
           flex-shrink: 0;
@@ -365,23 +307,23 @@ export default function DeviceShowcase() {
 
         .dv-code {
           flex: 1;
-          padding: 10px 12px;
+          padding: 9px 11px;
           font-family: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
-          font-size: 9px;
-          line-height: 1.62;
-          color: rgba(255, 255, 255, 0.82);
+          font-size: 8.5px;
+          line-height: 1.6;
+          color: rgba(255, 255, 255, 0.85);
           overflow: hidden;
         }
 
         .dv-line {
           white-space: pre;
-          min-height: 1.62em;
+          min-height: 1.6em;
         }
 
         .dv-caret {
           display: inline-block;
           width: 5px;
-          height: 9px;
+          height: 8px;
           margin-left: 1px;
           vertical-align: -1px;
           background: #00e5ff;
@@ -401,174 +343,50 @@ export default function DeviceShowcase() {
         .tk.op   { color: #7dd3fc; }
         .tk.attr { color: #86efac; }
 
-        /* Glass reflection: a wide window band plus a thin secondary streak,
-           with defined edges — soft haze alone never reads as glass. */
-        .dv-glare {
+        /* Faint sheen so the injected panel picks up the mockup's own lighting. */
+        .dv-screen-glare {
           position: absolute;
           inset: 0;
-          border-radius: inherit;
           pointer-events: none;
           z-index: 3;
           background: linear-gradient(
             113deg,
-            rgba(255, 255, 255, 0.062) 0%,
-            rgba(255, 255, 255, 0.042) 17%,
-            rgba(255, 255, 255, 0.008) 17.8%,
-            transparent 34%,
-            transparent 42%,
-            rgba(255, 255, 255, 0.022) 42.6%,
-            rgba(255, 255, 255, 0.007) 51%,
-            transparent 58%
+            rgba(255, 255, 255, 0.055) 0%,
+            rgba(255, 255, 255, 0.035) 16%,
+            rgba(255, 255, 255, 0.006) 16.8%,
+            transparent 33%,
+            transparent 43%,
+            rgba(255, 255, 255, 0.018) 43.6%,
+            transparent 57%
           );
         }
 
-        .dv-hinge {
-          width: 360px;
-          height: 5px;
-          background: linear-gradient(180deg, #10141a 0%, #2f353c 100%);
-          box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.07);
-        }
-
-        /* The deck is a trapezoid that flares toward the viewer — reads as a
-           receding keyboard body without paying for a real 3D rotation. */
-        .dv-base {
-          position: relative;
-          width: 404px;
-          height: 17px;
-          margin-left: -22px;
-          clip-path: polygon(5.4% 0, 94.6% 0, 100% 62%, 98.6% 100%, 1.4% 100%, 0 62%);
-          /* Deck catches light on its top face and on the front lip,
-             with the recessed middle falling away between them. */
-          background:
-            linear-gradient(180deg,
-              #4a525b 0%,
-              #333941 14%,
-              #1d2229 44%,
-              #12161a 78%,
-              #2b323a 94%,
-              #171b20 100%);
-          box-shadow: 0 26px 34px -18px rgba(0, 0, 0, 0.95);
-        }
-
-        /* Notch cut into the deck's front lip. */
-        .dv-trackpad {
-          position: absolute;
-          bottom: 0;
-          left: 50%;
-          transform: translateX(-50%);
-          width: 74px;
-          height: 3px;
-          border-radius: 0 0 3px 3px;
-          background: rgba(255, 255, 255, 0.07);
-        }
-
-        /* Ambient occlusion: wide, soft, and offset away from the contact line. */
-        .dv-shadow {
-          position: absolute;
-          left: 50%;
-          bottom: -30px;
-          transform: translateX(-50%);
-          width: 330px;
-          height: 30px;
-          background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.72) 0%, transparent 72%);
-          filter: blur(13px);
-          pointer-events: none;
-        }
-
-        /* Contact shadow: tight and dark exactly where the deck meets the
-           surface. This is the cue that stops the device reading as a sticker. */
-        .dv-shadow::before {
-          content: '';
-          position: absolute;
-          left: 50%;
-          top: -4px;
-          transform: translateX(-50%);
-          width: 388px;
-          height: 9px;
-          border-radius: 50%;
-          background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.96) 0%, rgba(0, 0, 0, 0.5) 46%, transparent 74%);
-          filter: blur(3px);
-        }
-
         /* ─────────── Phone ─────────── */
-        /* Height stays near 75% of the lid so the pairing reads true to life. */
+        /* Sized to roughly 2/3 of the laptop's height, matching a real
+           iPhone against an open 14in laptop, and offset clear of the code. */
         .dv-phone {
           position: absolute;
-          right: -38px;
-          bottom: -78px;
-          transform: translateZ(76px) rotateY(-6deg);
-          transform-style: preserve-3d;
-        }
-
-        .dv-phone-frame {
-          position: relative;
-          width: 88px;
-          height: 178px;
-          border-radius: 16px;
-          padding: 4px;
-          /* Polished rail: bright at the top-left chamfer, bounce at the base. */
-          background:
-            linear-gradient(156deg,
-              #545c66 0%,
-              #363c44 15%,
-              #1b1f24 44%,
-              #13161a 74%,
-              #333941 100%);
-          box-shadow:
-            0 0 0 1px rgba(255, 255, 255, 0.09),
-            0 24px 40px -12px rgba(0, 0, 0, 0.95);
-          overflow: hidden;
-        }
-
-        .dv-phone-frame::after {
-          content: '';
-          position: absolute;
-          inset: 0;
-          border-radius: inherit;
-          pointer-events: none;
-          z-index: 4;
-          box-shadow:
-            inset 0 1px 0 rgba(255, 255, 255, 0.34),
-            inset 1px 0 0 rgba(255, 255, 255, 0.1),
-            inset -1px 0 0 rgba(255, 255, 255, 0.06),
-            inset 0 -1px 0 rgba(255, 255, 255, 0.12);
-        }
-
-        .dv-island {
-          position: absolute;
-          top: 7px;
-          left: 50%;
-          transform: translateX(-50%);
-          width: 26px;
-          height: 6px;
-          border-radius: 3px;
-          background: #05080c;
-          z-index: 3;
+          right: -46px;
+          bottom: -44px;
+          width: 96px;
+          transform: translateZ(60px);
+          filter: drop-shadow(0 22px 30px rgba(0, 0, 0, 0.8));
         }
 
         .dv-phone-screen {
-          position: relative;
-          width: 100%;
-          height: 100%;
-          border-radius: 13px;
+          position: absolute;
+          /* Matches the artwork's screen corner radius. */
+          border-radius: 11px;
           background: linear-gradient(165deg, #070c14 0%, #04080e 100%);
-          box-shadow:
-            inset 0 0 0 1px rgba(0, 229, 255, 0.09),
-            0 0 14px rgba(0, 180, 220, 0.14);
-          padding: 17px 7px 7px;
+          padding: 15px 7px 8px;
           display: flex;
           flex-direction: column;
           gap: 6px;
           overflow: hidden;
         }
 
-        .dv-phone-screen::after {
-          content: '';
-          position: absolute;
-          inset: 0;
-          pointer-events: none;
-          z-index: 2;
-          background: radial-gradient(120% 82% at 50% 30%, transparent 54%, rgba(0, 0, 0, 0.4) 100%);
+        .dv-screen-glare-phone {
+          border-radius: inherit;
         }
 
         .dv-row {
@@ -614,10 +432,9 @@ export default function DeviceShowcase() {
         .dv-bar.w-2 { width: 42%; }
 
         .dv-hero-card {
-          height: 44px;
+          height: 42px;
           border-radius: 5px;
-          background:
-            linear-gradient(135deg, rgba(0, 229, 255, 0.18) 0%, rgba(0, 180, 216, 0.05) 100%);
+          background: linear-gradient(135deg, rgba(0, 229, 255, 0.18) 0%, rgba(0, 180, 216, 0.05) 100%);
           box-shadow: inset 0 0 0 1px rgba(0, 229, 255, 0.16);
         }
 
@@ -628,7 +445,7 @@ export default function DeviceShowcase() {
         }
 
         .dv-grid span {
-          height: 20px;
+          height: 19px;
           border-radius: 3px;
           background: rgba(255, 255, 255, 0.05);
           box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.05);
@@ -637,7 +454,7 @@ export default function DeviceShowcase() {
 
         .dv-cta {
           margin-top: auto;
-          height: 18px;
+          height: 17px;
           border-radius: 4px;
           background: linear-gradient(135deg, #00e5ff, #00b4d8);
           color: #04070c;
@@ -651,60 +468,33 @@ export default function DeviceShowcase() {
           box-shadow: 0 4px 12px rgba(0, 229, 255, 0.28);
         }
 
-        .dv-glare-phone {
-          border-radius: 16px;
-          background: linear-gradient(118deg, rgba(255, 255, 255, 0.13) 0%, rgba(255, 255, 255, 0.03) 22%, transparent 46%);
-        }
-
         /* ─────────── Responsive ─────────── */
-        /* Wide screens give the devices enough room to anchor the section. */
-        @media (min-width: 1280px) {
-          .dv-stage { width: 424px; }
-          .dv-lid, .dv-hinge { width: 424px; }
-          .dv-lid { height: 278px; padding: 11px 11px 16px; }
-          .dv-base { width: 476px; margin-left: -26px; height: 20px; }
-          .dv-code { font-size: 10.5px; padding: 13px 15px; }
-          .dv-fname { font-size: 9px; }
-          .dv-titlebar { padding: 9px 11px; }
-          .dv-dot { width: 7px; height: 7px; }
-          .dv-caret { width: 6px; height: 10px; }
-          .dv-phone { right: -48px; bottom: -92px; }
-          .dv-phone-frame { width: 104px; height: 210px; border-radius: 19px; padding: 5px; }
-          .dv-phone-screen { padding: 20px 9px 9px; border-radius: 15px; gap: 7px; }
-          .dv-island { width: 30px; height: 7px; top: 9px; }
-          .dv-avatar { width: 14px; height: 14px; }
-          .dv-hero-card { height: 53px; border-radius: 6px; }
-          .dv-grid span { height: 24px; border-radius: 4px; }
-          .dv-cta { height: 21px; font-size: 8px; border-radius: 5px; }
-          .dv-glare-phone { border-radius: 19px; }
-          .dv-shadow { width: 386px; bottom: -34px; }
-        }
-
-        @media (max-width: 1023px) {
-          .dv-stage { width: 330px; }
-          .dv-lid, .dv-hinge { width: 330px; }
-          .dv-lid { height: 218px; }
-          .dv-base { width: 370px; margin-left: -20px; }
-          .dv-phone { right: -32px; bottom: -72px; }
+        @media (max-width: 1279px) {
+          .dv-stage { width: 372px; }
+          .dv-phone { width: 78px; right: -36px; bottom: -36px; }
+          .dv-code { font-size: 7.6px; padding: 8px 10px; }
+          .dv-phone-screen { padding: 13px 6px 7px; gap: 5px; }
+          .dv-hero-card { height: 37px; }
+          .dv-grid span { height: 17px; }
+          .dv-cta { height: 15px; font-size: 6.5px; }
         }
 
         @media (max-width: 420px) {
-          .dv-root { padding: 20px 0 74px; }
-          .dv-stage { width: 256px; }
-          .dv-lid, .dv-hinge { width: 256px; }
-          .dv-lid { height: 172px; padding: 7px 7px 11px; }
-          .dv-base { width: 288px; margin-left: -16px; height: 14px; }
-          .dv-code { font-size: 7.5px; padding: 8px 9px; }
-          .dv-fname { font-size: 7px; }
-          .dv-phone { right: -18px; bottom: -58px; }
-          .dv-phone-frame { width: 70px; height: 142px; border-radius: 13px; }
-          .dv-phone-screen { padding: 14px 6px 6px; border-radius: 10px; gap: 5px; }
-          .dv-island { width: 21px; height: 5px; top: 6px; }
-          .dv-avatar { width: 10px; height: 10px; }
-          .dv-hero-card { height: 34px; }
-          .dv-grid span { height: 16px; }
-          .dv-cta { height: 15px; font-size: 6px; }
-          .dv-shadow { width: 230px; }
+          .dv-root { padding: 18px 0 48px; }
+          .dv-stage { width: 268px; }
+          .dv-phone { width: 56px; right: -20px; bottom: -26px; }
+          .dv-titlebar { padding: 4px 6px; gap: 3px; }
+          .dv-dot { width: 4px; height: 4px; }
+          .dv-fname { font-size: 6px; margin-left: 4px; }
+          .dv-code { font-size: 5.6px; padding: 6px 7px; }
+          .dv-caret { width: 3px; height: 6px; }
+          .dv-phone-screen { padding: 10px 4px 5px; gap: 3px; border-radius: 8px; }
+          .dv-avatar { width: 8px; height: 8px; }
+          .dv-bar { height: 2px; }
+          .dv-hero-card { height: 26px; border-radius: 4px; }
+          .dv-grid { gap: 3px; }
+          .dv-grid span { height: 12px; }
+          .dv-cta { height: 11px; font-size: 5px; border-radius: 3px; }
         }
 
         @media (prefers-reduced-motion: reduce) {
