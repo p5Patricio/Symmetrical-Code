@@ -265,15 +265,36 @@ export default function DeviceShowcase() {
           height: 236px;
           border-radius: 12px 12px 4px 4px;
           padding: 9px 9px 14px;
+          /* Anodised aluminium: a bright top-left facet rolling into shadow,
+             with a faint bounce light returning along the bottom edge. */
           background:
-            linear-gradient(160deg, #3a4048 0%, #1b1f25 42%, #23282f 100%);
+            linear-gradient(158deg,
+              #4a525c 0%,
+              #333941 18%,
+              #1d2228 46%,
+              #14181d 72%,
+              #262c34 100%);
           box-shadow:
-            0 0 0 1px rgba(255, 255, 255, 0.08),
-            0 18px 40px -12px rgba(0, 0, 0, 0.9),
-            inset 0 1px 0 rgba(255, 255, 255, 0.14);
+            0 0 0 1px rgba(255, 255, 255, 0.07),
+            0 18px 40px -12px rgba(0, 0, 0, 0.9);
           transform: rotateX(-3deg);
           transform-origin: bottom center;
           overflow: hidden;
+        }
+
+        /* Machined edge: crisp specular on the top lip, occlusion underneath. */
+        .dv-lid::after {
+          content: '';
+          position: absolute;
+          inset: 0;
+          border-radius: inherit;
+          pointer-events: none;
+          z-index: 4;
+          box-shadow:
+            inset 0 1px 0 rgba(255, 255, 255, 0.30),
+            inset 1px 0 0 rgba(255, 255, 255, 0.08),
+            inset -1px 0 0 rgba(255, 255, 255, 0.05),
+            inset 0 -2px 3px rgba(0, 0, 0, 0.55);
         }
 
         .dv-camera {
@@ -294,12 +315,27 @@ export default function DeviceShowcase() {
           height: 100%;
           border-radius: 5px;
           background: linear-gradient(155deg, #070c14 0%, #04070c 60%, #060a11 100%);
+          /* The panel spills its own light onto the surrounding bezel. */
           box-shadow:
             inset 0 0 0 1px rgba(0, 229, 255, 0.1),
-            inset 0 0 40px rgba(0, 0, 0, 0.9);
+            inset 0 0 40px rgba(0, 0, 0, 0.9),
+            0 0 22px rgba(0, 180, 220, 0.13),
+            0 0 4px rgba(0, 229, 255, 0.16);
           overflow: hidden;
           display: flex;
           flex-direction: column;
+        }
+
+        /* Vignette + bottom bounce, so the panel is not a flat black rectangle. */
+        .dv-screen::after {
+          content: '';
+          position: absolute;
+          inset: 0;
+          pointer-events: none;
+          z-index: 2;
+          background:
+            radial-gradient(115% 88% at 50% 34%, transparent 52%, rgba(0, 0, 0, 0.44) 100%),
+            linear-gradient(0deg, rgba(0, 180, 220, 0.05) 0%, transparent 22%);
         }
 
         .dv-titlebar {
@@ -365,12 +401,25 @@ export default function DeviceShowcase() {
         .tk.op   { color: #7dd3fc; }
         .tk.attr { color: #86efac; }
 
+        /* Glass reflection: a wide window band plus a thin secondary streak,
+           with defined edges — soft haze alone never reads as glass. */
         .dv-glare {
           position: absolute;
           inset: 0;
           border-radius: inherit;
-          background: linear-gradient(112deg, rgba(255, 255, 255, 0.11) 0%, rgba(255, 255, 255, 0.03) 26%, transparent 52%);
           pointer-events: none;
+          z-index: 3;
+          background: linear-gradient(
+            113deg,
+            rgba(255, 255, 255, 0.062) 0%,
+            rgba(255, 255, 255, 0.042) 17%,
+            rgba(255, 255, 255, 0.008) 17.8%,
+            transparent 34%,
+            transparent 42%,
+            rgba(255, 255, 255, 0.022) 42.6%,
+            rgba(255, 255, 255, 0.007) 51%,
+            transparent 58%
+          );
         }
 
         .dv-hinge {
@@ -388,8 +437,16 @@ export default function DeviceShowcase() {
           height: 17px;
           margin-left: -22px;
           clip-path: polygon(5.4% 0, 94.6% 0, 100% 62%, 98.6% 100%, 1.4% 100%, 0 62%);
+          /* Deck catches light on its top face and on the front lip,
+             with the recessed middle falling away between them. */
           background:
-            linear-gradient(180deg, #3d444c 0%, #262c33 38%, #171b20 72%, #0e1114 100%);
+            linear-gradient(180deg,
+              #4a525b 0%,
+              #333941 14%,
+              #1d2229 44%,
+              #12161a 78%,
+              #2b323a 94%,
+              #171b20 100%);
           box-shadow: 0 26px 34px -18px rgba(0, 0, 0, 0.95);
         }
 
@@ -405,6 +462,7 @@ export default function DeviceShowcase() {
           background: rgba(255, 255, 255, 0.07);
         }
 
+        /* Ambient occlusion: wide, soft, and offset away from the contact line. */
         .dv-shadow {
           position: absolute;
           left: 50%;
@@ -412,9 +470,24 @@ export default function DeviceShowcase() {
           transform: translateX(-50%);
           width: 330px;
           height: 30px;
-          background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.75) 0%, transparent 72%);
-          filter: blur(11px);
+          background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.72) 0%, transparent 72%);
+          filter: blur(13px);
           pointer-events: none;
+        }
+
+        /* Contact shadow: tight and dark exactly where the deck meets the
+           surface. This is the cue that stops the device reading as a sticker. */
+        .dv-shadow::before {
+          content: '';
+          position: absolute;
+          left: 50%;
+          top: -4px;
+          transform: translateX(-50%);
+          width: 388px;
+          height: 9px;
+          border-radius: 50%;
+          background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.96) 0%, rgba(0, 0, 0, 0.5) 46%, transparent 74%);
+          filter: blur(3px);
         }
 
         /* ─────────── Phone ─────────── */
@@ -433,12 +506,32 @@ export default function DeviceShowcase() {
           height: 178px;
           border-radius: 16px;
           padding: 4px;
-          background: linear-gradient(158deg, #40464e 0%, #1a1e23 45%, #262b31 100%);
+          /* Polished rail: bright at the top-left chamfer, bounce at the base. */
+          background:
+            linear-gradient(156deg,
+              #545c66 0%,
+              #363c44 15%,
+              #1b1f24 44%,
+              #13161a 74%,
+              #333941 100%);
           box-shadow:
-            0 0 0 1px rgba(255, 255, 255, 0.1),
-            0 24px 40px -12px rgba(0, 0, 0, 0.95),
-            inset 0 1px 0 rgba(255, 255, 255, 0.16);
+            0 0 0 1px rgba(255, 255, 255, 0.09),
+            0 24px 40px -12px rgba(0, 0, 0, 0.95);
           overflow: hidden;
+        }
+
+        .dv-phone-frame::after {
+          content: '';
+          position: absolute;
+          inset: 0;
+          border-radius: inherit;
+          pointer-events: none;
+          z-index: 4;
+          box-shadow:
+            inset 0 1px 0 rgba(255, 255, 255, 0.34),
+            inset 1px 0 0 rgba(255, 255, 255, 0.1),
+            inset -1px 0 0 rgba(255, 255, 255, 0.06),
+            inset 0 -1px 0 rgba(255, 255, 255, 0.12);
         }
 
         .dv-island {
@@ -459,12 +552,23 @@ export default function DeviceShowcase() {
           height: 100%;
           border-radius: 13px;
           background: linear-gradient(165deg, #070c14 0%, #04080e 100%);
-          box-shadow: inset 0 0 0 1px rgba(0, 229, 255, 0.09);
+          box-shadow:
+            inset 0 0 0 1px rgba(0, 229, 255, 0.09),
+            0 0 14px rgba(0, 180, 220, 0.14);
           padding: 17px 7px 7px;
           display: flex;
           flex-direction: column;
           gap: 6px;
           overflow: hidden;
+        }
+
+        .dv-phone-screen::after {
+          content: '';
+          position: absolute;
+          inset: 0;
+          pointer-events: none;
+          z-index: 2;
+          background: radial-gradient(120% 82% at 50% 30%, transparent 54%, rgba(0, 0, 0, 0.4) 100%);
         }
 
         .dv-row {
