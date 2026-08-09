@@ -2,7 +2,6 @@ import { useState, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { FaFacebookF, FaInstagram, FaLinkedinIn, FaWhatsapp, FaShieldAlt, FaFileContract, FaCookieBite, FaCheckCircle } from 'react-icons/fa';
 import { FiMapPin, FiMail, FiClock, FiX } from 'react-icons/fi';
-import { SiX } from 'react-icons/si';
 
 export default function Footer() {
   const { t } = useTranslation();
@@ -11,9 +10,8 @@ export default function Footer() {
 
   const socialLinks = [
     { label: 'Facebook', href: 'https://www.facebook.com/profile.php?id=61591503452553', icon: FaFacebookF },
-    { label: 'Instagram', href: '#', icon: FaInstagram },
-    { label: 'X', href: '#', icon: SiX },
-    { label: 'LinkedIn', href: '#', icon: FaLinkedinIn },
+    { label: 'Instagram', href: 'https://www.instagram.com/symmetrical.code', icon: FaInstagram },
+    { label: 'LinkedIn', href: 'https://www.linkedin.com/company/symmetrical-code', icon: FaLinkedinIn },
   ];
 
   const contactItems = [
