@@ -1,4 +1,5 @@
 import { useTranslation } from 'react-i18next';
+import DeviceShowcase from './DeviceShowcase';
 
 const serviceIcons: Record<number, JSX.Element> = {
   0: (
@@ -16,22 +17,10 @@ const serviceIcons: Record<number, JSX.Element> = {
   ),
   2: (
     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-      <circle cx="12" cy="12" r="3" />
-      <path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83" />
-    </svg>
-  ),
-  3: (
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
       <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
     </svg>
   ),
-  4: (
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-      <polyline points="16 18 22 12 16 6" />
-      <polyline points="8 6 2 12 8 18" />
-    </svg>
-  ),
-  5: (
+  3: (
     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
       <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
     </svg>
@@ -41,10 +30,8 @@ const serviceIcons: Record<number, JSX.Element> = {
 const serviceColors: Record<number, string> = {
   0: 'var(--svc-web)',
   1: 'var(--svc-systems)',
-  2: 'var(--svc-cloud)',
-  3: 'var(--svc-security)',
-  4: 'var(--svc-uiux)',
-  5: 'var(--svc-analytics)',
+  2: 'var(--svc-security)',
+  3: 'var(--svc-analytics)',
 };
 
 type ServiceItem = {
@@ -52,6 +39,82 @@ type ServiceItem = {
   description: string;
   bullets: string[];
 };
+
+function ServiceCard({ service, index }: { service: ServiceItem; index: number }) {
+  const { t } = useTranslation();
+  const accent = serviceColors[index];
+
+  return (
+    <article
+      className="glass-card-enhanced p-6 sm:p-7 md:p-8 flex flex-col gap-4 sm:gap-5 group border border-white/10 hover:border-white/20 transition-all duration-500 h-full"
+      style={{
+        borderRadius: '0px',
+        background: 'rgba(255, 255, 255, 0.02)',
+      }}
+    >
+      {/* Glowing Orb Background */}
+      <div
+        className="glowing-orb -top-10 -right-10 opacity-0 group-hover:opacity-100 transition-opacity duration-700"
+        style={{ background: accent }}
+      />
+
+      {/* Index + icon row */}
+      <div className="flex items-center justify-between relative z-10">
+        <span className="font-mono text-xs sm:text-sm text-white/5 group-hover:text-white/15 transition-colors tracking-tighter">
+          {String(index + 1).padStart(2, '0')}
+        </span>
+        <div
+          className="w-11 h-11 sm:w-12 sm:h-12 flex items-center justify-center border border-white/10 bg-white/[0.03] text-white/30 group-hover:text-white transition-all duration-500 rounded-lg relative overflow-hidden"
+          style={{
+            boxShadow: 'inset 0 0 20px rgba(255,255,255,0.02)',
+          }}
+        >
+          {/* Background Glow on Hover */}
+          <div
+            className="absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity duration-500"
+            style={{ background: accent }}
+          />
+          <div className="relative z-10 transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] group-hover:scale-110 group-hover:-translate-y-0.5">
+            {serviceIcons[index]}
+          </div>
+        </div>
+      </div>
+
+      {/* Content */}
+      <div className="relative z-10 flex flex-col gap-2 sm:gap-3">
+        <h3 className="font-syne font-extrabold text-lg sm:text-xl text-white transition-colors duration-300">
+          {service.title}
+        </h3>
+        <p className="text-white/40 group-hover:text-white/60 text-sm leading-relaxed transition-colors duration-300">
+          {service.description}
+        </p>
+      </div>
+
+      {/* Bullet list */}
+      <div className="flex flex-col gap-3 sm:gap-4 pt-4 sm:pt-5 border-t border-white/5 relative z-10 mt-auto">
+        <ul className="flex flex-col gap-2 sm:gap-2.5">
+          {service.bullets.map((bullet, j) => (
+            <li key={j} className="flex items-start gap-2 sm:gap-3 text-[11px] sm:text-xs text-white/25 group-hover:text-white/45 transition-colors">
+              <div className="w-1.5 h-1.5 rounded-full shrink-0 mt-1.5" style={{ background: accent, opacity: 0.4 }} />
+              <span className="leading-relaxed">{bullet}</span>
+            </li>
+          ))}
+        </ul>
+        <div className="pt-1">
+          <a
+            href="#contact"
+            className="inline-flex items-center gap-2 text-xs font-semibold text-[#00e5ff] hover:text-white transition-colors duration-300"
+          >
+            <span>{t('contact.label')}</span>
+            <svg className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+            </svg>
+          </a>
+        </div>
+      </div>
+    </article>
+  );
+}
 
 export default function Services() {
   const { t } = useTranslation();
@@ -89,79 +152,26 @@ export default function Services() {
           </div>
         </div>
 
-        {/* Services grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 md:gap-8">
-          {items.map((service, i) => (
-            <article
-              key={i}
-              className="glass-card-enhanced p-6 sm:p-8 md:p-10 flex flex-col gap-4 sm:gap-5 md:gap-6 group border border-white/10 hover:border-white/20 transition-all duration-500"
-              style={{
-                borderRadius: '0px',
-                background: 'rgba(255, 255, 255, 0.02)',
-              }}
-            >
-              {/* Glowing Orb Background */}
-              <div
-                className="glowing-orb -top-10 -right-10 opacity-0 group-hover:opacity-100 transition-opacity duration-700"
-                style={{ background: serviceColors[i] }}
-              />
+        {/* Cards flank the devices on desktop; devices lead the stack on mobile. */}
+        <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] gap-6 sm:gap-7 lg:gap-8 xl:gap-10 items-center">
+          {/* Left column */}
+          <div className="order-2 lg:order-none grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-6 sm:gap-7 lg:gap-8">
+            {items.slice(0, 2).map((service, i) => (
+              <ServiceCard key={i} service={service} index={i} />
+            ))}
+          </div>
 
-              {/* Index + icon row */}
-              <div className="flex items-center justify-between relative z-10">
-                <span className="font-mono text-xs sm:text-sm text-white/5 group-hover:text-white/15 transition-colors tracking-tighter">
-                  {String(i + 1).padStart(2, '0')}
-                </span>
-                <div
-                  className="w-12 h-12 sm:w-14 sm:h-14 flex items-center justify-center border border-white/10 bg-white/[0.03] text-white/30 group-hover:text-white transition-all duration-500 rounded-lg relative overflow-hidden"
-                  style={{
-                    boxShadow: 'inset 0 0 20px rgba(255,255,255,0.02)',
-                  }}
-                >
-                  {/* Background Glow on Hover */}
-                  <div
-                    className="absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity duration-500"
-                    style={{ background: serviceColors[i] }}
-                  />
-                  <div className="relative z-10 transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] group-hover:scale-110 group-hover:-translate-y-0.5">
-                    {serviceIcons[i]}
-                  </div>
-                </div>
-              </div>
+          {/* Center devices */}
+          <div className="order-1 lg:order-none flex justify-center lg:w-[390px] xl:w-[500px] mb-6 lg:mb-0">
+            <DeviceShowcase />
+          </div>
 
-              {/* Content */}
-              <div className="relative z-10 flex flex-col gap-2 sm:gap-3 md:gap-4">
-                <h3 className="font-syne font-extrabold text-lg sm:text-xl md:text-2xl text-white group-hover:text-white transition-colors duration-300">
-                  {service.title}
-                </h3>
-                <p className="text-white/40 group-hover:text-white/60 text-sm sm:text-base leading-relaxed transition-colors duration-300 text-justify">
-                  {service.description}
-                </p>
-              </div>
-
-              {/* Bullet list */}
-              <div className="flex flex-col gap-3 sm:gap-4 md:gap-5 pt-4 sm:pt-5 md:pt-6 border-t border-white/5 relative z-10 mt-auto">
-                <ul className="flex flex-col gap-2 sm:gap-3">
-                  {service.bullets.map((bullet, j) => (
-                    <li key={j} className="flex items-start gap-2 sm:gap-3 text-[11px] sm:text-xs md:text-sm text-white/25 group-hover:text-white/45 transition-colors">
-                      <div className="w-1.5 h-1.5 rounded-full shrink-0 mt-1.5" style={{ background: serviceColors[i], opacity: 0.4 }} />
-                      <span className="leading-relaxed text-justify">{bullet}</span>
-                    </li>
-                  ))}
-                </ul>
-                <div className="pt-2">
-                  <a
-                    href="#contact"
-                    className="inline-flex items-center gap-2 text-xs font-semibold text-[#00e5ff] hover:text-white transition-colors duration-300"
-                  >
-                    <span>{t('contact.label')}</span>
-                    <svg className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                    </svg>
-                  </a>
-                </div>
-              </div>
-            </article>
-          ))}
+          {/* Right column */}
+          <div className="order-3 lg:order-none grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-6 sm:gap-7 lg:gap-8">
+            {items.slice(2, 4).map((service, i) => (
+              <ServiceCard key={i + 2} service={service} index={i + 2} />
+            ))}
+          </div>
         </div>
       </div>
 

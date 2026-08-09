@@ -36,19 +36,19 @@
     "items": [
       {
         "title": "Páginas y Apps que Venden",
-        "description": "Tu presencia en internet con diseño profesional, velocidad increíble y optimizada para convertir visitantes en clientes.",
-        "longDescription": "Diseñamos y construimos sitios web que no solo se ven bien, sino que trabajan para ti. Nos enfocamos en la experiencia de usuario y el rendimiento para que tus clientes encuentren lo que buscan rápido y sin fricciones. Desde landing pages hasta tiendas en línea, creamos tu ventana al mundo digital.",
+        "description": "Tu presencia digital con diseño que enamora, velocidad increíble y optimizada para convertir visitantes en clientes.",
+        "longDescription": "Diseñamos y construimos sitios web que no solo se ven bien, sino que trabajan para ti. Cada interfaz nace de un prototipo pensado para guiar a tus usuarios hacia la acción que deseas, y se construye enfocada en el rendimiento para que tus clientes encuentren lo que buscan rápido y sin fricciones. Desde landing pages hasta tiendas en línea, creamos tu ventana al mundo digital.",
         "highlights": [
           "Diseño moderno que genera confianza",
+          "Prototipos para que veas antes de construir",
           "Rápida carga en cualquier dispositivo",
-          "Fácil de usar para tus clientes",
           "Lista para posicionar en Google (SEO)"
         ],
         "bullets": [
-          "Diseño Profesional",
+          "Diseño Intuitivo",
           "Velocidad Optimizada",
           "Funciona en Celulares",
-          "Fácil de Administrar"
+          "Imagen de Marca"
         ]
       },
       {
@@ -69,54 +69,20 @@
         ]
       },
       {
-        "title": "Tu Negocio Siempre Activo",
-        "description": "Infraestructura en la nube para que tu página nunca se caiga y soporte miles de visitas sin problemas.",
-        "longDescription": "Nos encargamos de toda la complejidad técnica detrás de cámaras. Configuramos servidores en la nube que se ajustan automáticamente a la cantidad de personas que te visitan, asegurando que tu inversión sea eficiente y tu sitio esté siempre disponible.",
+        "title": "Infraestructura y Seguridad",
+        "description": "Nube blindada de nivel bancario: tu página nunca se cae, soporta miles de visitas y protege los datos de tus clientes.",
+        "longDescription": "Nos encargamos de toda la complejidad técnica detrás de cámaras. Configuramos servidores en la nube que se ajustan automáticamente a la cantidad de personas que te visitan, asegurando que tu inversión sea eficiente y tu sitio esté siempre disponible. Y porque la seguridad no es opcional, protegemos tu propiedad intelectual y los datos sensibles de tus usuarios siguiendo los más altos estándares de la industria.",
         "highlights": [
           "99.9% de tiempo en línea garantizado",
-          "Optimización de costos en la nube",
-          "Seguridad contra ataques",
-          "Actualizaciones automáticas"
-        ],
-        "bullets": [
-          "Infraestructura Cloud",
-          "Seguridad Avanzada",
-          "Escalabilidad Total",
-          "Soporte Continuo"
-        ]
-      },
-      {
-        "title": "Protección y Confianza",
-        "description": "Seguridad de nivel bancario para proteger tus datos y la privacidad de tus clientes en todo momento.",
-        "longDescription": "La seguridad no es opcional. Protegemos tu propiedad intelectual y los datos sensibles de tus usuarios siguiendo los más altos estándares de la industria. Realizamos auditorías constantes para asegurar que tu negocio sea un lugar seguro para transaccionar.",
-        "highlights": [
-          "Cifrado de datos sensibles",
-          "Protección contra hackers",
+          "Cifrado de datos y protección contra ataques",
           "Cumplimiento de leyes de privacidad",
           "Auditorías de seguridad regulares"
         ],
         "bullets": [
+          "Infraestructura Cloud",
           "Blindaje de Datos",
-          "Prevención de Ataques",
-          "Privacidad Garantizada",
-          "Consultoría Experta"
-        ]
-      },
-      {
-        "title": "Experiencias Increíbles",
-        "description": "Diseñamos interfaces que tus clientes amarán usar, enfocadas en la facilidad y la elegancia.",
-        "longDescription": "El buen diseño es invisible: simplemente funciona. Creamos experiencias digitales intuitivas que guían a tus usuarios hacia la acción que deseas. Desde el primer boceto hasta el producto final, cada detalle está pensado para deleitar a quien lo usa.",
-        "highlights": [
-          "Interfaces fáciles de navegar",
-          "Prototipos para que veas antes de construir",
-          "Diseño que refleja tu marca",
-          "Pruebas con usuarios reales"
-        ],
-        "bullets": [
-          "Diseño Intuitivo",
-          "Prototipado Visual",
-          "Imagen de Marca",
-          "Enfoque en el Usuario"
+          "Escalabilidad Total",
+          "Soporte Continuo"
         ]
       },
       {
