@@ -26,9 +26,9 @@
     "follow_us": "Follow us"
   },
   "services": {
-    "label": "Our Solutions",
-    "title": "Custom Digital Solutions",
-    "subtitle": "From web applications to intelligent systems, we build the technology your business needs to scale.",
+    "label": "Our Services",
+    "title": "Custom Development Services",
+    "subtitle": "From code to deployment: the services your business needs to grow.",
     "learn_more": "View more details",
     "modal_includes": "What you'll get",
     "modal_highlights": "Why choose us",
@@ -36,30 +36,30 @@
     "items": [
       {
         "title": "Pages & Apps that Sell",
-        "description": "Your digital presence with design people love, incredible speed, and optimized to convert visitors into customers.",
-        "longDescription": "We design and build websites that don't just look good — they work for you. Every interface starts as a prototype built to guide your users toward the action you want, and is engineered for performance so your customers find what they need fast and without friction. From landing pages to online stores, we create your window to the digital world.",
+        "description": "Professional design, fast loading, built to convert.",
+        "longDescription": "We design and build websites that don't just look good — they work for you. We focus on user experience and performance so your customers find what they need fast and without friction. From landing pages to online stores, we create your window to the digital world.",
         "highlights": [
           "Modern design that builds trust",
-          "Prototypes so you see before building",
           "Fast loading on any device",
+          "Easy for your customers to use",
           "Ready to rank on Google (SEO)"
         ],
         "bullets": [
-          "Intuitive Design",
+          "Professional Design",
           "Optimized Speed",
           "Mobile-Friendly",
-          "Brand Image"
+          "Easy to Manage"
         ]
       },
       {
         "title": "Intelligent Systems",
-        "description": "We automate your processes and connect your tools so you can focus on what really matters.",
-        "longDescription": "We build the brain of your operation. We connect your databases, payment tools, and third-party systems into a robust and secure platform. If you have a repetitive task, we automate it. If you have scattered data, we organize it.",
+        "description": "We automate processes and connect your key tools.",
+        "longDescription": "We create the brain of your operation. We connect your databases, payment tools, and third-party systems into a robust and secure platform. If you have a repetitive task, we automate it. If you have scattered data, we organize it.",
         "highlights": [
           "Automation of manual tasks",
           "Connection with payments and social media",
           "Secure handling of your information",
-          "Systems that grow with your company"
+          "Systems that grow with your business"
         ],
         "bullets": [
           "Process Automation",
@@ -69,30 +69,64 @@
         ]
       },
       {
-        "title": "Infrastructure & Security",
-        "description": "Bank-level hardened cloud: your site never goes down, handles thousands of visits, and protects your customers' data.",
-        "longDescription": "We take care of all the technical complexity behind the scenes. We set up cloud servers that automatically adjust to the number of people visiting you, ensuring your investment is efficient and your site is always available. And because security is not optional, we protect your intellectual property and your users' sensitive data following the highest industry standards.",
+        "title": "Your Business Always Online",
+        "description": "Cloud infrastructure with high availability and advanced security.",
+        "longDescription": "We take care of all the technical complexity behind the scenes. We set up cloud servers that automatically adjust to the number of people visiting you, ensuring your investment is efficient and your site is always available.",
         "highlights": [
           "99.9% uptime guaranteed",
-          "Data encryption and protection against attacks",
-          "Compliance with privacy laws",
-          "Regular security audits"
+          "Cloud cost optimization",
+          "Security against attacks",
+          "Automatic updates"
         ],
         "bullets": [
           "Cloud Infrastructure",
-          "Data Shielding",
+          "Advanced Security",
           "Total Scalability",
           "Continuous Support"
         ]
       },
       {
+        "title": "Protection & Trust",
+        "description": "Bank-level security for your data and your customers'.",
+        "longDescription": "Security is not optional. We protect your intellectual property and your users' sensitive data following the highest industry standards. We conduct constant audits to ensure your business is a safe place to transact.",
+        "highlights": [
+          "Encryption of sensitive data",
+          "Protection against hackers",
+          "Compliance with privacy laws",
+          "Regular security audits"
+        ],
+        "bullets": [
+          "Data Shielding",
+          "Attack Prevention",
+          "Guaranteed Privacy",
+          "Expert Consulting"
+        ]
+      },
+      {
+        "title": "Amazing Experiences",
+        "description": "Intuitive interfaces designed for ease of use and conversion.",
+        "longDescription": "Good design is invisible: it just works. We create intuitive digital experiences that guide your users toward the action you want. From the first sketch to the final product, every detail is thought out to delight those who use it.",
+        "highlights": [
+          "Easy to navigate interfaces",
+          "Prototypes so you see before building",
+          "Design reflecting your brand",
+          "Tests with real users"
+        ],
+        "bullets": [
+          "Intuitive Design",
+          "Visual Prototyping",
+          "Brand Image",
+          "User Focus"
+        ]
+      },
+      {
         "title": "Measurable Results",
-        "description": "We give you the tools to understand your customers and improve your sales based on real data.",
-        "longDescription": "What isn't measured can't be improved. We help you set up and understand dashboards that show you exactly what's happening in your digital business. That way you can invest confidently where you actually get results.",
+        "description": "Clear dashboards to understand your customers and grow sales.",
+        "longDescription": "What isn't measured can't be improved. We help you install and understand control dashboards that show you exactly what's happening in your digital business. This way you can invest with confidence where you actually get results.",
         "highlights": [
           "Easy to understand reports",
           "Sales and conversion tracking",
-          "Continuous improvement of results",
+          "Continuous result improvement",
           "Customer behavior analysis"
         ],
         "bullets": [

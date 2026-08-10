@@ -16,9 +16,6 @@ const CODE_LINES: string[] = [
   `<span class="tk kw">await</span> <span class="tk fn">deploy</span>(app)`,
 ];
 
-/* Phone UI rows revealed one by one, in sync with the typing. */
-const PHONE_ROWS = 4;
-
 /* Display rectangles measured from the mockup artwork by sampling the dark
    panel inside each bezel. Percentages, so they hold at any rendered size. */
 const LAPTOP_SCREEN = { left: 10.725, top: 11.739, width: 78.524, height: 76.521 };
@@ -39,15 +36,23 @@ export default function DeviceShowcase() {
   const rootRef = useRef<HTMLDivElement>(null);
   const stageRef = useRef<HTMLDivElement>(null);
   const codeRef = useRef<HTMLDivElement>(null);
+  const codeViewRef = useRef<HTMLDivElement>(null);
+  const appViewRef = useRef<HTMLDivElement>(null);
+  const appElsRef = useRef<HTMLDivElement>(null);
   const phoneRef = useRef<HTMLDivElement>(null);
   const timersRef = useRef<ReturnType<typeof setTimeout>[]>([]);
 
-  /* ── Typing loop, paused while off-screen ── */
+  /* ── Build → preview cycle, paused while off-screen ──
+     Laptop types code, holds, then crossfades to a rendered app preview
+     while the phone assembles its own screen in step — then resets. */
   useEffect(() => {
     const root = rootRef.current;
     const code = codeRef.current;
+    const codeView = codeViewRef.current;
+    const appView = appViewRef.current;
+    const appEls = appElsRef.current;
     const phone = phoneRef.current;
-    if (!root || !code || !phone) return;
+    if (!root || !code || !codeView || !appView || !appEls || !phone) return;
 
     const clearTimers = () => {
       timersRef.current.forEach(clearTimeout);
@@ -57,9 +62,25 @@ export default function DeviceShowcase() {
       timersRef.current.push(setTimeout(fn, ms));
     };
 
+    const appElNodes = Array.from(appEls.querySelectorAll<HTMLElement>('.dv-app-el'));
+    const phoneRows = Array.from(phone.querySelectorAll<HTMLElement>('.dv-row'));
+
+    const showApp = () => {
+      codeView.classList.remove('is-active');
+      appView.classList.add('is-active');
+      appElNodes.forEach((el) => el.classList.add('is-on'));
+      phoneRows.forEach((r) => r.classList.add('is-on'));
+    };
+    const showCode = () => {
+      appView.classList.remove('is-active');
+      codeView.classList.add('is-active');
+      appElNodes.forEach((el) => el.classList.remove('is-on'));
+      phoneRows.forEach((r) => r.classList.remove('is-on'));
+    };
+
     const paintAll = () => {
       code.innerHTML = CODE_LINES.map((l) => `<div class="dv-line">${l}</div>`).join('');
-      phone.querySelectorAll<HTMLElement>('.dv-row').forEach((r) => r.classList.add('is-on'));
+      showApp();
     };
 
     // Without motion or without an observer to gate the loop, show the end state.
@@ -68,30 +89,33 @@ export default function DeviceShowcase() {
       return;
     }
 
-    const rows = Array.from(phone.querySelectorAll<HTMLElement>('.dv-row'));
-
-    const typeLine = (i: number) => {
+    const typeLine = (i: number, onDone: () => void) => {
       if (i >= CODE_LINES.length) {
-        // Hold the finished state, then restart the loop.
-        later(() => {
-          code.innerHTML = '';
-          rows.forEach((r) => r.classList.remove('is-on'));
-          later(() => typeLine(0), 400);
-        }, 2600);
+        onDone();
         return;
       }
-
       const row = document.createElement('div');
       row.className = 'dv-line';
       row.innerHTML = CODE_LINES[i] + '<span class="dv-caret"></span>';
       code.querySelectorAll('.dv-caret').forEach((c) => c.remove());
       code.appendChild(row);
+      later(() => typeLine(i + 1, onDone), CODE_LINES[i].length > 0 ? 210 + Math.random() * 90 : 90);
+    };
 
-      // Reveal one phone row for every couple of code lines.
-      const rowIdx = Math.floor((i / CODE_LINES.length) * PHONE_ROWS);
-      if (rows[rowIdx]) rows[rowIdx].classList.add('is-on');
+    const runCycle = () => {
+      code.innerHTML = '';
+      showCode();
 
-      later(() => typeLine(i + 1), CODE_LINES[i].length > 0 ? 220 + Math.random() * 90 : 90);
+      typeLine(0, () => {
+        later(() => {
+          showApp();
+          later(() => {
+            showCode();
+            code.innerHTML = '';
+            later(runCycle, 500);
+          }, 2500);
+        }, 700);
+      });
     };
 
     let running = false;
@@ -99,9 +123,7 @@ export default function DeviceShowcase() {
       ([entry]) => {
         if (entry.isIntersecting && !running) {
           running = true;
-          code.innerHTML = '';
-          rows.forEach((r) => r.classList.remove('is-on'));
-          typeLine(0);
+          runCycle();
         } else if (!entry.isIntersecting && running) {
           running = false;
           clearTimers();
@@ -190,13 +212,63 @@ export default function DeviceShowcase() {
         <div className="dv-laptop">
           <img className="dv-shot" src="/mockups/laptop.webp" alt="" width={1400} height={910} />
           <div className="dv-laptop-screen" style={asStyle(LAPTOP_SCREEN)}>
-            <div className="dv-titlebar">
-              <span className="dv-dot" style={{ background: '#ff5f57' }} />
-              <span className="dv-dot" style={{ background: '#febc2e' }} />
-              <span className="dv-dot" style={{ background: '#28c840' }} />
-              <span className="dv-fname">build.ts</span>
+            {/* Code view */}
+            <div ref={codeViewRef} className="dv-view is-active">
+              <div className="dv-titlebar">
+                <span className="dv-dot" style={{ background: '#ff5f57' }} />
+                <span className="dv-dot" style={{ background: '#febc2e' }} />
+                <span className="dv-dot" style={{ background: '#28c840' }} />
+                <span className="dv-fname">build.ts</span>
+              </div>
+              <div ref={codeRef} className="dv-code" />
             </div>
-            <div ref={codeRef} className="dv-code" />
+
+            {/* App preview view */}
+            <div ref={appViewRef} className="dv-view">
+              <div className="dv-titlebar dv-titlebar-app">
+                <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="#00e5ff" strokeWidth="2.4">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4" />
+                  <circle cx="12" cy="12" r="9" />
+                </svg>
+                <span className="dv-fname">app.symmetricalcode.com</span>
+              </div>
+              <div ref={appElsRef} className="dv-app-ui">
+                <div className="dv-app-el dv-app-nav" style={{ transitionDelay: '0ms' }}>
+                  <span className="dv-app-brand" />
+                  <span className="dv-app-pill w1" />
+                  <span className="dv-app-pill w2" />
+                  <span className="dv-app-pill w3" />
+                  <span className="dv-app-cta" />
+                </div>
+                <div className="dv-app-hero">
+                  <div className="dv-app-hero-text">
+                    <span className="dv-app-el dv-app-heading h1" style={{ transitionDelay: '90ms' }} />
+                    <span className="dv-app-el dv-app-heading h2" style={{ transitionDelay: '160ms' }} />
+                    <span className="dv-app-el dv-app-paragraph" style={{ transitionDelay: '230ms' }} />
+                    <span className="dv-app-el dv-app-button" style={{ transitionDelay: '310ms' }} />
+                  </div>
+                  <div className="dv-app-el dv-app-hero-art" style={{ transitionDelay: '260ms' }} />
+                </div>
+                <div className="dv-app-features">
+                  <div className="dv-app-el dv-app-feature" style={{ transitionDelay: '400ms' }}>
+                    <span className="dv-app-feature-icon" />
+                    <span className="dv-app-feature-line" />
+                    <span className="dv-app-feature-line short" />
+                  </div>
+                  <div className="dv-app-el dv-app-feature" style={{ transitionDelay: '460ms' }}>
+                    <span className="dv-app-feature-icon" />
+                    <span className="dv-app-feature-line" />
+                    <span className="dv-app-feature-line short" />
+                  </div>
+                  <div className="dv-app-el dv-app-feature" style={{ transitionDelay: '520ms' }}>
+                    <span className="dv-app-feature-icon" />
+                    <span className="dv-app-feature-line" />
+                    <span className="dv-app-feature-line short" />
+                  </div>
+                </div>
+              </div>
+            </div>
+
             <div className="dv-screen-glare" />
           </div>
         </div>
@@ -274,10 +346,25 @@ export default function DeviceShowcase() {
         .dv-laptop-screen {
           position: absolute;
           overflow: hidden;
-          display: flex;
-          flex-direction: column;
           background: linear-gradient(158deg, #070c14 0%, #04070c 62%, #060a11 100%);
           box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.75);
+        }
+
+        /* Code and app-preview panels crossfade in place. */
+        .dv-view {
+          position: absolute;
+          inset: 0;
+          display: flex;
+          flex-direction: column;
+          opacity: 0;
+          transform: translateY(5px) scale(0.985);
+          transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+          pointer-events: none;
+        }
+
+        .dv-view.is-active {
+          opacity: 1;
+          transform: none;
         }
 
         .dv-titlebar {
@@ -289,6 +376,8 @@ export default function DeviceShowcase() {
           background: rgba(255, 255, 255, 0.02);
           flex-shrink: 0;
         }
+
+        .dv-titlebar-app { gap: 6px; }
 
         .dv-dot {
           width: 6px;
@@ -342,6 +431,144 @@ export default function DeviceShowcase() {
         .tk.var  { color: #e2a0ff; }
         .tk.op   { color: #7dd3fc; }
         .tk.attr { color: #86efac; }
+
+        /* ── App preview: a wireframe UI "compiled" from the code ── */
+        .dv-app-ui {
+          flex: 1;
+          padding: 10px 11px 9px;
+          display: flex;
+          flex-direction: column;
+          gap: 9px;
+          overflow: hidden;
+        }
+
+        .dv-app-el {
+          opacity: 0;
+          transform: translateY(6px);
+          transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        .dv-app-el.is-on {
+          opacity: 1;
+          transform: none;
+        }
+
+        .dv-app-nav {
+          display: flex;
+          align-items: center;
+          gap: 6px;
+          padding-bottom: 8px;
+          border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .dv-app-brand {
+          width: 8px;
+          height: 8px;
+          border-radius: 3px;
+          background: linear-gradient(135deg, #00e5ff, #00b4d8);
+          flex-shrink: 0;
+        }
+
+        .dv-app-pill {
+          height: 4px;
+          border-radius: 2px;
+          background: rgba(255, 255, 255, 0.14);
+          display: block;
+        }
+
+        .dv-app-pill.w1 { width: 22px; }
+        .dv-app-pill.w2 { width: 18px; }
+        .dv-app-pill.w3 { width: 20px; }
+
+        .dv-app-cta {
+          margin-left: auto;
+          width: 30px;
+          height: 10px;
+          border-radius: 3px;
+          background: rgba(0, 229, 255, 0.18);
+          box-shadow: inset 0 0 0 1px rgba(0, 229, 255, 0.3);
+        }
+
+        .dv-app-hero {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+        }
+
+        .dv-app-hero-text {
+          flex: 1.3;
+          display: flex;
+          flex-direction: column;
+          gap: 6px;
+        }
+
+        .dv-app-heading {
+          height: 8px;
+          border-radius: 2px;
+          background: rgba(255, 255, 255, 0.62);
+        }
+
+        .dv-app-heading.h1 { width: 88%; }
+        .dv-app-heading.h2 { width: 62%; background: #00e5ff; }
+
+        .dv-app-paragraph {
+          height: 4px;
+          width: 72%;
+          border-radius: 2px;
+          background: rgba(255, 255, 255, 0.16);
+          margin-top: 2px;
+        }
+
+        .dv-app-button {
+          margin-top: 4px;
+          width: 44px;
+          height: 12px;
+          border-radius: 4px;
+          background: linear-gradient(135deg, #00e5ff, #00b4d8);
+          box-shadow: 0 3px 10px rgba(0, 229, 255, 0.3);
+        }
+
+        .dv-app-hero-art {
+          flex: 1;
+          align-self: stretch;
+          border-radius: 6px;
+          background: linear-gradient(150deg, rgba(0, 229, 255, 0.16) 0%, rgba(125, 211, 252, 0.05) 100%);
+          box-shadow: inset 0 0 0 1px rgba(0, 229, 255, 0.14);
+        }
+
+        .dv-app-features {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 7px;
+          margin-top: auto;
+        }
+
+        .dv-app-feature {
+          padding: 7px 7px 8px;
+          border-radius: 5px;
+          background: rgba(255, 255, 255, 0.03);
+          box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+          display: flex;
+          flex-direction: column;
+          gap: 5px;
+        }
+
+        .dv-app-feature-icon {
+          width: 10px;
+          height: 10px;
+          border-radius: 3px;
+          background: rgba(0, 229, 255, 0.28);
+        }
+
+        .dv-app-feature-line {
+          height: 3px;
+          width: 88%;
+          border-radius: 2px;
+          background: rgba(255, 255, 255, 0.16);
+          display: block;
+        }
+
+        .dv-app-feature-line.short { width: 55%; }
 
         /* Faint sheen so the injected panel picks up the mockup's own lighting. */
         .dv-screen-glare {
@@ -473,6 +700,7 @@ export default function DeviceShowcase() {
           .dv-stage { width: 372px; }
           .dv-phone { width: 78px; right: -36px; bottom: -36px; }
           .dv-code { font-size: 7.6px; padding: 8px 10px; }
+          .dv-app-ui { padding: 8px 9px 7px; gap: 7px; }
           .dv-phone-screen { padding: 13px 6px 7px; gap: 5px; }
           .dv-hero-card { height: 37px; }
           .dv-grid span { height: 17px; }
@@ -488,6 +716,18 @@ export default function DeviceShowcase() {
           .dv-fname { font-size: 6px; margin-left: 4px; }
           .dv-code { font-size: 5.6px; padding: 6px 7px; }
           .dv-caret { width: 3px; height: 6px; }
+          .dv-app-ui { padding: 6px 7px 6px; gap: 5px; }
+          .dv-app-brand { width: 6px; height: 6px; }
+          .dv-app-pill.w1 { width: 16px; }
+          .dv-app-pill.w2 { width: 13px; }
+          .dv-app-pill.w3 { width: 14px; }
+          .dv-app-cta { width: 22px; height: 7px; }
+          .dv-app-heading { height: 6px; }
+          .dv-app-paragraph { height: 3px; }
+          .dv-app-button { width: 32px; height: 9px; }
+          .dv-app-features { gap: 4px; }
+          .dv-app-feature { padding: 4px 4px 5px; gap: 3px; }
+          .dv-app-feature-icon { width: 7px; height: 7px; }
           .dv-phone-screen { padding: 10px 4px 5px; gap: 3px; border-radius: 8px; }
           .dv-avatar { width: 8px; height: 8px; }
           .dv-bar { height: 2px; }
@@ -500,6 +740,8 @@ export default function DeviceShowcase() {
         @media (prefers-reduced-motion: reduce) {
           .dv-stage { transition: none; }
           .dv-row { opacity: 1; transform: none; transition: none; }
+          .dv-app-el { opacity: 1; transform: none; transition: none; }
+          .dv-view { transition: none; }
           .dv-caret { animation: none; }
         }
       `}</style>

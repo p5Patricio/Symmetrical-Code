@@ -29,10 +29,10 @@ describe('ServicesSection', () => {
     expect(screen.getByText('Service 2')).toBeInTheDocument();
   });
 
-  it('debe mostrar los bullets de cada servicio', () => {
+  it('debe mostrar la descripción de cada servicio', () => {
     render(<ServicesSection />);
-    expect(screen.getByText('B1')).toBeInTheDocument();
-    expect(screen.getByText('B2')).toBeInTheDocument();
+    expect(screen.getByText('Desc 1')).toBeInTheDocument();
+    expect(screen.getByText('Desc 2')).toBeInTheDocument();
   });
 
   it('cada tarjeta debe tener un link de contacto', () => {

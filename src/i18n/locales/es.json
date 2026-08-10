@@ -26,9 +26,9 @@
     "follow_us": "Síguenos"
   },
   "services": {
-    "label": "Nuestras Soluciones",
-    "title": "Soluciones Digitales a Medida",
-    "subtitle": "Desde aplicaciones web hasta sistemas inteligentes, construimos la tecnología que tu empresa necesita para escalar.",
+    "label": "Nuestros Servicios",
+    "title": "Servicios de Desarrollo a Medida",
+    "subtitle": "Del código al despliegue: los servicios que tu negocio necesita para crecer.",
     "learn_more": "Ver más detalles",
     "modal_includes": "Lo que recibirás",
     "modal_highlights": "Por qué elegirnos",
@@ -36,24 +36,24 @@
     "items": [
       {
         "title": "Páginas y Apps que Venden",
-        "description": "Tu presencia digital con diseño que enamora, velocidad increíble y optimizada para convertir visitantes en clientes.",
-        "longDescription": "Diseñamos y construimos sitios web que no solo se ven bien, sino que trabajan para ti. Cada interfaz nace de un prototipo pensado para guiar a tus usuarios hacia la acción que deseas, y se construye enfocada en el rendimiento para que tus clientes encuentren lo que buscan rápido y sin fricciones. Desde landing pages hasta tiendas en línea, creamos tu ventana al mundo digital.",
+        "description": "Diseño profesional, carga veloz y enfoque en conversión.",
+        "longDescription": "Diseñamos y construimos sitios web que no solo se ven bien, sino que trabajan para ti. Nos enfocamos en la experiencia de usuario y el rendimiento para que tus clientes encuentren lo que buscan rápido y sin fricciones. Desde landing pages hasta tiendas en línea, creamos tu ventana al mundo digital.",
         "highlights": [
           "Diseño moderno que genera confianza",
-          "Prototipos para que veas antes de construir",
           "Rápida carga en cualquier dispositivo",
+          "Fácil de usar para tus clientes",
           "Lista para posicionar en Google (SEO)"
         ],
         "bullets": [
-          "Diseño Intuitivo",
+          "Diseño Profesional",
           "Velocidad Optimizada",
           "Funciona en Celulares",
-          "Imagen de Marca"
+          "Fácil de Administrar"
         ]
       },
       {
         "title": "Sistemas Inteligentes",
-        "description": "Automatizamos tus procesos y conectamos tus herramientas para que te enfoques en lo que realmente importa.",
+        "description": "Automatizamos procesos y conectamos tus herramientas clave.",
         "longDescription": "Creamos el cerebro de tu operación. Conectamos tus bases de datos, herramientas de pago y sistemas de terceros en una plataforma robusta y segura. Si tienes una tarea repetitiva, nosotros la automatizamos. Si tienes datos dispersos, nosotros los organizamos.",
         "highlights": [
           "Automatización de tareas manuales",
@@ -69,25 +69,59 @@
         ]
       },
       {
-        "title": "Infraestructura y Seguridad",
-        "description": "Nube blindada de nivel bancario: tu página nunca se cae, soporta miles de visitas y protege los datos de tus clientes.",
-        "longDescription": "Nos encargamos de toda la complejidad técnica detrás de cámaras. Configuramos servidores en la nube que se ajustan automáticamente a la cantidad de personas que te visitan, asegurando que tu inversión sea eficiente y tu sitio esté siempre disponible. Y porque la seguridad no es opcional, protegemos tu propiedad intelectual y los datos sensibles de tus usuarios siguiendo los más altos estándares de la industria.",
+        "title": "Tu Negocio Siempre Activo",
+        "description": "Infraestructura en la nube con alta disponibilidad y seguridad avanzada.",
+        "longDescription": "Nos encargamos de toda la complejidad técnica detrás de cámaras. Configuramos servidores en la nube que se ajustan automáticamente a la cantidad de personas que te visitan, asegurando que tu inversión sea eficiente y tu sitio esté siempre disponible.",
         "highlights": [
           "99.9% de tiempo en línea garantizado",
-          "Cifrado de datos y protección contra ataques",
-          "Cumplimiento de leyes de privacidad",
-          "Auditorías de seguridad regulares"
+          "Optimización de costos en la nube",
+          "Seguridad contra ataques",
+          "Actualizaciones automáticas"
         ],
         "bullets": [
           "Infraestructura Cloud",
-          "Blindaje de Datos",
+          "Seguridad Avanzada",
           "Escalabilidad Total",
           "Soporte Continuo"
         ]
       },
       {
+        "title": "Protección y Confianza",
+        "description": "Seguridad de nivel bancario para tus datos y los de tus clientes.",
+        "longDescription": "La seguridad no es opcional. Protegemos tu propiedad intelectual y los datos sensibles de tus usuarios siguiendo los más altos estándares de la industria. Realizamos auditorías constantes para asegurar que tu negocio sea un lugar seguro para transaccionar.",
+        "highlights": [
+          "Cifrado de datos sensibles",
+          "Protección contra hackers",
+          "Cumplimiento de leyes de privacidad",
+          "Auditorías de seguridad regulares"
+        ],
+        "bullets": [
+          "Blindaje de Datos",
+          "Prevención de Ataques",
+          "Privacidad Garantizada",
+          "Consultoría Experta"
+        ]
+      },
+      {
+        "title": "Experiencias Increíbles",
+        "description": "Interfaces intuitivas diseñadas para la facilidad y la conversión.",
+        "longDescription": "El buen diseño es invisible: simplemente funciona. Creamos experiencias digitales intuitivas que guían a tus usuarios hacia la acción que deseas. Desde el primer boceto hasta el producto final, cada detalle está pensado para deleitar a quien lo usa.",
+        "highlights": [
+          "Interfaces fáciles de navegar",
+          "Prototipos para que veas antes de construir",
+          "Diseño que refleja tu marca",
+          "Pruebas con usuarios reales"
+        ],
+        "bullets": [
+          "Diseño Intuitivo",
+          "Prototipado Visual",
+          "Imagen de Marca",
+          "Enfoque en el Usuario"
+        ]
+      },
+      {
         "title": "Resultados Medibles",
-        "description": "Te damos las herramientas para entender a tus clientes y mejorar tus ventas basándote en datos reales.",
+        "description": "Dashboards claros para entender a tus clientes y mejorar tus ventas.",
         "longDescription": "Lo que no se mide, no se puede mejorar. Te ayudamos a instalar y entender tableros de control que te muestran exactamente qué está pasando en tu negocio digital. Así podrás invertir con confianza donde realmente obtienes resultados.",
         "highlights": [
           "Reportes fáciles de entender",
