@@ -502,7 +502,7 @@ export default function Footer() {
           }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '20px' }}>
               <img
-                src="/logo.png"
+                src="/logo.webp"
                 alt="Symmetrical Code"
                 style={{ height: '40px', width: 'auto' }}
               />

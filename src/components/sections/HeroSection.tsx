@@ -430,7 +430,7 @@ function CodeToWebScene() {
       </div>
 
       <div ref={logoOverlayRef} className="sc-logo-overlay">
-        <img src="/logo.png" alt="SymmetricalCode" className="sc-logo-img" draggable={false} />
+        <img src="/logo.webp" alt="SymmetricalCode" className="sc-logo-img" draggable={false} />
         <span className="sc-logo-label">symmetricalcode.com</span>
       </div>
 
