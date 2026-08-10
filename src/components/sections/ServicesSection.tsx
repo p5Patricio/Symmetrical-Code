@@ -205,8 +205,12 @@ export default function Services() {
            Glow, lift and backdrop-blur values are ported from main's
            .glass-card-enhanced/.glowing-orb: a 180px orb that swings from a
            faint 0.15 rest tint to full-strength 1.0 on hover reads as a much
-           more deliberate effect than a small orb barely brightening. */
+           more deliberate effect than a small orb barely brightening.
+           Height is fixed to "Pages & Apps that Sell" — the longest title +
+           description in the set — measured live at each tier so every card
+           shares one footprint instead of six different ones. */
         .orbit-card {
+          height: 219px;
           padding: 26px 28px;
           background: rgba(255, 255, 255, 0.02);
           border: 1px solid rgba(255, 255, 255, 0.1);
@@ -219,6 +223,13 @@ export default function Services() {
           border-color: rgba(255, 255, 255, 0.22);
           background: rgba(255, 255, 255, 0.035);
           backdrop-filter: blur(2px);
+        }
+
+        /* Same-specificity height rules are decided by source order, not by
+           which one is wrapped in @media — this override MUST come after
+           the base .orbit-card rule above to actually win at 1280px+. */
+        @media (min-width: 1280px) {
+          .orbit-card { height: 233px; }
         }
 
         @media (max-width: 1279px) {
