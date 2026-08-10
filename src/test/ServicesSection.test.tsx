@@ -35,10 +35,8 @@ describe('ServicesSection', () => {
     expect(screen.getByText('Desc 2')).toBeInTheDocument();
   });
 
-  it('cada tarjeta debe tener un link de contacto', () => {
+  it('las tarjetas ya no muestran un link de contacto propio', () => {
     render(<ServicesSection />);
-    const contactLinks = screen.getAllByRole('link', { name: /contact\.label/i });
-    expect(contactLinks.length).toBe(2);
-    expect(contactLinks[0]).toHaveAttribute('href', '#contact');
+    expect(screen.queryByRole('link', { name: /contact\.label/i })).not.toBeInTheDocument();
   });
 });

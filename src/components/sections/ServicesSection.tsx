@@ -59,7 +59,6 @@ type ServiceItem = {
 const ORBIT_ANGLES = [-90, -30, 30, 90, 150, 210];
 
 function OrbitCard({ service, index, style }: { service: ServiceItem; index: number; style?: React.CSSProperties }) {
-  const { t } = useTranslation();
   const accent = SERVICE_COLORS[index];
 
   return (
@@ -72,13 +71,7 @@ function OrbitCard({ service, index, style }: { service: ServiceItem; index: num
         <span className="orbit-index">{String(index + 1).padStart(2, '0')}</span>
       </div>
       <h3 className="orbit-title">{service.title}</h3>
-      <p className="orbit-desc">{service.description}</p>
-      <a href="#contact" className="orbit-link" style={{ color: accent }}>
-        <span>{t('contact.label')}</span>
-        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5}>
-          <path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-        </svg>
-      </a>
+      <p className="orbit-desc" style={{ color: accent }}>{service.description}</p>
     </article>
   );
 }
@@ -204,50 +197,60 @@ export default function Services() {
           .orbit-stage { display: block; height: 920px; }
           .orbit-guide { display: block; position: absolute; inset: 0; width: 100%; height: 100%; }
           .orbit-center { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: 460px; z-index: 2; }
-          .orbit-card { position: absolute; transform: translate(-50%, -50%); width: 236px; z-index: 3; }
-          .orbit-card:hover { transform: translate(-50%, -50%) translateY(-3px); }
+          .orbit-card { position: absolute; transform: translate(-50%, -50%); width: 252px; z-index: 3; }
+          .orbit-card:hover { transform: translate(-50%, -50%) translateY(-4px); }
         }
 
-        /* ─────────── Card ─────────── */
+        /* ─────────── Card ───────────
+           Glow, lift and backdrop-blur values are ported from main's
+           .glass-card-enhanced/.glowing-orb: a 180px orb that swings from a
+           faint 0.15 rest tint to full-strength 1.0 on hover reads as a much
+           more deliberate effect than a small orb barely brightening. */
         .orbit-card {
-          padding: 20px 22px;
+          padding: 26px 28px;
           background: rgba(255, 255, 255, 0.02);
           border: 1px solid rgba(255, 255, 255, 0.1);
-          backdrop-filter: blur(6px);
-          transition: border-color 0.4s ease, transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), background 0.4s ease;
+          backdrop-filter: blur(0px);
+          overflow: hidden;
+          transition: border-color 0.4s ease, transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), background 0.4s ease, backdrop-filter 0.4s ease;
         }
 
         .orbit-card:hover {
           border-color: rgba(255, 255, 255, 0.22);
           background: rgba(255, 255, 255, 0.035);
+          backdrop-filter: blur(2px);
         }
 
         @media (max-width: 1279px) {
-          .orbit-card:hover { transform: translateY(-3px); }
+          .orbit-card:hover { transform: translateY(-4px); }
         }
 
         .orbit-card-glow {
           position: absolute;
-          top: -30%;
-          right: -20%;
-          width: 120px;
-          height: 120px;
+          top: -40px;
+          right: -40px;
+          width: 180px;
+          height: 180px;
           border-radius: 50%;
-          filter: blur(50px);
-          opacity: 0;
+          filter: blur(60px);
+          opacity: 0.15;
           transition: opacity 0.7s ease;
           pointer-events: none;
         }
 
         .orbit-card:hover .orbit-card-glow {
-          opacity: 0.18;
+          opacity: 1;
+        }
+
+        @media (max-width: 640px) {
+          .orbit-card-glow { width: 120px; height: 120px; filter: blur(40px); }
         }
 
         .orbit-card-top {
           display: flex;
           align-items: center;
           justify-content: space-between;
-          margin-bottom: 12px;
+          margin-bottom: 14px;
           position: relative;
           z-index: 1;
         }
@@ -266,43 +269,25 @@ export default function Services() {
         .orbit-title {
           font-family: 'Syne', sans-serif;
           font-weight: 800;
-          font-size: 15px;
+          font-size: 17px;
           color: #ffffff;
-          margin-bottom: 6px;
+          margin-bottom: 8px;
           position: relative;
           z-index: 1;
         }
 
         .orbit-desc {
           font-family: 'Inter', system-ui, sans-serif;
-          font-size: 12.5px;
-          line-height: 1.5;
-          color: rgba(255, 255, 255, 0.42);
-          margin-bottom: 12px;
+          font-size: 14px;
+          line-height: 1.55;
+          font-weight: 500;
           position: relative;
           z-index: 1;
-        }
-
-        .orbit-link {
-          display: inline-flex;
-          align-items: center;
-          gap: 6px;
-          font-family: 'Inter', system-ui, sans-serif;
-          font-size: 11px;
-          font-weight: 700;
-          text-decoration: none;
-          position: relative;
-          z-index: 1;
-          transition: gap 0.25s ease;
-        }
-
-        .orbit-link:hover {
-          gap: 9px;
         }
 
         @media (max-width: 1279px) {
-          .orbit-title { font-size: 17px; }
-          .orbit-desc { font-size: 13.5px; }
+          .orbit-title { font-size: 18px; }
+          .orbit-desc { font-size: 15px; }
         }
       `}</style>
     </section>

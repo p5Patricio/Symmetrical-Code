@@ -36,7 +36,7 @@
     "items": [
       {
         "title": "Pages & Apps that Sell",
-        "description": "Professional design, fast loading, built to convert.",
+        "description": "Websites and apps with professional design and fast loading, built to convert visitors into customers.",
         "longDescription": "We design and build websites that don't just look good — they work for you. We focus on user experience and performance so your customers find what they need fast and without friction. From landing pages to online stores, we create your window to the digital world.",
         "highlights": [
           "Modern design that builds trust",
@@ -52,8 +52,8 @@
         ]
       },
       {
-        "title": "Intelligent Systems",
-        "description": "We automate processes and connect your key tools.",
+        "title": "Automation & Systems",
+        "description": "We connect your tools and automate processes so your operation runs itself.",
         "longDescription": "We create the brain of your operation. We connect your databases, payment tools, and third-party systems into a robust and secure platform. If you have a repetitive task, we automate it. If you have scattered data, we organize it.",
         "highlights": [
           "Automation of manual tasks",
@@ -70,7 +70,7 @@
       },
       {
         "title": "Your Business Always Online",
-        "description": "Cloud infrastructure with high availability and advanced security.",
+        "description": "Cloud infrastructure with high availability, so your site never goes down.",
         "longDescription": "We take care of all the technical complexity behind the scenes. We set up cloud servers that automatically adjust to the number of people visiting you, ensuring your investment is efficient and your site is always available.",
         "highlights": [
           "99.9% uptime guaranteed",
@@ -86,8 +86,8 @@
         ]
       },
       {
-        "title": "Protection & Trust",
-        "description": "Bank-level security for your data and your customers'.",
+        "title": "Cybersecurity",
+        "description": "We protect your data and your customers' with bank-level security.",
         "longDescription": "Security is not optional. We protect your intellectual property and your users' sensitive data following the highest industry standards. We conduct constant audits to ensure your business is a safe place to transact.",
         "highlights": [
           "Encryption of sensitive data",
@@ -103,8 +103,8 @@
         ]
       },
       {
-        "title": "Amazing Experiences",
-        "description": "Intuitive interfaces designed for ease of use and conversion.",
+        "title": "Interface Design",
+        "description": "Clear, intuitive interfaces designed so your users navigate without friction.",
         "longDescription": "Good design is invisible: it just works. We create intuitive digital experiences that guide your users toward the action you want. From the first sketch to the final product, every detail is thought out to delight those who use it.",
         "highlights": [
           "Easy to navigate interfaces",
@@ -120,8 +120,8 @@
         ]
       },
       {
-        "title": "Measurable Results",
-        "description": "Clear dashboards to understand your customers and grow sales.",
+        "title": "Analytics & Reporting",
+        "description": "Clear dashboards to understand your customers and make better business decisions.",
         "longDescription": "What isn't measured can't be improved. We help you install and understand control dashboards that show you exactly what's happening in your digital business. This way you can invest with confidence where you actually get results.",
         "highlights": [
           "Easy to understand reports",
