@@ -250,7 +250,7 @@ export default function Services() {
         }
 
         .orbit-card:hover .orbit-card-glow {
-          opacity: 1;
+          opacity: 0.5;
         }
 
         @media (max-width: 640px) {
