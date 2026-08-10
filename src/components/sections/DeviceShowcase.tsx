@@ -3,17 +3,26 @@ import { useEffect, useRef } from 'react';
 /* ══════════════════════════════════════════
    CODE LINES — typed into the laptop screen
 ══════════════════════════════════════════ */
+/* The sequence narrates how a real build actually goes: pull in the pieces,
+   configure the app, then explicitly add security and design as their own
+   steps — not just a list of settings — before testing and shipping. */
 const CODE_LINES: string[] = [
   `<span class="tk cmt">// build.ts</span>`,
   `<span class="tk kw">import</span> { <span class="tk fn">deploy</span> } <span class="tk kw">from</span> <span class="tk str">'./cloud'</span>`,
+  `<span class="tk kw">import</span> { <span class="tk fn">auth</span> } <span class="tk kw">from</span> <span class="tk str">'./security'</span>`,
+  `<span class="tk kw">import</span> { <span class="tk fn">theme</span> } <span class="tk kw">from</span> <span class="tk str">'./design'</span>`,
   ``,
   `<span class="tk kw">export const</span> <span class="tk var">app</span> <span class="tk op">=</span> <span class="tk fn">createApp</span>({`,
   `  <span class="tk attr">name</span>: <span class="tk str">'symmetrical'</span>,`,
   `  <span class="tk attr">responsive</span>: <span class="tk kw">true</span>,`,
-  `  <span class="tk attr">secure</span>: <span class="tk kw">true</span>,`,
   `})`,
   ``,
+  `<span class="tk var">app</span><span class="tk op">.</span><span class="tk fn">use</span>(auth())    <span class="tk cmt">// adding security</span>`,
+  `<span class="tk var">app</span><span class="tk op">.</span><span class="tk fn">use</span>(theme())   <span class="tk cmt">// adding design</span>`,
+  `<span class="tk var">app</span><span class="tk op">.</span><span class="tk fn">test</span>()         <span class="tk cmt">// running tests</span>`,
+  ``,
   `<span class="tk kw">await</span> <span class="tk fn">deploy</span>(app)`,
+  `<span class="tk cmt">// ready ✓</span>`,
 ];
 
 /* Display rectangles measured from the mockup artwork by sampling the dark
@@ -34,7 +43,6 @@ const asStyle = (r: { left: number; top: number; width: number; height: number }
 
 export default function DeviceShowcase() {
   const rootRef = useRef<HTMLDivElement>(null);
-  const stageRef = useRef<HTMLDivElement>(null);
   const codeRef = useRef<HTMLDivElement>(null);
   const codeViewRef = useRef<HTMLDivElement>(null);
   const appViewRef = useRef<HTMLDivElement>(null);
@@ -99,6 +107,9 @@ export default function DeviceShowcase() {
       row.innerHTML = CODE_LINES[i] + '<span class="dv-caret"></span>';
       code.querySelectorAll('.dv-caret').forEach((c) => c.remove());
       code.appendChild(row);
+      // 16 lines don't fit the panel's fixed height — scroll like a live
+      // build log instead of trimming the narrative or the type size.
+      code.scrollTop = code.scrollHeight;
       later(() => typeLine(i + 1, onDone), CODE_LINES[i].length > 0 ? 210 + Math.random() * 90 : 90);
     };
 
@@ -139,75 +150,11 @@ export default function DeviceShowcase() {
     };
   }, []);
 
-  /* ── Float and parallax ──
-     The mockups are photographed head-on, so the camera angle is baked in.
-     Rotating them hard would fight that perspective; this stays subtle. */
-  useEffect(() => {
-    const root = rootRef.current;
-    const stage = stageRef.current;
-    if (!root || !stage) return;
-    if (matches('(prefers-reduced-motion: reduce)')) return;
-
-    let drift = 0;    // -1 .. 1 from scroll position
-    let pointerX = 0; // -1 .. 1
-    let pointerY = 0; // -1 .. 1
-    let frame = 0;
-
-    const render = () => {
-      frame = 0;
-      const rotY = pointerX * 3.4;
-      const rotX = pointerY * -2.6;
-      const lift = drift * -14;
-      stage.style.transform =
-        `translate3d(0, ${lift.toFixed(2)}px, 0) rotateX(${rotX.toFixed(2)}deg) rotateY(${rotY.toFixed(2)}deg)`;
-    };
-    const schedule = () => {
-      if (!frame) frame = requestAnimationFrame(render);
-    };
-
-    const onScroll = () => {
-      const rect = root.getBoundingClientRect();
-      const vh = window.innerHeight || 1;
-      const centered = (rect.top + rect.height / 2 - vh / 2) / vh;
-      drift = Math.max(-1, Math.min(1, centered * 2));
-      schedule();
-    };
-
-    const finePointer = matches('(pointer: fine)');
-    const onPointer = (e: PointerEvent) => {
-      const rect = root.getBoundingClientRect();
-      pointerX = Math.max(-1, Math.min(1, ((e.clientX - rect.left) / rect.width) * 2 - 1));
-      pointerY = Math.max(-1, Math.min(1, ((e.clientY - rect.top) / rect.height) * 2 - 1));
-      schedule();
-    };
-    const onLeave = () => {
-      pointerX = 0;
-      pointerY = 0;
-      schedule();
-    };
-
-    onScroll();
-    window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', onScroll, { passive: true });
-    if (finePointer) {
-      root.addEventListener('pointermove', onPointer);
-      root.addEventListener('pointerleave', onLeave);
-    }
-
-    return () => {
-      window.removeEventListener('scroll', onScroll);
-      window.removeEventListener('resize', onScroll);
-      root.removeEventListener('pointermove', onPointer);
-      root.removeEventListener('pointerleave', onLeave);
-      if (frame) cancelAnimationFrame(frame);
-    };
-  }, []);
-
   return (
     <div ref={rootRef} className="dv-root" aria-hidden="true">
       <div className="dv-glow" />
 
-      <div ref={stageRef} className="dv-stage">
+      <div className="dv-stage">
         {/* ── Laptop ── */}
         <div className="dv-laptop">
           <img className="dv-shot" src="/mockups/laptop.webp" alt="" width={1400} height={910} />
@@ -325,8 +272,6 @@ export default function DeviceShowcase() {
           position: relative;
           width: 460px;
           transform-style: preserve-3d;
-          transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
-          will-change: transform;
         }
 
         .dv-shot {
@@ -738,7 +683,6 @@ export default function DeviceShowcase() {
         }
 
         @media (prefers-reduced-motion: reduce) {
-          .dv-stage { transition: none; }
           .dv-row { opacity: 1; transform: none; transition: none; }
           .dv-app-el { opacity: 1; transform: none; transition: none; }
           .dv-view { transition: none; }
