@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 
 const WhatsAppIcon = () => (
@@ -7,7 +7,11 @@ const WhatsAppIcon = () => (
   </svg>
 );
 
-export default function ChatWidget() {
+interface ChatWidgetProps {
+  forceVisible?: boolean;
+}
+
+export default function ChatWidget({ forceVisible = false }: ChatWidgetProps) {
   const { t } = useTranslation();
   const [hovered, setHovered] = useState(false);
   const [showTooltip, setShowTooltip] = useState(false);
@@ -15,22 +19,28 @@ export default function ChatWidget() {
 
   const checkFooter = useCallback(() => {
     const footer = document.querySelector('footer');
-    if (!footer) return;
+    if (!footer) {
+      setFooterVisible(false);
+      return;
+    }
     const rect = footer.getBoundingClientRect();
-    // El footer es "visible" en cuanto su borde superior entra al viewport
     setFooterVisible(rect.top < window.innerHeight);
   }, []);
 
   useEffect(() => {
-    // Comprobar al montar, al hacer scroll y al redimensionar
+    if (forceVisible) {
+      return;
+    }
+
     checkFooter();
     window.addEventListener('scroll', checkFooter, { passive: true });
     window.addEventListener('resize', checkFooter, { passive: true });
+    
     return () => {
       window.removeEventListener('scroll', checkFooter);
       window.removeEventListener('resize', checkFooter);
     };
-  }, [checkFooter]);
+  }, [checkFooter, forceVisible]);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -49,17 +59,18 @@ export default function ChatWidget() {
 
   const whatsappUrl = "https://wa.me/XXXXXXXXXXX";
 
+  const isVisible = forceVisible ? true : !footerVisible;
+
   return (
     <div
-      className="fixed right-6 bottom-6 z-[450] flex items-center gap-3"
+      className="fixed right-6 bottom-6 z-[600] flex items-center gap-3"
       style={{
-        opacity: footerVisible ? 0 : 1,
-        transform: footerVisible ? 'translateY(12px)' : 'translateY(0)',
-        pointerEvents: footerVisible ? 'none' : 'auto',
+        opacity: isVisible ? 1 : 0,
+        transform: isVisible ? 'translateY(0)' : 'translateY(12px)',
+        pointerEvents: isVisible ? 'auto' : 'none',
         transition: 'opacity 0.2s ease, transform 0.2s ease',
       }}
     >
-      {/* Tooltip — aparece a la izquierda del botón, nunca solapa los links del footer */}
       <div
         className={`
           relative bg-[#070d14] border border-[rgba(0,229,255,0.3)] px-4 py-2.5 rounded-xl
@@ -82,7 +93,6 @@ export default function ChatWidget() {
         </p>
       </div>
 
-      {/* Botón WhatsApp */}
       <a
         href={whatsappUrl}
         target="_blank"

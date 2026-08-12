@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { projects, techIconMap } from '../data/projects';
 import GalleryNavbar from '../components/layout/GalleryNavbar';
+import ChatWidget from '../components/chat/ChatWidget';
 
 // --- Types ---
 interface ProjectView {
@@ -156,7 +157,6 @@ const DetailModal = ({ project, index, totalProjects, onNext, onPrev, onClose }:
           </div>
         </div>
 
-        {/* Outer Navigation */}
         <div className="flex flex-col items-center gap-6 shrink-0" onClick={e => e.stopPropagation()}>
            <div className="flex items-center gap-4 sm:gap-8">
               <button onClick={onPrev} className="group flex items-center gap-2 sm:gap-3 text-white/40 hover:text-[#00e5ff] transition-all">
@@ -214,7 +214,6 @@ export default function Projects({ isFullPage = false }: { isFullPage?: boolean 
     return () => el.removeEventListener('scroll', handler);
   }, [isFullPage]);
 
-  // ✅ CORREGIDO: Calcula el ancho de la barra de scroll y añade padding para evitar que la página se mueva
   useEffect(() => {
     if (isFullPage || !!selectedProject) {
       const scrollBarWidth = window.innerWidth - document.documentElement.clientWidth;
@@ -253,203 +252,186 @@ export default function Projects({ isFullPage = false }: { isFullPage?: boolean 
 
   if (isFullPage) {
     return (
-      <div className="fixed inset-0 z-[150] flex flex-col bg-[#020408]">
-        <GalleryNavbar scrolled={galleryScrolled} onClose={() => navigate('/')} onNavigate={handleNavigation} activeSection="projects" />
-        <div id="gallery-scroll" className="flex-1 overflow-y-auto pt-16 sm:pt-20">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-6 sm:pt-8 md:pt-12 pb-2 sm:pb-4 text-center">
-            <div className="flex items-center justify-center gap-3 mb-3 sm:mb-4">
-              <div className="h-px w-8 sm:w-12 bg-white/10" />
-              <span className="section-label text-xs sm:text-sm">{t('projects.gallery_label')}</span>
-              <div className="h-px w-8 sm:w-12 bg-white/10" />
+      <>
+        <div className="fixed inset-0 z-[150] flex flex-col bg-[#020408]">
+          <GalleryNavbar scrolled={galleryScrolled} onClose={() => navigate('/')} onNavigate={handleNavigation} activeSection="projects" />
+          <div id="gallery-scroll" className="flex-1 overflow-y-auto pt-16 sm:pt-20">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-6 sm:pt-8 md:pt-12 pb-2 sm:pb-4 text-center">
+              <div className="flex items-center justify-center gap-3 mb-3 sm:mb-4">
+                <div className="h-px w-8 sm:w-12 bg-white/10" />
+                <span className="section-label text-xs sm:text-sm">{t('projects.gallery_label')}</span>
+                <div className="h-px w-8 sm:w-12 bg-white/10" />
+              </div>
+              <h3 className="font-syne font-black text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-white uppercase tracking-tighter">
+                {t('projects.gallery_title')}
+              </h3>
             </div>
-            <h3 className="font-syne font-black text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-white uppercase tracking-tighter">
-              {t('projects.gallery_title')}
-            </h3>
-          </div>
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 pb-3 sm:pb-4 md:pb-6 flex justify-center flex-wrap gap-1 sm:gap-2">
-            {categories.filter(Boolean).map(cat => (
-              <button
-                key={cat}
-                onClick={() => setActiveFilter(cat)}
-                className={`font-mono text-[9px] sm:text-[10px] tracking-widest uppercase px-2 sm:px-4 py-1.5 sm:py-2 transition-all ${
-                  activeFilter === cat ? 'text-[#00e5ff] border-b border-[#00e5ff]' : 'text-white/40 hover:text-white'
-                }`}
-              >
-                {cat === 'all' ? t('projects.filter_all') : cat}
-              </button>
-            ))}
-          </div>
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 pb-16 sm:pb-20 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
-            {filtered.map((project, i) => {
-              const globalIndex = allItems.findIndex(p => p.title === project.title);
-              
-              // Evitar duplicados visuales (mismo icono base)
-              const seenIcons = new Set<string>();
-              const uniqueTechTags = project.tags.filter(tag => {
-                const icon = techIconMap[tag];
-                if (!icon || seenIcons.has(icon)) return false;
-                seenIcons.add(icon);
-                return true;
-              });
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 pb-3 sm:pb-4 md:pb-6 flex justify-center flex-wrap gap-1 sm:gap-2">
+              {categories.filter(Boolean).map(cat => (
+                <button
+                  key={cat}
+                  onClick={() => setActiveFilter(cat)}
+                  className={`font-mono text-[9px] sm:text-[10px] tracking-widest uppercase px-2 sm:px-4 py-1.5 sm:py-2 transition-all ${
+                    activeFilter === cat ? 'text-[#00e5ff] border-b border-[#00e5ff]' : 'text-white/40 hover:text-white'
+                  }`}
+                >
+                  {cat === 'all' ? t('projects.filter_all') : cat}
+                </button>
+              ))}
+            </div>
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 pb-16 sm:pb-20 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
+              {filtered.map((project, i) => {
+                const globalIndex = allItems.findIndex(p => p.title === project.title);
+                
+                const seenIcons = new Set<string>();
+                const uniqueTechTags = project.tags.filter(tag => {
+                  const icon = techIconMap[tag];
+                  if (!icon || seenIcons.has(icon)) return false;
+                  seenIcons.add(icon);
+                  return true;
+                });
 
-              return (
+                return (
+                  <article
+                    key={i}
+                    onClick={() => setSelectedProject({ project, index: globalIndex })}
+                    className="group cursor-pointer overflow-hidden transition-all duration-300 bg-white/[0.02] border border-white/5 rounded-lg hover:scale-[1.02] hover:border-white/20 flex flex-col min-h-[480px] sm:min-h-[500px]"
+                  >
+                    <div className="w-full h-36 sm:h-40 relative overflow-hidden shrink-0">
+                      <ImageWithFallback src={project.ogImageUrl} alt={project.title} fallback={<ProjectImage index={globalIndex} title={project.title} />} />
+                      <div className="absolute inset-0 flex items-center justify-center bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity">
+                        <span className="font-mono text-[9px] sm:text-[10px] tracking-wider text-[#00e5ff] uppercase">{t('projects.view_detail')} →</span>
+                      </div>
+                    </div>
+                    <div className="p-4 sm:p-5 flex flex-col flex-1">
+                      <div className="flex items-center justify-between mb-2 sm:mb-3">
+                        <span className="font-mono text-[9px] sm:text-[10px] text-[#00e5ff]/30 tracking-wider">_{String(globalIndex + 1).padStart(2, '0')}</span>
+                      </div>
+                      <div className="min-h-[3rem] sm:min-h-[3.5rem] flex flex-col justify-start">
+                        <h4 className="font-syne font-bold text-sm sm:text-base text-white group-hover:text-[#00e5ff] transition-colors leading-tight">{project.title}</h4>
+                      </div>
+                      <div className="min-h-[4rem] sm:min-h-[5rem] mt-2">
+                        <p className="text-white/40 text-xs sm:text-sm leading-relaxed text-justify line-clamp-3">{project.description}</p>
+                      </div>
+                      
+                      <div className="flex items-center gap-1.5 sm:gap-2 mt-1.5">
+                        {uniqueTechTags.slice(0, 5).map(tag => (
+                          techIconMap[tag] && (
+                            <div key={tag} className="w-6 h-6 sm:w-7 sm:h-7 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center p-1 sm:p-1.5 shrink-0" title={tag}>
+                              <img 
+                                src={techIconMap[tag]} 
+                                alt={tag} 
+                                className="w-full h-full object-contain opacity-60 group-hover:opacity-100 transition-opacity" 
+                                onError={(e) => (e.currentTarget.style.display = 'none')}
+                              />
+                            </div>
+                          )
+                        ))}
+                      </div>
+
+                      <div className="mt-auto pt-4 flex flex-wrap gap-1.5 border-t border-white/5">
+                        {project.tags.slice(0, 3).map(tag => (
+                          <span key={tag} className="text-[8px] sm:text-[9px] font-mono text-white/10 uppercase tracking-tighter">#{tag}</span>
+                        ))}
+                      </div>
+                    </div>
+                  </article>
+                );
+              })}
+            </div>
+          </div>
+          {selectedProject && <DetailModal project={selectedProject.project} index={selectedProject.index} totalProjects={filtered.length} onNext={() => navigateProject('next')} onPrev={() => navigateProject('prev')} onClose={() => setSelectedProject(null)} />}
+        </div>
+        <ChatWidget forceVisible={true} />
+      </>
+    );
+  }
+
+  return (
+    <>
+      <section id="projects" className="relative py-20 sm:py-24 md:py-32 overflow-hidden bg-[#020408]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="mb-12 sm:mb-16 md:mb-20">
+            <div className="flex items-center gap-3 mb-4 sm:mb-6">
+              <span className="section-label text-xs sm:text-sm">{t('projects.label')}</span>
+              <div className="h-px flex-1 bg-gradient-to-r from-[#00e5ff]/20 to-transparent" />
+            </div>
+            <div className="flex flex-col md:flex-row md:items-end gap-6 md:gap-8 justify-between">
+              <h2 className="font-syne font-black text-3xl sm:text-5xl md:text-6xl lg:text-7xl text-white leading-[1.1]">
+                {t('projects.title')}
+              </h2>
+              <p className="text-white/40 text-base sm:text-lg max-w-xs leading-relaxed md:text-right">
+                {t('projects.subtitle')}
+              </p>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 md:gap-8">
+            {items.map((project, i) => {
+               const globalIndex = allItems.findIndex(p => p.title === project.title);
+               
+               const seenIcons = new Set<string>();
+               const uniqueTechTags = project.tags.filter(tag => {
+                 const icon = techIconMap[tag];
+                 if (!icon || seenIcons.has(icon)) return false;
+                 seenIcons.add(icon);
+                 return true;
+               });
+
+               return (
                 <article
                   key={i}
                   onClick={() => setSelectedProject({ project, index: globalIndex })}
-                  className="group cursor-pointer overflow-hidden transition-all duration-300 bg-white/[0.02] border border-white/5 rounded-lg hover:scale-[1.02] hover:border-white/20 flex flex-col min-h-[480px] sm:min-h-[500px]"
+                  className="glass-card-enhanced group cursor-pointer overflow-hidden border border-white/10 rounded-xl sm:rounded-2xl transition-all duration-500 hover:border-white/20 hover:scale-[1.02] flex flex-col min-h-[500px]"
                 >
-                  <div className="w-full h-36 sm:h-40 relative overflow-hidden shrink-0">
-                    <ImageWithFallback src={project.ogImageUrl} alt={project.title} fallback={<ProjectImage index={globalIndex} title={project.title} />} />
-                    <div className="absolute inset-0 flex items-center justify-center bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity">
-                      <span className="font-mono text-[9px] sm:text-[10px] tracking-wider text-[#00e5ff] uppercase">{t('projects.view_detail')} →</span>
-                    </div>
+                  <div className="h-44 sm:h-48 overflow-hidden relative shrink-0">
+                    <ImageWithFallback src={project.ogImageUrl} alt={project.title} fallback={<ProjectImage index={i} title={project.title} />} />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#020408] via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                   </div>
-                  <div className="p-4 sm:p-5 flex flex-col flex-1">
-                    <div className="flex items-center justify-between mb-2 sm:mb-3">
-                      <span className="font-mono text-[9px] sm:text-[10px] text-[#00e5ff]/30 tracking-wider">_{String(globalIndex + 1).padStart(2, '0')}</span>
+                  <div className="p-5 sm:p-6 md:p-8 flex flex-col flex-1">
+                    <div className="min-h-[3rem] sm:min-h-[4rem] flex flex-col justify-start mb-3 sm:mb-4">
+                      <h3 className="font-syne font-black text-xl sm:text-2xl text-white group-hover:text-[#00e5ff] transition-colors leading-tight">{project.title}</h3>
                     </div>
-                    <div className="min-h-[3rem] sm:min-h-[3.5rem] flex flex-col justify-start">
-                      <h4 className="font-syne font-bold text-sm sm:text-base text-white group-hover:text-[#00e5ff] transition-colors leading-tight">{project.title}</h4>
-                    </div>
-                    <div className="min-h-[4rem] sm:min-h-[5rem] mt-2">
+                    <div className="min-h-[4rem] sm:min-h-[6rem] mb-4 sm:mb-6">
                       <p className="text-white/40 text-xs sm:text-sm leading-relaxed text-justify line-clamp-3">{project.description}</p>
                     </div>
-                    
-                    <div className="flex items-center gap-1.5 sm:gap-2 mt-1.5">
+                    <div className="flex items-center gap-2 sm:gap-3 -mt-2.5">
                       {uniqueTechTags.slice(0, 5).map(tag => (
                         techIconMap[tag] && (
-                          <div key={tag} className="w-6 h-6 sm:w-7 sm:h-7 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center p-1 sm:p-1.5 shrink-0" title={tag}>
+                          <div key={tag} className="w-7 h-7 sm:w-9 sm:h-9 rounded-lg sm:rounded-xl bg-white/5 border border-white/10 flex items-center justify-center p-1.5 sm:p-2 group-hover:border-[#00e5ff]/20 transition-all shrink-0" title={tag}>
                             <img 
                               src={techIconMap[tag]} 
                               alt={tag} 
-                              className="w-full h-full object-contain opacity-60 group-hover:opacity-100 transition-opacity" 
+                              className="w-full h-full object-contain opacity-50 group-hover:opacity-100 transition-opacity" 
                               onError={(e) => (e.currentTarget.style.display = 'none')}
                             />
                           </div>
                         )
                       ))}
                     </div>
-
-                    <div className="mt-auto pt-4 flex flex-wrap gap-1.5 border-t border-white/5">
-                      {project.tags.slice(0, 3).map(tag => (
-                        <span key={tag} className="text-[8px] sm:text-[9px] font-mono text-white/10 uppercase tracking-tighter">#{tag}</span>
-                      ))}
+                    <div className="mt-auto pt-5 sm:pt-6 border-t border-white/5 flex items-center justify-between">
+                      <span className="font-mono text-[9px] sm:text-[10px] text-white/20 uppercase tracking-widest">{project.category}</span>
+                      <span className="text-[#00e5ff] text-[10px] sm:text-xs font-bold uppercase tracking-tighter flex items-center gap-1.5 sm:gap-2 group-hover:gap-3 transition-all">Explore <ExternalLinkIcon /></span>
                     </div>
                   </div>
                 </article>
-              );
+               );
             })}
           </div>
-        </div>
-        {selectedProject && <DetailModal project={selectedProject.project} index={selectedProject.index} totalProjects={filtered.length} onNext={() => navigateProject('next')} onPrev={() => navigateProject('prev')} onClose={() => setSelectedProject(null)} />}
-      </div>
-    );
-  }
 
-  return (
-    <section id="projects" className="relative py-20 sm:py-24 md:py-32 overflow-hidden bg-[#020408]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="mb-12 sm:mb-16 md:mb-20">
-          <div className="flex items-center gap-3 mb-4 sm:mb-6">
-            <span className="section-label text-xs sm:text-sm">{t('projects.label')}</span>
-            <div className="h-px flex-1 bg-gradient-to-r from-[#00e5ff]/20 to-transparent" />
-          </div>
-          <div className="flex flex-col md:flex-row md:items-end gap-6 md:gap-8 justify-between">
-            <h2 className="font-syne font-black text-3xl sm:text-5xl md:text-6xl lg:text-7xl text-white leading-[1.1]">
-              {t('projects.title')}
-            </h2>
-            <p className="text-white/40 text-base sm:text-lg max-w-xs leading-relaxed md:text-right">
-              {t('projects.subtitle')}
-            </p>
+          <div className="mt-12 sm:mt-16 md:mt-20 flex justify-center">
+            <button
+              onClick={() => navigate('/proyectos')}
+              className="group flex items-center gap-2 sm:gap-4 font-mono text-[10px] sm:text-xs tracking-[0.2em] sm:tracking-[.3em] uppercase px-6 sm:px-10 py-3 sm:py-5 bg-white/5 border border-white/10 hover:border-[#00e5ff]/40 hover:bg-white/[0.08] transition-all duration-300 rounded-full"
+            >
+              <GridIcon /> {t('projects.view_all')}
+            </button>
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 md:gap-8">
-          {items.map((project, i) => {
-             const globalIndex = allItems.findIndex(p => p.title === project.title);
-             
-             // Evitar duplicados visuales (mismo icono base)
-             const seenIcons = new Set<string>();
-             const uniqueTechTags = project.tags.filter(tag => {
-               const icon = techIconMap[tag];
-               if (!icon || seenIcons.has(icon)) return false;
-               seenIcons.add(icon);
-               return true;
-             });
-
-             return (
-              <article
-                key={i}
-                onClick={() => setSelectedProject({ project, index: globalIndex })}
-                className="glass-card-enhanced group cursor-pointer overflow-hidden border border-white/10 rounded-xl sm:rounded-2xl transition-all duration-500 hover:border-white/20 hover:scale-[1.02] flex flex-col min-h-[500px]"
-              >
-                <div className="h-44 sm:h-48 overflow-hidden relative shrink-0">
-                  <ImageWithFallback src={project.ogImageUrl} alt={project.title} fallback={<ProjectImage index={i} title={project.title} />} />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#020408] via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                </div>
-                <div className="p-5 sm:p-6 md:p-8 flex flex-col flex-1">
-                  <div className="min-h-[3rem] sm:min-h-[4rem] flex flex-col justify-start mb-3 sm:mb-4">
-                    <h3 className="font-syne font-black text-xl sm:text-2xl text-white group-hover:text-[#00e5ff] transition-colors leading-tight">{project.title}</h3>
-                  </div>
-                  <div className="min-h-[4rem] sm:min-h-[6rem] mb-4 sm:mb-6">
-                    <p className="text-white/40 text-xs sm:text-sm leading-relaxed text-justify line-clamp-3">{project.description}</p>
-                  </div>
-                  <div className="flex items-center gap-2 sm:gap-3 -mt-2.5">
-                    {uniqueTechTags.slice(0, 5).map(tag => (
-                      techIconMap[tag] && (
-                        <div key={tag} className="w-7 h-7 sm:w-9 sm:h-9 rounded-lg sm:rounded-xl bg-white/5 border border-white/10 flex items-center justify-center p-1.5 sm:p-2 group-hover:border-[#00e5ff]/20 transition-all shrink-0" title={tag}>
-                          <img 
-                            src={techIconMap[tag]} 
-                            alt={tag} 
-                            className="w-full h-full object-contain opacity-50 group-hover:opacity-100 transition-opacity" 
-                            onError={(e) => (e.currentTarget.style.display = 'none')}
-                          />
-                        </div>
-                      )
-                    ))}
-                  </div>
-                  <div className="mt-auto pt-5 sm:pt-6 border-t border-white/5 flex items-center justify-between">
-                    <span className="font-mono text-[9px] sm:text-[10px] text-white/20 uppercase tracking-widest">{project.category}</span>
-                    <span className="text-[#00e5ff] text-[10px] sm:text-xs font-bold uppercase tracking-tighter flex items-center gap-1.5 sm:gap-2 group-hover:gap-3 transition-all">Explore <ExternalLinkIcon /></span>
-                  </div>
-                </div>
-              </article>
-             );
-          })}
-        </div>
-
-        <div className="mt-12 sm:mt-16 md:mt-20 flex justify-center">
-          <button
-            onClick={() => navigate('/proyectos')}
-            className="group flex items-center gap-2 sm:gap-4 font-mono text-[10px] sm:text-xs tracking-[0.2em] sm:tracking-[.3em] uppercase px-6 sm:px-10 py-3 sm:py-5 bg-white/5 border border-white/10 hover:border-[#00e5ff]/40 hover:bg-white/[0.08] transition-all duration-300 rounded-full"
-          >
-            <GridIcon /> {t('projects.view_all')}
-          </button>
-        </div>
-      </div>
-
-      {selectedProject && <DetailModal project={selectedProject.project} index={selectedProject.index} totalProjects={items.length} onNext={() => navigateProject('next')} onPrev={() => navigateProject('prev')} onClose={() => setSelectedProject(null)} />}
-
-      <style>{`
-        .line-clamp-2 {
-          display: -webkit-box;
-          -webkit-line-clamp: 2;
-          -webkit-box-orient: vertical;
-          overflow: hidden;
-        }
-        .line-clamp-3 {
-          display: -webkit-box;
-          -webkit-line-clamp: 3;
-          -webkit-box-orient: vertical;
-          overflow: hidden;
-        }
-        .line-clamp-4 {
-          display: -webkit-box;
-          -webkit-line-clamp: 4;
-          -webkit-box-orient: vertical;
-          overflow: hidden;
-        }
-      `}</style>
-    </section>
+        {selectedProject && <DetailModal project={selectedProject.project} index={selectedProject.index} totalProjects={items.length} onNext={() => navigateProject('next')} onPrev={() => navigateProject('prev')} onClose={() => setSelectedProject(null)} />}
+      </section>
+      <ChatWidget />
+    </>
   );
 }

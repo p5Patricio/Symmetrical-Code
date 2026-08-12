@@ -225,3 +225,21 @@ body {
 .animate-bounce {
   animation: bounce 2s ease-in-out infinite;
 }
+
+/* Eliminar scroll horizontal */
+html, body {
+  overflow-x: hidden;
+  max-width: 100%;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Para contenedores específicos */
+.container {
+  overflow-x: hidden;
+  width: 100%;
+}
