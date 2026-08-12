@@ -5,7 +5,6 @@ import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
 import HeroSection from './components/sections/HeroSection';
 import ServicesSection from './components/sections/ServicesSection';
-import DeviceShowcase from './components/sections/DeviceShowcase';
 import TeamSection from './components/sections/TeamSection';
 import ProjectsPage from './pages/ProjectsPage';
 import ChatWidget from './components/chat/ChatWidget';
@@ -27,7 +26,6 @@ function App() {
             <Navbar />
             <HeroSection />
             <ServicesSection />
-            <DeviceShowcase />
             <ProjectsPage />
             <TeamSection />
             <ChatWidget />

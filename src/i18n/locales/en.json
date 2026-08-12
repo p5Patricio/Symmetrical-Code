@@ -3,7 +3,9 @@
     "home": "Home",
     "projects": "Projects",
     "services": "Services",
-    "team": "Studio"
+    "team": "Studio",
+    "contact": "Contact"
+
   },
   "hero": {
     "label": "Software Development Studio",
