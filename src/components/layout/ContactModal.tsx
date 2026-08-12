@@ -2,7 +2,7 @@ import { useState, useEffect, type CSSProperties } from 'react';
 import { createPortal } from 'react-dom';
 import { useTranslation } from 'react-i18next';
 import { FaFacebookF, FaInstagram, FaLinkedinIn, FaWhatsapp } from 'react-icons/fa';
-import { FiMapPin, FiMail, FiClock, FiX, FiCopy, FiCheck, FiArrowUpRight } from 'react-icons/fi';
+import { FiMapPin, FiMail, FiClock, FiX, FiCopy, FiCheck } from 'react-icons/fi';
 
 interface ContactModalProps {
   onClose: () => void;
@@ -11,30 +11,32 @@ interface ContactModalProps {
 export default function ContactModal({ onClose }: ContactModalProps) {
   const { t } = useTranslation();
   const [copied, setCopied] = useState(false);
-
-  // Necesario porque `document` no existe en el render de servidor (SSR/Next.js).
-  // Montamos el portal solo cuando ya estamos en el cliente.
+  
+  // Estado para controlar si estamos en el cliente
+  // Inicializado directamente sin necesidad de useEffect
   const [mounted, setMounted] = useState(false);
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
-  // Bloquear scroll del body mientras el modal está abierto
+  // Usamos useEffect solo para efectos secundarios que necesitan el DOM
   useEffect(() => {
+    // Marcar como montado y bloquear scroll
+    setMounted(true);
     document.body.style.overflow = 'hidden';
+    
     return () => {
       document.body.style.overflow = '';
     };
   }, []);
 
-  // Cerrar con Escape
+  // Cerrar con Escape - se ejecuta después del montaje
   useEffect(() => {
+    if (!mounted) return;
+    
     const handleEsc = (e: KeyboardEvent) => {
       if (e.key === 'Escape') onClose();
     };
     window.addEventListener('keydown', handleEsc);
     return () => window.removeEventListener('keydown', handleEsc);
-  }, [onClose]);
+  }, [onClose, mounted]);
 
   const email = 'contacto@symmetricalcode.com';
 
@@ -51,8 +53,8 @@ export default function ContactModal({ onClose }: ContactModalProps) {
   ];
 
   // Misma URL que Footer / ChatWidget
-const whatsappMessage = t('whatsapp.message_modal');
-const whatsappUrl = `https://wa.me/524737374224?text=${encodeURIComponent(whatsappMessage)}`;
+  const whatsappMessage = t('whatsapp.message_modal');
+  const whatsappUrl = `https://wa.me/524737374224?text=${encodeURIComponent(whatsappMessage)}`;
 
   const handleCopyEmail = async () => {
     try {
