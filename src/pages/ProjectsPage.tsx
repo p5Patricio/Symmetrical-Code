@@ -214,9 +214,20 @@ export default function Projects({ isFullPage = false }: { isFullPage?: boolean 
     return () => el.removeEventListener('scroll', handler);
   }, [isFullPage]);
 
+  // ✅ CORREGIDO: Calcula el ancho de la barra de scroll y añade padding para evitar que la página se mueva
   useEffect(() => {
-    document.body.style.overflow = (isFullPage || !!selectedProject) ? 'hidden' : '';
-    return () => { document.body.style.overflow = ''; };
+    if (isFullPage || !!selectedProject) {
+      const scrollBarWidth = window.innerWidth - document.documentElement.clientWidth;
+      document.body.style.overflow = 'hidden';
+      document.body.style.paddingRight = `${scrollBarWidth}px`;
+    } else {
+      document.body.style.overflow = '';
+      document.body.style.paddingRight = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+      document.body.style.paddingRight = '';
+    };
   }, [isFullPage, selectedProject]);
 
   const handleNavigation = (id: string) => {
