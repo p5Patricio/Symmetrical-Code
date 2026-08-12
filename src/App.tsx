@@ -5,6 +5,10 @@ import Footer from './components/layout/Footer';
 import HeroSection from './components/sections/HeroSection';
 import ServicesSection from './components/sections/ServicesSection';
 import DeviceShowcase from './components/sections/DeviceShowcase';
+// ✅ EXISTE: TeamSection
+import TeamSection from './components/sections/TeamSection';
+// ✅ EXISTE: ProjectsPage
+import ProjectsPage from './pages/ProjectsPage';
 
 function App() {
   const { i18n } = useTranslation();
@@ -21,6 +25,13 @@ function App() {
       <HeroSection />
       <ServicesSection />
       <DeviceShowcase />
+      
+      {/* ✅ SECCIÓN DE PROYECTOS (desde ProjectsPage) */}
+      <ProjectsPage />
+      
+      {/* ✅ SECCIÓN DE EQUIPO */}
+      <TeamSection />
+      
       <Footer />
     </>
   );
