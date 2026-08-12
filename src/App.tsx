@@ -1,19 +1,28 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
+import { useTranslation } from 'react-i18next';
 import Navbar from './components/layout/Navbar';
-import ChatWidget from './components/chat/ChatWidget';
-import HomePage from './pages/HomePage';
-import ProjectsPage from './pages/ProjectsPage';
+import Footer from './components/layout/Footer';
+import HeroSection from './components/sections/HeroSection';
+import ServicesSection from './components/sections/ServicesSection';
+import DeviceShowcase from './components/sections/DeviceShowcase';
 
 function App() {
+  const { i18n } = useTranslation();
+  const currentLang = i18n.language;
+
   return (
-    <Router>
+    <>
+      <Helmet>
+        <html lang={currentLang} />
+        {/* Solo actualizamos el idioma, el resto ya está en index.html */}
+      </Helmet>
+      
       <Navbar />
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/proyectos" element={<ProjectsPage isFullPage={true} />} />
-      </Routes>
-      <ChatWidget />
-    </Router>
+      <HeroSection />
+      <ServicesSection />
+      <DeviceShowcase />
+      <Footer />
+    </>
   );
 }
 

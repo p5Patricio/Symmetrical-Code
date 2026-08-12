@@ -148,7 +148,7 @@ export default function GalleryNavbar({
         >
           <div className="mb-6 flex flex-col items-center">
             <img
-              src="/logo.webp"
+              src="/logo.png"
               alt="Symmetrical Code"
               className="h-16 w-auto mb-3 drop-shadow-[0_0_20px_rgba(0,229,255,0.4)]"
             />
