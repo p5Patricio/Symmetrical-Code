@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 
 const WhatsAppIcon = () => (
@@ -16,6 +16,9 @@ export default function ChatWidget({ forceVisible = false }: ChatWidgetProps) {
   const [hovered, setHovered] = useState(false);
   const [showTooltip, setShowTooltip] = useState(false);
   const [footerVisible, setFooterVisible] = useState(false);
+  const [isDismissed, setIsDismissed] = useState(true); // Por defecto true para evitar flash
+  const [isInitialized, setIsInitialized] = useState(false);
+  const tooltipRef = useRef<HTMLDivElement>(null);
 
   const checkFooter = useCallback(() => {
     const footer = document.querySelector('footer');
@@ -43,24 +46,73 @@ export default function ChatWidget({ forceVisible = false }: ChatWidgetProps) {
   }, [checkFooter, forceVisible]);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      const dismissed = sessionStorage.getItem('whatsapp_tooltip_dismissed');
-      if (!dismissed) setShowTooltip(true);
-    }, 2000);
-    return () => clearTimeout(timer);
+    // Leer sessionStorage al inicio
+    const dismissed = sessionStorage.getItem('whatsapp_tooltip_dismissed');
+    
+    if (dismissed === 'true') {
+      setIsDismissed(true);
+      setShowTooltip(false);
+      setIsInitialized(true);
+    } else {
+      setIsDismissed(false);
+      // Mostrar el tooltip después de 2 segundos solo si no está descartado
+      const timer = setTimeout(() => {
+        // Verificar nuevamente antes de mostrar
+        const stillDismissed = sessionStorage.getItem('whatsapp_tooltip_dismissed');
+        if (stillDismissed !== 'true') {
+          setShowTooltip(true);
+        }
+        setIsInitialized(true);
+      }, 2000);
+      
+      return () => clearTimeout(timer);
+    }
   }, []);
 
-  const handleDismiss = (e: React.MouseEvent) => {
+  // Manejar clicks fuera del tooltip en celular
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent | TouchEvent) => {
+      if (showTooltip && !isDismissed && tooltipRef.current) {
+        const target = e.target as Node;
+        // Verificar si el click fue fuera del tooltip y no en el botón de WhatsApp
+        if (!tooltipRef.current.contains(target)) {
+          const whatsappBtn = document.querySelector('a[aria-label="WhatsApp"]');
+          if (whatsappBtn && !whatsappBtn.contains(target)) {
+            // Solo cerramos si no fue en el botón de WhatsApp
+            setShowTooltip(false);
+            setIsDismissed(true);
+            sessionStorage.setItem('whatsapp_tooltip_dismissed', 'true');
+          }
+        }
+      }
+    };
+
+    if (showTooltip && !isDismissed) {
+      document.addEventListener('click', handleClickOutside);
+      document.addEventListener('touchstart', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('click', handleClickOutside);
+      document.removeEventListener('touchstart', handleClickOutside);
+    };
+  }, [showTooltip, isDismissed]);
+
+  const handleDismiss = (e: React.MouseEvent | React.TouchEvent) => {
     e.preventDefault();
     e.stopPropagation();
     setShowTooltip(false);
+    setIsDismissed(true);
     sessionStorage.setItem('whatsapp_tooltip_dismissed', 'true');
   };
 
-const whatsappMessage = t('whatsapp.message_chatwidget');
-const whatsappUrl = `https://wa.me/524737374224?text=${encodeURIComponent(whatsappMessage)}`;
+  const whatsappMessage = t('whatsapp.message_chatwidget');
+  const whatsappUrl = `https://wa.me/524737374224?text=${encodeURIComponent(whatsappMessage)}`;
 
   const isVisible = forceVisible ? true : !footerVisible;
+  
+  // El tooltip solo se muestra si está inicializado, no está descartado y showTooltip es true
+  const shouldShowTooltip = isInitialized && showTooltip && !isDismissed;
 
   return (
     <div
@@ -73,19 +125,34 @@ const whatsappUrl = `https://wa.me/524737374224?text=${encodeURIComponent(whatsa
       }}
     >
       <div
+        ref={tooltipRef}
         className={`
           relative bg-[#070d14] border border-[rgba(0,229,255,0.3)] px-4 py-2.5 rounded-xl
           shadow-[0_10px_30px_rgba(0,0,0,0.5)]
           transition-all duration-300 ease-out
-          ${(showTooltip || hovered)
+          ${(shouldShowTooltip || hovered)
             ? 'opacity-100 translate-x-0 pointer-events-auto'
             : 'opacity-0 translate-x-4 pointer-events-none'}
         `}
+        style={{
+          pointerEvents: (shouldShowTooltip || hovered) ? 'auto' : 'none',
+        }}
       >
         <button
           onClick={handleDismiss}
-          className="absolute -top-2 -right-2 w-5 h-5 bg-[#020408] border border-white/10 rounded-full flex items-center justify-center text-[10px] text-white/40 hover:text-white hover:border-[#00e5ff]/40 transition-colors"
+          onTouchEnd={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            handleDismiss(e);
+          }}
+          className="absolute -top-2 -right-2 w-5 h-5 bg-[#020408] border border-white/10 rounded-full flex items-center justify-center text-[10px] text-white/40 hover:text-white hover:border-[#00e5ff]/40 transition-colors z-10"
           aria-label="Cerrar aviso"
+          type="button"
+          style={{
+            pointerEvents: 'auto',
+            cursor: 'pointer',
+            touchAction: 'manipulation',
+          }}
         >
           ✕
         </button>
@@ -100,14 +167,28 @@ const whatsappUrl = `https://wa.me/524737374224?text=${encodeURIComponent(whatsa
         rel="noopener noreferrer"
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
+        onTouchStart={() => {
+          // En celular, al tocar el botón de WhatsApp, ocultamos el tooltip
+          if (showTooltip && !isDismissed) {
+            setShowTooltip(false);
+            setIsDismissed(true);
+            sessionStorage.setItem('whatsapp_tooltip_dismissed', 'true');
+          }
+        }}
         className="
           w-14 h-14 rounded-full shrink-0
           flex items-center justify-center
           transition-all duration-300 ease-out
           bg-gradient-to-br from-[#00e5ff] to-[#1565ff] text-[#020408]
           hover:scale-110 hover:shadow-[0_0_40px_rgba(0,229,255,0.5)]
+          active:scale-95
         "
         aria-label="WhatsApp"
+        style={{
+          pointerEvents: 'auto',
+          cursor: 'pointer',
+          touchAction: 'manipulation',
+        }}
       >
         <WhatsAppIcon />
       </a>
