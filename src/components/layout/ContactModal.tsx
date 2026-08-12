@@ -143,6 +143,7 @@ const whatsappUrl = `https://wa.me/524737374224?text=${encodeURIComponent(whatsa
             </div>
           </div>
 
+          {/* SECCIÓN DE PROYECTO CON BOTÓN DE WHATSAPP CENTRADO */}
           <div className="contact-modal-project">
             <div className="contact-modal-project-top">
               <span className="contact-modal-project-badge">{t('footer.project_sub')}</span>
@@ -154,20 +155,20 @@ const whatsappUrl = `https://wa.me/524737374224?text=${encodeURIComponent(whatsa
             <p className="contact-modal-project-headline">{t('footer.project_headline')}</p>
             <p className="contact-modal-project-desc">{t('footer.project_desc')}</p>
 
-            <a
-              href={whatsappUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="contact-modal-cta"
-            >
-              <span className="contact-modal-cta-left">
+            {/* BOTÓN DE WHATSAPP CENTRADO */}
+            <div className="contact-modal-whatsapp-wrapper">
+              <a
+                href={whatsappUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="contact-modal-cta"
+              >
                 <span className="contact-modal-cta-icon">
                   <FaWhatsapp size={16} />
                 </span>
                 <span>{t('footer.cta')}</span>
-              </span>
-              <FiArrowUpRight size={16} />
-            </a>
+              </a>
+            </div>
           </div>
         </div>
       </div>
@@ -551,10 +552,18 @@ const whatsappUrl = `https://wa.me/524737374224?text=${encodeURIComponent(whatsa
           margin: 0 0 16px 0;
         }
 
+        /* WRAPPER PARA CENTRAR EL BOTÓN DE WHATSAPP */
+        .contact-modal-whatsapp-wrapper {
+          display: flex;
+          justify-content: center;
+          width: 100%;
+        }
+
+        /* BOTÓN DE WHATSAPP CENTRADO */
         .contact-modal-cta {
           display: flex;
           align-items: center;
-          justify-content: space-between;
+          justify-content: center;
           gap: 10px;
           font-family: 'Inter', system-ui, sans-serif;
           font-size: 13.5px;
@@ -567,13 +576,11 @@ const whatsappUrl = `https://wa.me/524737374224?text=${encodeURIComponent(whatsa
           transition: all 0.25s ease;
           box-shadow: 0 4px 14px rgba(0, 229, 255, 0.25);
           width: 100%;
+          max-width: 320px;
           box-sizing: border-box;
-        }
-
-        .contact-modal-cta-left {
-          display: flex;
-          align-items: center;
-          gap: 10px;
+          margin: 0 auto;
+          border: none;
+          cursor: pointer;
         }
 
         .contact-modal-cta-icon {
@@ -643,6 +650,10 @@ const whatsappUrl = `https://wa.me/524737374224?text=${encodeURIComponent(whatsa
           .contact-modal-social-link {
             flex: 1 1 auto;
             justify-content: center;
+          }
+
+          .contact-modal-cta {
+            max-width: 100%;
           }
         }
 
