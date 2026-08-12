@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useRef } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 
 const WhatsAppIcon = () => (
@@ -16,22 +16,6 @@ export default function ChatWidget({ forceVisible = false }: ChatWidgetProps) {
   const [hovered, setHovered] = useState(false);
   const [showTooltip, setShowTooltip] = useState(false);
   const [footerVisible, setFooterVisible] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
-  const tooltipRef = useRef<HTMLDivElement>(null);
-  
-  // Estado para controlar si estamos esperando el segundo toque
-  const [waitingForSecondTap, setWaitingForSecondTap] = useState(false);
-  const timerRef = useRef<number | null>(null);
-
-  // Detectar si es móvil
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
-  }, []);
 
   const checkFooter = useCallback(() => {
     const footer = document.querySelector('footer');
@@ -48,133 +32,35 @@ export default function ChatWidget({ forceVisible = false }: ChatWidgetProps) {
       return;
     }
 
-    const timeoutId = setTimeout(() => {
-      checkFooter();
-    }, 0);
-
+    checkFooter();
     window.addEventListener('scroll', checkFooter, { passive: true });
     window.addEventListener('resize', checkFooter, { passive: true });
     
     return () => {
-      clearTimeout(timeoutId);
       window.removeEventListener('scroll', checkFooter);
       window.removeEventListener('resize', checkFooter);
     };
   }, [checkFooter, forceVisible]);
 
-  // Mostrar tooltip inicial después de 2 segundos
   useEffect(() => {
     const timer = setTimeout(() => {
       const dismissed = sessionStorage.getItem('whatsapp_tooltip_dismissed');
-      if (!dismissed) {
-        setShowTooltip(true);
-        setWaitingForSecondTap(true);
-      }
+      if (!dismissed) setShowTooltip(true);
     }, 2000);
     return () => clearTimeout(timer);
   }, []);
 
-  // Cerrar tooltip al hacer clic fuera
-  useEffect(() => {
-    const handleClickOutside = (e: MouseEvent | TouchEvent) => {
-      const target = e.target as Node;
-      const whatsappBtn = document.querySelector('button[aria-label="WhatsApp"]');
-      
-      if (whatsappBtn && whatsappBtn.contains(target)) {
-        return;
-      }
-      
-      if (tooltipRef.current && tooltipRef.current.contains(target)) {
-        return;
-      }
-      
-      if (showTooltip) {
-        setShowTooltip(false);
-        setWaitingForSecondTap(false);
-        if (timerRef.current) {
-          clearTimeout(timerRef.current);
-          timerRef.current = null;
-        }
-        sessionStorage.setItem('whatsapp_tooltip_dismissed', 'true');
-      }
-    };
-
-    if (showTooltip) {
-      document.addEventListener('click', handleClickOutside);
-      document.addEventListener('touchstart', handleClickOutside, { passive: true });
-    }
-
-    return () => {
-      document.removeEventListener('click', handleClickOutside);
-      document.removeEventListener('touchstart', handleClickOutside);
-    };
-  }, [showTooltip]);
-
-  const whatsappMessage = t('whatsapp.message_chatwidget');
-  const whatsappUrl = `https://wa.me/524737374224?text=${encodeURIComponent(whatsappMessage)}`;
-
-  const isVisible = forceVisible ? true : !footerVisible;
-
-  // Manejar clic en el botón de WhatsApp
-  const handleWhatsAppClick = (e: React.MouseEvent | React.TouchEvent) => {
+  const handleDismiss = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    
-    console.log('Click detectado - showTooltip:', showTooltip, 'waitingForSecondTap:', waitingForSecondTap, 'isMobile:', isMobile);
-    
-    // En desktop: abrir directamente
-    if (!isMobile) {
-      window.open(whatsappUrl, '_blank');
-      return;
-    }
-    
-    // En móvil:
-    // CASO 1: El tooltip está visible y estamos esperando el segundo toque
-    if (showTooltip && waitingForSecondTap) {
-      console.log('SEGUNDO TOQUE - Abriendo WhatsApp');
-      // Abrir WhatsApp
-      window.open(whatsappUrl, '_blank');
-      // Resetear estados
-      setShowTooltip(false);
-      setWaitingForSecondTap(false);
-      sessionStorage.setItem('whatsapp_tooltip_dismissed', 'true');
-      if (timerRef.current) {
-        clearTimeout(timerRef.current);
-        timerRef.current = null;
-      }
-      return;
-    }
-    
-    // CASO 2: El tooltip NO está visible, lo mostramos (primer toque)
-    if (!showTooltip) {
-      console.log('PRIMER TOQUE - Mostrando tooltip');
-      setShowTooltip(true);
-      setWaitingForSecondTap(true);
-      
-      // Auto-cerrar después de 3 segundos si no hay segundo toque
-      if (timerRef.current) {
-        clearTimeout(timerRef.current);
-      }
-      timerRef.current = window.setTimeout(() => {
-        console.log('Timeout - Cerrando tooltip por inactividad');
-        setShowTooltip(false);
-        setWaitingForSecondTap(false);
-        timerRef.current = null;
-      }, 3000);
-      return;
-    }
-    
-    // CASO 3: El tooltip está visible pero no estamos esperando (estado inconsistente)
-    if (showTooltip && !waitingForSecondTap) {
-      console.log('Estado inconsistente - Reiniciando');
-      setShowTooltip(false);
-      setWaitingForSecondTap(false);
-      if (timerRef.current) {
-        clearTimeout(timerRef.current);
-        timerRef.current = null;
-      }
-    }
+    setShowTooltip(false);
+    sessionStorage.setItem('whatsapp_tooltip_dismissed', 'true');
   };
+
+const whatsappMessage = t('whatsapp.message_chatwidget');
+const whatsappUrl = `https://wa.me/524737374224?text=${encodeURIComponent(whatsappMessage)}`;
+
+  const isVisible = forceVisible ? true : !footerVisible;
 
   return (
     <div
@@ -187,7 +73,6 @@ export default function ChatWidget({ forceVisible = false }: ChatWidgetProps) {
       }}
     >
       <div
-        ref={tooltipRef}
         className={`
           relative bg-[#070d14] border border-[rgba(0,229,255,0.3)] px-4 py-2.5 rounded-xl
           shadow-[0_10px_30px_rgba(0,0,0,0.5)]
@@ -196,17 +81,23 @@ export default function ChatWidget({ forceVisible = false }: ChatWidgetProps) {
             ? 'opacity-100 translate-x-0 pointer-events-auto'
             : 'opacity-0 translate-x-4 pointer-events-none'}
         `}
-        style={{
-          pointerEvents: (showTooltip || hovered) ? 'auto' : 'none',
-        }}
       >
-        <p className="text-white text-[11px] font-mono tracking-wider whitespace-nowrap select-none">
+        <button
+          onClick={handleDismiss}
+          className="absolute -top-2 -right-2 w-5 h-5 bg-[#020408] border border-white/10 rounded-full flex items-center justify-center text-[10px] text-white/40 hover:text-white hover:border-[#00e5ff]/40 transition-colors"
+          aria-label="Cerrar aviso"
+        >
+          ✕
+        </button>
+        <p className="text-white text-[11px] font-mono tracking-wider whitespace-nowrap pr-2">
           {t('contact.whatsapp_tooltip', { defaultValue: 'Contáctanos por WhatsApp' })}
         </p>
       </div>
 
-      <button
-        onClick={handleWhatsAppClick}
+      <a
+        href={whatsappUrl}
+        target="_blank"
+        rel="noopener noreferrer"
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
         className="
@@ -215,18 +106,11 @@ export default function ChatWidget({ forceVisible = false }: ChatWidgetProps) {
           transition-all duration-300 ease-out
           bg-gradient-to-br from-[#00e5ff] to-[#1565ff] text-[#020408]
           hover:scale-110 hover:shadow-[0_0_40px_rgba(0,229,255,0.5)]
-          active:scale-95
         "
         aria-label="WhatsApp"
-        type="button"
-        style={{
-          touchAction: 'manipulation',
-          WebkitTapHighlightColor: 'transparent',
-          userSelect: 'none',
-        }}
       >
         <WhatsAppIcon />
-      </button>
+      </a>
     </div>
   );
 }
