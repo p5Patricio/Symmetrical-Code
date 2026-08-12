@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import ContactModal from './ContactModal';
 
 const ArrowLeftIcon = () => (
   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
@@ -21,6 +22,7 @@ export default function GalleryNavbar({
   const { t, i18n } = useTranslation();
   const lang = i18n.language;
   const [menuOpen, setMenuOpen] = useState(false);
+  const [contactOpen, setContactOpen] = useState(false);
 
   useEffect(() => {
     const handleScrollClose = () => {
@@ -48,6 +50,9 @@ export default function GalleryNavbar({
     { key: 'nav.team', id: 'team' },
   ];
 
+  // Misma clase de tamaño de letra que el Navbar principal
+  const navLinkTextClass = 'text-[11px] lg:text-[12px]';
+
   const handleNavigate = (id: string) => {
     onNavigate(id);
     setMenuOpen(false);
@@ -59,6 +64,11 @@ export default function GalleryNavbar({
       const el = document.getElementById('projects');
       if (el) el.scrollIntoView({ behavior: 'smooth' });
     }, 300);
+  };
+
+  const openContact = () => {
+    setMenuOpen(false);
+    setContactOpen(true);
   };
 
   return (
@@ -86,7 +96,7 @@ export default function GalleryNavbar({
               <button 
                 key={link.id} 
                 onClick={() => handleNavigate(link.id)}
-                className={`relative font-mono text-[11px] tracking-[0.15em] uppercase px-3 lg:px-4 py-1.5 rounded-full transition-all duration-200 ${
+                className={`relative font-mono ${navLinkTextClass} tracking-[0.15em] uppercase px-3 lg:px-4 py-1.5 rounded-full transition-all duration-200 ${
                   link.id === activeSection 
                     ? 'text-[#00e5ff]' 
                     : 'text-white/70 hover:text-white hover:bg-white/10'
@@ -98,6 +108,14 @@ export default function GalleryNavbar({
                 )}
               </button>
             ))}
+
+            {/* Contacto */}
+            <button
+              onClick={openContact}
+              className={`relative font-mono ${navLinkTextClass} tracking-[0.15em] uppercase px-3 lg:px-4 py-1.5 rounded-full transition-all duration-200 text-white/70 hover:text-white hover:bg-white/10`}
+            >
+              {t('nav.contact')}
+            </button>
           </div>
 
           {/* Right: Controls + Hamburger */}
@@ -175,6 +193,14 @@ export default function GalleryNavbar({
                 {t(link.key)}
               </button>
             ))}
+
+            {/* Contacto */}
+            <button
+              onClick={openContact}
+              className="w-full text-center font-mono text-sm tracking-[0.15em] uppercase py-3 px-6 rounded-full transition-all duration-300 text-white/60 hover:text-white hover:bg-white/10"
+            >
+              {t('nav.contact')}
+            </button>
           </div>
 
           <div className="w-12 h-px bg-white/20 my-4" />
@@ -191,6 +217,9 @@ export default function GalleryNavbar({
           </p>
         </div>
       </div>
+
+      {/* Modal de contacto */}
+      {contactOpen && <ContactModal onClose={() => setContactOpen(false)} />}
     </>
   );
 }

@@ -263,7 +263,13 @@
     "cookies_s5_title": "Consentimiento",
     "cookies_s5_body": "Al continuar utilizando nuestro sitio web, usted acepta el uso de cookies de acuerdo con esta política.",
     "cookies_s6_title": "Configuración del navegador",
-    "cookies_s6_body": "Puede configurar su navegador para rechazar todas las cookies o para que le avise cuando se envía una cookie. Cada navegador tiene diferentes procedimientos para gestionar las cookies."
+    "cookies_s6_body": "Puede configurar su navegador para rechazar todas las cookies o para que le avise cuando se envía una cookie. Cada navegador tiene diferentes procedimientos para gestionar las cookies.",
+    "contact_subtitle": "Estamos aquí para ayudarte",
+    "contact_email_label": "Email",
+    "contact_schedule_label": "Horario",
+    "contact_location_label": "Ubicación",
+    "contact_copy_email": "Copiar email",
+     "contact_online": "En línea"
   },
   "contact": {
     "label": "Contactar",

@@ -1,11 +1,13 @@
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import ContactModal from './ContactModal';
 
 export default function Navbar() {
   const { t, i18n } = useTranslation();
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
+  const [contactOpen, setContactOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -56,12 +58,20 @@ export default function Navbar() {
     setMenuOpen(false);
   };
 
+  const openContact = () => {
+    setMenuOpen(false);
+    setContactOpen(true);
+  };
+
   const navLinks = [
     { key: 'nav.home', id: 'home' },
     { key: 'nav.services', id: 'services' },
     { key: 'nav.projects', id: 'projects' },
     { key: 'nav.team', id: 'team' },
   ];
+
+  // Clase de tamaño de letra compartida por TODOS los enlaces del navbar (desktop)
+  const navLinkTextClass = 'text-[11px] lg:text-[12px]';
 
   return (
     <>
@@ -94,7 +104,7 @@ export default function Navbar() {
               <button
                 key={link.id}
                 onClick={() => scrollTo(link.id)}
-                className={`relative font-mono text-[11px] lg:text-[12px] tracking-[0.15em] uppercase px-3 lg:px-4 py-1.5 rounded-full transition-all duration-200 ${
+                className={`relative font-mono ${navLinkTextClass} tracking-[0.15em] uppercase px-3 lg:px-4 py-1.5 rounded-full transition-all duration-200 ${
                   activeSection === link.id
                     ? 'text-[#00e5ff]'
                     : 'text-white/70 hover:text-white hover:bg-white/10'
@@ -107,6 +117,14 @@ export default function Navbar() {
                 )}
               </button>
             ))}
+
+            {/* Contacto */}
+            <button
+              onClick={openContact}
+              className={`relative font-mono ${navLinkTextClass} tracking-[0.15em] uppercase px-3 lg:px-4 py-1.5 rounded-full transition-all duration-200 text-white/70 hover:text-white hover:bg-white/10`}
+            >
+              {t('nav.contact')}
+            </button>
           </div>
 
           {/* Right Controls - derecha */}
@@ -184,6 +202,14 @@ export default function Navbar() {
                 {t(link.key)}
               </button>
             ))}
+
+            {/* Contacto */}
+            <button
+              onClick={openContact}
+              className="w-full text-center font-mono text-sm tracking-[0.15em] uppercase py-3 px-6 rounded-full transition-all duration-300 text-white/60 hover:text-white hover:bg-white/10"
+            >
+              {t('nav.contact')}
+            </button>
           </div>
 
           {/* Separador */}
@@ -203,6 +229,9 @@ export default function Navbar() {
           </p>
         </div>
       </div>
+
+      {/* Modal de contacto */}
+      {contactOpen && <ContactModal onClose={() => setContactOpen(false)} />}
     </>
   );
 }
