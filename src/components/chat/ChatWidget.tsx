@@ -18,8 +18,6 @@ export default function ChatWidget({ forceVisible = false }: ChatWidgetProps) {
   const [footerVisible, setFooterVisible] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const tooltipRef = useRef<HTMLDivElement>(null);
-  
-  // Ref para contar clicks en móvil
   const clickCountRef = useRef(0);
   const clickTimerRef = useRef<number | null>(null);
 
@@ -66,9 +64,7 @@ export default function ChatWidget({ forceVisible = false }: ChatWidgetProps) {
   useEffect(() => {
     const timer = setTimeout(() => {
       const dismissed = sessionStorage.getItem('whatsapp_tooltip_dismissed');
-      if (!dismissed) {
-        setShowTooltip(true);
-      }
+      if (!dismissed) setShowTooltip(true);
     }, 2000);
     return () => clearTimeout(timer);
   }, []);
@@ -77,7 +73,7 @@ export default function ChatWidget({ forceVisible = false }: ChatWidgetProps) {
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent | TouchEvent) => {
       const target = e.target as Node;
-      const whatsappBtn = document.querySelector('a[aria-label="WhatsApp"]');
+      const whatsappBtn = document.querySelector('button[aria-label="WhatsApp"]');
       
       if (whatsappBtn && whatsappBtn.contains(target)) {
         return;
@@ -89,7 +85,6 @@ export default function ChatWidget({ forceVisible = false }: ChatWidgetProps) {
       
       if (showTooltip) {
         setShowTooltip(false);
-        // Resetear el contador de clicks
         clickCountRef.current = 0;
         if (clickTimerRef.current) {
           clearTimeout(clickTimerRef.current);
