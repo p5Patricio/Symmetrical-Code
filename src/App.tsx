@@ -1,6 +1,6 @@
 import { Helmet } from 'react-helmet-async';
 import { useTranslation } from 'react-i18next';
-import { Routes, Route } from 'react-router-dom';  // ✅ SOLO Routes y Route, NO BrowserRouter
+import { Routes, Route } from 'react-router-dom';
 import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
 import HeroSection from './components/sections/HeroSection';
@@ -18,9 +18,9 @@ function App() {
       <Helmet>
         <html lang={currentLang} />
       </Helmet>
-      
-      {/* ✅ SIN BrowserRouter (ya está en main.tsx) */}
+
       <Routes>
+        {/* Ruta principal */}
         <Route path="/" element={
           <>
             <Navbar />
@@ -32,7 +32,15 @@ function App() {
             <Footer />
           </>
         } />
-        <Route path="/proyectos" element={<ProjectsPage isFullPage={true} />} />
+
+        {/* ✅ Ruta de la galería completa de proyectos */}
+        <Route path="/proyectos" element={
+          <>
+            <Navbar /> {/* Necesario para navegación */}
+            <ProjectsPage isFullPage={true} />
+            <Footer />
+          </>
+        } />
       </Routes>
     </>
   );
