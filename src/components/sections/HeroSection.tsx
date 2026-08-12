@@ -445,7 +445,8 @@ function CodeToWebScene() {
 export default function Hero() {
   const { t } = useTranslation();
 
-  const whatsappUrl = "https://wa.me/XXXXXXXXXXX";
+const whatsappMessage = t('whatsapp.message_hero');
+const whatsappUrl = `https://wa.me/524737374224?text=${encodeURIComponent(whatsappMessage)}`;
 
   const principles = [
     { value: t('hero.stat_1_value'), label: t('hero.stat_1_label') },

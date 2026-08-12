@@ -51,7 +51,8 @@ export default function ContactModal({ onClose }: ContactModalProps) {
   ];
 
   // Misma URL que Footer / ChatWidget
-  const whatsappUrl = 'https://wa.me/XXXXXXXXXXX';
+const whatsappMessage = t('whatsapp.message_modal');
+const whatsappUrl = `https://wa.me/524737374224?text=${encodeURIComponent(whatsappMessage)}`;
 
   const handleCopyEmail = async () => {
     try {

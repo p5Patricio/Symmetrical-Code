@@ -302,5 +302,11 @@
     "error_unknown": "Error desconocido del servidor",
     "error_connect": "No se pudo conectar con el servidor",
     "error_message": "⚠️ Lo siento, estoy teniendo problemas para conectarme. Por favor, asegurate de que el servidor esté corriendo en http://localhost:3001"
+  },
+  "whatsapp": {
+    "message_chatwidget": "¡¡Hola!! Estoy visitando su sitio web y me gustaría más información sobre sus servicios.",
+    "message_hero": "¡¡Hola!! Vi su página principal y me interesa platicar sobre un proyecto.",
+    "message_footer": "¡¡Hola!! Los contacté desde su sitio web, me gustaría más información sobre sus servicios.",
+    "message_modal": "¡¡Hola!! Me interesa el proyecto que describen, ¿podemos platicar?"
   }
 }

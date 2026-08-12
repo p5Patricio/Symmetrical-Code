@@ -303,5 +303,11 @@
     "error_unknown": "Unknown server error",
     "error_connect": "Could not connect to the server",
     "error_message": "⚠️ Sorry, I'm having trouble connecting. Please make sure the server is running at http://localhost:3001"
+  },
+  "whatsapp": {
+    "message_chatwidget": "Hi there! I'm on your website and would like more information about your services.",
+    "message_hero": "Hi there! I saw your homepage and I'm interested in discussing a project.",
+    "message_footer": "Hi there! I found you through your website, I'd like more information about your services.",
+    "message_modal": "Hi there! I'm interested in the project you describe, can we talk?"
   }
 }

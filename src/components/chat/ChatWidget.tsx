@@ -57,7 +57,8 @@ export default function ChatWidget({ forceVisible = false }: ChatWidgetProps) {
     sessionStorage.setItem('whatsapp_tooltip_dismissed', 'true');
   };
 
-  const whatsappUrl = "https://wa.me/XXXXXXXXXXX";
+const whatsappMessage = t('whatsapp.message_chatwidget');
+const whatsappUrl = `https://wa.me/524737374224?text=${encodeURIComponent(whatsappMessage)}`;
 
   const isVisible = forceVisible ? true : !footerVisible;
 

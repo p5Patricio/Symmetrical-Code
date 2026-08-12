@@ -21,7 +21,8 @@ export default function Footer() {
   ];
 
   // Misma URL que ChatWidget
-  const whatsappUrl = "https://wa.me/XXXXXXXXXXX";
+const whatsappMessage = t('whatsapp.message_footer');
+const whatsappUrl = `https://wa.me/524737374224?text=${encodeURIComponent(whatsappMessage)}`;
 
   useEffect(() => {
     if (activeModal) {
