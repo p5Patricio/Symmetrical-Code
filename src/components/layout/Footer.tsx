@@ -46,107 +46,107 @@ export default function Footer() {
 
   const modalContent = {
     privacidad: {
-      titulo: t('footer.modal_privacy_title'),
+      titulo: 'Política de Privacidad',
       icon: FaShieldAlt,
-      fecha: t('footer.modal_last_updated'),
+      fecha: 'Última actualización: 19 de diciembre de 2023',
       contenido: (
         <>
           <div className="modal-section">
-            <h3>{t('footer.privacy_s1_title')}</h3>
-            <p>{t('footer.privacy_s1_body')}</p>
+            <h3>Información que recopilamos</h3>
+            <p>En Symmetrical Code, recopilamos información que usted nos proporciona directamente, como su nombre, correo electrónico, número de teléfono, y cualquier otra información que decida compartir con nosotros al utilizar nuestros servicios.</p>
           </div>
           <div className="modal-section">
-            <h3>{t('footer.privacy_s2_title')}</h3>
-            <p>{t('footer.privacy_s2_body')}</p>
+            <h3>Cómo usamos su información</h3>
+            <p>Utilizamos su información para mejorar nuestros servicios, responder a sus consultas, enviar comunicaciones sobre nuestros servicios, procesar transacciones, y proteger contra actividades fraudulentas.</p>
           </div>
           <div className="modal-section">
-            <h3>{t('footer.privacy_s3_title')}</h3>
-            <p>{t('footer.privacy_s3_body')}</p>
+            <h3>Cookies y tecnologías similares</h3>
+            <p>Utilizamos cookies y tecnologías similares para mejorar su experiencia en nuestro sitio, analizar el tráfico y personalizar el contenido. Puede controlar el uso de cookies a través de la configuración de su navegador.</p>
           </div>
           <div className="modal-section">
-            <h3>{t('footer.privacy_s4_title')}</h3>
-            <p>{t('footer.privacy_s4_body')}</p>
+            <h3>Compartir información con terceros</h3>
+            <p>No vendemos, alquilamos ni compartimos su información personal con terceros, excepto cuando sea necesario para cumplir con la ley, proteger nuestros derechos, o con su consentimiento explícito.</p>
           </div>
           <div className="modal-section">
-            <h3>{t('footer.privacy_s5_title')}</h3>
-            <p>{t('footer.privacy_s5_body')}</p>
+            <h3>Seguridad de los datos</h3>
+            <p>Implementamos medidas de seguridad técnicas y organizativas para proteger su información personal contra accesos no autorizados, alteración, divulgación o destrucción.</p>
           </div>
           <div className="modal-section">
-            <h3>{t('footer.privacy_s6_title')}</h3>
-            <p>{t('footer.privacy_s6_body')}</p>
+            <h3>Sus derechos</h3>
+            <p>Usted tiene derecho a acceder, rectificar, cancelar u oponerse al tratamiento de sus datos personales. Para ejercer estos derechos, contáctenos a través de nuestro correo electrónico.</p>
           </div>
           <div className="modal-section">
-            <h3>{t('footer.privacy_s7_title')}</h3>
-            <p>{t('footer.privacy_s7_body')}</p>
+            <h3>Cambios en esta política</h3>
+            <p>Nos reservamos el derecho de actualizar esta política de privacidad en cualquier momento. Le notificaremos sobre cambios significativos a través de nuestro sitio web o por correo electrónico.</p>
           </div>
         </>
       )
     },
     terminos: {
-      titulo: t('footer.modal_terms_title'),
+      titulo: 'Términos y Condiciones',
       icon: FaFileContract,
-      fecha: t('footer.modal_last_updated'),
+      fecha: 'Última actualización: 19 de diciembre de 2023',
       contenido: (
         <>
           <div className="modal-section">
-            <h3>{t('footer.terms_s1_title')}</h3>
-            <p>{t('footer.terms_s1_body')}</p>
+            <h3>Aceptación de los términos</h3>
+            <p>Al utilizar nuestros servicios, usted acepta cumplir con estos términos y condiciones. Si no está de acuerdo con alguna parte de los términos, no debe utilizar nuestros servicios.</p>
           </div>
           <div className="modal-section">
-            <h3>{t('footer.terms_s2_title')}</h3>
-            <p>{t('footer.terms_s2_body')}</p>
+            <h3>Descripción del servicio</h3>
+            <p>Symmetrical Code ofrece servicios de desarrollo de software, consultoría tecnológica y soluciones digitales personalizadas para empresas y emprendedores.</p>
           </div>
           <div className="modal-section">
-            <h3>{t('footer.terms_s3_title')}</h3>
-            <p>{t('footer.terms_s3_body')}</p>
+            <h3>Propiedad intelectual</h3>
+            <p>Todo el contenido, diseño, logotipos y materiales en nuestro sitio son propiedad de Symmetrical Code y están protegidos por leyes de propiedad intelectual.</p>
           </div>
           <div className="modal-section">
-            <h3>{t('footer.terms_s4_title')}</h3>
-            <p>{t('footer.terms_s4_body')}</p>
+            <h3>Limitación de responsabilidad</h3>
+            <p>Symmetrical Code no será responsable por daños indirectos, incidentales o consecuentes que surjan del uso o la imposibilidad de usar nuestros servicios.</p>
           </div>
           <div className="modal-section">
-            <h3>{t('footer.terms_s5_title')}</h3>
-            <p>{t('footer.terms_s5_body')}</p>
+            <h3>Enlaces a terceros</h3>
+            <p>Nuestro sitio puede contener enlaces a sitios web de terceros. No somos responsables del contenido o las prácticas de privacidad de estos sitios.</p>
           </div>
           <div className="modal-section">
-            <h3>{t('footer.terms_s6_title')}</h3>
-            <p>{t('footer.terms_s6_body')}</p>
+            <h3>Ley aplicable</h3>
+            <p>Estos términos se rigen por las leyes de México. Cualquier disputa será resuelta en los tribunales competentes de la Ciudad de México.</p>
           </div>
         </>
       )
     },
     cookies: {
-      titulo: t('footer.modal_cookies_title'),
+      titulo: 'Política de Cookies',
       icon: FaCookieBite,
-      fecha: t('footer.modal_last_updated'),
+      fecha: 'Última actualización: 19 de diciembre de 2023',
       contenido: (
         <>
           <div className="modal-section">
-            <h3>{t('footer.cookies_s1_title')}</h3>
-            <p>{t('footer.cookies_s1_body')}</p>
+            <h3>¿Qué son las cookies?</h3>
+            <p>Las cookies son pequeños archivos de texto que se almacenan en su dispositivo cuando visita un sitio web. Se utilizan para recordar sus preferencias y mejorar su experiencia de navegación.</p>
           </div>
           <div className="modal-section">
-            <h3>{t('footer.cookies_s2_title')}</h3>
-            <p><strong>{t('footer.cookies_s2_essential_label')}</strong> {t('footer.cookies_s2_essential_body')}</p>
-            <p><strong>{t('footer.cookies_s2_performance_label')}</strong> {t('footer.cookies_s2_performance_body')}</p>
-            <p><strong>{t('footer.cookies_s2_functional_label')}</strong> {t('footer.cookies_s2_functional_body')}</p>
-            <p><strong>{t('footer.cookies_s2_ads_label')}</strong> {t('footer.cookies_s2_ads_body')}</p>
+            <h3>Tipos de cookies que utilizamos</h3>
+            <p><strong>Cookies esenciales:</strong> Necesarias para el funcionamiento básico del sitio.</p>
+            <p><strong>Cookies de rendimiento:</strong> Nos ayudan a entender cómo los usuarios interactúan con nuestro sitio.</p>
+            <p><strong>Cookies funcionales:</strong> Recuerdan sus preferencias para personalizar su experiencia.</p>
+            <p><strong>Cookies de publicidad:</strong> Utilizadas para mostrar contenido relevante.</p>
           </div>
           <div className="modal-section">
-            <h3>{t('footer.cookies_s3_title')}</h3>
-            <p>{t('footer.cookies_s3_body')}</p>
+            <h3>Control de cookies</h3>
+            <p>Puede gestionar o deshabilitar las cookies en cualquier momento a través de la configuración de su navegador. Tenga en cuenta que deshabilitar algunas cookies puede afectar la funcionalidad del sitio.</p>
           </div>
           <div className="modal-section">
-            <h3>{t('footer.cookies_s4_title')}</h3>
-            <p>{t('footer.cookies_s4_body')}</p>
+            <h3>Cookies de terceros</h3>
+            <p>Algunas cookies son establecidas por servicios de terceros que utilizamos, como Google Analytics y redes sociales. Estas cookies están sujetas a las políticas de privacidad de dichos terceros.</p>
           </div>
           <div className="modal-section">
-            <h3>{t('footer.cookies_s5_title')}</h3>
-            <p>{t('footer.cookies_s5_body')}</p>
+            <h3>Consentimiento</h3>
+            <p>Al continuar usando nuestro sitio, usted acepta el uso de cookies de acuerdo con esta política. Puede retirar su consentimiento en cualquier momento.</p>
           </div>
           <div className="modal-section">
-            <h3>{t('footer.cookies_s6_title')}</h3>
-            <p>{t('footer.cookies_s6_body')}</p>
+            <h3>Cambios en la política de cookies</h3>
+            <p>Actualizaremos esta política periódicamente para reflejar cambios en nuestras prácticas. Le recomendamos revisarla regularmente.</p>
           </div>
         </>
       )
@@ -186,50 +186,22 @@ export default function Footer() {
           <div className="modal-footer">
             <button className="modal-button" onClick={onClose}>
               <FaCheckCircle size={18} />
-              <span>{t('footer.modal_understood')}</span>
+              <span>Entendido</span>
             </button>
           </div>
         </div>
 
         <style>{`
-          @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-          }
-
-          @keyframes slideUp {
-            from {
-              opacity: 0;
-              transform: translate(-50%, -45%) scale(0.95);
-            }
-            to {
-              opacity: 1;
-              transform: translate(-50%, -50%) scale(1);
-            }
-          }
-
-          @keyframes slideUpMobile {
-            from {
-              opacity: 0;
-              transform: translateY(20px);
-            }
-            to {
-              opacity: 1;
-              transform: translateY(0);
-            }
-          }
-
           .modal-overlay {
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(0, 0, 0, 0.92);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
             z-index: 9998;
-            animation: fadeIn 0.3s ease;
           }
 
           .modal-container {
@@ -237,18 +209,17 @@ export default function Footer() {
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 90%;
-            max-width: 700px;
-            height: 80vh;
-            max-height: 600px;
+            width: 92%;
+            max-width: 650px;
+            height: auto;
+            max-height: 85vh;
             background: #000000;
-            border-radius: 24px;
-            border: 1px solid rgba(0, 229, 255, 0.2);
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8), 0 0 40px rgba(0, 180, 220, 0.06);
+            border-radius: 20px;
+            border: 1px solid rgba(0, 229, 255, 0.15);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.9);
             z-index: 9999;
             display: flex;
             flex-direction: column;
-            animation: slideUp 0.35s ease;
           }
 
           .modal-glow {
@@ -261,24 +232,24 @@ export default function Footer() {
           }
 
           .modal-header {
-            padding: 24px 28px;
+            padding: 20px 24px;
             display: flex;
             align-items: center;
-            gap: 16px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            gap: 14px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
             flex-shrink: 0;
           }
 
           .modal-icon {
-            width: 48px;
-            height: 48px;
+            width: 44px;
+            height: 44px;
             border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
-            background: rgba(0, 229, 255, 0.1);
+            background: rgba(0, 229, 255, 0.08);
             color: #00e5ff;
-            border: 1px solid rgba(0, 229, 255, 0.2);
+            border: 1px solid rgba(0, 229, 255, 0.15);
             flex-shrink: 0;
           }
 
@@ -289,37 +260,37 @@ export default function Footer() {
 
           .modal-title-section h2 {
             font-family: 'Inter', system-ui, sans-serif;
-            font-size: 22px;
+            font-size: 20px;
             font-weight: 600;
             color: #ffffff;
-            margin: 0 0 4px 0;
+            margin: 0 0 2px 0;
             word-break: break-word;
           }
 
           .modal-title-section p {
             font-family: 'Inter', system-ui, sans-serif;
-            font-size: 12px;
-            color: rgba(255, 255, 255, 0.4);
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.35);
             margin: 0;
           }
 
           .modal-close {
-            width: 38px;
-            height: 38px;
+            width: 36px;
+            height: 36px;
             border-radius: 10px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.06);
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
             transition: all 0.2s ease;
-            color: rgba(255, 255, 255, 0.6);
+            color: rgba(255, 255, 255, 0.5);
             flex-shrink: 0;
           }
 
           .modal-close:hover {
-            background: rgba(0, 229, 255, 0.15);
+            background: rgba(0, 229, 255, 0.12);
             border-color: #00e5ff;
             color: #00e5ff;
           }
@@ -332,41 +303,39 @@ export default function Footer() {
             flex: 1;
             overflow-y: auto;
             min-height: 0;
-            padding: 0 28px;
+            padding: 0 24px;
           }
 
           .modal-content {
-            padding: 20px 0 28px 0;
+            padding: 16px 0 20px 0;
           }
 
           .modal-content-wrapper::-webkit-scrollbar {
-            width: 6px;
+            width: 4px;
           }
 
           .modal-content-wrapper::-webkit-scrollbar-track {
-            background: #111111;
-            border-radius: 10px;
-            margin: 8px 0;
+            background: transparent;
           }
 
           .modal-content-wrapper::-webkit-scrollbar-thumb {
-            background: #00e5ff;
+            background: rgba(0, 229, 255, 0.3);
             border-radius: 10px;
           }
 
           .modal-content-wrapper::-webkit-scrollbar-thumb:hover {
-            background: #00ccee;
+            background: #00e5ff;
           }
 
           .modal-content-wrapper {
             scrollbar-width: thin;
-            scrollbar-color: #00e5ff #111111;
+            scrollbar-color: rgba(0, 229, 255, 0.3) transparent;
           }
 
           .modal-section {
-            margin-bottom: 28px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            margin-bottom: 20px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
           }
 
           .modal-section:last-child {
@@ -377,18 +346,18 @@ export default function Footer() {
 
           .modal-section h3 {
             font-family: 'Inter', system-ui, sans-serif;
-            font-size: 16px;
+            font-size: 15px;
             font-weight: 600;
             color: #00e5ff;
-            margin: 0 0 10px 0;
+            margin: 0 0 8px 0;
           }
 
           .modal-section p {
             font-family: 'Inter', system-ui, sans-serif;
-            font-size: 14px;
+            font-size: 13px;
             line-height: 1.6;
-            color: rgba(255, 255, 255, 0.75);
-            margin: 0 0 6px 0;
+            color: rgba(255, 255, 255, 0.7);
+            margin: 0 0 4px 0;
           }
 
           .modal-section p strong {
@@ -396,37 +365,37 @@ export default function Footer() {
           }
 
           .modal-footer {
-            padding: 20px 28px;
-            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 16px 24px;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
             display: flex;
             justify-content: center;
             flex-shrink: 0;
-            background: rgba(0, 0, 0, 0.3);
+            background: rgba(0, 0, 0, 0.2);
           }
 
           .modal-button {
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
-            padding: 14px 48px;
-            min-width: 200px;
+            gap: 8px;
+            padding: 12px 40px;
+            min-width: 160px;
             border: none;
             border-radius: 40px;
             font-family: 'Inter', system-ui, sans-serif;
-            font-size: 16px;
+            font-size: 14px;
             font-weight: 600;
             color: #000000;
             background: #00e5ff;
             cursor: pointer;
-            transition: all 0.25s ease;
-            box-shadow: 0 4px 15px rgba(0, 229, 255, 0.3);
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 15px rgba(0, 229, 255, 0.25);
           }
 
           .modal-button:hover {
             background: #00ccee;
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(0, 229, 255, 0.4);
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(0, 229, 255, 0.3);
           }
 
           .modal-button:active {
@@ -436,20 +405,18 @@ export default function Footer() {
           @media (max-width: 768px) {
             .modal-container {
               width: 95%;
-              height: 90vh;
               max-height: 90vh;
-              border-radius: 20px;
-              animation: slideUpMobile 0.3s ease;
+              border-radius: 16px;
             }
 
             .modal-header {
-              padding: 18px 18px 16px 18px;
+              padding: 16px 18px;
               gap: 12px;
             }
 
             .modal-icon {
-              width: 40px;
-              height: 40px;
+              width: 38px;
+              height: 38px;
             }
 
             .modal-icon svg {
@@ -458,79 +425,7 @@ export default function Footer() {
             }
 
             .modal-title-section h2 {
-              font-size: 18px;
-            }
-
-            .modal-title-section p {
-              font-size: 11px;
-            }
-
-            .modal-close {
-              width: 34px;
-              height: 34px;
-            }
-
-            .modal-content-wrapper {
-              padding: 0 16px;
-            }
-
-            .modal-content {
-              padding: 16px 0 20px 0;
-            }
-
-            .modal-section {
-              margin-bottom: 20px;
-              padding-bottom: 16px;
-            }
-
-            .modal-section h3 {
-              font-size: 15px;
-            }
-
-            .modal-section p {
-              font-size: 13px;
-              line-height: 1.5;
-            }
-
-            .modal-footer {
-              padding: 16px 18px;
-            }
-
-            .modal-button {
-              padding: 12px 32px;
-              min-width: 160px;
-              font-size: 14px;
-            }
-          }
-
-          @media (max-width: 480px) {
-            .modal-container {
-              width: 98%;
-              height: 95vh;
-              max-height: 95vh;
-              border-radius: 16px;
-              top: 50%;
-              left: 50%;
-              transform: translate(-50%, -50%);
-            }
-
-            .modal-header {
-              padding: 14px 14px 12px 14px;
-              gap: 10px;
-            }
-
-            .modal-icon {
-              width: 36px;
-              height: 36px;
-            }
-
-            .modal-icon svg {
-              width: 16px;
-              height: 16px;
-            }
-
-            .modal-title-section h2 {
-              font-size: 16px;
+              font-size: 17px;
             }
 
             .modal-title-section p {
@@ -538,8 +433,8 @@ export default function Footer() {
             }
 
             .modal-close {
-              width: 30px;
-              height: 30px;
+              width: 32px;
+              height: 32px;
             }
 
             .modal-close svg {
@@ -548,7 +443,7 @@ export default function Footer() {
             }
 
             .modal-content-wrapper {
-              padding: 0 12px;
+              padding: 0 18px;
             }
 
             .modal-content {
@@ -565,24 +460,102 @@ export default function Footer() {
             }
 
             .modal-section p {
-              font-size: 12px;
+              font-size: 12.5px;
               line-height: 1.5;
             }
 
             .modal-footer {
-              padding: 14px 14px;
+              padding: 14px 18px;
             }
 
             .modal-button {
-              padding: 10px 24px;
+              padding: 11px 32px;
               min-width: 140px;
               font-size: 13px;
-              gap: 8px;
             }
 
             .modal-button svg {
               width: 16px;
               height: 16px;
+            }
+          }
+
+          @media (max-width: 480px) {
+            .modal-container {
+              width: 98%;
+              max-height: 92vh;
+              border-radius: 14px;
+            }
+
+            .modal-header {
+              padding: 14px 14px;
+              gap: 10px;
+            }
+
+            .modal-icon {
+              width: 34px;
+              height: 34px;
+            }
+
+            .modal-icon svg {
+              width: 16px;
+              height: 16px;
+            }
+
+            .modal-title-section h2 {
+              font-size: 15px;
+            }
+
+            .modal-title-section p {
+              font-size: 9px;
+            }
+
+            .modal-close {
+              width: 28px;
+              height: 28px;
+            }
+
+            .modal-close svg {
+              width: 14px;
+              height: 14px;
+            }
+
+            .modal-content-wrapper {
+              padding: 0 14px;
+            }
+
+            .modal-content {
+              padding: 10px 0 14px 0;
+            }
+
+            .modal-section {
+              margin-bottom: 14px;
+              padding-bottom: 10px;
+            }
+
+            .modal-section h3 {
+              font-size: 13px;
+            }
+
+            .modal-section p {
+              font-size: 12px;
+              line-height: 1.5;
+            }
+
+            .modal-footer {
+              padding: 12px 14px;
+            }
+
+            .modal-button {
+              padding: 10px 28px;
+              min-width: 120px;
+              font-size: 12.5px;
+              gap: 6px;
+            }
+
+            .modal-button svg {
+              width: 14px;
+              height: 14px;
             }
           }
         `}</style>
@@ -877,16 +850,16 @@ export default function Footer() {
         }}>
           <div style={{
             display: 'flex',
-            gap: '12px',
+            gap: '8px',
             flexWrap: 'wrap',
             justifyContent: 'center',
             alignItems: 'center',
           }}>
             {(
               [
-                { key: 'privacidad', label: t('footer.privacy') },
-                { key: 'terminos',   label: t('footer.terms') },
-                { key: 'cookies',    label: t('footer.cookies') },
+                { key: 'privacidad', label: 'Privacidad' },
+                { key: 'terminos',   label: 'Términos' },
+                { key: 'cookies',    label: 'Cookies' },
               ] as { key: 'privacidad' | 'terminos' | 'cookies'; label: string }[]
             ).map(({ key, label }) => (
               <button
@@ -895,15 +868,15 @@ export default function Footer() {
                 className="legal-btn"
                 style={{
                   fontFamily: "'Inter', system-ui, sans-serif",
-                  fontSize: '13px',
+                  fontSize: '12px',
                   fontWeight: 500,
                   color: 'rgba(255,255,255,0.5)',
                   transition: 'all 0.2s ease',
                   background: 'none',
                   border: 'none',
                   cursor: 'pointer',
-                  padding: '8px 14px',
-                  minHeight: '36px',
+                  padding: '6px 12px',
+                  minHeight: '32px',
                   display: 'inline-flex',
                   alignItems: 'center',
                   lineHeight: 1,
@@ -1003,6 +976,12 @@ export default function Footer() {
             font-size: 10px;
             padding: 3px 10px;
           }
+
+          .legal-btn {
+            font-size: 11px !important;
+            padding: 5px 10px !important;
+            min-height: 28px !important;
+          }
         }
 
         @media (max-width: 480px) {
@@ -1014,6 +993,12 @@ export default function Footer() {
           .copyright-text {
             font-size: 9px;
             padding: 2px 8px;
+          }
+
+          .legal-btn {
+            font-size: 10px !important;
+            padding: 4px 8px !important;
+            min-height: 26px !important;
           }
         }
       `}</style>

@@ -11,14 +11,9 @@ interface ContactModalProps {
 export default function ContactModal({ onClose }: ContactModalProps) {
   const { t } = useTranslation();
   const [copied, setCopied] = useState(false);
-  
-  // Estado para controlar si estamos en el cliente
-  // Inicializado directamente sin necesidad de useEffect
   const [mounted, setMounted] = useState(false);
 
-  // Usamos useEffect solo para efectos secundarios que necesitan el DOM
   useEffect(() => {
-    // Marcar como montado y bloquear scroll
     setMounted(true);
     document.body.style.overflow = 'hidden';
     
@@ -27,7 +22,6 @@ export default function ContactModal({ onClose }: ContactModalProps) {
     };
   }, []);
 
-  // Cerrar con Escape - se ejecuta después del montaje
   useEffect(() => {
     if (!mounted) return;
     
@@ -47,12 +41,11 @@ export default function ContactModal({ onClose }: ContactModalProps) {
   ];
 
   const contactItems = [
-    { icon: FiMail, label: t('footer.contact_email_label'), text: email, copyable: true, color: '#00e5ff' },
-    { icon: FiClock, label: t('footer.contact_schedule_label'), text: t('footer.schedule'), copyable: false, color: '#a78bfa' },
-    { icon: FiMapPin, label: t('footer.contact_location_label'), text: t('footer.location'), copyable: false, color: '#fbbf24' },
+    { icon: FiMail, label: 'EMAIL', text: email, copyable: true, color: '#00e5ff' },
+    { icon: FiClock, label: 'HORARIO', text: 'Lun - Vie: 9:00 - 18:00', copyable: false, color: '#a78bfa' },
+    { icon: FiMapPin, label: 'UBICACIÓN', text: 'Guanajuato, Guanajuato, México', copyable: false, color: '#fbbf24' },
   ];
 
-  // Misma URL que Footer / ChatWidget
   const whatsappMessage = t('whatsapp.message_modal');
   const whatsappUrl = `https://wa.me/524737374224?text=${encodeURIComponent(whatsappMessage)}`;
 
@@ -62,11 +55,10 @@ export default function ContactModal({ onClose }: ContactModalProps) {
       setCopied(true);
       setTimeout(() => setCopied(false), 1800);
     } catch {
-      /* clipboard no disponible: no bloquea la UI */
+      /* clipboard no disponible */
     }
   };
 
-  // No renderizar en el servidor; evita mismatches de SSR/hidratación
   if (!mounted) return null;
 
   return createPortal(
@@ -74,8 +66,6 @@ export default function ContactModal({ onClose }: ContactModalProps) {
       <div className="contact-modal-overlay" onClick={onClose} />
 
       <div className="contact-modal-container" role="dialog" aria-modal="true" aria-labelledby="contact-modal-title">
-        <span className="contact-modal-drag-handle" aria-hidden="true" />
-
         <div className="contact-modal-glow" />
 
         <div className="contact-modal-header">
@@ -83,8 +73,8 @@ export default function ContactModal({ onClose }: ContactModalProps) {
             <img src="/logosc.jpg" alt="Symmetrical Code" />
           </div>
           <div className="contact-modal-title-section">
-            <h2 id="contact-modal-title">{t('footer.contact_title')}</h2>
-            <p>{t('footer.contact_subtitle')}</p>
+            <h2 id="contact-modal-title">Contacto</h2>
+            <p>Estamos aquí para ayudarte</p>
           </div>
           <button className="contact-modal-close" onClick={onClose} aria-label="Close">
             <FiX size={18} />
@@ -112,7 +102,7 @@ export default function ContactModal({ onClose }: ContactModalProps) {
                     <button
                       className={`contact-modal-copy-btn ${copied ? 'is-copied' : ''}`}
                       onClick={handleCopyEmail}
-                      aria-label={t('footer.contact_copy_email')}
+                      aria-label="Copiar email"
                       type="button"
                     >
                       {copied ? <FiCheck size={14} /> : <FiCopy size={14} />}
@@ -124,7 +114,7 @@ export default function ContactModal({ onClose }: ContactModalProps) {
           </div>
 
           <div className="contact-modal-social">
-            <p className="contact-modal-label">{t('footer.follow')}</p>
+            <p className="contact-modal-label">SÍGUENOS</p>
             <div className="contact-modal-social-links">
               {socialLinks.map((social) => {
                 const Icon = social.icon;
@@ -145,19 +135,19 @@ export default function ContactModal({ onClose }: ContactModalProps) {
             </div>
           </div>
 
-          {/* SECCIÓN DE PROYECTO CON BOTÓN DE WHATSAPP CENTRADO */}
           <div className="contact-modal-project">
             <div className="contact-modal-project-top">
-              <span className="contact-modal-project-badge">{t('footer.project_sub')}</span>
+              <span className="contact-modal-project-badge">HABLEMOS.</span>
               <span className="contact-modal-online">
                 <span className="contact-modal-online-dot" />
-                {t('footer.contact_online')}
+                En línea
               </span>
             </div>
-            <p className="contact-modal-project-headline">{t('footer.project_headline')}</p>
-            <p className="contact-modal-project-desc">{t('footer.project_desc')}</p>
+            <p className="contact-modal-project-headline">¿Tienes un proyecto?</p>
+            <p className="contact-modal-project-desc">
+              Nuestro asistente virtual está listo para ayudarte. Resuelve tus dudas o agenda una consulta en minutos.
+            </p>
 
-            {/* BOTÓN DE WHATSAPP CENTRADO */}
             <div className="contact-modal-whatsapp-wrapper">
               <a
                 href={whatsappUrl}
@@ -168,7 +158,7 @@ export default function ContactModal({ onClose }: ContactModalProps) {
                 <span className="contact-modal-cta-icon">
                   <FaWhatsapp size={16} />
                 </span>
-                <span>{t('footer.cta')}</span>
+                <span>Iniciar conversación</span>
               </a>
             </div>
           </div>
@@ -184,20 +174,11 @@ export default function ContactModal({ onClose }: ContactModalProps) {
         @keyframes slideUp {
           from {
             opacity: 0;
-            transform: translate(-50%, -47%);
+            transform: translate(-50%, -47%) scale(0.96);
           }
           to {
             opacity: 1;
-            transform: translate(-50%, -50%);
-          }
-        }
-
-        @keyframes sheetUp {
-          from {
-            transform: translateY(100%);
-          }
-          to {
-            transform: translateY(0);
+            transform: translate(-50%, -50%) scale(1);
           }
         }
 
@@ -206,12 +187,9 @@ export default function ContactModal({ onClose }: ContactModalProps) {
           inset: 0;
           background: rgba(0, 0, 0, 0.88);
           backdrop-filter: blur(8px);
+          -webkit-backdrop-filter: blur(8px);
           z-index: 999998;
           animation: fadeIn 0.25s ease;
-        }
-
-        .contact-modal-drag-handle {
-          display: none;
         }
 
         .contact-modal-container {
@@ -325,6 +303,7 @@ export default function ContactModal({ onClose }: ContactModalProps) {
           padding: 18px 16px 26px 22px;
           -webkit-overflow-scrolling: touch;
           scrollbar-gutter: stable;
+          flex: 1;
         }
 
         .contact-modal-body::-webkit-scrollbar {
@@ -495,6 +474,7 @@ export default function ContactModal({ onClose }: ContactModalProps) {
           justify-content: space-between;
           gap: 10px;
           margin-bottom: 8px;
+          flex-wrap: wrap;
         }
 
         .contact-modal-online {
@@ -554,14 +534,12 @@ export default function ContactModal({ onClose }: ContactModalProps) {
           margin: 0 0 16px 0;
         }
 
-        /* WRAPPER PARA CENTRAR EL BOTÓN DE WHATSAPP */
         .contact-modal-whatsapp-wrapper {
           display: flex;
           justify-content: center;
           width: 100%;
         }
 
-        /* BOTÓN DE WHATSAPP CENTRADO */
         .contact-modal-cta {
           display: flex;
           align-items: center;
@@ -572,15 +550,14 @@ export default function ContactModal({ onClose }: ContactModalProps) {
           font-weight: 600;
           color: #000000;
           text-decoration: none;
-          padding: 13px 16px;
+          padding: 13px 20px;
           background: #00e5ff;
           border-radius: 12px;
           transition: all 0.25s ease;
           box-shadow: 0 4px 14px rgba(0, 229, 255, 0.25);
           width: 100%;
-          max-width: 320px;
+          max-width: 100%;
           box-sizing: border-box;
-          margin: 0 auto;
           border: none;
           cursor: pointer;
         }
@@ -604,68 +581,214 @@ export default function ContactModal({ onClose }: ContactModalProps) {
           transform: translateY(0);
         }
 
-        /* ---------- MÓVIL: bottom sheet nativo ---------- */
-        @media (max-width: 640px) {
+        /* ---------- RESPONSIVE: CENTRADO EN TODOS LOS DISPOSITIVOS ---------- */
+        @media (max-width: 768px) {
           .contact-modal-container {
-            top: auto;
-            bottom: 0;
-            left: 0;
-            transform: none;
-            width: 100%;
-            max-width: 100%;
+            width: 94%;
+            max-width: 420px;
             max-height: 88vh;
-            border-radius: 22px 22px 0 0;
-            border-left: none;
-            border-right: none;
-            border-bottom: none;
-            animation: sheetUp 0.32s cubic-bezier(0.16, 1, 0.3, 1);
-            padding-bottom: env(safe-area-inset-bottom, 0px);
-          }
-
-          .contact-modal-drag-handle {
-            display: block;
-            width: 36px;
-            height: 4px;
-            border-radius: 4px;
-            background: rgba(255, 255, 255, 0.2);
-            margin: 10px auto 0;
-            flex-shrink: 0;
+            border-radius: 20px;
           }
 
           .contact-modal-header {
-            padding: 14px 18px 16px;
+            padding: 18px 18px 16px;
           }
 
           .contact-modal-body {
-            padding: 16px 14px 24px 18px;
-          }
-
-          .contact-modal-social {
-            padding-bottom: 18px;
-            margin-bottom: 18px;
-          }
-
-          .contact-modal-item {
-            padding: 12px;
-          }
-
-          .contact-modal-social-link {
-            flex: 1 1 auto;
-            justify-content: center;
-          }
-
-          .contact-modal-cta {
-            max-width: 100%;
+            padding: 16px 14px 22px 18px;
           }
         }
 
-        @media (max-width: 360px) {
+        @media (max-width: 640px) {
+          .contact-modal-container {
+            width: 95%;
+            max-width: 400px;
+            max-height: 90vh;
+            border-radius: 18px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+          }
+
+          .contact-modal-header {
+            padding: 16px 16px 14px;
+            gap: 12px;
+          }
+
+          .contact-modal-logo {
+            width: 42px;
+            height: 42px;
+          }
+
           .contact-modal-title-section h2 {
-            font-size: 16.5px;
+            font-size: 17px;
+          }
+
+          .contact-modal-title-section p {
+            font-size: 11.5px;
+          }
+
+          .contact-modal-body {
+            padding: 14px 12px 20px 16px;
+          }
+
+          .contact-modal-item {
+            padding: 10px 10px;
+            gap: 10px;
+          }
+
+          .contact-modal-item-icon {
+            width: 32px;
+            height: 32px;
+          }
+
+          .contact-modal-item-label {
+            font-size: 9.5px;
+          }
+
+          .contact-modal-item-value {
+            font-size: 12.5px;
+          }
+
+          .contact-modal-social-links {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 6px;
+          }
+
+          .contact-modal-social-link {
+            justify-content: center;
+            padding: 8px 6px;
+            font-size: 11px;
+          }
+
+          .contact-modal-social-link span {
+            display: none;
+          }
+
+          .contact-modal-project {
+            padding: 16px;
           }
 
           .contact-modal-project-headline {
             font-size: 15px;
+          }
+
+          .contact-modal-project-desc {
+            font-size: 12px;
+          }
+
+          .contact-modal-cta {
+            padding: 13px 18px;
+            font-size: 13px;
+          }
+        }
+
+        @media (max-width: 480px) {
+          .contact-modal-container {
+            width: 96%;
+            max-width: 380px;
+            max-height: 92vh;
+            border-radius: 16px;
+          }
+
+          .contact-modal-header {
+            padding: 14px 14px 12px;
+            gap: 10px;
+          }
+
+          .contact-modal-logo {
+            width: 38px;
+            height: 38px;
+          }
+
+          .contact-modal-title-section h2 {
+            font-size: 15px;
+          }
+
+          .contact-modal-title-section p {
+            font-size: 10.5px;
+          }
+
+          .contact-modal-body {
+            padding: 12px 10px 18px 14px;
+          }
+
+          .contact-modal-item {
+            padding: 9px 8px;
+            gap: 8px;
+          }
+
+          .contact-modal-item-icon {
+            width: 28px;
+            height: 28px;
+          }
+
+          .contact-modal-item-icon svg {
+            width: 14px;
+            height: 14px;
+          }
+
+          .contact-modal-item-label {
+            font-size: 9px;
+          }
+
+          .contact-modal-item-value {
+            font-size: 12px;
+          }
+
+          .contact-modal-close {
+            width: 30px;
+            height: 30px;
+          }
+
+          .contact-modal-close svg {
+            width: 16px;
+            height: 16px;
+          }
+
+          .contact-modal-project-headline {
+            font-size: 14px;
+          }
+
+          .contact-modal-project-desc {
+            font-size: 11.5px;
+          }
+
+          .contact-modal-cta {
+            padding: 12px 16px;
+            font-size: 12.5px;
+          }
+
+          .contact-modal-cta-icon svg {
+            width: 14px;
+            height: 14px;
+          }
+
+          .contact-modal-social-link {
+            padding: 6px 4px;
+            font-size: 10px;
+          }
+        }
+
+        @media (max-width: 360px) {
+          .contact-modal-container {
+            width: 98%;
+            max-width: 340px;
+          }
+
+          .contact-modal-title-section h2 {
+            font-size: 14px;
+          }
+
+          .contact-modal-project-headline {
+            font-size: 13px;
+          }
+
+          .contact-modal-cta {
+            font-size: 12px;
+            padding: 10px 14px;
           }
         }
       `}</style>
