@@ -16,7 +16,22 @@ export default function ChatWidget({ forceVisible = false }: ChatWidgetProps) {
   const [hovered, setHovered] = useState(false);
   const [showTooltip, setShowTooltip] = useState(false);
   const [footerVisible, setFooterVisible] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   const tooltipRef = useRef<HTMLDivElement>(null);
+  
+  // Ref para contar clicks en móvil
+  const clickCountRef = useRef(0);
+  const clickTimerRef = useRef<number | null>(null);
+
+  // Detectar si es móvil
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   const checkFooter = useCallback(() => {
     const footer = document.querySelector('footer');
@@ -33,7 +48,6 @@ export default function ChatWidget({ forceVisible = false }: ChatWidgetProps) {
       return;
     }
 
-    // Usar setTimeout para evitar setState síncrono
     const timeoutId = setTimeout(() => {
       checkFooter();
     }, 0);
@@ -48,15 +62,18 @@ export default function ChatWidget({ forceVisible = false }: ChatWidgetProps) {
     };
   }, [checkFooter, forceVisible]);
 
+  // Mostrar tooltip inicial después de 2 segundos
   useEffect(() => {
     const timer = setTimeout(() => {
       const dismissed = sessionStorage.getItem('whatsapp_tooltip_dismissed');
-      if (!dismissed) setShowTooltip(true);
+      if (!dismissed) {
+        setShowTooltip(true);
+      }
     }, 2000);
     return () => clearTimeout(timer);
   }, []);
 
-  // Efecto para cerrar el tooltip al hacer clic fuera
+  // Cerrar tooltip al hacer clic fuera
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent | TouchEvent) => {
       const target = e.target as Node;
@@ -72,6 +89,12 @@ export default function ChatWidget({ forceVisible = false }: ChatWidgetProps) {
       
       if (showTooltip) {
         setShowTooltip(false);
+        // Resetear el contador de clicks
+        clickCountRef.current = 0;
+        if (clickTimerRef.current) {
+          clearTimeout(clickTimerRef.current);
+          clickTimerRef.current = null;
+        }
         sessionStorage.setItem('whatsapp_tooltip_dismissed', 'true');
       }
     };
@@ -91,6 +114,54 @@ export default function ChatWidget({ forceVisible = false }: ChatWidgetProps) {
   const whatsappUrl = `https://wa.me/524737374224?text=${encodeURIComponent(whatsappMessage)}`;
 
   const isVisible = forceVisible ? true : !footerVisible;
+
+  // Manejar clic en el botón de WhatsApp
+  const handleWhatsAppClick = (e: React.MouseEvent | React.TouchEvent) => {
+    e.preventDefault();
+    
+    // En desktop: abrir directamente
+    if (!isMobile) {
+      window.open(whatsappUrl, '_blank');
+      return;
+    }
+    
+    // En móvil: lógica de primer y segundo toque
+    clickCountRef.current += 1;
+    
+    // PRIMER CLICK: mostrar tooltip
+    if (clickCountRef.current === 1) {
+      if (!showTooltip) {
+        setShowTooltip(true);
+      }
+      
+      // Resetear contador después de 800ms si no hay segundo click
+      if (clickTimerRef.current) {
+        clearTimeout(clickTimerRef.current);
+      }
+      clickTimerRef.current = window.setTimeout(() => {
+        clickCountRef.current = 0;
+        clickTimerRef.current = null;
+      }, 800);
+      return;
+    }
+    
+    // SEGUNDO CLICK (dentro del tiempo límite): abrir WhatsApp
+    if (clickCountRef.current === 2) {
+      // Resetear contador y timer
+      clickCountRef.current = 0;
+      if (clickTimerRef.current) {
+        clearTimeout(clickTimerRef.current);
+        clickTimerRef.current = null;
+      }
+      
+      // Abrir WhatsApp
+      window.open(whatsappUrl, '_blank');
+      
+      // Ocultar tooltip
+      setShowTooltip(false);
+      sessionStorage.setItem('whatsapp_tooltip_dismissed', 'true');
+    }
+  };
 
   return (
     <div
@@ -121,18 +192,10 @@ export default function ChatWidget({ forceVisible = false }: ChatWidgetProps) {
         </p>
       </div>
 
-      <a
-        href={whatsappUrl}
-        target="_blank"
-        rel="noopener noreferrer"
+      <button
+        onClick={handleWhatsAppClick}
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
-        onClick={() => {
-          if (showTooltip) {
-            setShowTooltip(false);
-            sessionStorage.setItem('whatsapp_tooltip_dismissed', 'true');
-          }
-        }}
         className="
           w-14 h-14 rounded-full shrink-0
           flex items-center justify-center
@@ -142,9 +205,14 @@ export default function ChatWidget({ forceVisible = false }: ChatWidgetProps) {
           active:scale-95
         "
         aria-label="WhatsApp"
+        type="button"
+        style={{
+          touchAction: 'manipulation',
+          WebkitTapHighlightColor: 'transparent',
+        }}
       >
         <WhatsAppIcon />
-      </a>
+      </button>
     </div>
   );
 }
