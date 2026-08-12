@@ -1,11 +1,11 @@
 import { useState, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { FaFacebookF, FaInstagram, FaLinkedinIn, FaWhatsapp, FaShieldAlt, FaFileContract, FaCookieBite, FaCheckCircle } from 'react-icons/fa';
-import { FiMapPin, FiMail, FiClock, FiX, FiExternalLink } from 'react-icons/fi';
+import { FiMapPin, FiMail, FiClock, FiX } from 'react-icons/fi';
 
 export default function Footer() {
   const { t } = useTranslation();
-  const [activeModal, setActiveModal] = useState<'privacidad' | 'terminos' | 'cookies' | 'contacto' | null>(null);
+  const [activeModal, setActiveModal] = useState<'privacidad' | 'terminos' | 'cookies' | null>(null);
   const modalContentRef = useRef<HTMLDivElement>(null);
 
   const socialLinks = [
@@ -15,9 +15,9 @@ export default function Footer() {
   ];
 
   const contactItems = [
-    { icon: FiMail, text: 'contacto@symmetricalcode.com', label: 'Correo electrónico', detail: 'Escríbenos para cualquier consulta o proyecto' },
-    { icon: FiClock, text: t('footer.schedule'), label: 'Horario de atención', detail: 'Estamos disponibles en horario laboral' },
-    { icon: FiMapPin, text: t('footer.location'), label: 'Ubicación', detail: 'Operamos de forma remota y presencial' },
+    { icon: FiMail, text: 'contacto@symmetricalcode.com' },
+    { icon: FiClock, text: t('footer.schedule') },
+    { icon: FiMapPin, text: t('footer.location') },
   ];
 
   const whatsappMessage = t('whatsapp.message_footer');
@@ -42,19 +42,6 @@ export default function Footer() {
     };
     window.addEventListener('keydown', handleEsc);
     return () => window.removeEventListener('keydown', handleEsc);
-  }, [activeModal]);
-
-  useEffect(() => {
-    const handleClickOutside = (e: MouseEvent) => {
-      if (activeModal && modalContentRef.current) {
-        const modal = document.querySelector('.modal-container');
-        if (modal && !modal.contains(e.target as Node)) {
-          setActiveModal(null);
-        }
-      }
-    };
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
   }, [activeModal]);
 
   const modalContent = {
@@ -163,83 +150,18 @@ export default function Footer() {
           </div>
         </>
       )
-    },
-    contacto: {
-      titulo: 'Información de Contacto',
-      icon: FiMail,
-      fecha: 'Actualizado recientemente',
-      contenido: (
-        <>
-          <div className="modal-section contact-highlight">
-            <div className="contact-item-modal">
-              <FiMail size={22} className="contact-icon-modal" />
-              <div>
-                <h4>Correo Electrónico</h4>
-                <a href="mailto:contacto@symmetricalcode.com" className="contact-link-modal">
-                  contacto@symmetricalcode.com
-                  <FiExternalLink size={14} />
-                </a>
-                <p>Escríbenos para cualquier consulta o proyecto</p>
-              </div>
-            </div>
-          </div>
-
-          <div className="modal-section contact-highlight">
-            <div className="contact-item-modal">
-              <FiClock size={22} className="contact-icon-modal" />
-              <div>
-                <h4>Horario de Atención</h4>
-                <p className="contact-text-modal">{t('footer.schedule')}</p>
-                <p>Estamos disponibles en horario laboral</p>
-              </div>
-            </div>
-          </div>
-
-          <div className="modal-section contact-highlight">
-            <div className="contact-item-modal">
-              <FiMapPin size={22} className="contact-icon-modal" />
-              <div>
-                <h4>Ubicación</h4>
-                <p className="contact-text-modal">{t('footer.location')}</p>
-                <p>Operamos de forma remota y presencial</p>
-              </div>
-            </div>
-          </div>
-
-          <div className="modal-section contact-highlight" style={{ borderBottom: 'none', marginBottom: 0, paddingBottom: 0 }}>
-            <div className="contact-item-modal">
-              <FaWhatsapp size={22} className="contact-icon-modal" style={{ color: '#25D366' }} />
-              <div>
-                <h4>WhatsApp</h4>
-                <a
-                  href={whatsappUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="contact-link-modal"
-                  style={{ color: '#25D366' }}
-                >
-                  +52 473 737 4224
-                  <FiExternalLink size={14} />
-                </a>
-                <p>Respuesta rápida por mensaje</p>
-              </div>
-            </div>
-          </div>
-        </>
-      )
     }
   };
 
-  const renderModal = (type: 'privacidad' | 'terminos' | 'cookies' | 'contacto', onClose: () => void) => {
+  const renderModal = (type: 'privacidad' | 'terminos' | 'cookies', onClose: () => void) => {
     const content = modalContent[type];
     const Icon = content.icon;
-    const isContact = type === 'contacto';
 
     return (
       <>
         <div className="modal-overlay" onClick={onClose} />
 
-        <div className={`modal-container ${isContact ? 'modal-contact' : ''}`}>
+        <div className="modal-container">
           <div className="modal-glow" />
 
           <div className="modal-header">
@@ -327,10 +249,6 @@ export default function Footer() {
             display: flex;
             flex-direction: column;
             animation: slideUp 0.35s ease;
-          }
-
-          .modal-contact {
-            max-width: 600px;
           }
 
           .modal-glow {
@@ -477,71 +395,6 @@ export default function Footer() {
             color: #00e5ff;
           }
 
-          .contact-highlight {
-            background: rgba(0, 229, 255, 0.03);
-            border-radius: 12px;
-            padding: 16px 18px;
-            border: 1px solid rgba(0, 229, 255, 0.06);
-            transition: all 0.2s ease;
-          }
-
-          .contact-highlight:hover {
-            background: rgba(0, 229, 255, 0.06);
-            border-color: rgba(0, 229, 255, 0.12);
-          }
-
-          .contact-item-modal {
-            display: flex;
-            align-items: flex-start;
-            gap: 16px;
-          }
-
-          .contact-icon-modal {
-            color: #00e5ff;
-            flex-shrink: 0;
-            margin-top: 2px;
-          }
-
-          .contact-item-modal h4 {
-            font-family: 'Inter', system-ui, sans-serif;
-            font-size: 14px;
-            font-weight: 600;
-            color: #ffffff;
-            margin: 0 0 4px 0;
-          }
-
-          .contact-link-modal {
-            font-family: 'Inter', system-ui, sans-serif;
-            font-size: 15px;
-            font-weight: 500;
-            color: #00e5ff;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            transition: all 0.2s ease;
-            word-break: break-all;
-          }
-
-          .contact-link-modal:hover {
-            color: #00ccee;
-            transform: translateX(2px);
-          }
-
-          .contact-text-modal {
-            font-family: 'Inter', system-ui, sans-serif;
-            font-size: 14px;
-            color: rgba(255, 255, 255, 0.85);
-            margin: 0;
-          }
-
-          .contact-item-modal p:last-child {
-            font-family: 'Inter', system-ui, sans-serif;
-            font-size: 13px;
-            color: rgba(255, 255, 255, 0.45);
-            margin: 4px 0 0 0;
-          }
-
           .modal-footer {
             padding: 20px 28px;
             border-top: 1px solid rgba(255, 255, 255, 0.08);
@@ -648,35 +501,6 @@ export default function Footer() {
               min-width: 160px;
               font-size: 14px;
             }
-
-            .contact-highlight {
-              padding: 14px 14px;
-            }
-
-            .contact-item-modal {
-              gap: 12px;
-            }
-
-            .contact-icon-modal {
-              width: 20px;
-              height: 20px;
-            }
-
-            .contact-item-modal h4 {
-              font-size: 13px;
-            }
-
-            .contact-link-modal {
-              font-size: 14px;
-            }
-
-            .contact-text-modal {
-              font-size: 13px;
-            }
-
-            .contact-item-modal p:last-child {
-              font-size: 12px;
-            }
           }
 
           @media (max-width: 480px) {
@@ -759,35 +583,6 @@ export default function Footer() {
             .modal-button svg {
               width: 16px;
               height: 16px;
-            }
-
-            .contact-highlight {
-              padding: 12px 12px;
-            }
-
-            .contact-item-modal {
-              gap: 10px;
-            }
-
-            .contact-icon-modal {
-              width: 18px;
-              height: 18px;
-            }
-
-            .contact-item-modal h4 {
-              font-size: 12px;
-            }
-
-            .contact-link-modal {
-              font-size: 13px;
-            }
-
-            .contact-text-modal {
-              font-size: 12px;
-            }
-
-            .contact-item-modal p:last-child {
-              font-size: 11px;
             }
           }
         `}</style>
@@ -935,41 +730,19 @@ export default function Footer() {
             <div style={{
               display: 'flex',
               flexDirection: 'column',
-              gap: '12px',
+              gap: '16px',
               flex: 1,
             }}>
               {contactItems.map((item, idx) => {
                 const Icon = item.icon;
                 return (
-                  <button
+                  <div
                     key={idx}
-                    onClick={() => setActiveModal('contacto')}
-                    className="contact-btn"
                     style={{
                       display: 'flex',
                       alignItems: 'center',
                       gap: '12px',
-                      padding: '8px 10px',
-                      background: 'rgba(255,255,255,0.02)',
-                      border: '1px solid rgba(255,255,255,0.04)',
-                      borderRadius: '10px',
-                      cursor: 'pointer',
-                      width: '100%',
-                      textAlign: 'left',
-                      transition: 'all 0.25s ease',
-                      color: 'rgba(255,255,255,0.85)',
-                    }}
-                    onMouseEnter={e => {
-                      const target = e.currentTarget as HTMLElement;
-                      target.style.background = 'rgba(0, 229, 255, 0.06)';
-                      target.style.borderColor = 'rgba(0, 229, 255, 0.15)';
-                      target.style.transform = 'translateX(4px)';
-                    }}
-                    onMouseLeave={e => {
-                      const target = e.currentTarget as HTMLElement;
-                      target.style.background = 'rgba(255,255,255,0.02)';
-                      target.style.borderColor = 'rgba(255,255,255,0.04)';
-                      target.style.transform = 'translateX(0)';
+                      padding: '6px 0',
                     }}
                   >
                     <Icon
@@ -980,15 +753,15 @@ export default function Footer() {
                         flexShrink: 0,
                       }}
                     />
-                    <span style={{
+                    <div style={{
                       fontFamily: "'Inter', system-ui, sans-serif",
                       fontSize: '13px',
                       fontWeight: 500,
-                      lineHeight: 1.3,
+                      color: 'rgba(255,255,255,0.85)',
                     }}>
                       {item.text}
-                    </span>
-                  </button>
+                    </div>
+                  </div>
                 );
               })}
             </div>
@@ -1152,7 +925,6 @@ export default function Footer() {
             ))}
           </div>
 
-          {/* Copyright con animación de iluminación */}
           <span className="copyright-text">
             © Symmetrical Code {new Date().getFullYear()}
           </span>
@@ -1173,10 +945,6 @@ export default function Footer() {
           flex-direction: column;
         }
 
-        .contact-btn {
-          font-family: 'Inter', system-ui, sans-serif;
-        }
-
         .legal-btn {
           font-family: 'Inter', system-ui, sans-serif;
         }
@@ -1185,14 +953,12 @@ export default function Footer() {
           font-family: 'Inter', system-ui, sans-serif;
         }
 
-        /* Copyright con animación de iluminación */
         .copyright-text {
           font-family: 'Inter', system-ui, sans-serif;
           font-size: 11px;
           color: rgba(255, 255, 255, 0.25);
           display: inline-block;
           animation: glowPulse 3s ease-in-out infinite;
-          position: relative;
           padding: 4px 12px;
           border-radius: 4px;
           transition: all 0.3s ease;
