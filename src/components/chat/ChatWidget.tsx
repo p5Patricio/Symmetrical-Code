@@ -16,17 +16,29 @@ export default function ChatWidget({ forceVisible = false }: ChatWidgetProps) {
   const [hovered, setHovered] = useState(false);
   const [showTooltip, setShowTooltip] = useState(false);
   const [footerVisible, setFooterVisible] = useState(false);
-  
-  // Inicialización perezosa
+  const [isMobile, setIsMobile] = useState(false);
   const [isDismissed, setIsDismissed] = useState(() => {
     return sessionStorage.getItem('whatsapp_tooltip_dismissed') === 'true';
   });
-  
   const [isInitialized, setIsInitialized] = useState(() => {
     return sessionStorage.getItem('whatsapp_tooltip_dismissed') === 'true';
   });
   
   const tooltipRef = useRef<HTMLDivElement>(null);
+  const whatsappBtnRef = useRef<HTMLButtonElement>(null);
+  
+  const whatsappMessage = t('whatsapp.message_chatwidget');
+  const whatsappUrl = `https://wa.me/524737374224?text=${encodeURIComponent(whatsappMessage)}`;
+  
+  // Detectar si es móvil
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   const checkFooter = useCallback(() => {
     const footer = document.querySelector('footer');
@@ -38,7 +50,6 @@ export default function ChatWidget({ forceVisible = false }: ChatWidgetProps) {
     setFooterVisible(rect.top < window.innerHeight);
   }, []);
 
-  // Efecto para el check del footer
   useEffect(() => {
     if (forceVisible) {
       return;
@@ -58,11 +69,8 @@ export default function ChatWidget({ forceVisible = false }: ChatWidgetProps) {
     };
   }, [checkFooter, forceVisible]);
 
-  // Efecto para mostrar el tooltip después de un tiempo - SIN setState síncrono
   useEffect(() => {
-    // Si ya está descartado, marcamos como inicializado y salimos
     if (isDismissed) {
-      // Usamos setTimeout para evitar el setState síncrono
       const timer = setTimeout(() => {
         setIsInitialized(true);
       }, 0);
@@ -82,11 +90,13 @@ export default function ChatWidget({ forceVisible = false }: ChatWidgetProps) {
     };
   }, [isDismissed]);
 
-  // Efecto para manejar clics fuera del tooltip
+  // Cerrar tooltip al tocar fuera - SOLO EN MÓVIL
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent | TouchEvent) => {
+      if (!isMobile) return;
+      
       const target = e.target as Node;
-      const whatsappBtn = document.querySelector('a[aria-label="WhatsApp"]');
+      const whatsappBtn = document.querySelector('button[aria-label="WhatsApp"]');
       
       if (whatsappBtn && whatsappBtn.contains(target)) {
         return;
@@ -98,12 +108,10 @@ export default function ChatWidget({ forceVisible = false }: ChatWidgetProps) {
       
       if (showTooltip && !isDismissed) {
         setShowTooltip(false);
-        setIsDismissed(true);
-        sessionStorage.setItem('whatsapp_tooltip_dismissed', 'true');
       }
     };
 
-    if (showTooltip && !isDismissed) {
+    if (isMobile && showTooltip && !isDismissed) {
       document.addEventListener('click', handleClickOutside);
       document.addEventListener('touchstart', handleClickOutside, { passive: true });
     }
@@ -112,10 +120,43 @@ export default function ChatWidget({ forceVisible = false }: ChatWidgetProps) {
       document.removeEventListener('click', handleClickOutside);
       document.removeEventListener('touchstart', handleClickOutside);
     };
-  }, [showTooltip, isDismissed]);
+  }, [isMobile, showTooltip, isDismissed]);
 
-  const whatsappMessage = t('whatsapp.message_chatwidget');
-  const whatsappUrl = `https://wa.me/524737374224?text=${encodeURIComponent(whatsappMessage)}`;
+  // Función para manejar el clic en el botón de WhatsApp
+  const handleWhatsAppClick = useCallback((e: React.MouseEvent | React.TouchEvent) => {
+    e.preventDefault();
+    
+    if (isMobile) {
+      if (showTooltip) {
+        window.open(whatsappUrl, '_blank');
+        setShowTooltip(false);
+        return;
+      }
+      
+      if (!showTooltip && !isDismissed) {
+        setShowTooltip(true);
+        return;
+      }
+      
+      if (isDismissed) {
+        window.open(whatsappUrl, '_blank');
+        return;
+      }
+    } else {
+      if (isDismissed) {
+        window.open(whatsappUrl, '_blank');
+      } else if (!showTooltip) {
+        setShowTooltip(true);
+        setTimeout(() => {
+          setShowTooltip(false);
+          setIsDismissed(true);
+          sessionStorage.setItem('whatsapp_tooltip_dismissed', 'true');
+        }, 3000);
+      } else {
+        window.open(whatsappUrl, '_blank');
+      }
+    }
+  }, [isMobile, showTooltip, isDismissed, whatsappUrl]);
 
   const isVisible = forceVisible ? true : !footerVisible;
   const shouldShowTooltip = isInitialized && showTooltip && !isDismissed;
@@ -149,19 +190,22 @@ export default function ChatWidget({ forceVisible = false }: ChatWidgetProps) {
         </p>
       </div>
 
-      <a
-        href={whatsappUrl}
-        target="_blank"
-        rel="noopener noreferrer"
-        onMouseEnter={() => setHovered(true)}
-        onMouseLeave={() => setHovered(false)}
-        onTouchStart={() => {
-          if (showTooltip && !isDismissed) {
-            setShowTooltip(false);
-            setIsDismissed(true);
-            sessionStorage.setItem('whatsapp_tooltip_dismissed', 'true');
+      <button
+        ref={whatsappBtnRef}
+        onClick={handleWhatsAppClick}
+        onTouchStart={(e) => {
+          if (isMobile) {
+            e.preventDefault();
           }
         }}
+        onTouchEnd={(e) => {
+          if (isMobile) {
+            e.preventDefault();
+            handleWhatsAppClick(e);
+          }
+        }}
+        onMouseEnter={() => setHovered(true)}
+        onMouseLeave={() => setHovered(false)}
         className="
           w-14 h-14 rounded-full shrink-0
           flex items-center justify-center
@@ -171,6 +215,7 @@ export default function ChatWidget({ forceVisible = false }: ChatWidgetProps) {
           active:scale-95
         "
         aria-label="WhatsApp"
+        type="button"
         style={{
           pointerEvents: 'auto',
           cursor: 'pointer',
@@ -179,7 +224,7 @@ export default function ChatWidget({ forceVisible = false }: ChatWidgetProps) {
         }}
       >
         <WhatsAppIcon />
-      </a>
+      </button>
     </div>
   );
 }
