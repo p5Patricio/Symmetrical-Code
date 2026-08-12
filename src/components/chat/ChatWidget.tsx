@@ -17,18 +17,15 @@ export default function ChatWidget({ forceVisible = false }: ChatWidgetProps) {
   const [showTooltip, setShowTooltip] = useState(false);
   const [footerVisible, setFooterVisible] = useState(false);
   
-  // Inicialización perezosa: leer sessionStorage directamente al crear el estado
   const [isDismissed, setIsDismissed] = useState(() => {
     return sessionStorage.getItem('whatsapp_tooltip_dismissed') === 'true';
   });
   
   const [isInitialized, setIsInitialized] = useState(() => {
-    // Si ya está descartado, ya está inicializado
     return sessionStorage.getItem('whatsapp_tooltip_dismissed') === 'true';
   });
   
   const tooltipRef = useRef<HTMLDivElement>(null);
-  const closeButtonRef = useRef<HTMLButtonElement>(null);
 
   const checkFooter = useCallback(() => {
     const footer = document.querySelector('footer');
@@ -60,16 +57,14 @@ export default function ChatWidget({ forceVisible = false }: ChatWidgetProps) {
     };
   }, [checkFooter, forceVisible]);
 
-  // Efecto para mostrar el tooltip después de un tiempo SOLO si no está descartado
+  // Efecto para mostrar el tooltip después de un tiempo
   useEffect(() => {
-    // Si ya está descartado, no hacer nada
     if (isDismissed) {
       setIsInitialized(true);
       return;
     }
 
     const timer = setTimeout(() => {
-      // Verificar nuevamente antes de mostrar
       const stillDismissed = sessionStorage.getItem('whatsapp_tooltip_dismissed');
       if (stillDismissed !== 'true') {
         setShowTooltip(true);
@@ -82,33 +77,36 @@ export default function ChatWidget({ forceVisible = false }: ChatWidgetProps) {
     };
   }, [isDismissed]);
 
-  // Función para cerrar el tooltip
-  const handleClose = useCallback((e: React.MouseEvent | React.TouchEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setShowTooltip(false);
-    setIsDismissed(true);
-    sessionStorage.setItem('whatsapp_tooltip_dismissed', 'true');
-  }, []);
+  // Función para cerrar el tooltip (al tocar fuera)
+  const handleDismiss = useCallback(() => {
+    if (showTooltip && !isDismissed) {
+      setShowTooltip(false);
+      setIsDismissed(true);
+      sessionStorage.setItem('whatsapp_tooltip_dismissed', 'true');
+    }
+  }, [showTooltip, isDismissed]);
 
-  // Efecto para manejar clics fuera del tooltip
+  // Efecto para manejar clics fuera del tooltip (CERRAR AL TOCAR FUERA)
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent | TouchEvent) => {
-      if (showTooltip && !isDismissed && tooltipRef.current) {
-        const target = e.target as Node;
-        const whatsappBtn = document.querySelector('a[aria-label="WhatsApp"]');
-        
-        if (closeButtonRef.current && closeButtonRef.current.contains(target)) {
-          return;
-        }
-        
-        if (!tooltipRef.current.contains(target)) {
-          if (whatsappBtn && !whatsappBtn.contains(target)) {
-            setShowTooltip(false);
-            setIsDismissed(true);
-            sessionStorage.setItem('whatsapp_tooltip_dismissed', 'true');
-          }
-        }
+      const target = e.target as Node;
+      const whatsappBtn = document.querySelector('a[aria-label="WhatsApp"]');
+      
+      // Si el click fue en el botón de WhatsApp, no cerramos
+      if (whatsappBtn && whatsappBtn.contains(target)) {
+        return;
+      }
+      
+      // Si el click fue dentro del tooltip, no cerramos
+      if (tooltipRef.current && tooltipRef.current.contains(target)) {
+        return;
+      }
+      
+      // Si el tooltip está visible, lo cerramos
+      if (showTooltip && !isDismissed) {
+        setShowTooltip(false);
+        setIsDismissed(true);
+        sessionStorage.setItem('whatsapp_tooltip_dismissed', 'true');
       }
     };
 
@@ -153,41 +151,7 @@ export default function ChatWidget({ forceVisible = false }: ChatWidgetProps) {
           pointerEvents: (shouldShowTooltip || hovered) ? 'auto' : 'none',
         }}
       >
-        <button
-          ref={closeButtonRef}
-          onClick={handleClose}
-          onTouchEnd={handleClose}
-          onTouchStart={(e) => {
-            e.preventDefault();
-          }}
-          className="
-            absolute -top-2 -right-2 
-            w-6 h-6 
-            bg-[#020408] 
-            border border-white/20 
-            rounded-full 
-            flex items-center justify-center 
-            text-[11px] text-white/50 
-            hover:text-white hover:border-[#00e5ff]/60 
-            active:bg-[#00e5ff]/20 active:border-[#00e5ff] active:text-[#00e5ff]
-            transition-all duration-200
-            z-10
-          "
-          aria-label="Cerrar aviso"
-          type="button"
-          style={{
-            pointerEvents: 'auto',
-            cursor: 'pointer',
-            touchAction: 'manipulation',
-            WebkitTapHighlightColor: 'transparent',
-            userSelect: 'none',
-          }}
-        >
-          <span className="flex items-center justify-center w-full h-full leading-none">
-            ✕
-          </span>
-        </button>
-        <p className="text-white text-[11px] font-mono tracking-wider whitespace-nowrap pr-2 select-none">
+        <p className="text-white text-[11px] font-mono tracking-wider whitespace-nowrap select-none">
           {t('contact.whatsapp_tooltip', { defaultValue: 'Contáctanos por WhatsApp' })}
         </p>
       </div>
@@ -199,6 +163,7 @@ export default function ChatWidget({ forceVisible = false }: ChatWidgetProps) {
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
         onTouchStart={() => {
+          // Al tocar el botón de WhatsApp, cerramos el tooltip
           if (showTooltip && !isDismissed) {
             setShowTooltip(false);
             setIsDismissed(true);
