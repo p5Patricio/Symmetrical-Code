@@ -8,6 +8,7 @@ import ServicesSection from './components/sections/ServicesSection';
 import DeviceShowcase from './components/sections/DeviceShowcase';
 import TeamSection from './components/sections/TeamSection';
 import ProjectsPage from './pages/ProjectsPage';
+import ChatWidget from './components/chat/ChatWidget';
 
 function App() {
   const { i18n } = useTranslation();
@@ -29,6 +30,7 @@ function App() {
             <DeviceShowcase />
             <ProjectsPage />
             <TeamSection />
+            <ChatWidget />
             <Footer />
           </>
         } />
