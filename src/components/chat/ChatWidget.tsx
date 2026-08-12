@@ -16,8 +16,17 @@ export default function ChatWidget({ forceVisible = false }: ChatWidgetProps) {
   const [hovered, setHovered] = useState(false);
   const [showTooltip, setShowTooltip] = useState(false);
   const [footerVisible, setFooterVisible] = useState(false);
-  const [isDismissed, setIsDismissed] = useState(true);
-  const [isInitialized, setIsInitialized] = useState(false);
+  
+  // Inicialización perezosa: leer sessionStorage directamente al crear el estado
+  const [isDismissed, setIsDismissed] = useState(() => {
+    return sessionStorage.getItem('whatsapp_tooltip_dismissed') === 'true';
+  });
+  
+  const [isInitialized, setIsInitialized] = useState(() => {
+    // Si ya está descartado, ya está inicializado
+    return sessionStorage.getItem('whatsapp_tooltip_dismissed') === 'true';
+  });
+  
   const tooltipRef = useRef<HTMLDivElement>(null);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
 
@@ -31,43 +40,50 @@ export default function ChatWidget({ forceVisible = false }: ChatWidgetProps) {
     setFooterVisible(rect.top < window.innerHeight);
   }, []);
 
+  // Efecto para el check del footer
   useEffect(() => {
     if (forceVisible) {
       return;
     }
 
-    checkFooter();
+    const timeoutId = setTimeout(() => {
+      checkFooter();
+    }, 0);
+
     window.addEventListener('scroll', checkFooter, { passive: true });
     window.addEventListener('resize', checkFooter, { passive: true });
     
     return () => {
+      clearTimeout(timeoutId);
       window.removeEventListener('scroll', checkFooter);
       window.removeEventListener('resize', checkFooter);
     };
   }, [checkFooter, forceVisible]);
 
+  // Efecto para mostrar el tooltip después de un tiempo SOLO si no está descartado
   useEffect(() => {
-    const dismissed = sessionStorage.getItem('whatsapp_tooltip_dismissed');
-    
-    if (dismissed === 'true') {
-      setIsDismissed(true);
-      setShowTooltip(false);
+    // Si ya está descartado, no hacer nada
+    if (isDismissed) {
       setIsInitialized(true);
-    } else {
-      setIsDismissed(false);
-      const timer = setTimeout(() => {
-        const stillDismissed = sessionStorage.getItem('whatsapp_tooltip_dismissed');
-        if (stillDismissed !== 'true') {
-          setShowTooltip(true);
-        }
-        setIsInitialized(true);
-      }, 2000);
-      
-      return () => clearTimeout(timer);
+      return;
     }
-  }, []);
 
-  const handleDismiss = useCallback((e: React.MouseEvent | React.TouchEvent) => {
+    const timer = setTimeout(() => {
+      // Verificar nuevamente antes de mostrar
+      const stillDismissed = sessionStorage.getItem('whatsapp_tooltip_dismissed');
+      if (stillDismissed !== 'true') {
+        setShowTooltip(true);
+      }
+      setIsInitialized(true);
+    }, 2000);
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [isDismissed]);
+
+  // Función para cerrar el tooltip
+  const handleClose = useCallback((e: React.MouseEvent | React.TouchEvent) => {
     e.preventDefault();
     e.stopPropagation();
     setShowTooltip(false);
@@ -75,25 +91,15 @@ export default function ChatWidget({ forceVisible = false }: ChatWidgetProps) {
     sessionStorage.setItem('whatsapp_tooltip_dismissed', 'true');
   }, []);
 
-  // Manejar el clic/touch en el botón de cerrar
-  const handleCloseTouch = useCallback((e: React.TouchEvent | React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setShowTooltip(false);
-    setIsDismissed(true);
-    sessionStorage.setItem('whatsapp_tooltip_dismissed', 'true');
-  }, []);
-
-  // Cerrar al hacer clic fuera del tooltip
+  // Efecto para manejar clics fuera del tooltip
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent | TouchEvent) => {
       if (showTooltip && !isDismissed && tooltipRef.current) {
         const target = e.target as Node;
         const whatsappBtn = document.querySelector('a[aria-label="WhatsApp"]');
         
-        // Verificar si el click fue en el botón de cerrar
         if (closeButtonRef.current && closeButtonRef.current.contains(target)) {
-          return; // Dejar que el botón maneje el cierre
+          return;
         }
         
         if (!tooltipRef.current.contains(target)) {
@@ -149,10 +155,9 @@ export default function ChatWidget({ forceVisible = false }: ChatWidgetProps) {
       >
         <button
           ref={closeButtonRef}
-          onClick={handleCloseTouch}
-          onTouchEnd={handleCloseTouch}
+          onClick={handleClose}
+          onTouchEnd={handleClose}
           onTouchStart={(e) => {
-            // Prevenir comportamiento por defecto
             e.preventDefault();
           }}
           className="
