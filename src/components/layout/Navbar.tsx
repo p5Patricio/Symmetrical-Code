@@ -89,7 +89,7 @@ export default function Navbar() {
             className="flex items-center gap-2 sm:gap-3 group shrink-0"
           >
             <img
-              src="/logo.webp"
+              src="/favicon.svg"
               alt="Symmetrical Code"
               className="h-7 sm:h-8 w-auto transition-all duration-300 group-hover:drop-shadow-[0_0_12px_rgba(0,229,255,0.6)]"
             />
@@ -178,7 +178,7 @@ export default function Navbar() {
           {/* Logo en el menú */}
           <div className="mb-6 flex flex-col items-center">
             <img
-              src="/logo.webp"
+              src="/favicon.svg"
               alt="Symmetrical Code"
               className="h-16 w-auto mb-3 drop-shadow-[0_0_20px_rgba(0,229,255,0.4)]"
             />

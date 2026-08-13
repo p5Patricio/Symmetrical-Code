@@ -70,7 +70,7 @@ export default function ContactModal({ onClose }: ContactModalProps) {
 
         <div className="contact-modal-header">
           <div className="contact-modal-logo">
-            <img src="/logosc.jpg" alt="Symmetrical Code" />
+            <img src="/favicon.svg" alt="Symmetrical Code" />
           </div>
           <div className="contact-modal-title-section">
             <h2 id="contact-modal-title">Contacto</h2>

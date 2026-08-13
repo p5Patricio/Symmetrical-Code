@@ -604,7 +604,7 @@ export default function Footer() {
           <div className="footer-col">
             <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '20px' }}>
               <img
-                src="/logo.webp"
+                src="/favicon.svg"
                 alt="Symmetrical Code"
                 style={{ height: '40px', width: 'auto' }}
               />
