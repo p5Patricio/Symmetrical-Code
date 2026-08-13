@@ -66,8 +66,10 @@ const ProjectImage = ({ index, title }: { index: number; title: string }) => {
   );
 };
 
+// --- GalleryModal - Tamaño reducido y centrado ---
 const GalleryModal = ({ title, images, onClose }: { title: string; images: string[]; onClose: () => void }) => {
   const [current, setCurrent] = useState(0);
+  
   useEffect(() => {
     const handleKey = (e: KeyboardEvent) => {
       if (e.key === 'Escape') onClose();
@@ -77,20 +79,54 @@ const GalleryModal = ({ title, images, onClose }: { title: string; images: strin
     window.addEventListener('keydown', handleKey);
     return () => window.removeEventListener('keydown', handleKey);
   }, [images.length, onClose]);
+
   return (
     <div className="fixed inset-0 z-[500] bg-[#020408]/98 backdrop-blur-xl flex flex-col" onClick={onClose}>
       <div className="flex items-center justify-between p-4 sm:p-6">
         <h3 className="font-syne font-black text-white text-lg sm:text-xl uppercase tracking-tighter truncate max-w-[200px] sm:max-w-md">{title}</h3>
         <button onClick={onClose} className="p-2 text-white/40 hover:text-white transition-colors"><CloseIcon /></button>
       </div>
-      <div className="flex-1 relative flex items-center justify-center p-3 sm:p-4 md:p-12">
-        <button onClick={(e) => { e.stopPropagation(); setCurrent(prev => (prev - 1 + images.length) % images.length); }} className="absolute left-2 sm:left-4 z-10 p-2 sm:p-3 rounded-full bg-white/5 text-white/40 hover:text-white hover:bg-white/10 transition-all"><ChevronLeft /></button>
-        <div className="relative w-full max-w-5xl h-full flex items-center justify-center" onClick={e => e.stopPropagation()}>
-          <img src={images[current]} alt={title} className="max-w-full max-h-full object-contain shadow-2xl rounded-sm" />
+      
+      {/* Contenedor principal - Centrado con espacio para botones */}
+      <div className="flex-1 relative flex items-center justify-center p-4 sm:p-6 md:p-8">
+        {/* Botón izquierdo */}
+        <button 
+          onClick={(e) => { 
+            e.stopPropagation(); 
+            setCurrent(prev => (prev - 1 + images.length) % images.length); 
+          }} 
+          className="absolute left-3 sm:left-6 z-10 p-2 sm:p-3 rounded-full bg-white/5 text-white/40 hover:text-white hover:bg-white/10 transition-all"
+        >
+          <ChevronLeft />
+        </button>
+        
+        {/* Contenedor de imagen - Tamaño reducido y centrado */}
+        <div 
+          className="relative w-full h-full max-w-4xl max-h-[75vh] flex items-center justify-center" 
+          onClick={e => e.stopPropagation()}
+        >
+          <img 
+            src={images[current]} 
+            alt={title} 
+            className="max-w-[85%] max-h-[70vh] object-contain shadow-2xl rounded-sm transition-opacity duration-300" 
+            style={{ opacity: 1 }}
+          />
         </div>
-        <button onClick={(e) => { e.stopPropagation(); setCurrent(prev => (prev + 1) % images.length); }} className="absolute right-2 sm:right-4 z-10 p-2 sm:p-3 rounded-full bg-white/5 text-white/40 hover:text-white hover:bg-white/10 transition-all"><ChevronRight /></button>
+        
+        {/* Botón derecho */}
+        <button 
+          onClick={(e) => { 
+            e.stopPropagation(); 
+            setCurrent(prev => (prev + 1) % images.length); 
+          }} 
+          className="absolute right-3 sm:right-6 z-10 p-2 sm:p-3 rounded-full bg-white/5 text-white/40 hover:text-white hover:bg-white/10 transition-all"
+        >
+          <ChevronRight />
+        </button>
       </div>
-      <div className="text-center pb-6">
+      
+      {/* Contador */}
+      <div className="text-center pb-4 sm:pb-6">
         <span className="font-mono text-[10px] text-white/30">{current + 1} / {images.length}</span>
       </div>
     </div>
@@ -101,6 +137,7 @@ const DetailModal = ({ project, index, totalProjects, onNext, onPrev, onClose }:
   const { t } = useTranslation();
   const [galleryOpen, setGalleryOpen] = useState(false);
   const images = project.galleryImages && project.galleryImages.length > 0 ? project.galleryImages : [project.ogImageUrl];
+  
   useEffect(() => {
     const handleKey = (e: KeyboardEvent) => { 
       if (e.key === 'Escape' && !galleryOpen) onClose(); 
@@ -114,42 +151,64 @@ const DetailModal = ({ project, index, totalProjects, onNext, onPrev, onClose }:
   return (
     <>
       <div className="fixed inset-0 z-[400] bg-[#020408]/95 backdrop-blur-2xl flex flex-col items-center justify-center p-3 sm:p-4 overflow-y-auto" onClick={onClose}>
-        <div className="w-full max-w-4xl max-h-[90vh] overflow-y-auto bg-gradient-to-br from-[#070d14] to-[#03060a] border border-white/10 rounded-xl sm:rounded-2xl relative shadow-2xl mb-8 shrink-0" onClick={e => e.stopPropagation()}>
+        {/* Fixed height container with consistent sizing */}
+        <div className="w-full max-w-4xl h-[85vh] max-h-[700px] bg-gradient-to-br from-[#070d14] to-[#03060a] border border-white/10 rounded-xl sm:rounded-2xl relative shadow-2xl mb-8 shrink-0 overflow-hidden" onClick={e => e.stopPropagation()}>
           <button onClick={onClose} className="absolute top-4 right-4 sm:top-6 sm:right-6 p-2 text-white/30 hover:text-white transition-colors z-20"><CloseIcon /></button>
-          <div className="flex flex-col md:grid md:grid-cols-2">
-            <div className="relative h-56 sm:h-64 md:h-full bg-[#03060a]">
-              <ImageWithFallback src={project.ogImageUrl} alt={project.title} fallback={<ProjectImage index={index} title={project.title} />} />
+          <div className="flex flex-col md:grid md:grid-cols-2 h-full">
+            {/* Left column - Image */}
+            <div className="relative h-48 sm:h-56 md:h-full bg-[#03060a] overflow-hidden">
+              <div className="w-full h-full">
+                <ImageWithFallback 
+                  src={project.ogImageUrl} 
+                  alt={project.title} 
+                  fallback={<ProjectImage index={index} title={project.title} />} 
+                />
+              </div>
               <div className="absolute inset-0 bg-gradient-to-t from-[#020408] via-transparent to-transparent md:bg-gradient-to-r md:from-transparent md:to-[#070d14]" />
             </div>
-            <div className="p-5 sm:p-6 md:p-8 lg:p-12 flex flex-col gap-4 sm:gap-6 md:gap-8">
-              <div>
-                <span className="font-mono text-[9px] sm:text-[10px] text-[#00e5ff]/40 tracking-widest uppercase mb-2 block">{t('projects.case_label', { defaultValue: 'Project Case' })}</span>
-                <h3 className="font-syne font-black text-2xl sm:text-3xl md:text-4xl text-white tracking-tight">{project.title}</h3>
-                <div className="w-10 sm:w-12 h-0.5 sm:h-1 bg-[#00e5ff] mt-3 sm:mt-4" />
+            {/* Right column - Content */}
+            <div className="p-4 sm:p-5 md:p-6 lg:p-8 flex flex-col gap-3 sm:gap-4 md:gap-5 overflow-y-auto" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+              <style>{`
+                .detail-content::-webkit-scrollbar {
+                  display: none;
+                  width: 0;
+                  height: 0;
+                }
+              `}</style>
+              <div className="flex-shrink-0">
+                <span className="font-mono text-[8px] sm:text-[9px] text-[#00e5ff]/40 tracking-widest uppercase mb-1.5 block">{t('projects.case_label', { defaultValue: 'CASO DE PROYECTO' })}</span>
+                <h3 className="font-syne font-black text-xl sm:text-2xl md:text-3xl text-white tracking-tight">{project.title}</h3>
+                <div className="w-8 sm:w-10 h-0.5 sm:h-1 bg-[#00e5ff] mt-2 sm:mt-3" />
               </div>
-              <p className="text-white/50 leading-relaxed text-xs sm:text-sm text-justify">{project.description}</p>
               
-              <div className="flex flex-wrap gap-2">
-                {project.tags.map(tag => (
-                  <div key={tag} className="flex items-center gap-1.5 px-2 sm:px-3 py-1 sm:py-1.5 rounded-md border border-white/5 bg-white/5 group/tag">
-                    {techIconMap[tag] && <img src={techIconMap[tag]} alt={tag} className="w-3 h-3 sm:w-3.5 sm:h-3.5 opacity-50 group-hover/tag:opacity-100 transition-opacity" />}
-                    <span className="text-white/40 group-hover/tag:text-white transition-colors text-[9px] sm:text-[10px] font-mono uppercase tracking-wider">{tag}</span>
+              {/* Description with hidden scrollbar */}
+              <div className="flex-1 min-h-0 overflow-y-auto detail-content" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+                <p className="text-white/50 leading-relaxed text-xs sm:text-sm text-justify">{project.description}</p>
+              </div>
+              
+              {/* Tags */}
+              <div className="flex flex-wrap gap-1.5 sm:gap-2 flex-shrink-0">
+                {project.tags.slice(0, 6).map(tag => (
+                  <div key={tag} className="flex items-center gap-1 px-2 py-0.5 sm:py-1 rounded-md border border-white/5 bg-white/5 group/tag">
+                    {techIconMap[tag] && <img src={techIconMap[tag]} alt={tag} className="w-2.5 h-2.5 sm:w-3 sm:h-3 opacity-50 group-hover/tag:opacity-100 transition-opacity" />}
+                    <span className="text-white/40 group-hover/tag:text-white transition-colors text-[8px] sm:text-[9px] font-mono uppercase tracking-wider">{tag}</span>
                   </div>
                 ))}
               </div>
 
-              <div className="flex flex-wrap gap-2 sm:gap-3 mt-2 sm:mt-4 pt-4 border-t border-white/5">
+              {/* Buttons */}
+              <div className="flex flex-wrap gap-1.5 sm:gap-2 flex-shrink-0 pt-3 sm:pt-4 border-t border-white/5">
                 {project.demoUrl && (
-                  <a href={project.demoUrl} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-1.5 sm:gap-2 font-mono text-[10px] sm:text-[11px] tracking-wider uppercase px-3 sm:px-6 py-2 sm:py-3 bg-[#00e5ff] text-[#020408] font-bold rounded-md transition-all hover:scale-105 hover:shadow-[0_0_25px_rgba(0,229,255,0.4)]">
+                  <a href={project.demoUrl} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-1.5 font-mono text-[9px] sm:text-[10px] tracking-wider uppercase px-3 sm:px-5 py-1.5 sm:py-2 bg-[#00e5ff] text-[#020408] font-bold rounded-md transition-all hover:scale-105 hover:shadow-[0_0_25px_rgba(0,229,255,0.4)]">
                     <ExternalLinkIcon />{t('projects.view_demo')}
                   </a>
                 )}
                 {project.githubUrl && (
-                  <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-1.5 sm:gap-2 font-mono text-[10px] sm:text-[11px] tracking-wider uppercase px-3 sm:px-5 py-2 sm:py-3 bg-white/5 border border-white/10 text-white/70 rounded-md transition-all hover:bg-white/10">
+                  <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-1.5 font-mono text-[9px] sm:text-[10px] tracking-wider uppercase px-3 sm:px-4 py-1.5 sm:py-2 bg-white/5 border border-white/10 text-white/70 rounded-md transition-all hover:bg-white/10">
                     <GithubIcon />Source
                   </a>
                 )}
-                <button onClick={() => setGalleryOpen(true)} className="flex items-center justify-center gap-1.5 sm:gap-2 font-mono text-[10px] sm:text-[11px] tracking-wider uppercase px-3 sm:px-5 py-2 sm:py-3 bg-white/5 border border-white/10 text-white/70 rounded-md transition-all hover:bg-white/10">
+                <button onClick={() => setGalleryOpen(true)} className="flex items-center justify-center gap-1.5 font-mono text-[9px] sm:text-[10px] tracking-wider uppercase px-3 sm:px-4 py-1.5 sm:py-2 bg-white/5 border border-white/10 text-white/70 rounded-md transition-all hover:bg-white/10">
                   <ImagesIcon />{t('projects.gallery')}
                 </button>
               </div>
@@ -157,25 +216,25 @@ const DetailModal = ({ project, index, totalProjects, onNext, onPrev, onClose }:
           </div>
         </div>
 
-        <div className="flex flex-col items-center gap-6 shrink-0" onClick={e => e.stopPropagation()}>
-           <div className="flex items-center gap-4 sm:gap-8">
-              <button onClick={onPrev} className="group flex items-center gap-2 sm:gap-3 text-white/40 hover:text-[#00e5ff] transition-all">
-                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full border border-white/10 flex items-center justify-center group-hover:border-[#00e5ff]/40 group-hover:bg-[#00e5ff]/5">
+        <div className="flex flex-col items-center gap-4 sm:gap-6 shrink-0" onClick={e => e.stopPropagation()}>
+           <div className="flex items-center gap-3 sm:gap-6">
+              <button onClick={onPrev} className="group flex items-center gap-1.5 sm:gap-2 text-white/40 hover:text-[#00e5ff] transition-all">
+                <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full border border-white/10 flex items-center justify-center group-hover:border-[#00e5ff]/40 group-hover:bg-[#00e5ff]/5">
                   <ChevronLeft />
                 </div>
-                <span className="hidden sm:inline font-mono text-[11px] uppercase tracking-[.2em] font-bold">{t('projects.prev_project', { defaultValue: 'Ver anterior proyecto' })}</span>
+                <span className="hidden sm:inline font-mono text-[10px] uppercase tracking-[.2em] font-bold">{t('projects.prev_project', { defaultValue: 'VER ANTERIOR PROYECTO' })}</span>
               </button>
 
-              <div className="h-8 w-px bg-white/10 hidden sm:block" />
+              <div className="h-6 w-px bg-white/10 hidden sm:block" />
 
-              <button onClick={onNext} className="group flex items-center gap-2 sm:gap-3 text-white/40 hover:text-[#00e5ff] transition-all text-right">
-                <span className="hidden sm:inline font-mono text-[11px] uppercase tracking-[.2em] font-bold">{t('projects.next_project', { defaultValue: 'Ver siguiente proyecto' })}</span>
-                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full border border-white/10 flex items-center justify-center group-hover:border-[#00e5ff]/40 group-hover:bg-[#00e5ff]/5">
+              <button onClick={onNext} className="group flex items-center gap-1.5 sm:gap-2 text-white/40 hover:text-[#00e5ff] transition-all text-right">
+                <span className="hidden sm:inline font-mono text-[10px] uppercase tracking-[.2em] font-bold">{t('projects.next_project', { defaultValue: 'VER SIGUIENTE PROYECTO' })}</span>
+                <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full border border-white/10 flex items-center justify-center group-hover:border-[#00e5ff]/40 group-hover:bg-[#00e5ff]/5">
                   <ChevronRight />
                 </div>
               </button>
            </div>
-           <div className="font-mono text-[10px] text-white/20 tracking-[.3em] uppercase">
+           <div className="font-mono text-[9px] text-white/20 tracking-[.3em] uppercase">
               {String(index + 1).padStart(2, '0')} / {String(totalProjects).padStart(2, '0')}
            </div>
         </div>
