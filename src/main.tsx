@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client';
 import { HelmetProvider } from 'react-helmet-async';
 import { BrowserRouter } from 'react-router-dom';  // ✅ MANTÉN ESTO
 import { Analytics } from '@vercel/analytics/react';
+import { SpeedInsights } from '@vercel/speed-insights/react';
 import './i18n/index';
 import './index.css';
 import App from './App.tsx';
@@ -15,6 +16,7 @@ createRoot(document.getElementById('root')!).render(
       <BrowserRouter>   {/* ✅ MANTÉN ESTO */}
         <App />
         <Analytics />
+        <SpeedInsights />
       </BrowserRouter>
     </HelmetProvider>
   </StrictMode>,
