@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
-import { FaFacebookF, FaInstagram, FaLinkedinIn, FaWhatsapp, FaShieldAlt, FaFileContract, FaCookieBite, FaCheckCircle } from 'react-icons/fa';
+import { FaFacebookF, FaInstagram, FaLinkedinIn, FaShieldAlt, FaFileContract, FaCookieBite, FaCheckCircle } from 'react-icons/fa';
 import { FiMapPin, FiMail, FiClock, FiX } from 'react-icons/fi';
 
 export default function Footer() {
@@ -46,107 +46,107 @@ export default function Footer() {
 
   const modalContent = {
     privacidad: {
-      titulo: 'Política de Privacidad',
+      titulo: t('footer.modal_privacy_title'),
       icon: FaShieldAlt,
-      fecha: 'Última actualización: 19 de diciembre de 2023',
+      fecha: t('footer.modal_last_updated'),
       contenido: (
         <>
           <div className="modal-section">
-            <h3>Información que recopilamos</h3>
-            <p>En Symmetrical Code, recopilamos información que usted nos proporciona directamente, como su nombre, correo electrónico, número de teléfono, y cualquier otra información que decida compartir con nosotros al utilizar nuestros servicios.</p>
+            <h3>{t('footer.privacy_s1_title')}</h3>
+            <p>{t('footer.privacy_s1_body')}</p>
           </div>
           <div className="modal-section">
-            <h3>Cómo usamos su información</h3>
-            <p>Utilizamos su información para mejorar nuestros servicios, responder a sus consultas, enviar comunicaciones sobre nuestros servicios, procesar transacciones, y proteger contra actividades fraudulentas.</p>
+            <h3>{t('footer.privacy_s2_title')}</h3>
+            <p>{t('footer.privacy_s2_body')}</p>
           </div>
           <div className="modal-section">
-            <h3>Cookies y tecnologías similares</h3>
-            <p>Utilizamos cookies y tecnologías similares para mejorar su experiencia en nuestro sitio, analizar el tráfico y personalizar el contenido. Puede controlar el uso de cookies a través de la configuración de su navegador.</p>
+            <h3>{t('footer.privacy_s3_title')}</h3>
+            <p>{t('footer.privacy_s3_body')}</p>
           </div>
           <div className="modal-section">
-            <h3>Compartir información con terceros</h3>
-            <p>No vendemos, alquilamos ni compartimos su información personal con terceros, excepto cuando sea necesario para cumplir con la ley, proteger nuestros derechos, o con su consentimiento explícito.</p>
+            <h3>{t('footer.privacy_s4_title')}</h3>
+            <p>{t('footer.privacy_s4_body')}</p>
           </div>
           <div className="modal-section">
-            <h3>Seguridad de los datos</h3>
-            <p>Implementamos medidas de seguridad técnicas y organizativas para proteger su información personal contra accesos no autorizados, alteración, divulgación o destrucción.</p>
+            <h3>{t('footer.privacy_s5_title')}</h3>
+            <p>{t('footer.privacy_s5_body')}</p>
           </div>
           <div className="modal-section">
-            <h3>Sus derechos</h3>
-            <p>Usted tiene derecho a acceder, rectificar, cancelar u oponerse al tratamiento de sus datos personales. Para ejercer estos derechos, contáctenos a través de nuestro correo electrónico.</p>
+            <h3>{t('footer.privacy_s6_title')}</h3>
+            <p>{t('footer.privacy_s6_body')}</p>
           </div>
           <div className="modal-section">
-            <h3>Cambios en esta política</h3>
-            <p>Nos reservamos el derecho de actualizar esta política de privacidad en cualquier momento. Le notificaremos sobre cambios significativos a través de nuestro sitio web o por correo electrónico.</p>
+            <h3>{t('footer.privacy_s7_title')}</h3>
+            <p>{t('footer.privacy_s7_body')}</p>
           </div>
         </>
       )
     },
     terminos: {
-      titulo: 'Términos y Condiciones',
+      titulo: t('footer.modal_terms_title'),
       icon: FaFileContract,
-      fecha: 'Última actualización: 19 de diciembre de 2023',
+      fecha: t('footer.modal_last_updated'),
       contenido: (
         <>
           <div className="modal-section">
-            <h3>Aceptación de los términos</h3>
-            <p>Al utilizar nuestros servicios, usted acepta cumplir con estos términos y condiciones. Si no está de acuerdo con alguna parte de los términos, no debe utilizar nuestros servicios.</p>
+            <h3>{t('footer.terms_s1_title')}</h3>
+            <p>{t('footer.terms_s1_body')}</p>
           </div>
           <div className="modal-section">
-            <h3>Descripción del servicio</h3>
-            <p>Symmetrical Code ofrece servicios de desarrollo de software, consultoría tecnológica y soluciones digitales personalizadas para empresas y emprendedores.</p>
+            <h3>{t('footer.terms_s2_title')}</h3>
+            <p>{t('footer.terms_s2_body')}</p>
           </div>
           <div className="modal-section">
-            <h3>Propiedad intelectual</h3>
-            <p>Todo el contenido, diseño, logotipos y materiales en nuestro sitio son propiedad de Symmetrical Code y están protegidos por leyes de propiedad intelectual.</p>
+            <h3>{t('footer.terms_s3_title')}</h3>
+            <p>{t('footer.terms_s3_body')}</p>
           </div>
           <div className="modal-section">
-            <h3>Limitación de responsabilidad</h3>
-            <p>Symmetrical Code no será responsable por daños indirectos, incidentales o consecuentes que surjan del uso o la imposibilidad de usar nuestros servicios.</p>
+            <h3>{t('footer.terms_s4_title')}</h3>
+            <p>{t('footer.terms_s4_body')}</p>
           </div>
           <div className="modal-section">
-            <h3>Enlaces a terceros</h3>
-            <p>Nuestro sitio puede contener enlaces a sitios web de terceros. No somos responsables del contenido o las prácticas de privacidad de estos sitios.</p>
+            <h3>{t('footer.terms_s5_title')}</h3>
+            <p>{t('footer.terms_s5_body')}</p>
           </div>
           <div className="modal-section">
-            <h3>Ley aplicable</h3>
-            <p>Estos términos se rigen por las leyes de México. Cualquier disputa será resuelta en los tribunales competentes de la Ciudad de México.</p>
+            <h3>{t('footer.terms_s6_title')}</h3>
+            <p>{t('footer.terms_s6_body')}</p>
           </div>
         </>
       )
     },
     cookies: {
-      titulo: 'Política de Cookies',
+      titulo: t('footer.modal_cookies_title'),
       icon: FaCookieBite,
-      fecha: 'Última actualización: 19 de diciembre de 2023',
+      fecha: t('footer.modal_last_updated'),
       contenido: (
         <>
           <div className="modal-section">
-            <h3>¿Qué son las cookies?</h3>
-            <p>Las cookies son pequeños archivos de texto que se almacenan en su dispositivo cuando visita un sitio web. Se utilizan para recordar sus preferencias y mejorar su experiencia de navegación.</p>
+            <h3>{t('footer.cookies_s1_title')}</h3>
+            <p>{t('footer.cookies_s1_body')}</p>
           </div>
           <div className="modal-section">
-            <h3>Tipos de cookies que utilizamos</h3>
-            <p><strong>Cookies esenciales:</strong> Necesarias para el funcionamiento básico del sitio.</p>
-            <p><strong>Cookies de rendimiento:</strong> Nos ayudan a entender cómo los usuarios interactúan con nuestro sitio.</p>
-            <p><strong>Cookies funcionales:</strong> Recuerdan sus preferencias para personalizar su experiencia.</p>
-            <p><strong>Cookies de publicidad:</strong> Utilizadas para mostrar contenido relevante.</p>
+            <h3>{t('footer.cookies_s2_title')}</h3>
+            <p><strong>{t('footer.cookies_s2_essential_label')}</strong> {t('footer.cookies_s2_essential_body')}</p>
+            <p><strong>{t('footer.cookies_s2_performance_label')}</strong> {t('footer.cookies_s2_performance_body')}</p>
+            <p><strong>{t('footer.cookies_s2_functional_label')}</strong> {t('footer.cookies_s2_functional_body')}</p>
+            <p><strong>{t('footer.cookies_s2_ads_label')}</strong> {t('footer.cookies_s2_ads_body')}</p>
           </div>
           <div className="modal-section">
-            <h3>Control de cookies</h3>
-            <p>Puede gestionar o deshabilitar las cookies en cualquier momento a través de la configuración de su navegador. Tenga en cuenta que deshabilitar algunas cookies puede afectar la funcionalidad del sitio.</p>
+            <h3>{t('footer.cookies_s3_title')}</h3>
+            <p>{t('footer.cookies_s3_body')}</p>
           </div>
           <div className="modal-section">
-            <h3>Cookies de terceros</h3>
-            <p>Algunas cookies son establecidas por servicios de terceros que utilizamos, como Google Analytics y redes sociales. Estas cookies están sujetas a las políticas de privacidad de dichos terceros.</p>
+            <h3>{t('footer.cookies_s4_title')}</h3>
+            <p>{t('footer.cookies_s4_body')}</p>
           </div>
           <div className="modal-section">
-            <h3>Consentimiento</h3>
-            <p>Al continuar usando nuestro sitio, usted acepta el uso de cookies de acuerdo con esta política. Puede retirar su consentimiento en cualquier momento.</p>
+            <h3>{t('footer.cookies_s5_title')}</h3>
+            <p>{t('footer.cookies_s5_body')}</p>
           </div>
           <div className="modal-section">
-            <h3>Cambios en la política de cookies</h3>
-            <p>Actualizaremos esta política periódicamente para reflejar cambios en nuestras prácticas. Le recomendamos revisarla regularmente.</p>
+            <h3>{t('footer.cookies_s6_title')}</h3>
+            <p>{t('footer.cookies_s6_body')}</p>
           </div>
         </>
       )
@@ -186,7 +186,7 @@ export default function Footer() {
           <div className="modal-footer">
             <button className="modal-button" onClick={onClose}>
               <FaCheckCircle size={18} />
-              <span>Entendido</span>
+              <span>{t('footer.modal_understood')}</span>
             </button>
           </div>
         </div>
@@ -750,7 +750,7 @@ export default function Footer() {
               color: '#00e5ff',
               marginBottom: '20px',
             }}>
-              {t('footer.assistant_title')}
+              {t('footer.project_title')}
             </p>
 
             <div style={{
@@ -826,7 +826,6 @@ export default function Footer() {
                   target.style.boxShadow = '0 4px 12px rgba(0, 229, 255, 0.2)';
                 }}
               >
-                <FaWhatsapp size={16} style={{ color: '#000000' }} />
                 {t('footer.cta')}
               </a>
             </div>
@@ -857,9 +856,9 @@ export default function Footer() {
           }}>
             {(
               [
-                { key: 'privacidad', label: 'Privacidad' },
-                { key: 'terminos',   label: 'Términos' },
-                { key: 'cookies',    label: 'Cookies' },
+                { key: 'privacidad', label: t('footer.privacy') },
+                { key: 'terminos',   label: t('footer.terms') },
+                { key: 'cookies',    label: t('footer.cookies') },
               ] as { key: 'privacidad' | 'terminos' | 'cookies'; label: string }[]
             ).map(({ key, label }) => (
               <button

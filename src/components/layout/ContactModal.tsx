@@ -1,7 +1,7 @@
 import { useState, useEffect, type CSSProperties } from 'react';
 import { createPortal } from 'react-dom';
 import { useTranslation } from 'react-i18next';
-import { FaFacebookF, FaInstagram, FaLinkedinIn, FaWhatsapp } from 'react-icons/fa';
+import { FaFacebookF, FaInstagram, FaLinkedinIn } from 'react-icons/fa';
 import { FiMapPin, FiMail, FiClock, FiX, FiCopy, FiCheck } from 'react-icons/fi';
 
 interface ContactModalProps {
@@ -41,9 +41,27 @@ export default function ContactModal({ onClose }: ContactModalProps) {
   ];
 
   const contactItems = [
-    { icon: FiMail, label: 'EMAIL', text: email, copyable: true, color: '#00e5ff' },
-    { icon: FiClock, label: 'HORARIO', text: 'Lun - Vie: 9:00 - 18:00', copyable: false, color: '#a78bfa' },
-    { icon: FiMapPin, label: 'UBICACIÓN', text: 'Guanajuato, Guanajuato, México', copyable: false, color: '#fbbf24' },
+    { 
+      icon: FiMail, 
+      label: t('footer.contact_email_label'), 
+      text: email, 
+      copyable: true, 
+      color: '#00e5ff' 
+    },
+    { 
+      icon: FiClock, 
+      label: t('footer.contact_schedule_label'), 
+      text: t('footer.schedule'), 
+      copyable: false, 
+      color: '#a78bfa' 
+    },
+    { 
+      icon: FiMapPin, 
+      label: t('footer.contact_location_label'), 
+      text: t('footer.location'), 
+      copyable: false, 
+      color: '#fbbf24' 
+    },
   ];
 
   const whatsappMessage = t('whatsapp.message_modal');
@@ -73,8 +91,8 @@ export default function ContactModal({ onClose }: ContactModalProps) {
             <img src="/favicon.svg" alt="Symmetrical Code" />
           </div>
           <div className="contact-modal-title-section">
-            <h2 id="contact-modal-title">Contacto</h2>
-            <p>Estamos aquí para ayudarte</p>
+            <h2 id="contact-modal-title">{t('footer.contact_title')}</h2>
+            <p>{t('footer.contact_subtitle')}</p>
           </div>
           <button className="contact-modal-close" onClick={onClose} aria-label="Close">
             <FiX size={18} />
@@ -102,7 +120,7 @@ export default function ContactModal({ onClose }: ContactModalProps) {
                     <button
                       className={`contact-modal-copy-btn ${copied ? 'is-copied' : ''}`}
                       onClick={handleCopyEmail}
-                      aria-label="Copiar email"
+                      aria-label={t('footer.contact_copy_email')}
                       type="button"
                     >
                       {copied ? <FiCheck size={14} /> : <FiCopy size={14} />}
@@ -114,7 +132,7 @@ export default function ContactModal({ onClose }: ContactModalProps) {
           </div>
 
           <div className="contact-modal-social">
-            <p className="contact-modal-label">SÍGUENOS</p>
+            <p className="contact-modal-label">{t('footer.follow')}</p>
             <div className="contact-modal-social-links">
               {socialLinks.map((social) => {
                 const Icon = social.icon;
@@ -136,16 +154,10 @@ export default function ContactModal({ onClose }: ContactModalProps) {
           </div>
 
           <div className="contact-modal-project">
-            <div className="contact-modal-project-top">
-              <span className="contact-modal-project-badge">HABLEMOS.</span>
-              <span className="contact-modal-online">
-                <span className="contact-modal-online-dot" />
-                En línea
-              </span>
-            </div>
-            <p className="contact-modal-project-headline">¿Tienes un proyecto?</p>
+            <span className="contact-modal-project-badge">{t('footer.project_sub')}</span>
+            <p className="contact-modal-project-headline">{t('footer.project_headline')}</p>
             <p className="contact-modal-project-desc">
-              Nuestro asistente virtual está listo para ayudarte. Resuelve tus dudas o agenda una consulta en minutos.
+              {t('footer.project_desc')}
             </p>
 
             <div className="contact-modal-whatsapp-wrapper">
@@ -155,10 +167,7 @@ export default function ContactModal({ onClose }: ContactModalProps) {
                 rel="noopener noreferrer"
                 className="contact-modal-cta"
               >
-                <span className="contact-modal-cta-icon">
-                  <FaWhatsapp size={16} />
-                </span>
-                <span>Iniciar conversación</span>
+                <span>{t('footer.cta')}</span>
               </a>
             </div>
           </div>
@@ -468,40 +477,6 @@ export default function ContactModal({ onClose }: ContactModalProps) {
           border: 1px solid rgba(0, 229, 255, 0.15);
         }
 
-        .contact-modal-project-top {
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          gap: 10px;
-          margin-bottom: 8px;
-          flex-wrap: wrap;
-        }
-
-        .contact-modal-online {
-          display: flex;
-          align-items: center;
-          gap: 6px;
-          font-family: 'Inter', system-ui, sans-serif;
-          font-size: 11px;
-          font-weight: 500;
-          color: rgba(255, 255, 255, 0.45);
-        }
-
-        .contact-modal-online-dot {
-          width: 7px;
-          height: 7px;
-          border-radius: 50%;
-          background: #4ade80;
-          box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.6);
-          animation: pulseDot 2s ease-out infinite;
-        }
-
-        @keyframes pulseDot {
-          0% { box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.55); }
-          70% { box-shadow: 0 0 0 6px rgba(74, 222, 128, 0); }
-          100% { box-shadow: 0 0 0 0 rgba(74, 222, 128, 0); }
-        }
-
         .contact-modal-project-badge {
           display: inline-block;
           font-family: 'Inter', system-ui, sans-serif;
@@ -514,6 +489,7 @@ export default function ContactModal({ onClose }: ContactModalProps) {
           border: 1px solid rgba(0, 229, 255, 0.25);
           padding: 4px 10px;
           border-radius: 20px;
+          margin-bottom: 10px;
         }
 
         .contact-modal-project-headline {
@@ -560,15 +536,6 @@ export default function ContactModal({ onClose }: ContactModalProps) {
           box-sizing: border-box;
           border: none;
           cursor: pointer;
-        }
-
-        .contact-modal-cta-icon {
-          width: 24px;
-          height: 24px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          flex-shrink: 0;
         }
 
         .contact-modal-cta:hover {
@@ -759,11 +726,6 @@ export default function ContactModal({ onClose }: ContactModalProps) {
           .contact-modal-cta {
             padding: 12px 16px;
             font-size: 12.5px;
-          }
-
-          .contact-modal-cta-icon svg {
-            width: 14px;
-            height: 14px;
           }
 
           .contact-modal-social-link {
