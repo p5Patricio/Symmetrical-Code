@@ -66,15 +66,15 @@ export default function Team() {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        {/* Encabezado de sección */}
-        <div className="mb-16 sm:mb-20 md:mb-24 lg:mb-28 text-center md:text-left">
-          <div className="flex items-center justify-center md:justify-start gap-3 mb-4 sm:mb-6">
+        {/* Encabezado de sección - ALINEADO A LA IZQUIERDA SIEMPRE */}
+        <div className="mb-16 sm:mb-20 md:mb-24 lg:mb-28 text-left">
+          <div className="flex items-center justify-start gap-3 mb-4 sm:mb-6">
             <span className="font-mono text-[10px] sm:text-[11px] tracking-[0.3em] sm:tracking-[0.4em] text-[#00e5ff] uppercase bg-[#00e5ff]/10 px-4 py-1.5 rounded-full border border-[#00e5ff]/20">
               {t('team.label')}
             </span>
           </div>
           
-          <div className="max-w-3xl mx-auto md:mx-0">
+          <div className="max-w-3xl">
             <h2 className="font-syne font-black text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-white mb-4 sm:mb-6 md:mb-8 tracking-tight leading-[1.1]">
               {t('team.title')}
             </h2>
@@ -84,7 +84,7 @@ export default function Team() {
           </div>
         </div>
 
-        {/* Tarjetas - ESTILO QUE TE GUSTABA */}
+        {/* Tarjetas - ALINEADAS A LA IZQUIERDA */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-5 md:gap-6">
           {pillars.map((pillar, i) => (
             <div
