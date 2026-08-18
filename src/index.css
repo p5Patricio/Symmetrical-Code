@@ -1,8 +1,8 @@
-@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500&display=swap');
 
 :root {
   --cyan: #00e5ff;
@@ -13,7 +13,6 @@
   --glow-blue: 0 0 40px rgba(21, 101, 255, 0.4);
   --card-bg: rgba(0, 229, 255, 0.03);
   
-  /* Service Colors */
   --svc-web: #00e5ff;
   --svc-systems: #1565ff;
   --svc-cloud: #7c3aed;
@@ -39,23 +38,22 @@ body {
   overflow-x: hidden;
 }
 
-/* Custom scrollbar - con soporte para navegadores */
 ::-webkit-scrollbar {
   width: 4px;
 }
+
 ::-webkit-scrollbar-track {
   background: #020408;
 }
+
 ::-webkit-scrollbar-thumb {
   background: var(--cyan);
   border-radius: 2px;
 }
 
-/* CORREGIDO: scrollbar-width con prefijo -webkit */
 .scrollbar-none {
   -ms-overflow-style: none !important;
-  -webkit-scrollbar-width: thin !important;
-  scrollbar-width: thin !important;
+  scrollbar-width: none !important;
 }
 
 .scrollbar-none::-webkit-scrollbar {
@@ -68,7 +66,6 @@ body {
   display: none;
 }
 
-/* Gradient text utility */
 .gradient-text {
   background: linear-gradient(135deg, var(--cyan) 0%, var(--blue) 100%);
   -webkit-background-clip: text;
@@ -76,15 +73,14 @@ body {
   background-clip: text;
 }
 
-/* Glow effects */
 .glow-cyan {
   box-shadow: var(--glow-cyan);
 }
+
 .glow-blue {
   box-shadow: var(--glow-blue);
 }
 
-/* Grid bg pattern */
 .grid-bg {
   background-image:
     linear-gradient(rgba(0, 229, 255, 0.03) 1px, transparent 1px),
@@ -92,7 +88,6 @@ body {
   background-size: 60px 60px;
 }
 
-/* Noise texture overlay */
 .noise::after {
   content: '';
   position: fixed;
@@ -102,12 +97,10 @@ body {
   z-index: 999;
 }
 
-/* Mono font for code-style elements */
 .font-mono-custom {
   font-family: 'JetBrains Mono', monospace;
 }
 
-/* Animation: fade up */
 @keyframes fadeUp {
   from {
     opacity: 0;
@@ -167,34 +160,39 @@ body {
 .animate-fade-up {
   animation: fadeUp 0.7s ease forwards;
 }
+
 .animate-float {
   animation: float 4s ease-in-out infinite;
 }
+
 .animate-pulse-glow {
   animation: pulse-glow 2s ease-in-out infinite;
 }
+
 .animate-bounce {
   animation: bounce 2s ease-in-out infinite;
 }
 
-/* Delay utilities */
 .delay-100 {
   animation-delay: 0.1s;
 }
+
 .delay-200 {
   animation-delay: 0.2s;
 }
+
 .delay-300 {
   animation-delay: 0.3s;
 }
+
 .delay-400 {
   animation-delay: 0.4s;
 }
+
 .delay-500 {
   animation-delay: 0.5s;
 }
 
-/* CORREGIDO: Card glass style con prefijo -webkit */
 .glass-card {
   background: rgba(255, 255, 255, 0.02);
   border: 1px solid rgba(0, 229, 255, 0.1);
@@ -210,7 +208,6 @@ body {
   transform: translateY(-4px);
 }
 
-/* CORREGIDO: Enhanced Glass Card con prefijo -webkit */
 .glass-card-enhanced {
   background: rgba(255, 255, 255, 0.01);
   -webkit-backdrop-filter: blur(12px);
@@ -242,7 +239,6 @@ body {
   transform: scale(1.2);
 }
 
-/* Button styles */
 .btn-primary {
   background: linear-gradient(135deg, var(--cyan) 0%, var(--blue) 100%);
   color: #020408;
@@ -265,6 +261,7 @@ body {
 .btn-primary:hover::before {
   opacity: 1;
 }
+
 .btn-primary:hover {
   box-shadow: 0 0 30px rgba(0, 229, 255, 0.5);
   transform: translateY(-2px);
@@ -283,7 +280,6 @@ body {
   box-shadow: 0 0 20px rgba(0, 229, 255, 0.2);
 }
 
-/* Section title decoration */
 .section-label {
   font-family: 'JetBrains Mono', monospace;
   font-size: 0.7rem;
@@ -292,27 +288,23 @@ body {
   text-transform: uppercase;
 }
 
-/* Eliminar scroll horizontal */
 html,
 body {
   overflow-x: hidden;
   max-width: 100%;
 }
 
-/* Para contenedores específicos */
 .container {
   overflow-x: hidden;
   width: 100%;
 }
 
-/* Asegurar que las imágenes se vean bien en el modal */
 .glass-card-enhanced .relative img {
   object-fit: cover;
   width: 100%;
   height: 100%;
 }
 
-/* Mejorar la visualización de imágenes en el modal de detalle */
 [class*="DetailModal"] img {
   object-fit: cover;
 }
@@ -322,7 +314,6 @@ body {
    PARA QUE EL EFECTO AURORA SEA VISIBLE
    ============================================ */
 
-/* Todas las secciones principales */
 section,
 section#home,
 section#services,
@@ -335,21 +326,19 @@ section.projects-section {
   background: transparent !important;
 }
 
-/* Cualquier elemento que pueda tener fondo oscuro */
 .bg-dark,
 .bg-black,
 .bg-gray-900,
 .bg-slate-900,
-.bg-[#020408],
-.bg-[#040810],
-.bg-[#0A0E1A],
-.bg-[#0B1A33],
-.bg-[#0d1b2a],
-.bg-[#1a1a2e] {
+.bg-\[\#020408\],
+.bg-\[\#040810\],
+.bg-\[\#0A0E1A\],
+.bg-\[\#0B1A33\],
+.bg-\[\#0d1b2a\],
+.bg-\[\#1a1a2e\] {
   background: transparent !important;
 }
 
-/* Forzar que el contenedor principal no tenga fondo */
 #root,
 .App,
 main,
@@ -357,12 +346,6 @@ main,
   background: transparent !important;
 }
 
-/* Asegurar que el body tenga fondo oscuro de respaldo SOLO si el efecto falla */
-body {
-  background-color: #020408;
-}
-
-/* Navbar con fondo semitransparente (para que se vea el efecto detrás) */
 nav,
 .navbar,
 header {
@@ -371,7 +354,6 @@ header {
   backdrop-filter: blur(12px) !important;
 }
 
-/* Footer sin fondo sólido */
 footer,
 .footer {
   background: transparent !important;
