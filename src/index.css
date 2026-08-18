@@ -4,7 +4,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
 :root {
   --cyan: #00e5ff;
   --blue: #1565ff;
@@ -40,10 +39,30 @@ body {
   overflow-x: hidden;
 }
 
-/* Custom scrollbar */
-::-webkit-scrollbar { width: 4px; }
-::-webkit-scrollbar-track { background: #020408; }
-::-webkit-scrollbar-thumb { background: var(--cyan); border-radius: 2px; }
+/* Custom scrollbar - con soporte para navegadores */
+::-webkit-scrollbar {
+  width: 4px;
+}
+::-webkit-scrollbar-track {
+  background: #020408;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--cyan);
+  border-radius: 2px;
+}
+
+/* CORREGIDO: scrollbar-width con prefijo -webkit */
+.scrollbar-none {
+  -ms-overflow-style: none !important;
+  -webkit-scrollbar-width: thin !important;
+  scrollbar-width: thin !important;
+}
+
+.scrollbar-none::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
 
 .hide-scrollbar::-webkit-scrollbar {
   display: none;
@@ -58,8 +77,12 @@ body {
 }
 
 /* Glow effects */
-.glow-cyan { box-shadow: var(--glow-cyan); }
-.glow-blue { box-shadow: var(--glow-blue); }
+.glow-cyan {
+  box-shadow: var(--glow-cyan);
+}
+.glow-blue {
+  box-shadow: var(--glow-blue);
+}
 
 /* Grid bg pattern */
 .grid-bg {
@@ -86,45 +109,96 @@ body {
 
 /* Animation: fade up */
 @keyframes fadeUp {
-  from { opacity: 0; transform: translateY(30px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-12px); }
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
 }
 
 @keyframes pulse-glow {
-  0%, 100% { opacity: 0.4; }
-  50% { opacity: 1; }
+  0%, 100% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 1;
+  }
 }
 
 @keyframes scanline {
-  0% { transform: translateY(-100%); }
-  100% { transform: translateY(100vh); }
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(100vh);
+  }
 }
 
-.animate-fade-up { animation: fadeUp 0.7s ease forwards; }
-.animate-float { animation: float 4s ease-in-out infinite; }
-.animate-pulse-glow { animation: pulse-glow 2s ease-in-out infinite; }
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(6px);
+  }
+}
+
+.animate-fade-up {
+  animation: fadeUp 0.7s ease forwards;
+}
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+.animate-bounce {
+  animation: bounce 2s ease-in-out infinite;
+}
 
 /* Delay utilities */
-.delay-100 { animation-delay: 0.1s; }
-.delay-200 { animation-delay: 0.2s; }
-.delay-300 { animation-delay: 0.3s; }
-.delay-400 { animation-delay: 0.4s; }
-.delay-500 { animation-delay: 0.5s; }
+.delay-100 {
+  animation-delay: 0.1s;
+}
+.delay-200 {
+  animation-delay: 0.2s;
+}
+.delay-300 {
+  animation-delay: 0.3s;
+}
+.delay-400 {
+  animation-delay: 0.4s;
+}
+.delay-500 {
+  animation-delay: 0.5s;
+}
 
-/* Card glass style */
+/* CORREGIDO: Card glass style con prefijo -webkit */
 .glass-card {
   background: rgba(255, 255, 255, 0.02);
   border: 1px solid rgba(0, 229, 255, 0.1);
+  -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
   transition: all 0.3s ease;
 }
@@ -136,9 +210,10 @@ body {
   transform: translateY(-4px);
 }
 
-/* Enhanced Glass Card with Orb */
+/* CORREGIDO: Enhanced Glass Card con prefijo -webkit */
 .glass-card-enhanced {
   background: rgba(255, 255, 255, 0.01);
+  -webkit-backdrop-filter: blur(12px);
   backdrop-filter: blur(12px);
   position: relative;
   overflow: hidden;
@@ -187,8 +262,13 @@ body {
   transition: opacity 0.3s;
 }
 
-.btn-primary:hover::before { opacity: 1; }
-.btn-primary:hover { box-shadow: 0 0 30px rgba(0, 229, 255, 0.5); transform: translateY(-2px); }
+.btn-primary:hover::before {
+  opacity: 1;
+}
+.btn-primary:hover {
+  box-shadow: 0 0 30px rgba(0, 229, 255, 0.5);
+  transform: translateY(-2px);
+}
 
 .btn-outline {
   border: 1px solid rgba(0, 229, 255, 0.4);
@@ -212,61 +292,17 @@ body {
   text-transform: uppercase;
 }
 
-
-@keyframes bounce {
-  0%, 100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(6px);
-  }
-}
-
-.animate-bounce {
-  animation: bounce 2s ease-in-out infinite;
-}
-
 /* Eliminar scroll horizontal */
-html, body {
+html,
+body {
   overflow-x: hidden;
   max-width: 100%;
-}
-
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
 }
 
 /* Para contenedores específicos */
 .container {
   overflow-x: hidden;
   width: 100%;
-}
-
-
-/* Ocultar scrollbar en todos los navegadores */
-.scrollbar-none {
-  -ms-overflow-style: none !important;  /* IE and Edge */
-  scrollbar-width: none !important;  /* Firefox */
-}
-
-.scrollbar-none::-webkit-scrollbar {
-  display: none !important;  /* Chrome, Safari and Opera */
-  width: 0 !important;
-  height: 0 !important;
-}
-
-/* También para los contenedores con clases específicas */
-[class*="scrollbar-none"] {
-  -ms-overflow-style: none !important;
-  scrollbar-width: none !important;
-}
-
-[class*="scrollbar-none"]::-webkit-scrollbar {
-  display: none !important;
-  width: 0 !important;
-  height: 0 !important;
 }
 
 /* Asegurar que las imágenes se vean bien en el modal */
@@ -281,41 +317,62 @@ html, body {
   object-fit: cover;
 }
 
+/* ============================================
+   FORZAR FONDO TRANSPARENTE EN TODAS LAS SECCIONES
+   PARA QUE EL EFECTO AURORA SEA VISIBLE
+   ============================================ */
 
-/* src/index.css */
-
-/* Forzar fondo transparente en todas las secciones */
-section {
+/* Todas las secciones principales */
+section,
+section#home,
+section#services,
+section#team,
+section#projects,
+section.hero-section,
+section.services-section,
+section.team-section,
+section.projects-section {
   background: transparent !important;
 }
 
-/* Asegurar que el body y html tengan fondo oscuro de respaldo */
-html, body {
-  margin: 0;
-  padding: 0;
-  background: #0A0E1A;
-  min-height: 100vh;
-}
-
-#root {
-  min-height: 100vh;
-  background: transparent;
-}
-
-/* Si usas clases específicas, asegurar que sean transparentes */
-.hero-section,
-.services-section,
-.team-section,
-.projects-section,
-.footer-section {
-  background: transparent !important;
-}
-
-/* Asegurar que cualquier contenedor con fondo oscuro lo quite */
+/* Cualquier elemento que pueda tener fondo oscuro */
 .bg-dark,
 .bg-black,
 .bg-gray-900,
 .bg-slate-900,
-.bg-[#0A0E1A] {
+.bg-[#020408],
+.bg-[#040810],
+.bg-[#0A0E1A],
+.bg-[#0B1A33],
+.bg-[#0d1b2a],
+.bg-[#1a1a2e] {
+  background: transparent !important;
+}
+
+/* Forzar que el contenedor principal no tenga fondo */
+#root,
+.App,
+main,
+.layout-root {
+  background: transparent !important;
+}
+
+/* Asegurar que el body tenga fondo oscuro de respaldo SOLO si el efecto falla */
+body {
+  background-color: #020408;
+}
+
+/* Navbar con fondo semitransparente (para que se vea el efecto detrás) */
+nav,
+.navbar,
+header {
+  background: rgba(2, 4, 8, 0.7) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  backdrop-filter: blur(12px) !important;
+}
+
+/* Footer sin fondo sólido */
+footer,
+.footer {
   background: transparent !important;
 }

@@ -70,18 +70,18 @@ struct ColorStop {
   float position;
 };
 
-#define COLOR_RAMP(colors, factor, finalColor) {              \
-  int index = 0;                                            \
-  for (int i = 0; i < 2; i++) {                               \
-     ColorStop currentColor = colors[i];                    \
-     bool isInBetween = currentColor.position <= factor;    \
-     index = int(mix(float(index), float(i), float(isInBetween))); \
-  }                                                         \
-  ColorStop currentColor = colors[index];                   \
-  ColorStop nextColor = colors[index + 1];                  \
-  float range = nextColor.position - currentColor.position; \
-  float lerpFactor = (factor - currentColor.position) / range; \
-  finalColor = mix(currentColor.color, nextColor.color, lerpFactor); \
+#define COLOR_RAMP(colors, factor, finalColor) {              \\
+  int index = 0;                                            \\
+  for (int i = 0; i < 2; i++) {                               \\
+     ColorStop currentColor = colors[i];                    \\
+     bool isInBetween = currentColor.position <= factor;    \\
+     index = int(mix(float(index), float(i), float(isInBetween))); \\
+  }                                                         \\
+  ColorStop currentColor = colors[index];                   \\
+  ColorStop nextColor = colors[index + 1];                  \\
+  float range = nextColor.position - currentColor.position; \\
+  float lerpFactor = (factor - currentColor.position) / range; \\
+  finalColor = mix(currentColor.color, nextColor.color, lerpFactor); \\
 }
 
 void main() {
@@ -124,7 +124,11 @@ export default function Aurora({
   speed = 1.0
 }: AuroraProps) {
   const propsRef = useRef({ colorStops, amplitude, blend, speed });
-  propsRef.current = { colorStops, amplitude, blend, speed };
+
+  // CORREGIDO: Actualizar ref en efecto, no durante render
+  useEffect(() => {
+    propsRef.current = { colorStops, amplitude, blend, speed };
+  }, [colorStops, amplitude, blend, speed]);
 
   const ctnDom = useRef<HTMLDivElement>(null);
 
@@ -143,23 +147,7 @@ export default function Aurora({
     gl.blendFunc(gl.ONE, gl.ONE_MINUS_SRC_ALPHA);
     gl.canvas.style.backgroundColor = 'transparent';
 
-    let program: Program;
-
-    function resize() {
-      if (!ctn) return;
-      const width = window.innerWidth;
-      const height = window.innerHeight;
-      renderer.setSize(width, height);
-      if (program) {
-        program.uniforms.uResolution.value = [width, height];
-      }
-    }
-
-    const resizeObserver = new ResizeObserver(() => resize());
-    resizeObserver.observe(document.body);
-
-    window.addEventListener('resize', resize);
-
+    // CORREGIDO: Usar const en lugar de let
     const geometry = new Triangle(gl);
 
     const colorStopsArray = colorStops.map(hex => {
@@ -167,7 +155,8 @@ export default function Aurora({
       return [c.r, c.g, c.b];
     });
 
-    program = new Program(gl, {
+    // CORREGIDO: Crear program con const
+    const program = new Program(gl, {
       vertex: VERT,
       fragment: FRAG,
       uniforms: {
@@ -182,13 +171,29 @@ export default function Aurora({
     const mesh = new Mesh(gl, { geometry, program });
     ctn.appendChild(gl.canvas);
 
+    function resize() {
+      if (!ctn) return;
+      const width = window.innerWidth;
+      const height = window.innerHeight;
+      renderer.setSize(width, height);
+      program.uniforms.uResolution.value = [width, height];
+    }
+
+    const resizeObserver = new ResizeObserver(() => resize());
+    resizeObserver.observe(document.body);
+
+    window.addEventListener('resize', resize);
+
     let animateId = 0;
     const update = (t: number) => {
       animateId = requestAnimationFrame(update);
-      const { time = t * 0.01, speed: speedProp = 1.0 } = propsRef.current;
-      program.uniforms.uTime.value = time * speedProp * 0.1;
+      
+      // CORREGIDO: Obtener speed de forma segura
+      const speedProp = propsRef.current.speed ?? 1.0;
+      program.uniforms.uTime.value = t * 0.01 * speedProp * 0.1;
       program.uniforms.uAmplitude.value = propsRef.current.amplitude ?? 1.0;
       program.uniforms.uBlend.value = propsRef.current.blend ?? blend;
+      
       const stops = propsRef.current.colorStops ?? colorStops;
       program.uniforms.uColorStops.value = stops.map(hex => {
         const c = new Color(hex);
