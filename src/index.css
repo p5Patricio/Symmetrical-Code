@@ -280,3 +280,42 @@ html, body {
 [class*="DetailModal"] img {
   object-fit: cover;
 }
+
+
+/* src/index.css */
+
+/* Forzar fondo transparente en todas las secciones */
+section {
+  background: transparent !important;
+}
+
+/* Asegurar que el body y html tengan fondo oscuro de respaldo */
+html, body {
+  margin: 0;
+  padding: 0;
+  background: #0A0E1A;
+  min-height: 100vh;
+}
+
+#root {
+  min-height: 100vh;
+  background: transparent;
+}
+
+/* Si usas clases específicas, asegurar que sean transparentes */
+.hero-section,
+.services-section,
+.team-section,
+.projects-section,
+.footer-section {
+  background: transparent !important;
+}
+
+/* Asegurar que cualquier contenedor con fondo oscuro lo quite */
+.bg-dark,
+.bg-black,
+.bg-gray-900,
+.bg-slate-900,
+.bg-[#0A0E1A] {
+  background: transparent !important;
+}

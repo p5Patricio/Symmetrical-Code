@@ -1,3 +1,4 @@
+// src/App.tsx
 import { Helmet } from 'react-helmet-async';
 import { useTranslation } from 'react-i18next';
 import { Routes, Route } from 'react-router-dom';
@@ -8,6 +9,7 @@ import ServicesSection from './components/sections/ServicesSection';
 import TeamSection from './components/sections/TeamSection';
 import ProjectsPage from './pages/ProjectsPage';
 import ChatWidget from './components/chat/ChatWidget';
+import Aurora from './components/Aurora';
 
 function App() {
   const { i18n } = useTranslation();
@@ -19,29 +21,42 @@ function App() {
         <html lang={currentLang} />
       </Helmet>
 
-      <Routes>
-        {/* Ruta principal */}
-        <Route path="/" element={
-          <>
-            <Navbar />
-            <HeroSection />
-            <ServicesSection />
-            <ProjectsPage />
-            <TeamSection />
-            <ChatWidget />
-            <Footer />
-          </>
-        } />
+      {/* Efecto Aurora - Fondo fijo */}
+      <Aurora 
+        colorStops={['#0B1A33', '#2B4B7A', '#63B3ED']}
+        amplitude={1.0}
+        blend={0.5}
+        speed={0.8}
+      />
 
-        {/* ✅ Ruta de la galería completa de proyectos */}
-        <Route path="/proyectos" element={
-          <>
-            <Navbar /> {/* Necesario para navegación */}
-            <ProjectsPage isFullPage={true} />
-            <Footer />
-          </>
-        } />
-      </Routes>
+      {/* Contenido - Todo sobre el efecto */}
+      <div style={{ 
+        position: 'relative', 
+        zIndex: 1,
+        minHeight: '100vh',
+        background: 'transparent'
+      }}>
+        <Routes>
+          <Route path="/" element={
+            <>
+              <Navbar />
+              <HeroSection />
+              <ServicesSection />
+              <ProjectsPage />
+              <TeamSection />
+              <ChatWidget />
+              <Footer />
+            </>
+          } />
+          <Route path="/proyectos" element={
+            <>
+              <Navbar />
+              <ProjectsPage isFullPage={true} />
+              <Footer />
+            </>
+          } />
+        </Routes>
+      </div>
     </>
   );
 }

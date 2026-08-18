@@ -1,0 +1,26 @@
+/* src/components/Aurora.css */
+.aurora-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 0;
+  background: transparent;
+  overflow: hidden;
+}
+
+.aurora-container canvas {
+  display: block !important;
+  width: 100% !important;
+  height: 100% !important;
+  background: transparent !important;
+}
+
+/* Forzar que el canvas se estire */
+.aurora-container canvas:first-child {
+  object-fit: cover;
+  width: 100vw !important;
+  height: 100vh !important;
+}

@@ -1,3 +1,4 @@
+// src/components/sections/Hero.tsx
 import { useEffect, useRef, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -124,22 +125,18 @@ function CodeToWebScene() {
   const typeLinesRef = useRef<((lines: CodeLine[], idx: number, onDone: () => void) => void) | null>(null);
   const startSequenceRef = useRef<(() => void) | null>(null);
 
-  // Escala dinámica: el panel "nativo" mide 460px de ancho y ~420px de alto.
-  // Calculamos cuánto cabe en el contenedor y aplicamos scale a todos los paneles.
   useEffect(() => {
     const scene = sceneRef.current;
     if (!scene) return;
     const PANEL_W = 460;
-    const PANEL_H = 420; // altura aproximada del panel con contenido
-    const LABEL_H = 40;  // espacio reservado para el phase-label en la parte baja
+    const PANEL_H = 420;
+    const LABEL_H = 40;
     const applyScale = () => {
       const sw = scene.offsetWidth;
       const sh = scene.offsetHeight;
       const scaleX = (sw - 32) / PANEL_W;
-      // Descontamos el label del alto disponible para que no lo tape
       const scaleY = (sh - LABEL_H - 24) / PANEL_H;
       const s = Math.min(scaleX, scaleY, 1);
-      // Centrado vertical: mover el pivot un poco arriba para ceder espacio al label
       const topPct = sh > 0 ? ((sh - LABEL_H) / 2 / sh) * 100 : 50;
       [codePanelRef, webPanelRef, logoOverlayRef].forEach(ref => {
         if (ref.current) {
@@ -248,7 +245,6 @@ function CodeToWebScene() {
     startSequenceRef.current = startSequence;
   }, [clearTimers, spawnParticles, later, t]);
 
-  // Canvas de estrellas
   useEffect(() => {
     const canvas = canvasRef.current;
     const scene = sceneRef.current;
@@ -272,16 +268,14 @@ function CodeToWebScene() {
     return () => resizeObserver.disconnect();
   }, []);
 
-  // Inyecta estilos — VERSIÓN RESPONSIVA
   useEffect(() => {
     if (document.getElementById('sc-styles')) return;
     const s = document.createElement('style');
     s.id = 'sc-styles';
     s.textContent = `
-      .sc-scene { width:100%;height:100%;background:#040810;position:relative;overflow:hidden; }
+      .sc-scene { width:100%;height:100%;background:transparent;position:relative;overflow:hidden; }
       .sc-stars { position:absolute;inset:0;pointer-events:none;width:100%;height:100%; }
 
-      /* ── Paneles: siempre 460px nativos, el scale JS los achica ── */
       .sc-code-panel {
         position:absolute;top:50%;left:50%;
         transform-origin: center center;
@@ -302,7 +296,6 @@ function CodeToWebScene() {
       @keyframes sc-blink { 0%,100%{opacity:1}50%{opacity:0} }
       .tk.kw{color:#7dd3fc}.tk.fn{color:#86efac}.tk.str{color:#fde68a}.tk.cmt{color:#4a6a7a;font-style:italic}.tk.var{color:#e2a0ff}.tk.op{color:#7dd3fc}.tk.tag{color:#7dd3fc}.tk.attr{color:#86efac}.tk.val{color:#fde68a}
 
-      /* ── Web Panel ── */
       .sc-web-panel {
         position:absolute;top:50%;left:50%;
         transform-origin: center center;
@@ -325,7 +318,6 @@ function CodeToWebScene() {
       .sc-card-title { font-size:10px;font-weight:600;color:#a8c8e0;margin-bottom:3px; }
       .sc-card-desc { font-size:9px;color:#3a5a6a;line-height:1.4; }
 
-      /* ── Logo Overlay ── */
       .sc-logo-overlay {
         position:absolute;top:50%;left:50%;
         transform-origin: center center;
@@ -339,7 +331,6 @@ function CodeToWebScene() {
       .sc-logo-img { width:200px;height:200px;object-fit:contain;display:block;margin:0 auto;filter:drop-shadow(0 0 48px rgba(0,229,255,0.5)) drop-shadow(0 0 20px rgba(0,180,255,0.4)); }
       .sc-logo-label { font-family:monospace;font-size:14px;letter-spacing:.3em;text-transform:uppercase;color:rgba(0,229,255,.7);text-align:center; }
 
-      /* ── Phase Label — pegado al fondo del contenedor, nunca tapa el panel ── */
       .sc-phase-label {
         position:absolute;
         bottom:10px;
@@ -356,7 +347,6 @@ function CodeToWebScene() {
         pointer-events:none;
       }
 
-      /* Responsive adjustments */
       @media (max-width: 640px) {
         .sc-code-panel, .sc-web-panel, .sc-logo-overlay { width: 90vw !important; min-width: 280px; max-width: 460px; }
         .sc-web-cards { grid-template-columns: repeat(auto-fit, minmax(95px, 1fr)); }
@@ -445,8 +435,8 @@ function CodeToWebScene() {
 export default function Hero() {
   const { t } = useTranslation();
 
-const whatsappMessage = t('whatsapp.message_hero');
-const whatsappUrl = `https://wa.me/524737374224?text=${encodeURIComponent(whatsappMessage)}`;
+  const whatsappMessage = t('whatsapp.message_hero');
+  const whatsappUrl = `https://wa.me/524737374224?text=${encodeURIComponent(whatsappMessage)}`;
 
   const principles = [
     { value: t('hero.stat_1_value'), label: t('hero.stat_1_label') },
@@ -455,7 +445,14 @@ const whatsappUrl = `https://wa.me/524737374224?text=${encodeURIComponent(whatsa
   ];
 
   return (
-    <section id="home" className="relative overflow-hidden grid-bg" style={{ minHeight: '100vh' }}>
+    <section 
+      id="home" 
+      className="relative overflow-hidden" 
+      style={{ 
+        minHeight: '100vh',
+        background: 'transparent'
+      }}
+    >
       <div className="absolute inset-0 pointer-events-none" style={{ zIndex: 0 }}>
         <div
           className="absolute top-1/2 -translate-y-1/2 right-0 w-[600px] h-[600px] rounded-full opacity-[0.07] blur-3xl"
@@ -520,7 +517,6 @@ const whatsappUrl = `https://wa.me/524737374224?text=${encodeURIComponent(whatsa
             </a>
           </div>
 
-          {/* Principios — sin métricas infladas mientras el estudio inicia */}
           <div
             className="flex flex-wrap gap-5 sm:gap-6 mb-7 opacity-0 animate-fade-up"
             style={{ animationDelay: '0.42s', animationFillMode: 'forwards' }}
@@ -538,7 +534,6 @@ const whatsappUrl = `https://wa.me/524737374224?text=${encodeURIComponent(whatsa
             style={{ maxWidth: '36ch', animationDelay: '0.47s', animationFillMode: 'forwards' }}
           />
 
-          {/* Info de contacto + redes */}
           <div
             className="flex flex-col sm:flex-row gap-5 sm:gap-6 opacity-0 animate-fade-up"
             style={{ animationDelay: '0.52s', animationFillMode: 'forwards' }}
@@ -588,8 +583,6 @@ const whatsappUrl = `https://wa.me/524737374224?text=${encodeURIComponent(whatsa
             </div>
           </div>
 
-          {/* ── MOBILE: Scene se muestra debajo del texto en móvil ── */}
-          {/* FIX: visible solo en mobile/tablet, oculto en lg (donde ya aparece en la columna derecha) */}
           <div
             className="block lg:hidden mt-10 rounded-xl overflow-hidden opacity-0 animate-fade-up"
             style={{
@@ -612,11 +605,11 @@ const whatsappUrl = `https://wa.me/524737374224?text=${encodeURIComponent(whatsa
           </div>
           <div
             className="absolute inset-y-0 left-0 w-24 pointer-events-none"
-            style={{ background: 'linear-gradient(to right, #020408, transparent)' }}
+            style={{ background: 'linear-gradient(to right, transparent, transparent)' }}
           />
           <div
             className="absolute inset-x-0 bottom-0 h-16 pointer-events-none"
-            style={{ background: 'linear-gradient(to top, #020408, transparent)' }}
+            style={{ background: 'linear-gradient(to top, transparent, transparent)' }}
           />
         </div>
       </div>
