@@ -1,4 +1,3 @@
-// src/App.tsx
 import { Helmet } from 'react-helmet-async';
 import { useTranslation } from 'react-i18next';
 import { Routes, Route } from 'react-router-dom';
@@ -8,6 +7,7 @@ import HeroSection from './components/sections/HeroSection';
 import ServicesSection from './components/sections/ServicesSection';
 import TeamSection from './components/sections/TeamSection';
 import ProjectsPage from './pages/ProjectsPage';
+import ServiceDetailPage from './pages/ServiceDetailPage';
 import ChatWidget from './components/chat/ChatWidget';
 import Aurora from './components/Aurora';
 
@@ -55,6 +55,7 @@ function App() {
               <Footer />
             </>
           } />
+          <Route path="/servicios/:slug" element={<ServiceDetailPage />} />
         </Routes>
       </div>
     </>

@@ -1,54 +1,74 @@
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 import DeviceShowcase from './DeviceShowcase';
 
 const SERVICE_ICONS: JSX.Element[] = [
+  // 1. Software Empresarial (Database / Layers)
   (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <ellipse cx="12" cy="5" rx="9" ry="3" />
+      <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3" />
+      <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5" />
+    </svg>
+  ),
+  // 2. Inteligencia Artificial (Sparkles / Neural AI)
+  (
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83" />
+      <circle cx="12" cy="12" r="3" />
+    </svg>
+  ),
+  // 3. Desarrollo Web y Móvil (Devices & Code)
+  (
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
       <rect x="2" y="3" width="20" height="14" rx="2" />
       <path d="M8 21h8M12 17v4" />
     </svg>
   ),
+  // 4. Ciberseguridad (Shield Check)
   (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-      <path d="M12 2L2 7l10 5 10-5-10-5z" />
-      <path d="M2 17l10 5 10-5" />
-      <path d="M2 12l10 5 10-5" />
-    </svg>
-  ),
-  (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-      <circle cx="12" cy="12" r="3" />
-      <path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83" />
-    </svg>
-  ),
-  (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
       <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+      <path d="m9 12 2 2 4-4" />
     </svg>
   ),
+  // 5. Diseño UI/UX (Palette / Design Pen)
   (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-      <polyline points="16 18 22 12 16 6" />
-      <polyline points="8 6 2 12 8 18" />
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <path d="m12 19 7-7 3 3-7 7-3-3z" />
+      <path d="m18 13-1.5-7.5L2 2l3.5 14.5L13 18l5-5z" />
+      <path d="m2 2 7.586 7.586" />
+      <circle cx="11" cy="11" r="2" />
     </svg>
   ),
+  // 6. Automatización y Analítica (Zap & Activity)
   (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-      <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
     </svg>
   ),
 ];
 
+const SERVICE_SLUGS = [
+  'software-empresarial',
+  'inteligencia-artificial',
+  'desarrollo-web-movil',
+  'ciberseguridad',
+  'diseno-ui-ux',
+  'automatizacion-analitica',
+];
+
 const SERVICE_COLORS = [
-  'var(--svc-web)',
   'var(--svc-systems)',
   'var(--svc-cloud)',
+  'var(--svc-web)',
   'var(--svc-security)',
   'var(--svc-uiux)',
   'var(--svc-analytics)',
 ];
 
 type ServiceItem = {
+  slug?: string;
   title: string;
   description: string;
 };
@@ -60,19 +80,29 @@ const ORBIT_ANGLES = [-90, -30, 30, 90, 150, 210];
 
 function OrbitCard({ service, index, style }: { service: ServiceItem; index: number; style?: React.CSSProperties }) {
   const accent = SERVICE_COLORS[index];
+  const slug = service.slug || SERVICE_SLUGS[index] || 'software-empresarial';
 
   return (
-    <article className="orbit-card" style={style}>
+    <Link
+      to={`/servicios/${slug}`}
+      className="orbit-card block group no-underline"
+      style={style}
+    >
       <div className="orbit-card-glow" style={{ background: accent }} />
       <div className="orbit-card-top">
-        <div className="orbit-icon" style={{ color: accent }}>
+        <div className="orbit-icon group-hover:scale-110 transition-transform" style={{ color: accent }}>
           {SERVICE_ICONS[index]}
         </div>
-        <span className="orbit-index">{String(index + 1).padStart(2, '0')}</span>
+        <div className="flex items-center gap-2">
+          <span className="font-mono text-[10px] text-[#00e5ff] opacity-0 group-hover:opacity-100 transition-opacity">
+            Ver detalle →
+          </span>
+          <span className="orbit-index">{String(index + 1).padStart(2, '0')}</span>
+        </div>
       </div>
-      <h3 className="orbit-title">{service.title}</h3>
-      <p className="orbit-desc" style={{ color: accent }}>{service.description}</p>
-    </article>
+      <h3 className="orbit-title group-hover:text-[#00e5ff] transition-colors">{service.title}</h3>
+      <p className="orbit-desc line-clamp-3" style={{ color: accent }}>{service.description}</p>
+    </Link>
   );
 }
 
@@ -201,33 +231,25 @@ export default function Services() {
           .orbit-card:hover { transform: translate(-50%, -50%) translateY(-4px); }
         }
 
-        /* ─────────── Card ───────────
-           Glow, lift and backdrop-blur values are ported from main's
-           .glass-card-enhanced/.glowing-orb: a 180px orb that swings from a
-           faint 0.15 rest tint to full-strength 1.0 on hover reads as a much
-           more deliberate effect than a small orb barely brightening.
-           Height is fixed to "Pages & Apps that Sell" — the longest title +
-           description in the set — measured live at each tier so every card
-           shares one footprint instead of six different ones. */
+        /* ─────────── Card ─────────── */
         .orbit-card {
           height: 219px;
-          padding: 26px 28px;
+          padding: 24px 26px;
           background: rgba(255, 255, 255, 0.02);
           border: 1px solid rgba(255, 255, 255, 0.1);
           backdrop-filter: blur(0px);
           overflow: hidden;
+          cursor: pointer;
+          text-decoration: none;
           transition: border-color 0.4s ease, transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), background 0.4s ease, backdrop-filter 0.4s ease;
         }
 
         .orbit-card:hover {
-          border-color: rgba(255, 255, 255, 0.22);
-          background: rgba(255, 255, 255, 0.035);
-          backdrop-filter: blur(2px);
+          border-color: rgba(255, 255, 255, 0.25);
+          background: rgba(255, 255, 255, 0.04);
+          backdrop-filter: blur(4px);
         }
 
-        /* Same-specificity height rules are decided by source order, not by
-           which one is wrapped in @media — this override MUST come after
-           the base .orbit-card rule above to actually win at 1280px+. */
         @media (min-width: 1280px) {
           .orbit-card { height: 233px; }
         }
@@ -250,7 +272,7 @@ export default function Services() {
         }
 
         .orbit-card:hover .orbit-card-glow {
-          opacity: 0.5;
+          opacity: 0.55;
         }
 
         @media (max-width: 640px) {
@@ -261,7 +283,7 @@ export default function Services() {
           display: flex;
           align-items: center;
           justify-content: space-between;
-          margin-bottom: 14px;
+          margin-bottom: 12px;
           position: relative;
           z-index: 1;
         }
@@ -273,14 +295,15 @@ export default function Services() {
         .orbit-index {
           font-family: ui-monospace, monospace;
           font-size: 10px;
-          color: rgba(255, 255, 255, 0.15);
+          color: rgba(255, 255, 255, 0.2);
           letter-spacing: 0.05em;
         }
 
         .orbit-title {
           font-family: 'Syne', sans-serif;
           font-weight: 800;
-          font-size: 17px;
+          font-size: 16px;
+          line-height: 1.25;
           color: #ffffff;
           margin-bottom: 8px;
           position: relative;
@@ -289,16 +312,16 @@ export default function Services() {
 
         .orbit-desc {
           font-family: 'Inter', system-ui, sans-serif;
-          font-size: 14px;
-          line-height: 1.55;
+          font-size: 13.5px;
+          line-height: 1.5;
           font-weight: 500;
           position: relative;
           z-index: 1;
         }
 
         @media (max-width: 1279px) {
-          .orbit-title { font-size: 18px; }
-          .orbit-desc { font-size: 15px; }
+          .orbit-title { font-size: 17px; }
+          .orbit-desc { font-size: 14px; }
         }
       `}</style>
     </section>

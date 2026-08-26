@@ -36,105 +36,111 @@
     "modal_cta": "Platícanos tu proyecto",
     "items": [
       {
-        "title": "Páginas y Apps que Venden",
-        "description": "Sitios y aplicaciones con diseño profesional y carga veloz, hechos para convertir visitantes en clientes.",
-        "longDescription": "Diseñamos y construimos sitios web que no solo se ven bien, sino que trabajan para ti. Nos enfocamos en la experiencia de usuario y el rendimiento para que tus clientes encuentren lo que buscan rápido y sin fricciones. Desde landing pages hasta tiendas en línea, creamos tu ventana al mundo digital.",
+        "slug": "software-empresarial",
+        "title": "Software Empresarial y Sistemas Internos",
+        "description": "Migración de Excels a sistemas propios, ERPs y control total de inventarios, compras y ventas.",
+        "longDescription": "Diseñamos y desarrollamos plataformas empresariales que reemplazan hojas de Excel dispersas y software genérico costoso. Centralizamos inventarios, ventas, compras, finanzas y personal en un sistema seguro, rápido y accesible desde cualquier dispositivo.",
         "highlights": [
-          "Diseño moderno que genera confianza",
-          "Rápida carga en cualquier dispositivo",
-          "Fácil de usar para tus clientes",
-          "Lista para posicionar en Google (SEO)"
+          "Migración completa de Excel a base de datos segura",
+          "Control integrado de inventarios, compras y ventas",
+          "Permisos por empleado y roles personalizados",
+          "Acceso en la nube 24/7 desde celular y computadora"
         ],
         "bullets": [
-          "Diseño Profesional",
-          "Velocidad Optimizada",
-          "Funciona en Celulares",
-          "Fácil de Administrar"
+          "ERPs a Medida",
+          "Migración de Datos",
+          "Control de Roles",
+          "Gestión Centralizada"
         ]
       },
       {
-        "title": "Automatización y Sistemas",
-        "description": "Conectamos tus herramientas y automatizamos procesos para que tu operación funcione sola.",
-        "longDescription": "Creamos el cerebro de tu operación. Conectamos tus bases de datos, herramientas de pago y sistemas de terceros en una plataforma robusta y segura. Si tienes una tarea repetitiva, nosotros la automatizamos. Si tienes datos dispersos, nosotros los organizamos.",
+        "slug": "inteligencia-artificial",
+        "title": "Implementación de IA a tu Negocio",
+        "description": "Asistentes inteligentes 24/7, lectura automática de facturas/documentos y automatización con IA basada en tus datos.",
+        "longDescription": "Integramos modelos de lenguaje de última generación y modelos privados entrenados con los manuales, catálogos y políticas de tu empresa. Respuestas precisas sin alucinaciones, extracción automática de datos de facturas o contratos, y visión por computadora.",
         "highlights": [
-          "Automatización de tareas manuales",
-          "Conexión con pagos y redes sociales",
-          "Manejo seguro de tu información",
-          "Sistemas que crecen con tu empresa"
+          "Atención al cliente 24/7 con tus datos reales (RAG)",
+          "Extracción automática de datos de facturas y PDFs",
+          "Transcripción de audios y minutas de reuniones",
+          "Visión por computadora y control de calidad"
         ],
         "bullets": [
-          "Automatización de Procesos",
-          "Integración de Pagos",
-          "Bases de Datos Seguras",
-          "Sistemas Escalables"
+          "Agentes IA 24/7",
+          "Lectura de PDFs/Facturas",
+          "Modelos Privados",
+          "Cero Alucinaciones"
         ]
       },
       {
-        "title": "Tu Negocio Siempre Activo",
-        "description": "Infraestructura en la nube con alta disponibilidad, para que tu sitio nunca se caiga.",
-        "longDescription": "Nos encargamos de toda la complejidad técnica detrás de cámaras. Configuramos servidores en la nube que se ajustan automáticamente a la cantidad de personas que te visitan, asegurando que tu inversión sea eficiente y tu sitio esté siempre disponible.",
+        "slug": "desarrollo-web-movil",
+        "title": "Desarrollo de Páginas Web y Apps Móviles",
+        "description": "Sitios web de carga instantánea que generan ventas, pasarelas de pago y aplicaciones móviles en iOS y Android.",
+        "longDescription": "Construimos experiencias digitales modernas, desde landing pages que convierten visitantes en clientes hasta plataformas web complejas (SaaS) y aplicaciones móviles en iOS y Android con una sola base de código optimizada.",
         "highlights": [
-          "99.9% de tiempo en línea garantizado",
-          "Optimización de costos en la nube",
-          "Seguridad contra ataques",
-          "Actualizaciones automáticas"
+          "Carga ultrarrápida en menos de 1 segundo",
+          "Apps móviles para iOS y Android en Flutter y React",
+          "Integración de pagos (Mercado Pago, Stripe, transferencias)",
+          "Arquitectura optimizada para posicionar en Google (SEO)"
         ],
         "bullets": [
-          "Infraestructura Cloud",
-          "Seguridad Avanzada",
-          "Escalabilidad Total",
-          "Soporte Continuo"
+          "Webs de Alta Conversión",
+          "Apps iOS y Android",
+          "Pagos en Línea",
+          "SEO Técnico Impecable"
         ]
       },
       {
-        "title": "Ciberseguridad",
-        "description": "Protegemos tus datos y los de tus clientes con seguridad de nivel bancario.",
-        "longDescription": "La seguridad no es opcional. Protegemos tu propiedad intelectual y los datos sensibles de tus usuarios siguiendo los más altos estándares de la industria. Realizamos auditorías constantes para asegurar que tu negocio sea un lugar seguro para transaccionar.",
+        "slug": "ciberseguridad",
+        "title": "Ciberseguridad y Asesoría",
+        "description": "Blindaje para software que ya tenés, auditorías de vulnerabilidades, copias de seguridad y cifrado de datos.",
+        "longDescription": "La seguridad digital no es un lujo, es la garantía de que tu empresa no sufrirá hackeos, robo de bases de datos o multas por fuga de información. Auditamos sistemas ya construidos, protegemos APIs y asesoramos a directivos antes de realizar inversiones técnicas.",
         "highlights": [
-          "Cifrado de datos sensibles",
-          "Protección contra hackers",
-          "Cumplimiento de leyes de privacidad",
-          "Auditorías de seguridad regulares"
+          "Auditorías y blindaje para software existente",
+          "Cifrado de grado bancario para datos y contraseñas",
+          "Copias de seguridad automáticas ante desastres",
+          "Asesoría técnica honesta antes de invertir"
         ],
         "bullets": [
-          "Blindaje de Datos",
-          "Prevención de Ataques",
-          "Privacidad Garantizada",
-          "Consultoría Experta"
+          "Blindaje de Software",
+          "Cifrado de Datos",
+          "Copias de Seguridad",
+          "Consultoría Senior"
         ]
       },
       {
-        "title": "Diseño de Interfaces",
-        "description": "Interfaces claras e intuitivas, pensadas para que tus usuarios naveguen sin fricción.",
-        "longDescription": "El buen diseño es invisible: simplemente funciona. Creamos experiencias digitales intuitivas que guían a tus usuarios hacia la acción que deseas. Desde el primer boceto hasta el producto final, cada detalle está pensado para deleitar a quien lo usa.",
+        "slug": "diseno-ui-ux",
+        "title": "Diseño de Interfaces y Experiencia de Usuario",
+        "description": "Software intuitivo que se entiende sin manual, prototipos interactivos antes de programar y adaptación móvil.",
+        "longDescription": "El buen diseño es aquel que hace que un producto digital complejo se sienta simple. Creamos prototipos navegables en Figma para que puedas interactuar con tu producto antes de escribir código, asegurando flujos de compra sin trabas y coherencia visual en cada pantalla.",
         "highlights": [
-          "Interfaces fáciles de navegar",
-          "Prototipos para que veas antes de construir",
-          "Diseño que refleja tu marca",
-          "Pruebas con usuarios reales"
+          "Prototipos interactivos para probar antes de programar",
+          "Interfaces fáciles de usar que reducen soporte",
+          "Adaptación ergonómica y perfecta a celulares",
+          "Sistemas de diseño reutilizables y profesionales"
         ],
         "bullets": [
-          "Diseño Intuitivo",
-          "Prototipado Visual",
-          "Imagen de Marca",
-          "Enfoque en el Usuario"
+          "Prototipado en Figma",
+          "Experiencia sin Fricción",
+          "Diseño Mobile-First",
+          "Design Systems"
         ]
       },
       {
-        "title": "Analítica y Reportes",
-        "description": "Dashboards claros para entender a tus clientes y tomar mejores decisiones de negocio.",
-        "longDescription": "Lo que no se mide, no se puede mejorar. Te ayudamos a instalar y entender tableros de control que te muestran exactamente qué está pasando en tu negocio digital. Así podrás invertir con confianza donde realmente obtienes resultados.",
+        "slug": "automatizacion-analitica",
+        "title": "Automatización, Analítica y Reportes",
+        "description": "Automatización de WhatsApp, conexión entre plataformas, eliminación de tareas manuales y dashboards en vivo.",
+        "longDescription": "Hacemos que los sistemas de tu empresa se comuniquen automáticamente entre sí. Conectamos tu web con WhatsApp, pasarelas de pago, facturación e inventario para que las ventas se procesen solas, y construimos tableros interactivos para que tomes decisiones con datos precisos.",
         "highlights": [
-          "Reportes fáciles de entender",
-          "Seguimiento de ventas y conversiones",
-          "Mejora continua de resultados",
-          "Análisis de comportamiento de clientes"
+          "Automatización de mensajes y avisos por WhatsApp",
+          "Eliminación de tareas repetitivas de captura manual",
+          "Dashboards y gráficas de ventas en tiempo real",
+          "Conexión entre tus herramientas con APIs y Webhooks"
         ],
         "bullets": [
-          "Dashboards Claros",
-          "Optimización de Ventas",
-          "Reportes Mensuales",
-          "Estrategia de Datos"
+          "WhatsApp Automático",
+          "Workflows sin Fricción",
+          "Dashboards en Vivo",
+          "Integración de APIs"
         ]
       }
     ]
