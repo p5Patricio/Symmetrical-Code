@@ -1,9 +1,14 @@
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useLocation, useNavigate } from 'react-router-dom';
 import ContactModal from './ContactModal';
 
 export default function Navbar() {
   const { t, i18n } = useTranslation();
+  const location = useLocation();
+  const navigate = useNavigate();
+  const isHome = location.pathname === '/';
+
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
@@ -13,20 +18,22 @@ export default function Navbar() {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
 
-      const sections = ['team', 'projects', 'services', 'home'];
-      for (const id of sections) {
-        const el = document.getElementById(id);
-        if (el && window.scrollY >= el.offsetTop - 120) {
-          setActiveSection(id);
-          return;
+      if (isHome) {
+        const sections = ['team', 'projects', 'services', 'home'];
+        for (const id of sections) {
+          const el = document.getElementById(id);
+          if (el && window.scrollY >= el.offsetTop - 120) {
+            setActiveSection(id);
+            return;
+          }
         }
+        setActiveSection('');
       }
-      setActiveSection('');
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [isHome]);
 
   // Cerrar menú al hacer scroll
   useEffect(() => {
@@ -53,9 +60,40 @@ export default function Navbar() {
     i18n.changeLanguage(i18n.language === 'es' ? 'en' : 'es');
   };
 
-  const scrollTo = (id: string) => {
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+  const handleNavClick = (id: string) => {
     setMenuOpen(false);
+    if (isHome) {
+      if (id === 'home') {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else {
+        const el = document.getElementById(id);
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth' });
+        }
+      }
+    } else {
+      navigate('/');
+      setTimeout(() => {
+        if (id === 'home') {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        } else {
+          const el = document.getElementById(id);
+          if (el) {
+            el.scrollIntoView({ behavior: 'smooth' });
+          }
+        }
+      }, 100);
+    }
+  };
+
+  const handleLogoClick = () => {
+    setMenuOpen(false);
+    if (isHome) {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      navigate('/');
+      window.scrollTo({ top: 0, behavior: 'instant' });
+    }
   };
 
   const openContact = () => {
@@ -85,8 +123,8 @@ export default function Navbar() {
         <nav className="max-w-7xl mx-auto px-4 sm:px-6 h-14 sm:h-16 flex items-center justify-between">
           {/* Logo - izquierda */}
           <button
-            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-            className="flex items-center gap-2 sm:gap-3 group shrink-0"
+            onClick={handleLogoClick}
+            className="flex items-center gap-2 sm:gap-3 group shrink-0 cursor-pointer bg-transparent border-0 p-0"
           >
             <img
               src="/favicon.svg"
@@ -103,16 +141,16 @@ export default function Navbar() {
             {navLinks.map((link) => (
               <button
                 key={link.id}
-                onClick={() => scrollTo(link.id)}
-                className={`relative font-mono ${navLinkTextClass} tracking-[0.15em] uppercase px-3 lg:px-4 py-1.5 rounded-full transition-all duration-200 ${
-                  activeSection === link.id
+                onClick={() => handleNavClick(link.id)}
+                className={`relative font-mono ${navLinkTextClass} tracking-[0.15em] uppercase px-3 lg:px-4 py-1.5 rounded-full transition-all duration-200 cursor-pointer ${
+                  isHome && activeSection === link.id
                     ? 'text-[#00e5ff]'
                     : 'text-white/70 hover:text-white hover:bg-white/10'
                 }`}
               >
                 {t(link.key)}
                 {/* Línea de subrayado para el elemento activo */}
-                {activeSection === link.id && (
+                {isHome && activeSection === link.id && (
                   <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-4 h-0.5 bg-[#00e5ff] rounded-full" />
                 )}
               </button>
@@ -121,7 +159,7 @@ export default function Navbar() {
             {/* Contacto */}
             <button
               onClick={openContact}
-              className={`relative font-mono ${navLinkTextClass} tracking-[0.15em] uppercase px-3 lg:px-4 py-1.5 rounded-full transition-all duration-200 text-white/70 hover:text-white hover:bg-white/10`}
+              className={`relative font-mono ${navLinkTextClass} tracking-[0.15em] uppercase px-3 lg:px-4 py-1.5 rounded-full transition-all duration-200 text-white/70 hover:text-white hover:bg-white/10 cursor-pointer`}
             >
               {t('nav.contact')}
             </button>
@@ -131,7 +169,7 @@ export default function Navbar() {
           <div className="flex items-center gap-2 sm:gap-3">
             <button
               onClick={toggleLang}
-              className="font-mono text-[10px] sm:text-xs tracking-widest border border-[rgba(0,229,255,0.3)] text-[#00e5ff]/80 hover:text-[#00e5ff] hover:border-[#00e5ff] px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-md transition-all duration-200"
+              className="font-mono text-[10px] sm:text-xs tracking-widest border border-[rgba(0,229,255,0.3)] text-[#00e5ff]/80 hover:text-[#00e5ff] hover:border-[#00e5ff] px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-md transition-all duration-200 cursor-pointer"
             >
               {i18n.language === 'es' ? 'EN' : 'ES'}
             </button>
@@ -139,7 +177,7 @@ export default function Navbar() {
             {/* MENÚ HAMBURGUESA */}
             <button
               onClick={() => setMenuOpen(!menuOpen)}
-              className="lg:hidden relative w-8 h-8 flex items-center justify-center focus:outline-none z-50"
+              className="lg:hidden relative w-8 h-8 flex items-center justify-center focus:outline-none z-50 cursor-pointer"
               aria-label={menuOpen ? 'Cerrar menú' : 'Abrir menú'}
             >
               {!menuOpen ? (
@@ -176,7 +214,10 @@ export default function Navbar() {
           onClick={(e) => e.stopPropagation()}
         >
           {/* Logo en el menú */}
-          <div className="mb-6 flex flex-col items-center">
+          <button
+            onClick={handleLogoClick}
+            className="mb-6 flex flex-col items-center bg-transparent border-0 cursor-pointer"
+          >
             <img
               src="/favicon.svg"
               alt="Symmetrical Code"
@@ -185,16 +226,16 @@ export default function Navbar() {
             <span className="font-syne font-bold text-lg tracking-wide text-white">
               Symmetrical<span className="text-[#00e5ff]">Code</span>
             </span>
-          </div>
+          </button>
 
           {/* Enlaces del menú móvil */}
           <div className="flex flex-col items-center gap-2 w-full max-w-[220px]">
             {navLinks.map((link) => (
               <button
                 key={link.id}
-                onClick={() => scrollTo(link.id)}
-                className={`w-full text-center font-mono text-sm tracking-[0.15em] uppercase py-3 px-6 rounded-full transition-all duration-300 ${
-                  activeSection === link.id
+                onClick={() => handleNavClick(link.id)}
+                className={`w-full text-center font-mono text-sm tracking-[0.15em] uppercase py-3 px-6 rounded-full transition-all duration-300 cursor-pointer ${
+                  isHome && activeSection === link.id
                     ? 'text-[#00e5ff] bg-white/5'
                     : 'text-white/60 hover:text-white hover:bg-white/10'
                 }`}
@@ -206,7 +247,7 @@ export default function Navbar() {
             {/* Contacto */}
             <button
               onClick={openContact}
-              className="w-full text-center font-mono text-sm tracking-[0.15em] uppercase py-3 px-6 rounded-full transition-all duration-300 text-white/60 hover:text-white hover:bg-white/10"
+              className="w-full text-center font-mono text-sm tracking-[0.15em] uppercase py-3 px-6 rounded-full transition-all duration-300 text-white/60 hover:text-white hover:bg-white/10 cursor-pointer"
             >
               {t('nav.contact')}
             </button>
@@ -218,7 +259,7 @@ export default function Navbar() {
           {/* Botón de idioma en menú móvil */}
           <button
             onClick={toggleLang}
-            className="font-mono text-sm tracking-widest border border-[rgba(0,229,255,0.4)] text-[#00e5ff] hover:bg-[#00e5ff]/10 px-6 py-2 rounded-md transition-all duration-200"
+            className="font-mono text-sm tracking-widest border border-[rgba(0,229,255,0.4)] text-[#00e5ff] hover:bg-[#00e5ff]/10 px-6 py-2 rounded-md transition-all duration-200 cursor-pointer"
           >
             {i18n.language === 'es' ? 'ENGLISH' : 'ESPAÑOL'}
           </button>
