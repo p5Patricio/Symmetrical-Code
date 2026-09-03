@@ -45,20 +45,20 @@ export default function HeroSection() {
 
         {/* ─── 2. Standalone Large Isotype Logo (Sin contenedor) ─── */}
         <div
-          className="relative mb-6 sm:mb-8 opacity-0 animate-fade-up"
+          className="relative mb-5 sm:mb-8 opacity-0 animate-fade-up"
           style={{ animationDelay: '0.18s', animationFillMode: 'forwards' }}
         >
           <img
             src="/favicon.svg"
             alt="Symmetrical Code Isotype"
-            className="w-28 h-28 sm:w-32 sm:h-32 md:w-36 md:h-36 object-contain filter drop-shadow-[0_16px_40px_rgba(0,229,255,0.32)] hover:scale-105 transition-transform duration-500 cursor-pointer"
+            className="w-20 h-20 sm:w-28 sm:h-28 md:w-36 md:h-36 object-contain filter drop-shadow-[0_16px_40px_rgba(0,229,255,0.32)] hover:scale-105 transition-transform duration-500 cursor-pointer"
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
           />
         </div>
 
         {/* ─── 3. Grand Studio Headline with React Bits RotatingText ─── */}
         <h1
-          className="font-syne font-black text-3xl sm:text-5xl md:text-6xl tracking-[-0.03em] leading-none text-white mb-5 sm:mb-6 flex items-center justify-center gap-x-2.5 sm:gap-x-3.5 whitespace-nowrap opacity-0 animate-fade-up"
+          className="font-syne font-black text-3xl sm:text-4xl md:text-5xl lg:text-6xl tracking-[-0.03em] leading-tight md:leading-none text-white mb-4 sm:mb-6 flex flex-col md:flex-row items-center justify-center gap-y-1 md:gap-y-0 md:gap-x-3.5 md:whitespace-nowrap opacity-0 animate-fade-up text-center"
           style={{ animationDelay: '0.26s', animationFillMode: 'forwards' }}
         >
           <span className="shrink-0">Symmetrical</span>
@@ -70,7 +70,7 @@ export default function HeroSection() {
         </h1>
 
         <p
-          className="font-syne font-bold text-lg sm:text-2xl md:text-3xl text-white/90 tracking-tight mb-4 sm:mb-6 max-w-3xl leading-snug opacity-0 animate-fade-up"
+          className="font-syne font-bold text-base sm:text-xl md:text-2xl lg:text-3xl text-white/90 tracking-tight mb-3 sm:mb-5 max-w-2xl px-4 sm:px-0 leading-snug opacity-0 animate-fade-up"
           style={{ animationDelay: '0.34s', animationFillMode: 'forwards' }}
         >
           {t('hero.title')}{' '}
@@ -80,7 +80,7 @@ export default function HeroSection() {
 
         {/* ─── 4. Subtitle / Value Proposition ─── */}
         <p
-          className="font-normal text-xs sm:text-sm md:text-base text-white/55 max-w-2xl leading-relaxed mb-8 sm:mb-10 mx-auto opacity-0 animate-fade-up"
+          className="font-normal text-xs sm:text-sm md:text-base text-white/55 max-w-xl px-4 sm:px-0 leading-relaxed mb-8 sm:mb-10 mx-auto opacity-0 animate-fade-up"
           style={{ animationDelay: '0.42s', animationFillMode: 'forwards' }}
         >
           {t('hero.subtitle')}
@@ -88,14 +88,14 @@ export default function HeroSection() {
 
         {/* ─── 5. Specular Action Buttons ─── */}
         <div
-          className="flex flex-wrap items-center justify-center gap-3.5 sm:gap-4 mb-12 sm:mb-16 opacity-0 animate-fade-up"
+          className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 sm:gap-4 w-full sm:w-auto max-w-xs sm:max-w-none px-4 sm:px-0 mb-10 sm:mb-16 opacity-0 animate-fade-up"
           style={{ animationDelay: '0.5s', animationFillMode: 'forwards' }}
         >
           <SpecularButton
             size="md"
             radius={14}
             onClick={() => document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' })}
-            className="font-syne font-bold text-xs sm:text-sm tracking-wider uppercase px-6 sm:px-7 py-3"
+            className="font-syne font-bold text-xs sm:text-sm tracking-wider uppercase px-6 sm:px-7 py-3 w-full sm:w-auto text-center justify-center"
             tint="#00e5ff"
             tintOpacity={0.05}
             blur={16}
@@ -112,7 +112,7 @@ export default function HeroSection() {
             href={whatsappUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="font-syne font-bold text-xs sm:text-sm tracking-wider uppercase px-6 sm:px-7 py-3"
+            className="font-syne font-bold text-xs sm:text-sm tracking-wider uppercase px-6 sm:px-7 py-3 w-full sm:w-auto text-center justify-center"
             tint="#ffffff"
             tintOpacity={0.02}
             blur={12}
@@ -126,7 +126,7 @@ export default function HeroSection() {
 
         {/* ─── 6. Studio Principles Ribbon ─── */}
         <div
-          className="w-full max-w-3xl rounded-2xl border border-white/[0.07] bg-white/[0.02] backdrop-blur-xl p-4 sm:p-5 shadow-[inset_0_1px_1px_rgba(255,255,255,0.08),0_12px_36px_rgba(0,0,0,0.35)] opacity-0 animate-fade-up"
+          className="w-full max-w-3xl rounded-2xl border border-white/[0.07] bg-white/[0.02] backdrop-blur-xl p-4 sm:p-5 shadow-[inset_0_1px_1px_rgba(255,255,255,0.08),0_12px_36px_rgba(0,0,0,0.35)] opacity-0 animate-fade-up mb-8 sm:mb-0"
           style={{ animationDelay: '0.58s', animationFillMode: 'forwards' }}
         >
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 divide-y sm:divide-y-0 sm:divide-x divide-white/[0.07] text-center">
