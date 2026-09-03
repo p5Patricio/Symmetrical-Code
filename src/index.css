@@ -511,6 +511,28 @@ html.light .specular-button span {
   color: #0B132B !important;
 }
 
+/* Light Chat Widget Tooltip */
+html.light .chat-widget-tooltip {
+  background-color: rgba(255, 255, 255, 0.96) !important;
+  border-color: rgba(25, 95, 193, 0.22) !important;
+  box-shadow: 0 10px 30px rgba(25, 95, 193, 0.12) !important;
+}
+
+html.light .chat-widget-tooltip p {
+  color: #0B132B !important;
+}
+
+html.light .chat-widget-tooltip button {
+  background-color: #ffffff !important;
+  border-color: rgba(25, 95, 193, 0.25) !important;
+  color: #64748B !important;
+}
+
+html.light .chat-widget-tooltip button:hover {
+  color: #0B132B !important;
+  background-color: #f1f5f9 !important;
+}
+
 /* Light Footer */
 html.light footer {
   border-top: 1px solid rgba(25, 95, 193, 0.12) !important;

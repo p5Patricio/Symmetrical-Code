@@ -3,7 +3,6 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { projects, techIconMap } from '../data/projects';
 import GalleryNavbar from '../components/layout/GalleryNavbar';
-import ChatWidget from '../components/chat/ChatWidget';
 
 // --- Types ---
 interface ProjectView {
@@ -401,7 +400,6 @@ export default function Projects({ isFullPage = false }: { isFullPage?: boolean 
           </div>
           {selectedProject && <DetailModal project={selectedProject.project} index={selectedProject.index} totalProjects={filtered.length} onNext={() => navigateProject('next')} onPrev={() => navigateProject('prev')} onClose={() => setSelectedProject(null)} />}
         </div>
-        <ChatWidget forceVisible={true} />
       </>
     );
   }
@@ -490,7 +488,6 @@ export default function Projects({ isFullPage = false }: { isFullPage?: boolean 
 
         {selectedProject && <DetailModal project={selectedProject.project} index={selectedProject.index} totalProjects={items.length} onNext={() => navigateProject('next')} onPrev={() => navigateProject('prev')} onClose={() => setSelectedProject(null)} />}
       </section>
-      <ChatWidget />
     </>
   );
 }

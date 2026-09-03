@@ -7,7 +7,6 @@ import type { ServiceDetail, PracticalSolution, TechItem, ServiceFAQ } from '../
 import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
 import ContactModal from '../components/layout/ContactModal';
-import ChatWidget from '../components/chat/ChatWidget';
 import SpotlightCard from '../components/ui/SpotlightCard';
 import SpecularButton from '../components/ui/SpecularButton';
 import TechIcon from '../components/ui/TechIcon';
@@ -564,7 +563,6 @@ export default function ServiceDetailPage() {
       </main>
 
       <Footer />
-      <ChatWidget />
       {isContactOpen && <ContactModal onClose={() => setIsContactOpen(false)} />}
     </div>
   );

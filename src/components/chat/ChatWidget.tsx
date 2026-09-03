@@ -17,6 +17,13 @@ export default function ChatWidget({ forceVisible = false }: ChatWidgetProps) {
   const { theme } = useTheme();
   const isLight = theme === 'light';
   const [hovered, setHovered] = useState(false);
+  const [dismissed, setDismissed] = useState(() => {
+    try {
+      return sessionStorage.getItem('whatsapp_tooltip_dismissed') === 'true';
+    } catch {
+      return false;
+    }
+  });
   const [showTooltip, setShowTooltip] = useState(false);
   const [footerVisible, setFooterVisible] = useState(false);
 
@@ -46,23 +53,30 @@ export default function ChatWidget({ forceVisible = false }: ChatWidgetProps) {
   }, [checkFooter, forceVisible]);
 
   useEffect(() => {
+    if (dismissed) return;
     const timer = setTimeout(() => {
-      const dismissed = sessionStorage.getItem('whatsapp_tooltip_dismissed');
-      if (!dismissed) setShowTooltip(true);
+      setShowTooltip(true);
     }, 2000);
     return () => clearTimeout(timer);
-  }, []);
+  }, [dismissed]);
 
   const handleDismiss = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
     setShowTooltip(false);
-    sessionStorage.setItem('whatsapp_tooltip_dismissed', 'true');
+    setHovered(false);
+    setDismissed(true);
+    try {
+      sessionStorage.setItem('whatsapp_tooltip_dismissed', 'true');
+    } catch {
+      // ignore
+    }
   };
 
   const whatsappUrl = 'https://wa.me/524737374224';
 
   const isVisible = forceVisible ? true : !footerVisible;
+  const isTooltipOpen = !dismissed && (showTooltip || hovered);
 
   return (
     <div
@@ -76,21 +90,21 @@ export default function ChatWidget({ forceVisible = false }: ChatWidgetProps) {
     >
       <div
         className={`
-          relative ${isLight ? 'bg-white border-[rgba(25,95,193,0.2)] shadow-[0_10px_30px_rgba(25,95,193,0.12)]' : 'bg-[#070d14] border-[rgba(25,95,193,0.3)] shadow-[0_10px_30px_rgba(0,0,0,0.5)]'} px-4 py-2.5 rounded-xl
-          transition-all duration-300 ease-out
-          ${(showTooltip || hovered)
+          chat-widget-tooltip relative ${isLight ? 'bg-white/95 border-[rgba(25,95,193,0.22)] shadow-[0_10px_30px_rgba(25,95,193,0.12)]' : 'bg-[#091322]/95 border-[rgba(25,95,193,0.35)] shadow-[0_10px_30px_rgba(0,0,0,0.6)]'} px-4 py-2.5 rounded-xl
+          backdrop-blur-md transition-all duration-300 ease-out
+          ${isTooltipOpen
             ? 'opacity-100 translate-x-0 pointer-events-auto'
             : 'opacity-0 translate-x-4 pointer-events-none'}
         `}
       >
         <button
           onClick={handleDismiss}
-          className={`absolute -top-2 -right-2 w-5 h-5 rounded-full flex items-center justify-center text-[10px] transition-colors ${isLight ? 'bg-white border border-[#195fc1]/20 text-slate-400 hover:text-slate-800' : 'bg-[#020408] border border-white/10 text-white/40 hover:text-white hover:border-[#195fc1]/40'}`}
+          className={`absolute -top-2 -right-2 w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-bold transition-colors ${isLight ? 'bg-white border border-[#195fc1]/25 text-slate-400 hover:text-slate-800 shadow-sm' : 'bg-[#0d1e36] border border-white/20 text-white/50 hover:text-white shadow-sm'}`}
           aria-label="Cerrar aviso"
         >
           ✕
         </button>
-        <p className={`${isLight ? 'text-[#0B132B]' : 'text-white'} text-[11px] font-mono tracking-wider whitespace-nowrap pr-2`}>
+        <p className={`${isLight ? 'text-[#0B132B]' : 'text-white'} text-[11px] font-mono tracking-wider whitespace-nowrap pr-2 font-medium`}>
           {t('contact.whatsapp_tooltip', { defaultValue: 'Contáctanos por WhatsApp' })}
         </p>
       </div>
@@ -99,14 +113,18 @@ export default function ChatWidget({ forceVisible = false }: ChatWidgetProps) {
         href={whatsappUrl}
         target="_blank"
         rel="noopener noreferrer"
-        onMouseEnter={() => setHovered(true)}
+        onMouseEnter={() => {
+          if (!dismissed) setHovered(true);
+        }}
         onMouseLeave={() => setHovered(false)}
         className="
           w-14 h-14 rounded-full shrink-0
           flex items-center justify-center
           transition-all duration-300 ease-out
-          bg-gradient-to-br from-[#195fc1] to-[#0d3b82] text-white
-          hover:scale-110 hover:shadow-[0_0_40px_rgba(25,95,193,0.6)]
+          bg-gradient-to-br from-[#3b82f6] via-[#195fc1] to-[#124da0] text-white
+          shadow-[0_8px_25px_rgba(25,95,193,0.45)]
+          ring-2 ring-white/25
+          hover:scale-110 hover:shadow-[0_0_35px_rgba(59,130,246,0.7)]
         "
         aria-label="WhatsApp"
       >

@@ -54,13 +54,13 @@ function AppContent() {
               <ServicesSection />
               <ProjectsPage />
               <TeamSection />
-              <ChatWidget />
               <Footer />
             </>
           } />
           <Route path="/proyectos" element={<ProjectsPage isFullPage={true} />} />
           <Route path="/servicios/:slug" element={<ServiceDetailPage />} />
         </Routes>
+        <ChatWidget />
       </ClickSpark>
     </>
   );
