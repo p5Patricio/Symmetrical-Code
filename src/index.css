@@ -5,16 +5,17 @@
 @tailwind utilities;
 
 :root {
-  --cyan: #00e5ff;
-  --blue: #1565ff;
-  --cyan-dim: rgba(0, 229, 255, 0.15);
-  --blue-dim: rgba(21, 101, 255, 0.15);
-  --glow-cyan: 0 0 40px rgba(0, 229, 255, 0.4);
-  --glow-blue: 0 0 40px rgba(21, 101, 255, 0.4);
-  --card-bg: rgba(0, 229, 255, 0.03);
+  --brand-blue: #004EBB;
+  --cyan: #004EBB;
+  --blue: #004EBB;
+  --cyan-dim: rgba(0, 78, 187, 0.15);
+  --blue-dim: rgba(0, 78, 187, 0.15);
+  --glow-cyan: 0 0 40px rgba(0, 78, 187, 0.4);
+  --glow-blue: 0 0 40px rgba(0, 78, 187, 0.4);
+  --card-bg: rgba(0, 78, 187, 0.03);
   
-  --svc-web: #00e5ff;
-  --svc-systems: #1565ff;
+  --svc-web: #004EBB;
+  --svc-systems: #004EBB;
   --svc-cloud: #7c3aed;
   --svc-security: #10b981;
   --svc-uiux: #f43f5e;

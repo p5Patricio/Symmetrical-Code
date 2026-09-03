@@ -24,7 +24,7 @@ function App() {
 
       {/* Efecto Aurora - Fondo fijo */}
       <Aurora 
-        colorStops={['#0B1A33', '#2B4B7A', '#63B3ED']}
+        colorStops={['#030b17', '#00296b', '#004EBB']}
         amplitude={1.0}
         blend={0.5}
         speed={0.8}
@@ -32,7 +32,7 @@ function App() {
 
       {/* Contenido interactivo con ClickSpark */}
       <ClickSpark
-        sparkColor="#00e5ff"
+        sparkColor="#004EBB"
         sparkSize={10}
         sparkRadius={20}
         sparkCount={8}

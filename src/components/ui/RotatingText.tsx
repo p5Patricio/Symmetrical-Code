@@ -13,6 +13,7 @@ export interface RotatingTextRef {
 }
 
 export interface RotatingTextProps {
+  textColor?: string;
   texts: string[];
   rotationInterval?: number;
   staggerDuration?: number;
@@ -26,6 +27,7 @@ export interface RotatingTextProps {
 
 const RotatingText = forwardRef<RotatingTextRef, RotatingTextProps>((props, ref) => {
   const {
+    textColor = '#004EBB',
     texts,
     rotationInterval = 2200,
     staggerDuration = 0.025,
@@ -133,14 +135,16 @@ const RotatingText = forwardRef<RotatingTextRef, RotatingTextProps>((props, ref)
           initial="initial"
           animate="animate"
           exit="exit"
-          className="inline-flex items-baseline overflow-hidden py-1 leading-none text-[#00e5ff]"
+          className="inline-flex items-baseline overflow-hidden py-1 leading-none"
+          style={{ color: textColor || '#004EBB' }}
           aria-hidden="true"
         >
           {characters.map((char, index) => (
             <motion.span
               key={index}
               variants={childVariants}
-              className="inline-block text-[#00e5ff]"
+              className="inline-block"
+              style={{ color: textColor || '#004EBB' }}
             >
               {char === ' ' ? '\u00A0' : char}
             </motion.span>
