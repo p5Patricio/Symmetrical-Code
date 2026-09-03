@@ -88,10 +88,12 @@ function OrbitCard({ service, index, style }: { service: ServiceItem; index: num
           </p>
         </div>
 
-        <div className="pt-3 border-t border-white/[0.06] flex items-center justify-between text-[11px] font-mono text-white/30 transition-colors">
-          <span style={{ color: `${accent}88` }}>{service.slug || 'SERVICIO'}</span>
+        <div className="pt-3 border-t border-white/[0.06] flex items-center justify-between text-[11px] font-mono transition-colors">
+          <span className="truncate max-w-[110px]" style={{ color: `${accent}88` }}>
+            {service.slug || 'SERVICIO'}
+          </span>
           <span
-            className="transition-colors group-hover:underline"
+            className="transition-colors group-hover:underline shrink-0 ml-2 font-medium"
             style={{ color: accent }}
           >
             Ver detalle →
@@ -203,12 +205,12 @@ export default function Services() {
         }
 
         .orbit-card {
-          min-height: 220px;
+          min-height: 230px;
           padding: 24px 26px;
         }
 
         @media (min-width: 1280px) {
-          .orbit-card { height: 245px; }
+          .orbit-card { height: 265px; }
         }
       `}</style>
     </section>
