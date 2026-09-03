@@ -101,11 +101,9 @@ void main() {
   float intensity = 0.6 * height;
   
   float midPoint = 0.20;
-  float auroraAlpha = smoothstep(midPoint - uBlend * 0.5, midPoint + uBlend * 0.5, intensity);
+  float alpha = smoothstep(midPoint - uBlend * 0.5, midPoint + uBlend * 0.5, intensity) * clamp(intensity, 0.0, 1.0);
   
-  vec3 auroraColor = intensity * rampColor;
-  
-  fragColor = vec4(auroraColor * auroraAlpha, auroraAlpha);
+  fragColor = vec4(rampColor * alpha, alpha);
 }
 `;
 

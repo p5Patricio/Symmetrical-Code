@@ -354,7 +354,7 @@ export default function Projects({ isFullPage = false }: { isFullPage?: boolean 
                   <article
                     key={i}
                     onClick={() => setSelectedProject({ project, index: globalIndex })}
-                    className="group cursor-pointer overflow-hidden transition-all duration-300 bg-white/[0.02] border border-white/5 rounded-lg hover:scale-[1.02] hover:border-white/20 flex flex-col min-h-[480px] sm:min-h-[500px]"
+                    className="group cursor-pointer overflow-hidden transition-all duration-300 bg-white/[0.02] border border-white/5 rounded-lg hover:scale-[1.02] hover:border-[#195fc1]/50 hover:shadow-xl hover:shadow-[#195fc1]/10 flex flex-col min-h-[480px] sm:min-h-[500px]"
                   >
                     <div className="w-full h-36 sm:h-40 relative overflow-hidden shrink-0">
                       <ImageWithFallback src={project.ogImageUrl} alt={project.title} fallback={<ProjectImage index={globalIndex} title={project.title} />} />
@@ -441,7 +441,7 @@ export default function Projects({ isFullPage = false }: { isFullPage?: boolean 
                 <article
                   key={i}
                   onClick={() => setSelectedProject({ project, index: globalIndex })}
-                  className="glass-card-enhanced group cursor-pointer overflow-hidden border border-white/10 rounded-xl sm:rounded-2xl transition-all duration-500 hover:border-white/20 hover:scale-[1.02] flex flex-col min-h-[500px]"
+                  className="glass-card-enhanced group cursor-pointer overflow-hidden border border-white/10 rounded-xl sm:rounded-2xl transition-all duration-500 hover:border-[#195fc1]/50 hover:shadow-2xl hover:shadow-[#195fc1]/15 hover:scale-[1.02] flex flex-col min-h-[500px]"
                 >
                   <div className="h-44 sm:h-48 overflow-hidden relative shrink-0">
                     <ImageWithFallback src={project.ogImageUrl} alt={project.title} fallback={<ProjectImage index={i} title={project.title} />} />

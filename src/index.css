@@ -390,20 +390,47 @@ html.light .text-white\/5 {
   color: #94A3B8 !important;
 }
 
-/* Light Surface Cards & Glass */
+/* Light Surface Cards & Liquid Glass */
 html.light .glass-card,
 html.light .glass-card-enhanced,
 html.light .orbit-card {
-  background: rgba(255, 255, 255, 0.88) !important;
-  border-color: rgba(25, 95, 193, 0.14) !important;
-  box-shadow: 0 10px 30px rgba(25, 95, 193, 0.06), inset 0 1px 1px rgba(255, 255, 255, 0.9) !important;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.92) 0%, rgba(240, 245, 255, 0.78) 100%) !important;
+  backdrop-filter: blur(20px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
+  border: 1px solid rgba(25, 95, 193, 0.18) !important;
+  box-shadow: 0 16px 40px -12px rgba(25, 95, 193, 0.12), inset 0 1.5px 0 0 rgba(255, 255, 255, 1), inset 0 -1px 0 0 rgba(25, 95, 193, 0.08) !important;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+html.light .glass-card-enhanced:hover,
+html.light .glass-card:hover,
+html.light .orbit-card:hover {
+  border-color: #195fc1 !important;
+  box-shadow: 0 20px 48px -10px rgba(25, 95, 193, 0.22), inset 0 1.5px 0 0 rgba(255, 255, 255, 1), inset 0 0 15px rgba(25, 95, 193, 0.08) !important;
+}
+
+/* Light Project Card Hovers */
+html.light article:hover .font-syne,
+html.light article:hover h3,
+html.light article:hover h4,
+html.light .group:hover .group-hover\:text-\[\#195fc1\],
+html.light .group:hover [class*="group-hover:text-[#195fc1]"] {
+  color: #195fc1 !important;
+}
+
+html.light article.glass-card-enhanced:hover,
+html.light article.group:hover {
+  border-color: #195fc1 !important;
+  box-shadow: 0 16px 36px rgba(25, 95, 193, 0.16) !important;
 }
 
 html.light .bg-white\/5,
 html.light .bg-white\/\[0\.02\],
 html.light .bg-white\/\[0\.03\],
 html.light .bg-white\/\[0\.04\] {
-  background-color: rgba(255, 255, 255, 0.8) !important;
+  background-color: rgba(255, 255, 255, 0.88) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
 }
 
 html.light .border-white\/10,
@@ -490,6 +517,12 @@ html.light footer {
 }
 
 html.light footer p {
+  color: #334155 !important;
+}
+
+html.light footer .footer-contact-text,
+html.light footer .footer-contact-text div,
+html.light footer .footer-col div {
   color: #334155 !important;
 }
 
@@ -605,4 +638,12 @@ html.light #projects h3 {
 
 html.light #projects p {
   color: #475569 !important;
+}
+
+html.light #projects article:hover h3,
+html.light #projects article:hover h4,
+html.light #projects .group:hover h3,
+html.light #projects .group:hover h4,
+html.light #gallery-scroll article:hover h4 {
+  color: #195fc1 !important;
 }

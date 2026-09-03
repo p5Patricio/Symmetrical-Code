@@ -20,7 +20,7 @@ function AppContent() {
 
   const auroraStops = theme === 'dark'
     ? ['#030b17', '#00296b', '#195fc1']
-    : ['#E8EFF9', '#D0E1F9', '#8DB4EA'];
+    : ['#dce9fc', '#195fc1', '#7fadfa'];
 
   return (
     <>

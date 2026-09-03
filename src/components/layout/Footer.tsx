@@ -2,9 +2,12 @@ import { useState, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { FaFacebookF, FaInstagram, FaLinkedinIn, FaShieldAlt, FaFileContract, FaCheckCircle, FaWhatsapp } from 'react-icons/fa';
 import { FiMapPin, FiMail, FiClock, FiX, FiCopy } from 'react-icons/fi';
+import { useTheme } from '../../context/ThemeContext';
 
 export default function Footer() {
   const { t } = useTranslation();
+  const { theme } = useTheme();
+  const isLight = theme === 'light';
   const [activeModal, setActiveModal] = useState<'privacidad' | 'terminos' | null>(null);
   const [copiedEmail, setCopiedEmail] = useState(false);
   const modalContentRef = useRef<HTMLDivElement>(null);
@@ -574,7 +577,7 @@ export default function Footer() {
                 fontFamily: "'Inter', system-ui, sans-serif",
                 fontWeight: 700,
                 fontSize: '20px',
-                color: '#ffffff',
+                color: isLight ? '#0B132B' : '#ffffff',
                 letterSpacing: '-0.5px'
               }}>
                 Symmetrical<span style={{ color: '#195fc1' }}>Code</span>
@@ -584,7 +587,7 @@ export default function Footer() {
             <p style={{
               fontFamily: "'Inter', system-ui, sans-serif",
               fontSize: '14px',
-              color: 'rgba(255,255,255,0.6)',
+              color: isLight ? '#475569' : 'rgba(255,255,255,0.6)',
               lineHeight: '1.6',
               marginBottom: '24px',
             }}>
@@ -688,12 +691,15 @@ export default function Footer() {
                         flexShrink: 0,
                       }}
                     />
-                    <div style={{
-                      fontFamily: "'Inter', system-ui, sans-serif",
-                      fontSize: '13px',
-                      fontWeight: 500,
-                      color: 'rgba(255,255,255,0.85)',
-                    }}>
+                    <div 
+                      className="footer-contact-text"
+                      style={{
+                        fontFamily: "'Inter', system-ui, sans-serif",
+                        fontSize: '13px',
+                        fontWeight: 500,
+                        color: isLight ? '#334155' : 'rgba(255,255,255,0.85)',
+                      }}
+                    >
                       {item.text}
                     </div>
                     {idx === 0 && (
@@ -708,9 +714,9 @@ export default function Footer() {
                           borderRadius: '6px',
                           fontSize: '11px',
                           fontFamily: "'Inter', system-ui, sans-serif",
-                          color: copiedEmail ? '#195fc1' : 'rgba(255,255,255,0.6)',
-                          background: copiedEmail ? 'rgba(25, 95, 193, 0.15)' : 'rgba(255,255,255,0.05)',
-                          border: `1px solid ${copiedEmail ? '#195fc1' : 'rgba(255,255,255,0.1)'}`,
+                          color: copiedEmail ? '#195fc1' : (isLight ? '#475569' : 'rgba(255,255,255,0.6)'),
+                          background: copiedEmail ? 'rgba(25, 95, 193, 0.15)' : (isLight ? 'rgba(25, 95, 193, 0.06)' : 'rgba(255,255,255,0.05)'),
+                          border: `1px solid ${copiedEmail ? '#195fc1' : (isLight ? 'rgba(25, 95, 193, 0.15)' : 'rgba(255,255,255,0.1)')}`,
                           cursor: 'pointer',
                           transition: 'all 0.2s ease',
                           marginLeft: 'auto',
@@ -757,7 +763,7 @@ export default function Footer() {
                 fontFamily: "'Inter', system-ui, sans-serif",
                 fontSize: '18px',
                 fontWeight: 700,
-                color: '#ffffff',
+                color: isLight ? '#0B132B' : '#ffffff',
                 marginBottom: '4px',
                 letterSpacing: '-0.3px',
               }}>
@@ -775,7 +781,7 @@ export default function Footer() {
               <p style={{
                 fontFamily: "'Inter', system-ui, sans-serif",
                 fontSize: '12px',
-                color: 'rgba(255,255,255,0.5)',
+                color: isLight ? '#475569' : 'rgba(255,255,255,0.5)',
                 lineHeight: '1.5',
                 marginBottom: '20px',
               }}>
@@ -795,17 +801,17 @@ export default function Footer() {
                   fontFamily: "'Syne', sans-serif",
                   fontSize: '13px',
                   fontWeight: 700,
-                  color: '#ffffff',
+                  color: isLight ? '#0B132B' : '#ffffff',
                   textDecoration: 'none',
                   textTransform: 'uppercase',
                   letterSpacing: '0.06em',
                   padding: '13px 22px',
-                  background: 'rgba(255, 255, 255, 0.03)',
-                  border: '1px solid rgba(255, 255, 255, 0.12)',
+                  background: isLight ? '#ffffff' : 'rgba(255, 255, 255, 0.03)',
+                  border: isLight ? '1px solid rgba(25, 95, 193, 0.25)' : '1px solid rgba(255, 255, 255, 0.12)',
                   borderRadius: '12px',
                   backdropFilter: 'blur(12px)',
                   transition: 'all 0.3s ease',
-                  boxShadow: 'inset 0 1px 1px rgba(255, 255, 255, 0.15), 0 4px 16px rgba(25, 95, 193, 0.15)',
+                  boxShadow: isLight ? '0 4px 16px rgba(25, 95, 193, 0.12)' : 'inset 0 1px 1px rgba(255, 255, 255, 0.15), 0 4px 16px rgba(25, 95, 193, 0.15)',
                   width: '100%',
                   cursor: 'pointer',
                   boxSizing: 'border-box',
