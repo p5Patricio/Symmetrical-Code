@@ -113,10 +113,7 @@ export default function Services() {
   const RY = 37;
 
   return (
-    <section id="services" className="relative py-20 sm:py-28 md:py-32 overflow-hidden bg-[#020408]">
-      {/* Soft atmospheric glow */}
-      <div className="absolute top-0 right-0 w-[450px] h-[450px] bg-cyan-900/10 blur-[160px] rounded-full pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-[450px] h-[450px] bg-blue-900/10 blur-[160px] rounded-full pointer-events-none" />
+    <section id="services" className="relative py-20 sm:py-28 md:py-32 overflow-hidden bg-transparent">
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section header */}

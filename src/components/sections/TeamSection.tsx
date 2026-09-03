@@ -47,22 +47,10 @@ export default function Team() {
   const pillars = Array.isArray(rawPillars) ? (rawPillars as Pillar[]) : [];
 
   return (
-    <section id="team" className="relative py-20 sm:py-24 md:py-28 lg:py-32 overflow-hidden bg-gradient-to-b from-[#020408] via-[#03060c] to-[#020408]">
-      {/* Fondo decorativo */}
+    <section id="team" className="relative py-20 sm:py-24 md:py-28 lg:py-32 overflow-hidden bg-transparent">
+      {/* Fondo decorativo sutil */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-[#00e5ff]/5 rounded-full blur-[150px]" />
-        <div className="absolute bottom-0 left-1/4 w-[600px] h-[600px] bg-[#1565ff]/5 rounded-full blur-[120px]" />
-        <div className="absolute top-1/3 right-1/4 w-[600px] h-[600px] bg-[#7c3aed]/5 rounded-full blur-[120px]" />
-        
-        {/* Grid de fondo */}
-        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmZmZmYiIGZpbGwtb3BhY2l0eT0iMC4wMyI+PHBhdGggZD0iTTM2IDM0djItSDI0di0yaDEyek0zNiAyNHYySDI0di0yaDEyeiIvPjwvZz48L2c+PC9zdmc+')] opacity-50" />
-      </div>
-
-      {/* Líneas decorativas */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-0 left-1/4 w-px h-full bg-gradient-to-b from-transparent via-white/5 to-transparent" />
-        <div className="absolute top-0 left-2/4 w-px h-full bg-gradient-to-b from-transparent via-white/5 to-transparent hidden sm:block" />
-        <div className="absolute top-0 left-3/4 w-px h-full bg-gradient-to-b from-transparent via-white/5 to-transparent hidden lg:block" />
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-[#00e5ff]/3 rounded-full blur-[180px]" />
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">

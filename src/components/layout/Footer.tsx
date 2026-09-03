@@ -565,8 +565,8 @@ export default function Footer() {
 
   return (
     <footer style={{
-      background: '#000000',
-      borderTop: '1px solid rgba(0, 229, 255, 0.15)',
+      background: 'transparent',
+      borderTop: '1px solid rgba(255, 255, 255, 0.06)',
       position: 'relative',
       marginTop: 'auto',
       overflow: 'hidden',
@@ -577,7 +577,7 @@ export default function Footer() {
         left: 0,
         right: 0,
         height: '1px',
-        background: 'linear-gradient(90deg, transparent, #00e5ff, #00e5ff, transparent)',
+        background: 'linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent)',
         pointerEvents: 'none',
       }} />
 

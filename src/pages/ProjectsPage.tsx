@@ -408,7 +408,7 @@ export default function Projects({ isFullPage = false }: { isFullPage?: boolean 
 
   return (
     <>
-      <section id="projects" className="relative py-20 sm:py-24 md:py-32 overflow-hidden bg-[#020408]">
+      <section id="projects" className="relative py-20 sm:py-24 md:py-32 overflow-hidden bg-transparent">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="mb-12 sm:mb-16 md:mb-20">
             <div className="flex items-center gap-3 mb-4 sm:mb-6">
