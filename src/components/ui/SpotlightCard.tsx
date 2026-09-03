@@ -4,16 +4,12 @@ interface SpotlightCardProps extends React.HTMLAttributes<HTMLDivElement> {
   children: React.ReactNode;
   spotlightColor?: string;
   className?: string;
-  showCorners?: boolean;
-  showDotMatrix?: boolean;
 }
 
 export const SpotlightCard: React.FC<SpotlightCardProps> = ({
   children,
-  spotlightColor = 'rgba(0, 229, 255, 0.15)',
+  spotlightColor = 'rgba(255, 255, 255, 0.08)',
   className = '',
-  showCorners = true,
-  showDotMatrix = true,
   ...props
 }) => {
   const cardRef = useRef<HTMLDivElement>(null);
@@ -43,39 +39,17 @@ export const SpotlightCard: React.FC<SpotlightCardProps> = ({
       onMouseMove={handleMouseMove}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      className={`group relative overflow-hidden rounded-2xl border border-white/10 bg-[#070b12]/80 backdrop-blur-md transition-all duration-300 hover:border-white/20 ${className}`}
+      className={`group relative overflow-hidden rounded-2xl border border-white/[0.08] bg-[#030712]/60 backdrop-blur-xl transition-all duration-500 hover:border-white/[0.18] hover:bg-[#030712]/80 hover:shadow-[0_8px_30px_rgb(0,0,0,0.3)] ${className}`}
       {...props}
     >
-      {/* ─── Dot Matrix Blueprint Texture ─── */}
-      {showDotMatrix && (
-        <div
-          className="pointer-events-none absolute inset-0 opacity-20 transition-opacity duration-300 group-hover:opacity-35"
-          style={{
-            backgroundImage:
-              'radial-gradient(rgba(255, 255, 255, 0.15) 1px, transparent 1px)',
-            backgroundSize: '16px 16px',
-          }}
-        />
-      )}
-
-      {/* ─── React Bits Dynamic Spotlight ─── */}
+      {/* ─── Minimalist Soft Radial Spotlight ─── */}
       <div
-        className="pointer-events-none absolute -inset-px transition-opacity duration-300"
+        className="pointer-events-none absolute -inset-px transition-opacity duration-500"
         style={{
           opacity,
-          background: `radial-gradient(450px circle at ${position.x}px ${position.y}px, ${spotlightColor}, transparent 65%)`,
+          background: `radial-gradient(500px circle at ${position.x}px ${position.y}px, ${spotlightColor}, transparent 60%)`,
         }}
       />
-
-      {/* ─── Cyberpunk Corner Brackets ─── */}
-      {showCorners && (
-        <>
-          <div className="pointer-events-none absolute top-2.5 left-2.5 w-2 h-2 border-t border-l border-white/20 transition-colors duration-300 group-hover:border-[#00e5ff]" />
-          <div className="pointer-events-none absolute top-2.5 right-2.5 w-2 h-2 border-t border-r border-white/20 transition-colors duration-300 group-hover:border-[#00e5ff]" />
-          <div className="pointer-events-none absolute bottom-2.5 left-2.5 w-2 h-2 border-b border-l border-white/20 transition-colors duration-300 group-hover:border-[#00e5ff]" />
-          <div className="pointer-events-none absolute bottom-2.5 right-2.5 w-2 h-2 border-b border-r border-white/20 transition-colors duration-300 group-hover:border-[#00e5ff]" />
-        </>
-      )}
 
       {/* ─── Card Content ─── */}
       <div className="relative z-10 h-full">{children}</div>

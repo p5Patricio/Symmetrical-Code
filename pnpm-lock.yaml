@@ -41,6 +41,9 @@ importers:
       react-router-dom:
         specifier: ^7.15.1
         version: 7.15.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      reicon-react:
+        specifier: ^1.2.2
+        version: 1.2.2(react@18.3.1)
       three:
         specifier: ^0.184.0
         version: 0.184.0
@@ -2082,6 +2085,11 @@ packages:
   redent@3.0.0:
     resolution: {integrity: sha512-6tDA8g98We0zd0GvVeMT9arEOnTw9qM03L9cJXaCjrip1OO764RDBLBfrB4cwzNGDj5OA5ioymC9GkizgWJDUg==}
     engines: {node: '>=8'}
+
+  reicon-react@1.2.2:
+    resolution: {integrity: sha512-49E5prIrDPhfJBT1uuy+y2uWKj4ojaAKFqedl4qDUz2bkOO++53eBCO2xE963Fi2zdyNzknNd5uPa4By5N0Leg==}
+    peerDependencies:
+      react: '>=16.8.0'
 
   relateurl@0.2.7:
     resolution: {integrity: sha512-G08Dxvm4iDN3MLM0EsP62EDV9IuhXPR6blNz6Utcp7zyV3tr4HVNINt6MpaRWbxoOHT3Q7YN2P+jaHX8vUbgog==}
@@ -4510,6 +4518,10 @@ snapshots:
     dependencies:
       indent-string: 4.0.0
       strip-indent: 3.0.0
+
+  reicon-react@1.2.2(react@18.3.1):
+    dependencies:
+      react: 18.3.1
 
   relateurl@0.2.7: {}
 
