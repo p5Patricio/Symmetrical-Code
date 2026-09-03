@@ -33,21 +33,10 @@ export default function HeroSection() {
       />
 
       <div className="relative z-10 max-w-5xl mx-auto flex flex-col items-center">
-        {/* ─── 1. Category Pill Badge ─── */}
-        <div
-          className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full border border-white/[0.08] bg-white/[0.02] backdrop-blur-md mb-6 sm:mb-8 shadow-[inset_0_1px_1px_rgba(255,255,255,0.12)] opacity-0 animate-fade-up"
-          style={{ animationDelay: '0.1s', animationFillMode: 'forwards' }}
-        >
-          <span className="w-1.5 h-1.5 rounded-full bg-[#00e5ff] animate-pulse" />
-          <span className="font-mono text-[10px] sm:text-xs tracking-[0.24em] uppercase text-white/80">
-            {t('hero.label', isEs ? 'Estudio de Desarrollo de Software' : 'Software Development Studio')}
-          </span>
-        </div>
-
-        {/* ─── 2. Standalone Large Isotype Logo (Sin contenedor) ─── */}
+        {/* ─── 1. Standalone Large Isotype Logo (Sin contenedor) ─── */}
         <div
           className="relative mb-5 sm:mb-8 opacity-0 animate-fade-up"
-          style={{ animationDelay: '0.18s', animationFillMode: 'forwards' }}
+          style={{ animationDelay: '0.1s', animationFillMode: 'forwards' }}
         >
           <img
             src="/favicon.svg"
@@ -57,10 +46,10 @@ export default function HeroSection() {
           />
         </div>
 
-        {/* ─── 3. Grand Studio Headline with React Bits RotatingText ─── */}
+        {/* ─── 2. Grand Studio Headline with React Bits RotatingText ─── */}
         <h1
-          className="font-syne font-black text-3xl sm:text-4xl md:text-5xl lg:text-6xl tracking-[-0.03em] leading-tight md:leading-none text-white mb-4 sm:mb-6 flex flex-col md:flex-row items-center justify-center gap-y-1 md:gap-y-0 md:gap-x-3.5 md:whitespace-nowrap opacity-0 animate-fade-up text-center"
-          style={{ animationDelay: '0.26s', animationFillMode: 'forwards' }}
+          className="font-syne font-black text-3xl sm:text-4xl md:text-5xl lg:text-6xl tracking-[-0.03em] leading-tight md:leading-none text-white mb-5 sm:mb-7 flex flex-col md:flex-row items-center justify-center gap-y-1 md:gap-y-0 md:gap-x-3.5 md:whitespace-nowrap opacity-0 animate-fade-up text-center"
+          style={{ animationDelay: '0.2s', animationFillMode: 'forwards' }}
         >
           <span className="shrink-0">Symmetrical</span>
           <RotatingText
@@ -70,29 +59,21 @@ export default function HeroSection() {
           />
         </h1>
 
-        <p
-          className="font-syne font-bold text-base sm:text-xl md:text-2xl lg:text-3xl text-white/90 tracking-tight mb-3 sm:mb-5 max-w-2xl px-4 sm:px-0 leading-snug opacity-0 animate-fade-up"
-          style={{ animationDelay: '0.34s', animationFillMode: 'forwards' }}
-        >
-          {t('hero.title')}{' '}
-          <span className="text-[#00e5ff]">{t('hero.title_highlight')}</span>{' '}
-          {t('hero.title_end')}
-        </p>
-
-        {/* ─── 4. Subtitle / Value Proposition with ScrambledText ─── */}
+        {/* ─── 3. Software Development Studio with ScrambledText ─── */}
         <div
-          className="max-w-xl px-4 sm:px-0 mb-8 sm:mb-10 mx-auto opacity-0 animate-fade-up"
-          style={{ animationDelay: '0.42s', animationFillMode: 'forwards' }}
+          className="inline-flex items-center gap-2 px-3.5 sm:px-5 py-1.5 sm:py-2 rounded-full border border-white/[0.08] bg-white/[0.02] backdrop-blur-md mb-8 sm:mb-12 shadow-[inset_0_1px_1px_rgba(255,255,255,0.12)] opacity-0 animate-fade-up cursor-default"
+          style={{ animationDelay: '0.3s', animationFillMode: 'forwards' }}
         >
+          <span className="w-1.5 h-1.5 rounded-full bg-[#00e5ff] animate-pulse shrink-0" />
           <ScrambledText
-            radius={85}
-            duration={1.1}
+            radius={70}
+            duration={1.0}
             speed={0.5}
             scrambleChars=".:"
             scrambleColor="#00e5ff"
-            className="font-normal text-xs sm:text-sm md:text-base text-white/60 leading-relaxed text-center"
+            className="font-mono text-[10px] sm:text-xs md:text-sm tracking-[0.12em] sm:tracking-[0.22em] uppercase text-white/85 text-center whitespace-nowrap"
           >
-            {t('hero.subtitle')}
+            {isEs ? 'Estudio de Desarrollo de Software' : 'Software Development Studio'}
           </ScrambledText>
         </div>
 
