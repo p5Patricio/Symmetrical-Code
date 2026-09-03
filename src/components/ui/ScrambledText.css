@@ -1,0 +1,15 @@
+.scrambled-text {
+  display: inline-block;
+  user-select: none;
+}
+
+.scrambled-word {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.scrambled-char {
+  display: inline-block;
+  will-change: contents;
+  transition: color 0.15s ease;
+}

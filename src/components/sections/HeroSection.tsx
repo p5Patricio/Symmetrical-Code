@@ -2,6 +2,7 @@
 import { useTranslation } from 'react-i18next';
 import SpecularButton from '../ui/SpecularButton';
 import RotatingText from '../ui/RotatingText';
+import ScrambledText from '../ui/ScrambledText';
 
 export default function HeroSection() {
   const { t, i18n } = useTranslation();
@@ -78,13 +79,22 @@ export default function HeroSection() {
           {t('hero.title_end')}
         </p>
 
-        {/* ─── 4. Subtitle / Value Proposition ─── */}
-        <p
-          className="font-normal text-xs sm:text-sm md:text-base text-white/55 max-w-xl px-4 sm:px-0 leading-relaxed mb-8 sm:mb-10 mx-auto opacity-0 animate-fade-up"
+        {/* ─── 4. Subtitle / Value Proposition with ScrambledText ─── */}
+        <div
+          className="max-w-xl px-4 sm:px-0 mb-8 sm:mb-10 mx-auto opacity-0 animate-fade-up"
           style={{ animationDelay: '0.42s', animationFillMode: 'forwards' }}
         >
-          {t('hero.subtitle')}
-        </p>
+          <ScrambledText
+            radius={85}
+            duration={1.1}
+            speed={0.5}
+            scrambleChars=".:"
+            scrambleColor="#00e5ff"
+            className="font-normal text-xs sm:text-sm md:text-base text-white/60 leading-relaxed text-center"
+          >
+            {t('hero.subtitle')}
+          </ScrambledText>
+        </div>
 
         {/* ─── 5. Specular Action Buttons ─── */}
         <div
