@@ -33,36 +33,10 @@ export default function HeroSection() {
       />
 
       <div className="relative z-10 max-w-5xl mx-auto flex flex-col items-center">
-        {/* ─── 1. Standalone Large Isotype Logo (Sin contenedor) ─── */}
+        {/* ─── 1. Software Development Studio Category Pill with ScrambledText ─── */}
         <div
-          className="relative mb-5 sm:mb-8 opacity-0 animate-fade-up"
+          className="inline-flex items-center gap-2 px-3.5 sm:px-5 py-1.5 sm:py-2 rounded-full border border-white/[0.08] bg-white/[0.02] backdrop-blur-md mb-6 sm:mb-8 shadow-[inset_0_1px_1px_rgba(255,255,255,0.12)] opacity-0 animate-fade-up cursor-default"
           style={{ animationDelay: '0.1s', animationFillMode: 'forwards' }}
-        >
-          <img
-            src="/favicon.svg"
-            alt="Symmetrical Code Isotype"
-            className="w-20 h-20 sm:w-28 sm:h-28 md:w-36 md:h-36 object-contain filter drop-shadow-[0_16px_40px_rgba(0,229,255,0.32)] hover:scale-105 transition-transform duration-500 cursor-pointer"
-            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-          />
-        </div>
-
-        {/* ─── 2. Grand Studio Headline with React Bits RotatingText ─── */}
-        <h1
-          className="font-syne font-black text-3xl sm:text-4xl md:text-5xl lg:text-6xl tracking-[-0.03em] leading-tight md:leading-none text-white mb-5 sm:mb-7 flex flex-col md:flex-row items-center justify-center gap-y-1 md:gap-y-0 md:gap-x-3.5 md:whitespace-nowrap opacity-0 animate-fade-up text-center"
-          style={{ animationDelay: '0.2s', animationFillMode: 'forwards' }}
-        >
-          <span className="shrink-0">Symmetrical</span>
-          <RotatingText
-            texts={rotatingWords}
-            rotationInterval={2800}
-            staggerDuration={0.025}
-          />
-        </h1>
-
-        {/* ─── 3. Software Development Studio with ScrambledText ─── */}
-        <div
-          className="inline-flex items-center gap-2 px-3.5 sm:px-5 py-1.5 sm:py-2 rounded-full border border-white/[0.08] bg-white/[0.02] backdrop-blur-md mb-8 sm:mb-12 shadow-[inset_0_1px_1px_rgba(255,255,255,0.12)] opacity-0 animate-fade-up cursor-default"
-          style={{ animationDelay: '0.3s', animationFillMode: 'forwards' }}
         >
           <span className="w-1.5 h-1.5 rounded-full bg-[#00e5ff] animate-pulse shrink-0" />
           <ScrambledText
@@ -76,6 +50,32 @@ export default function HeroSection() {
             {isEs ? 'Estudio de Desarrollo de Software' : 'Software Development Studio'}
           </ScrambledText>
         </div>
+
+        {/* ─── 2. Standalone Large Isotype Logo (Sin contenedor) ─── */}
+        <div
+          className="relative mb-5 sm:mb-8 opacity-0 animate-fade-up"
+          style={{ animationDelay: '0.18s', animationFillMode: 'forwards' }}
+        >
+          <img
+            src="/favicon.svg"
+            alt="Symmetrical Code Isotype"
+            className="w-20 h-20 sm:w-28 sm:h-28 md:w-36 md:h-36 object-contain filter drop-shadow-[0_16px_40px_rgba(0,229,255,0.32)] hover:scale-105 transition-transform duration-500 cursor-pointer"
+            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          />
+        </div>
+
+        {/* ─── 3. Grand Studio Headline with React Bits RotatingText ─── */}
+        <h1
+          className="font-syne font-black text-3xl sm:text-4xl md:text-5xl lg:text-6xl tracking-[-0.03em] leading-tight md:leading-none text-white mb-8 sm:mb-12 flex flex-col md:flex-row items-center justify-center gap-y-1 md:gap-y-0 md:gap-x-3.5 md:whitespace-nowrap opacity-0 animate-fade-up text-center"
+          style={{ animationDelay: '0.26s', animationFillMode: 'forwards' }}
+        >
+          <span className="shrink-0">Symmetrical</span>
+          <RotatingText
+            texts={rotatingWords}
+            rotationInterval={2800}
+            staggerDuration={0.025}
+          />
+        </h1>
 
         {/* ─── 5. Specular Action Buttons ─── */}
         <div
