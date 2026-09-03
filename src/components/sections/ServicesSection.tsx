@@ -23,6 +23,15 @@ const SERVICE_SLUGS = [
   'automatizacion-analitica',
 ];
 
+const SERVICE_COLORS = [
+  '#86efac', // systems / software empresarial (soft emerald)
+  '#7dd3fc', // cloud / IA (soft sky blue)
+  '#00b4d8', // web & móvil (cyan)
+  '#fde68a', // security (soft amber)
+  '#c4b5fd', // uiux (soft purple/lavender)
+  '#f9a8d4', // analytics (soft rose)
+];
+
 type ServiceItem = {
   slug?: string;
   title: string;
@@ -33,6 +42,7 @@ type ServiceItem = {
 const ORBIT_ANGLES = [-90, -30, 30, 90, 150, 210];
 
 function OrbitCard({ service, index, style }: { service: ServiceItem; index: number; style?: React.CSSProperties }) {
+  const accent = SERVICE_COLORS[index] || '#00e5ff';
   const slug = service.slug || SERVICE_SLUGS[index] || 'software-empresarial';
   const iconName = SERVICE_REICONS[index] || 'database';
 
@@ -43,15 +53,25 @@ function OrbitCard({ service, index, style }: { service: ServiceItem; index: num
       style={style}
     >
       <SpotlightCard
-        spotlightColor="rgba(255, 255, 255, 0.06)"
+        spotlightColor={`${accent}20`}
         className="orbit-card h-full flex flex-col justify-between"
       >
         <div>
           <div className="flex items-center justify-between mb-3.5">
-            <div className="w-10 h-10 rounded-xl flex items-center justify-center border border-white/[0.08] bg-white/[0.02] text-white/80 group-hover:text-white group-hover:border-white/[0.18] transition-all duration-300">
-              <ReiconIcon name={iconName} size={20} color="currentColor" />
+            <div
+              className="w-10 h-10 rounded-xl flex items-center justify-center border transition-all duration-300"
+              style={{
+                borderColor: `${accent}33`,
+                backgroundColor: `${accent}0d`,
+                color: accent,
+              }}
+            >
+              <ReiconIcon name={iconName} size={20} color={accent} />
             </div>
-            <span className="font-mono text-xs text-white/25">
+            <span
+              className="font-mono text-xs font-semibold tracking-wider"
+              style={{ color: `${accent}99` }}
+            >
               0{index + 1}
             </span>
           </div>
@@ -60,14 +80,20 @@ function OrbitCard({ service, index, style }: { service: ServiceItem; index: num
             {service.title}
           </h3>
 
-          <p className="text-xs sm:text-sm text-white/55 line-clamp-3 leading-relaxed font-normal">
+          <p
+            className="text-xs sm:text-sm line-clamp-3 leading-relaxed font-normal transition-colors"
+            style={{ color: `${accent}cc` }}
+          >
             {service.description}
           </p>
         </div>
 
-        <div className="pt-3 border-t border-white/[0.06] flex items-center justify-between text-[11px] font-mono text-white/30 group-hover:text-white/70 transition-colors">
-          <span>{service.slug || 'SERVICIO'}</span>
-          <span className="text-white/40 group-hover:text-white transition-colors">
+        <div className="pt-3 border-t border-white/[0.06] flex items-center justify-between text-[11px] font-mono text-white/30 transition-colors">
+          <span style={{ color: `${accent}88` }}>{service.slug || 'SERVICIO'}</span>
+          <span
+            className="transition-colors group-hover:underline"
+            style={{ color: accent }}
+          >
             Ver detalle →
           </span>
         </div>
@@ -87,23 +113,23 @@ export default function Services() {
   return (
     <section id="services" className="relative py-20 sm:py-28 md:py-32 overflow-hidden bg-[#020408]">
       {/* Soft atmospheric glow */}
-      <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-cyan-900/10 blur-[160px] rounded-full pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-blue-900/10 blur-[160px] rounded-full pointer-events-none" />
+      <div className="absolute top-0 right-0 w-[450px] h-[450px] bg-cyan-900/10 blur-[160px] rounded-full pointer-events-none" />
+      <div className="absolute bottom-0 left-0 w-[450px] h-[450px] bg-blue-900/10 blur-[160px] rounded-full pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section header */}
         <div className="mb-12 sm:mb-16 md:mb-20">
           <div className="flex items-center gap-3 mb-4">
-            <span className="section-label text-white/40 tracking-[0.25em] text-xs font-mono uppercase">
+            <span className="section-label text-[#00e5ff] tracking-[0.25em] text-xs font-mono uppercase">
               {t('services.label')}
             </span>
-            <div className="h-px flex-1 bg-gradient-to-r from-white/10 to-transparent" />
+            <div className="h-px flex-1 bg-gradient-to-r from-[#00e5ff]/20 to-transparent" />
           </div>
           <div className="flex flex-col md:flex-row md:items-end gap-6 md:gap-8 justify-between">
             <h2 className="font-syne font-bold text-3xl sm:text-5xl md:text-6xl text-white leading-[1.12] max-w-3xl">
               {t('services.title')}
             </h2>
-            <p className="text-white/50 text-base sm:text-lg max-w-md leading-relaxed md:text-right font-normal">
+            <p className="text-white/60 text-base sm:text-lg max-w-md leading-relaxed md:text-right font-normal">
               {t('services.subtitle')}
             </p>
           </div>
@@ -118,7 +144,7 @@ export default function Services() {
               rx={RX}
               ry={RY}
               fill="none"
-              stroke="rgba(255,255,255,0.06)"
+              stroke="rgba(0,229,255,0.12)"
               strokeWidth="0.15"
               strokeDasharray="0.6 1.4"
             />

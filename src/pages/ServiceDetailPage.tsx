@@ -73,9 +73,9 @@ export default function ServiceDetailPage() {
         <meta property="og:url" content={`https://www.symmetricalcode.com/servicios/${service.slug}`} />
       </Helmet>
 
-      {/* ─── Ambient Subtle Glow ─── */}
+      {/* ─── Ambient Glow in Signature Service Color ─── */}
       <div
-        className="fixed top-[-140px] left-1/2 -translate-x-1/2 w-[700px] sm:w-[950px] h-[400px] rounded-full blur-[180px] pointer-events-none opacity-20 z-0"
+        className="fixed top-[-140px] left-1/2 -translate-x-1/2 w-[700px] sm:w-[950px] h-[400px] rounded-full blur-[180px] pointer-events-none opacity-25 z-0"
         style={{ background: service.accentColor }}
       />
 
@@ -95,7 +95,7 @@ export default function ServiceDetailPage() {
                 {isEs ? 'Servicios' : 'Services'}
               </Link>
               <span className="text-white/20">/</span>
-              <span className="text-white/80 font-medium truncate max-w-[200px] sm:max-w-none">
+              <span className="text-white/90 font-medium truncate max-w-[200px] sm:max-w-none">
                 {title}
               </span>
             </div>
@@ -110,16 +110,23 @@ export default function ServiceDetailPage() {
           </div>
 
           {/* ══════════════════════════════════════════
-              HERO SECTION (Minimalista & Súper Elegante)
+              HERO SECTION CON COLOR CARACTERÍSTICO
              ══════════════════════════════════════════ */}
           <div className="max-w-3xl mb-20 sm:mb-28">
-            {/* Minimalist Badge */}
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-white/[0.08] bg-white/[0.02] text-xs font-mono text-white/70 mb-6">
+            {/* Signature Pill Badge */}
+            <div
+              className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full border text-xs font-mono mb-6 transition-colors"
+              style={{
+                borderColor: `${service.accentColor}33`,
+                backgroundColor: `${service.accentColor}0d`,
+                color: service.accentColor,
+              }}
+            >
               <span
-                className="w-1.5 h-1.5 rounded-full"
+                className="w-2 h-2 rounded-full animate-pulse"
                 style={{ backgroundColor: service.accentColor }}
               />
-              <span>{heroBadge}</span>
+              <span className="tracking-wide font-medium">{heroBadge}</span>
             </div>
 
             {/* Title */}
@@ -128,20 +135,24 @@ export default function ServiceDetailPage() {
             </h1>
 
             {/* Editorial Tagline */}
-            <p className="text-lg sm:text-2xl font-normal text-white/90 leading-relaxed mb-6 font-syne">
+            <p
+              className="text-lg sm:text-2xl font-medium leading-relaxed mb-6 font-syne"
+              style={{ color: `${service.accentColor}ee` }}
+            >
               {tagline}
             </p>
 
             {/* Description */}
-            <p className="text-white/55 text-sm sm:text-base md:text-lg leading-relaxed mb-10 max-w-2xl font-normal">
+            <p className="text-white/60 text-sm sm:text-base md:text-lg leading-relaxed mb-10 max-w-2xl font-normal">
               {longDesc}
             </p>
 
-            {/* Clean, Refined Action Buttons */}
+            {/* Action Buttons */}
             <div className="flex flex-wrap items-center gap-4">
               <button
                 onClick={() => setIsContactOpen(true)}
-                className="inline-flex items-center gap-2 px-7 py-3.5 bg-white text-[#020408] font-mono font-medium text-xs sm:text-sm tracking-wider uppercase rounded-xl transition-all duration-300 hover:bg-white/90 hover:shadow-[0_0_25px_rgba(255,255,255,0.2)] cursor-pointer"
+                className="inline-flex items-center gap-2 px-7 py-3.5 text-[#020408] font-mono font-semibold text-xs sm:text-sm tracking-wider uppercase rounded-xl transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(255,255,255,0.25)] cursor-pointer"
+                style={{ backgroundColor: service.accentColor }}
               >
                 <span>{isEs ? 'Cotizar proyecto' : 'Request quote'}</span>
                 <FiArrowUpRight size={14} />
@@ -160,11 +171,14 @@ export default function ServiceDetailPage() {
           </div>
 
           {/* ══════════════════════════════════════════
-              BLOQUE 1: SOLUCIONES DE NEGOCIO (Bento Grid Minimalista con Reicon)
+              BLOQUE 1: SOLUCIONES DE NEGOCIO (Spotlight con el color de acento)
              ══════════════════════════════════════════ */}
           <section className="mb-24 sm:mb-32">
             <div className="mb-10 sm:mb-12">
-              <span className="text-xs font-mono uppercase tracking-[0.25em] text-white/40 block mb-3">
+              <span
+                className="text-xs font-mono uppercase tracking-[0.25em] block mb-3"
+                style={{ color: service.accentColor }}
+              >
                 {isEs ? 'Soluciones Prácticas' : 'Practical Solutions'}
               </span>
               <h2 className="font-syne font-bold text-2xl sm:text-4xl text-white tracking-tight">
@@ -180,15 +194,25 @@ export default function ServiceDetailPage() {
                 return (
                   <SpotlightCard
                     key={idx}
-                    spotlightColor="rgba(255, 255, 255, 0.05)"
+                    spotlightColor={`${service.accentColor}18`}
                     className="p-7 sm:p-8 flex flex-col justify-between"
                   >
                     <div>
                       <div className="flex items-center justify-between mb-6">
-                        <div className="w-11 h-11 rounded-xl flex items-center justify-center border border-white/[0.08] bg-white/[0.02] text-white/80 group-hover:text-white group-hover:border-white/[0.15] transition-all duration-300">
-                          <ReiconIcon name={sol.iconType} size={22} color="currentColor" />
+                        <div
+                          className="w-11 h-11 rounded-xl flex items-center justify-center border transition-all duration-300"
+                          style={{
+                            borderColor: `${service.accentColor}33`,
+                            backgroundColor: `${service.accentColor}0d`,
+                            color: service.accentColor,
+                          }}
+                        >
+                          <ReiconIcon name={sol.iconType} size={22} color={service.accentColor} />
                         </div>
-                        <span className="font-mono text-xs text-white/25">
+                        <span
+                          className="font-mono text-xs font-semibold"
+                          style={{ color: `${service.accentColor}88` }}
+                        >
                           0{idx + 1}
                         </span>
                       </div>
@@ -197,14 +221,17 @@ export default function ServiceDetailPage() {
                         {solTitle}
                       </h3>
 
-                      <p className="text-white/55 text-sm sm:text-base leading-relaxed font-normal">
+                      <p className="text-white/60 text-sm sm:text-base leading-relaxed font-normal">
                         {solDesc}
                       </p>
                     </div>
 
-                    <div className="mt-8 pt-4 border-t border-white/[0.06] flex items-center justify-between text-xs font-mono text-white/30 group-hover:text-white/60 transition-colors">
+                    <div className="mt-8 pt-4 border-t border-white/[0.06] flex items-center justify-between text-xs font-mono text-white/35 transition-colors">
                       <span>{isEs ? 'Disponible' : 'Available'}</span>
-                      <span className="text-white/40 group-hover:text-white transition-colors">
+                      <span
+                        className="transition-colors group-hover:underline font-medium"
+                        style={{ color: service.accentColor }}
+                      >
                         Cotizar →
                       </span>
                     </div>
@@ -215,26 +242,40 @@ export default function ServiceDetailPage() {
           </section>
 
           {/* ══════════════════════════════════════════
-              BLOQUE 2: ¿PARA QUIÉN ES? (Diagnóstico Minimalista)
+              BLOQUE 2: ¿PARA QUIÉN ES? (Diagnóstico con acento de color)
              ══════════════════════════════════════════ */}
           <section className="mb-24 sm:mb-32">
             <SpotlightCard
-              spotlightColor="rgba(255, 255, 255, 0.04)"
+              spotlightColor={`${service.accentColor}12`}
               className="p-8 sm:p-12 lg:p-14"
             >
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-start">
                 <div className="lg:col-span-5">
-                  <span className="text-xs font-mono uppercase tracking-[0.25em] text-white/40 block mb-3">
+                  <span
+                    className="text-xs font-mono uppercase tracking-[0.25em] block mb-3"
+                    style={{ color: service.accentColor }}
+                  >
                     {isEs ? 'Diagnóstico' : 'Diagnostic'}
                   </span>
                   <h2 className="font-syne font-bold text-2xl sm:text-4xl text-white tracking-tight mb-4">
                     {isEs ? '¿Es este el servicio adecuado?' : 'Is this service right for you?'}
                   </h2>
-                  <p className="text-white/50 text-sm sm:text-base leading-relaxed">
+                  <p className="text-white/50 text-sm sm:text-base leading-relaxed mb-6">
                     {isEs
                       ? 'Diseñado para empresas que buscan superar fricciones operativas y dar el salto a una infraestructura profesional.'
                       : 'Tailored for organizations ready to remove manual bottlenecks and transition into reliable, scalable software.'}
                   </p>
+                  <div
+                    className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border text-xs font-mono"
+                    style={{
+                      borderColor: `${service.accentColor}33`,
+                      backgroundColor: `${service.accentColor}0d`,
+                      color: service.accentColor,
+                    }}
+                  >
+                    <span>⚡</span>
+                    {isEs ? 'Diagnóstico inicial sin costo' : 'Free initial discovery'}
+                  </div>
                 </div>
 
                 <div className="lg:col-span-7 space-y-3.5">
@@ -243,8 +284,15 @@ export default function ServiceDetailPage() {
                       key={idx}
                       className="flex items-start gap-4 p-4 rounded-xl bg-white/[0.015] border border-white/[0.06] hover:border-white/[0.12] transition-colors"
                     >
-                      <div className="w-5 h-5 rounded-full border border-white/20 flex items-center justify-center shrink-0 mt-0.5 text-white/80">
-                        <FiCheck size={11} />
+                      <div
+                        className="w-5 h-5 rounded-full border flex items-center justify-center shrink-0 mt-0.5"
+                        style={{
+                          borderColor: `${service.accentColor}55`,
+                          backgroundColor: `${service.accentColor}15`,
+                          color: service.accentColor,
+                        }}
+                      >
+                        <FiCheck size={11} color={service.accentColor} />
                       </div>
                       <p className="text-white/80 text-sm sm:text-base leading-relaxed font-normal">
                         {item}
@@ -257,11 +305,14 @@ export default function ServiceDetailPage() {
           </section>
 
           {/* ══════════════════════════════════════════
-              BLOQUE 3: ENTREGABLES (Claridad y Transparencia)
+              BLOQUE 3: ENTREGABLES
              ══════════════════════════════════════════ */}
           <section className="mb-24 sm:mb-32">
             <div className="mb-10 sm:mb-12">
-              <span className="text-xs font-mono uppercase tracking-[0.25em] text-white/40 block mb-3">
+              <span
+                className="text-xs font-mono uppercase tracking-[0.25em] block mb-3"
+                style={{ color: service.accentColor }}
+              >
                 {isEs ? 'Garantías' : 'Guarantees'}
               </span>
               <h2 className="font-syne font-bold text-2xl sm:text-4xl text-white tracking-tight">
@@ -273,11 +324,14 @@ export default function ServiceDetailPage() {
               {deliverables.map((item: string, idx: number) => (
                 <SpotlightCard
                   key={idx}
-                  spotlightColor="rgba(255, 255, 255, 0.04)"
+                  spotlightColor={`${service.accentColor}10`}
                   className="p-6 sm:p-7 flex flex-col justify-between"
                 >
                   <div>
-                    <span className="font-mono text-[11px] text-white/35 uppercase block mb-3">
+                    <span
+                      className="font-mono text-[11px] uppercase block mb-3 font-semibold"
+                      style={{ color: service.accentColor }}
+                    >
                       {isEs ? `Entregable 0${idx + 1}` : `Deliverable 0${idx + 1}`}
                     </span>
                     <p className="text-white/90 text-sm sm:text-base font-medium leading-relaxed">
@@ -290,11 +344,14 @@ export default function ServiceDetailPage() {
           </section>
 
           {/* ══════════════════════════════════════════
-              BLOQUE 4: STACK TECNOLÓGICO (Iconos Oficiales de Marca + Estilo Minimalista)
+              BLOQUE 4: STACK TECNOLÓGICO (Iconos Oficiales)
              ══════════════════════════════════════════ */}
           <section className="mb-24 sm:mb-32">
             <div className="mb-10 sm:mb-12">
-              <span className="text-xs font-mono uppercase tracking-[0.25em] text-white/40 block mb-3">
+              <span
+                className="text-xs font-mono uppercase tracking-[0.25em] block mb-3"
+                style={{ color: service.accentColor }}
+              >
                 {isEs ? 'Ingeniería' : 'Engineering'}
               </span>
               <h2 className="font-syne font-bold text-2xl sm:text-4xl text-white tracking-tight mb-3">
@@ -340,12 +397,15 @@ export default function ServiceDetailPage() {
           </section>
 
           {/* ══════════════════════════════════════════
-              BLOQUE 5: FAQ (Acordeón Minimalista y Limpio)
+              BLOQUE 5: FAQ (Acordeón Minimalista)
              ══════════════════════════════════════════ */}
           {service.faqs && service.faqs.length > 0 && (
             <section className="mb-24 sm:mb-32">
               <div className="mb-10 sm:mb-12">
-                <span className="text-xs font-mono uppercase tracking-[0.25em] text-white/40 block mb-3">
+                <span
+                  className="text-xs font-mono uppercase tracking-[0.25em] block mb-3"
+                  style={{ color: service.accentColor }}
+                >
                   {isEs ? 'Preguntas Frecuentes' : 'FAQ'}
                 </span>
                 <h2 className="font-syne font-bold text-2xl sm:text-4xl text-white tracking-tight">
@@ -363,6 +423,7 @@ export default function ServiceDetailPage() {
                     <div
                       key={idx}
                       className="border border-white/[0.08] rounded-2xl overflow-hidden bg-white/[0.01] transition-colors"
+                      style={isOpen ? { borderColor: `${service.accentColor}44` } : undefined}
                     >
                       <button
                         onClick={() => setOpenFaq(isOpen ? null : idx)}
@@ -371,8 +432,9 @@ export default function ServiceDetailPage() {
                         <span>{question}</span>
                         <div
                           className={`w-6 h-6 rounded-full flex items-center justify-center border border-white/10 shrink-0 transition-transform duration-300 ${
-                            isOpen ? 'rotate-180 text-white' : 'text-white/40'
+                            isOpen ? 'rotate-180' : 'text-white/40'
                           }`}
+                          style={isOpen ? { color: service.accentColor, borderColor: `${service.accentColor}44` } : undefined}
                         >
                           <FiChevronDown size={13} />
                         </div>
@@ -391,15 +453,19 @@ export default function ServiceDetailPage() {
           )}
 
           {/* ══════════════════════════════════════════
-              BANNER DE CIERRE (Minimalista y Directo)
+              BANNER DE CIERRE (Con resplandor del color de acento)
              ══════════════════════════════════════════ */}
           <section className="mb-24 sm:mb-32">
             <SpotlightCard
-              spotlightColor="rgba(255, 255, 255, 0.05)"
-              className="p-8 sm:p-14 text-center border-white/[0.1] relative overflow-hidden"
+              spotlightColor={`${service.accentColor}20`}
+              className="p-8 sm:p-14 text-center relative overflow-hidden"
+              style={{ borderColor: `${service.accentColor}33` }}
             >
               <div className="relative z-10 max-w-xl mx-auto">
-                <span className="text-xs font-mono uppercase tracking-[0.25em] text-white/40 block mb-4">
+                <span
+                  className="text-xs font-mono uppercase tracking-[0.25em] block mb-4"
+                  style={{ color: service.accentColor }}
+                >
                   {isEs ? 'Comencemos' : 'Get in touch'}
                 </span>
 
@@ -418,7 +484,8 @@ export default function ServiceDetailPage() {
                 <div className="flex flex-wrap items-center justify-center gap-3.5">
                   <button
                     onClick={() => setIsContactOpen(true)}
-                    className="px-8 py-3.5 bg-white text-[#020408] font-mono font-medium text-xs sm:text-sm tracking-wider uppercase rounded-xl transition-all duration-300 hover:bg-white/90 hover:shadow-[0_0_25px_rgba(255,255,255,0.2)] cursor-pointer"
+                    className="px-8 py-3.5 text-[#020408] font-mono font-semibold text-xs sm:text-sm tracking-wider uppercase rounded-xl transition-all duration-300 hover:scale-105 hover:shadow-[0_0_25px_rgba(255,255,255,0.25)] cursor-pointer"
+                    style={{ backgroundColor: service.accentColor }}
                   >
                     {isEs ? 'Cotizar proyecto' : 'Request quote'}
                   </button>
@@ -458,18 +525,24 @@ export default function ServiceDetailPage() {
                   className="block group no-underline"
                 >
                   <SpotlightCard
-                    spotlightColor="rgba(255, 255, 255, 0.04)"
+                    spotlightColor={`${other.accentColor}15`}
                     className="p-4 h-full flex flex-col justify-between"
                   >
                     <div>
-                      <span className="font-mono text-[10px] text-white/30 uppercase block mb-1">
+                      <span
+                        className="font-mono text-[10px] uppercase block mb-1 font-medium"
+                        style={{ color: other.accentColor }}
+                      >
                         {isEs ? other.heroBadgeEs : other.heroBadgeEn}
                       </span>
                       <h5 className="font-syne font-semibold text-sm text-white/90 group-hover:text-white transition-colors line-clamp-2">
                         {isEs ? other.titleEs : other.titleEn}
                       </h5>
                     </div>
-                    <span className="text-[11px] font-mono text-white/30 group-hover:text-white/70 transition-colors mt-3 block">
+                    <span
+                      className="text-[11px] font-mono transition-colors mt-3 block"
+                      style={{ color: `${other.accentColor}bb` }}
+                    >
                       Ver detalle →
                     </span>
                   </SpotlightCard>
