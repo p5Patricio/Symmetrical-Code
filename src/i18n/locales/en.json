@@ -174,6 +174,36 @@
     "label": "Our Team",
     "title": "Why Symmetrical Code?",
     "subtitle": "We combine high-level software engineering with a comprehensive approach geared towards empowering your business.",
+    "institutions_label": "TECHNICAL BACKGROUND & EDUCATION",
+    "institutions_title": "Backed by elite academic training & global certifications",
+    "institutions_desc": "Our team unites rigorous formal software engineering with hands-on mastery of industry-leading cloud and web technologies.",
+    "institutions": [
+      {
+        "id": "ugto",
+        "name": "Universidad de Guanajuato",
+        "badge": "Alma Mater · Engineering",
+        "description": "Mathematical foundations, computer science, high-performance algorithms, and formal software engineering principles."
+      },
+      {
+        "id": "santander",
+        "name": "Santander Open Academy",
+        "badge": "Specialization & Scholarships",
+        "description": "International technical excellence programs, cybersecurity, and agile development endorsed by Santander Universities."
+      },
+      {
+        "id": "aws",
+        "name": "Amazon Web Services",
+        "badge": "Cloud & Infrastructure",
+        "description": "Distributed cloud architecture, high availability, microservices, perimeter security, and resilient serverless setups."
+      },
+      {
+        "id": "udemy",
+        "name": "Udemy",
+        "badge": "Continuous Mastery",
+        "description": "Continuous specialized training across cutting-edge frameworks, advanced architectural patterns, and modern full-stack tools."
+      }
+    ],
+    "accreditation": "Technical Accreditation",
     "quote": "\"Real engineering for real problems.\"",
     "quote_body": "At Symmetrical Code, we work with a specialized team that maintains high development standards. Every line of code is internally reviewed to build robust, maintainable solutions that are ready to scale.",
     "pillars": [

@@ -173,6 +173,36 @@
     "label": "Nuestro Equipo",
     "title": "¿Por qué Symmetrical Code?",
     "subtitle": "Combinamos ingeniería de software de alto nivel con un enfoque integral orientado a potenciar tu negocio.",
+    "institutions_label": "FORMACIÓN & PREPARACIÓN TÉCNICA",
+    "institutions_title": "Respaldados por formación de élite y certificaciones globales",
+    "institutions_desc": "Nuestro equipo combina el rigor de la ingeniería formal con la experiencia práctica en tecnologías líderes de la industria.",
+    "institutions": [
+      {
+        "id": "ugto",
+        "name": "Universidad de Guanajuato",
+        "badge": "Alma Máter · Ingeniería",
+        "description": "Bases matemáticas, ciencias de la computación, algoritmia de alto rendimiento y pensamiento formal en ingeniería de software."
+      },
+      {
+        "id": "santander",
+        "name": "Santander Open Academy",
+        "badge": "Especialización & Becas",
+        "description": "Programas internacionales de excelencia técnica, ciberseguridad y metodologías ágiles avaladas por Santander Universidades."
+      },
+      {
+        "id": "aws",
+        "name": "Amazon Web Services",
+        "badge": "Cloud & Infraestructura",
+        "description": "Arquitectura distribuida en la nube, alta disponibilidad, microservicios, seguridad perimetral y despliegues serverless."
+      },
+      {
+        "id": "udemy",
+        "name": "Udemy",
+        "badge": "Especialización Continua",
+        "description": "Capacitación y dominio constante de los frameworks más modernos, patrones avanzados de arquitectura y ecosistemas full-stack."
+      }
+    ],
+    "accreditation": "Acreditación Técnica",
     "quote": "\"Ingeniería real para problemas reales.\"",
     "quote_body": "En Symmetrical Code trabajamos con un equipo especializado que mantiene altos estándares de desarrollo. Cada línea de código es revisada internamente para construir soluciones robustas, mantenibles y listas para escalar.",
     "pillars": [

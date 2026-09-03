@@ -542,6 +542,7 @@ html.light #team p {
   color: #334155 !important;
 }
 
+html.light #team h2,
 html.light #team h3,
 html.light #team h4 {
   color: #0B132B !important;
@@ -549,6 +550,34 @@ html.light #team h4 {
 
 html.light #team .section-label {
   color: #195fc1 !important;
+}
+
+html.light #team .group {
+  background: rgba(255, 255, 255, 0.85) !important;
+  border-color: rgba(25, 95, 193, 0.14) !important;
+  box-shadow: 0 4px 20px rgba(25, 95, 193, 0.05) !important;
+}
+
+html.light #team .group:hover {
+  border-color: rgba(25, 95, 193, 0.35) !important;
+  box-shadow: 0 10px 30px rgba(25, 95, 193, 0.1) !important;
+}
+
+html.light #team .border-white\/10 {
+  border-color: rgba(25, 95, 193, 0.12) !important;
+}
+
+html.light #team .border-white\/5 {
+  border-color: rgba(25, 95, 193, 0.08) !important;
+}
+
+html.light #team .bg-white\/5 {
+  background: rgba(25, 95, 193, 0.05) !important;
+  border-color: rgba(25, 95, 193, 0.12) !important;
+}
+
+html.light #team span.font-mono.text-5xl {
+  color: rgba(25, 95, 193, 0.12) !important;
 }
 
 /* Light Services Section */
