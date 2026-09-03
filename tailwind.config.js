@@ -19,10 +19,17 @@ export default {
         syne: ['Syne', 'sans-serif'],
         mono: ['JetBrains Mono', 'monospace'],
       },
+      keyframes: {
+        shine: {
+          '0%': { backgroundPosition: '200% 0' },
+          '100%': { backgroundPosition: '-200% 0' },
+        },
+      },
       animation: {
         'fade-up': 'fadeUp 0.7s ease forwards',
         'float': 'float 4s ease-in-out infinite',
         'pulse-glow': 'pulse-glow 2s ease-in-out infinite',
+        'shine': 'shine 4s linear infinite',
       }
     },
   },
