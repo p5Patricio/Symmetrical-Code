@@ -155,12 +155,12 @@ export default function ServiceDetailPage() {
                 radius={14}
                 onClick={() => setIsContactOpen(true)}
                 className="font-mono font-semibold text-xs sm:text-sm tracking-wider uppercase"
-                tint="#ffffff"
-                tintOpacity={0.06}
+                tint="#00e5ff"
+                tintOpacity={0.05}
                 blur={16}
-                lineColor="#ffffff"
-                baseColor="#4b5563"
-                intensity={1.2}
+                lineColor="#00e5ff"
+                baseColor="#103045"
+                intensity={1.4}
               >
                 <span>{isEs ? 'Cotizar proyecto' : 'Request quote'}</span>
                 <FiArrowUpRight size={14} />
@@ -495,12 +495,12 @@ export default function ServiceDetailPage() {
                     radius={14}
                     onClick={() => setIsContactOpen(true)}
                     className="font-mono font-semibold text-xs sm:text-sm tracking-wider uppercase"
-                    tint="#ffffff"
-                    tintOpacity={0.06}
+                    tint="#00e5ff"
+                    tintOpacity={0.05}
                     blur={16}
-                    lineColor="#ffffff"
-                    baseColor="#4b5563"
-                    intensity={1.2}
+                    lineColor="#00e5ff"
+                    baseColor="#103045"
+                    intensity={1.4}
                   >
                     {isEs ? 'Cotizar proyecto' : 'Request quote'}
                   </SpecularButton>

@@ -507,12 +507,12 @@ export default function Hero() {
               radius={14}
               onClick={() => document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' })}
               className="font-syne font-bold text-xs sm:text-sm tracking-wider uppercase"
-              tint="#ffffff"
-              tintOpacity={0.07}
+              tint="#00e5ff"
+              tintOpacity={0.05}
               blur={16}
-              lineColor="#ffffff"
-              baseColor="#4b5563"
-              intensity={1.2}
+              lineColor="#00e5ff"
+              baseColor="#103045"
+              intensity={1.4}
             >
               {t('hero.cta_primary')}
             </SpecularButton>
@@ -526,9 +526,9 @@ export default function Hero() {
               tint="#ffffff"
               tintOpacity={0.02}
               blur={12}
-              lineColor="#ffffff"
-              baseColor="#374151"
-              intensity={0.9}
+              lineColor="#00e5ff"
+              baseColor="#1e293b"
+              intensity={1.1}
             >
               {t('hero.cta_secondary')}
             </SpecularButton>
