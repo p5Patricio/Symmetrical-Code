@@ -16,13 +16,13 @@ export default function Navbar() {
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
+      setScrolled(window.scrollY > 40);
 
       if (isHome) {
         const sections = ['team', 'projects', 'services', 'home'];
         for (const id of sections) {
           const el = document.getElementById(id);
-          if (el && window.scrollY >= el.offsetTop - 120) {
+          if (el && window.scrollY >= el.offsetTop - 140) {
             setActiveSection(id);
             return;
           }
@@ -35,7 +35,7 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, [isHome]);
 
-  // Cerrar menú al hacer scroll
+  // Close mobile menu on scroll
   useEffect(() => {
     const handleScrollClose = () => {
       if (menuOpen) setMenuOpen(false);
@@ -44,7 +44,7 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', handleScrollClose);
   }, [menuOpen]);
 
-  // Bloquear scroll del body cuando el menú está abierto
+  // Lock body scroll when mobile menu is open
   useEffect(() => {
     if (menuOpen) {
       document.body.style.overflow = 'hidden';
@@ -108,168 +108,154 @@ export default function Navbar() {
     { key: 'nav.team', id: 'team' },
   ];
 
-  // Clase de tamaño de letra compartida por TODOS los enlaces del navbar (desktop)
-  const navLinkTextClass = 'text-[11px] lg:text-[12px]';
-
   return (
     <>
+      {/* ─── Floating Pill Navbar Container ─── */}
       <header
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-          scrolled
-            ? 'bg-black/95 backdrop-blur-xl border-b border-[rgba(0,229,255,0.1)]'
-            : 'bg-black/80 backdrop-blur-sm'
-        }`}
+        className="fixed top-3 sm:top-5 left-1/2 -translate-x-1/2 w-[calc(100%-1.5rem)] sm:w-[calc(100%-3rem)] max-w-5xl z-50 transition-all duration-500 pointer-events-none"
       >
-        <nav className="max-w-7xl mx-auto px-4 sm:px-6 h-14 sm:h-16 flex items-center justify-between">
-          {/* Logo - izquierda */}
+        <div
+          className={`pointer-events-auto relative rounded-full border transition-all duration-500 ease-out px-4 sm:px-6 py-2.5 sm:py-3 flex items-center justify-between ${
+            scrolled ? 'shadow-[0_12px_36px_rgba(0,0,0,0.5)]' : 'shadow-[0_8px_24px_rgba(0,0,0,0.3)]'
+          }`}
+          style={{
+            background: scrolled
+              ? 'linear-gradient(145deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.015) 50%, rgba(2, 4, 8, 0.75) 100%)'
+              : 'linear-gradient(145deg, rgba(255, 255, 255, 0.04) 0%, rgba(255, 255, 255, 0.01) 50%, rgba(2, 4, 8, 0.55) 100%)',
+            backdropFilter: 'blur(24px) saturate(180%)',
+            WebkitBackdropFilter: 'blur(24px) saturate(180%)',
+            borderColor: scrolled ? 'rgba(255, 255, 255, 0.12)' : 'rgba(255, 255, 255, 0.08)',
+            boxShadow:
+              'inset 0 1px 1px 0 rgba(255, 255, 255, 0.18), inset 0 0 0 1px rgba(255, 255, 255, 0.03)',
+          }}
+        >
+          {/* Specular Liquid Glass Top Sheen */}
+          <div className="pointer-events-none absolute inset-x-8 top-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
+
+          {/* Logo (Izquierda) */}
           <button
             onClick={handleLogoClick}
-            className="flex items-center gap-2 sm:gap-3 group shrink-0 cursor-pointer bg-transparent border-0 p-0"
+            className="flex items-center gap-2.5 group shrink-0 cursor-pointer bg-transparent border-0 p-0"
           >
             <img
               src="/favicon.svg"
               alt="Symmetrical Code"
-              className="h-7 sm:h-8 w-auto transition-all duration-300 group-hover:drop-shadow-[0_0_12px_rgba(0,229,255,0.6)]"
+              className="h-6 sm:h-7 w-auto transition-transform duration-300 group-hover:scale-105 group-hover:drop-shadow-[0_0_12px_rgba(0,229,255,0.5)]"
             />
-            <span className="hidden sm:block font-syne font-bold text-sm tracking-wide text-white/80 group-hover:text-white transition-colors">
+            <span className="font-syne font-bold text-xs sm:text-sm tracking-tight text-white/90 group-hover:text-white transition-colors">
               Symmetrical<span className="text-[#00e5ff]">Code</span>
             </span>
           </button>
 
-          {/* Desktop Nav - CENTRADO ABSOLUTAMENTE */}
-          <div className="hidden lg:flex items-center gap-1 bg-black/60 backdrop-blur-md rounded-full px-1.5 py-1 border border-white/10 shadow-lg absolute left-1/2 -translate-x-1/2">
-            {navLinks.map((link) => (
-              <button
-                key={link.id}
-                onClick={() => handleNavClick(link.id)}
-                className={`relative font-mono ${navLinkTextClass} tracking-[0.15em] uppercase px-3 lg:px-4 py-1.5 rounded-full transition-all duration-200 cursor-pointer ${
-                  isHome && activeSection === link.id
-                    ? 'text-[#00e5ff]'
-                    : 'text-white/70 hover:text-white hover:bg-white/10'
-                }`}
-              >
-                {t(link.key)}
-                {/* Línea de subrayado para el elemento activo */}
-                {isHome && activeSection === link.id && (
-                  <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-4 h-0.5 bg-[#00e5ff] rounded-full" />
-                )}
-              </button>
-            ))}
+          {/* Nav Links (Centro - Desktop) */}
+          <nav className="hidden md:flex items-center gap-1">
+            {navLinks.map((link) => {
+              const isActive = isHome && activeSection === link.id;
+              return (
+                <button
+                  key={link.id}
+                  onClick={() => handleNavClick(link.id)}
+                  className={`relative font-mono text-[11px] lg:text-xs tracking-[0.14em] uppercase px-3.5 py-1.5 rounded-full transition-all duration-300 cursor-pointer ${
+                    isActive
+                      ? 'text-[#00e5ff] bg-white/[0.06] border border-[#00e5ff]/20 shadow-[0_0_15px_rgba(0,229,255,0.12)] font-medium'
+                      : 'text-white/60 hover:text-white hover:bg-white/[0.04] border border-transparent'
+                  }`}
+                >
+                  {t(link.key)}
+                </button>
+              );
+            })}
 
-            {/* Contacto */}
+            {/* Contact Link */}
             <button
               onClick={openContact}
-              className={`relative font-mono ${navLinkTextClass} tracking-[0.15em] uppercase px-3 lg:px-4 py-1.5 rounded-full transition-all duration-200 text-white/70 hover:text-white hover:bg-white/10 cursor-pointer`}
+              className="relative font-mono text-[11px] lg:text-xs tracking-[0.14em] uppercase px-3.5 py-1.5 rounded-full transition-all duration-300 text-white/60 hover:text-white hover:bg-white/[0.04] border border-transparent cursor-pointer"
             >
               {t('nav.contact')}
             </button>
-          </div>
+          </nav>
 
-          {/* Right Controls - derecha */}
-          <div className="flex items-center gap-2 sm:gap-3">
+          {/* Controls (Derecha) */}
+          <div className="flex items-center gap-2 sm:gap-2.5">
             <button
               onClick={toggleLang}
-              className="font-mono text-[10px] sm:text-xs tracking-widest border border-[rgba(0,229,255,0.3)] text-[#00e5ff]/80 hover:text-[#00e5ff] hover:border-[#00e5ff] px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-md transition-all duration-200 cursor-pointer"
+              className="font-mono text-[10px] sm:text-[11px] tracking-wider border border-white/[0.08] hover:border-[#00e5ff]/40 bg-white/[0.02] hover:bg-white/[0.05] text-white/70 hover:text-[#00e5ff] px-2.5 sm:px-3 py-1 rounded-full transition-all duration-200 cursor-pointer"
             >
               {i18n.language === 'es' ? 'EN' : 'ES'}
             </button>
 
-            {/* MENÚ HAMBURGUESA */}
+            {/* Hamburger Button (Mobile) */}
             <button
               onClick={() => setMenuOpen(!menuOpen)}
-              className="lg:hidden relative w-8 h-8 flex items-center justify-center focus:outline-none z-50 cursor-pointer"
+              className="md:hidden relative w-8 h-8 flex items-center justify-center focus:outline-none cursor-pointer rounded-full border border-white/[0.08] bg-white/[0.02] text-white/80"
               aria-label={menuOpen ? 'Cerrar menú' : 'Abrir menú'}
             >
               {!menuOpen ? (
-                <div className="flex flex-col items-center gap-1.5">
-                  <span className="block w-5 h-0.5 bg-[#00e5ff] rounded-full transition-all duration-300" />
-                  <span className="block w-5 h-0.5 bg-[#00e5ff] rounded-full transition-all duration-300" />
-                  <span className="block w-5 h-0.5 bg-[#00e5ff] rounded-full transition-all duration-300" />
+                <div className="flex flex-col items-center gap-1">
+                  <span className="block w-3.5 h-0.5 bg-white/80 rounded-full" />
+                  <span className="block w-3.5 h-0.5 bg-white/80 rounded-full" />
                 </div>
               ) : (
-                <div className="relative w-5 h-5">
-                  <span className="absolute top-1/2 left-0 w-5 h-0.5 bg-[#00e5ff] rounded-full -translate-y-1/2 rotate-45 transition-all duration-300" />
-                  <span className="absolute top-1/2 left-0 w-5 h-0.5 bg-[#00e5ff] rounded-full -translate-y-1/2 -rotate-45 transition-all duration-300" />
+                <div className="relative w-4 h-4 flex items-center justify-center">
+                  <span className="absolute w-4 h-0.5 bg-white rounded-full rotate-45" />
+                  <span className="absolute w-4 h-0.5 bg-white rounded-full -rotate-45" />
                 </div>
               )}
             </button>
           </div>
-        </nav>
-
-        {/* Bottom gradient line */}
-        <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#00e5ff]/40 to-transparent" />
+        </div>
       </header>
 
-      {/* Mobile Menu */}
-      <div
-        className={`fixed inset-0 bg-black/95 backdrop-blur-lg z-40 transition-all duration-500 lg:hidden ${
-          menuOpen ? 'opacity-100 visible' : 'opacity-0 invisible'
-        }`}
-        onClick={() => setMenuOpen(false)}
-      >
+      {/* ─── Mobile Menu Drawer (Floating Liquid Glass Card) ─── */}
+      {menuOpen && (
         <div
-          className={`flex flex-col items-center justify-center h-full gap-5 transform transition-all duration-500 ${
-            menuOpen ? 'translate-y-0' : 'translate-y-8'
-          }`}
-          onClick={(e) => e.stopPropagation()}
+          className="fixed inset-0 z-40 bg-black/60 backdrop-blur-md md:hidden flex items-start justify-center pt-24 px-4 transition-opacity duration-300"
+          onClick={() => setMenuOpen(false)}
         >
-          {/* Logo en el menú */}
-          <button
-            onClick={handleLogoClick}
-            className="mb-6 flex flex-col items-center bg-transparent border-0 cursor-pointer"
+          <div
+            className="w-full max-w-sm rounded-3xl border border-white/[0.1] p-6 flex flex-col items-center gap-4 text-center shadow-[0_20px_50px_rgba(0,0,0,0.6)] animate-fade-in"
+            style={{
+              background: 'linear-gradient(165deg, rgba(255, 255, 255, 0.05) 0%, rgba(2, 4, 8, 0.9) 100%)',
+              backdropFilter: 'blur(28px) saturate(180%)',
+              boxShadow: 'inset 0 1px 1px 0 rgba(255, 255, 255, 0.15)',
+            }}
+            onClick={(e) => e.stopPropagation()}
           >
-            <img
-              src="/favicon.svg"
-              alt="Symmetrical Code"
-              className="h-16 w-auto mb-3 drop-shadow-[0_0_20px_rgba(0,229,255,0.4)]"
-            />
-            <span className="font-syne font-bold text-lg tracking-wide text-white">
-              Symmetrical<span className="text-[#00e5ff]">Code</span>
-            </span>
-          </button>
+            {navLinks.map((link) => {
+              const isActive = isHome && activeSection === link.id;
+              return (
+                <button
+                  key={link.id}
+                  onClick={() => handleNavClick(link.id)}
+                  className={`w-full py-3 px-5 rounded-xl font-mono text-xs tracking-[0.2em] uppercase transition-all duration-200 cursor-pointer ${
+                    isActive
+                      ? 'text-[#00e5ff] bg-[#00e5ff]/10 border border-[#00e5ff]/20 font-medium'
+                      : 'text-white/70 hover:text-white hover:bg-white/[0.04]'
+                  }`}
+                >
+                  {t(link.key)}
+                </button>
+              );
+            })}
 
-          {/* Enlaces del menú móvil */}
-          <div className="flex flex-col items-center gap-2 w-full max-w-[220px]">
-            {navLinks.map((link) => (
-              <button
-                key={link.id}
-                onClick={() => handleNavClick(link.id)}
-                className={`w-full text-center font-mono text-sm tracking-[0.15em] uppercase py-3 px-6 rounded-full transition-all duration-300 cursor-pointer ${
-                  isHome && activeSection === link.id
-                    ? 'text-[#00e5ff] bg-white/5'
-                    : 'text-white/60 hover:text-white hover:bg-white/10'
-                }`}
-              >
-                {t(link.key)}
-              </button>
-            ))}
-
-            {/* Contacto */}
             <button
               onClick={openContact}
-              className="w-full text-center font-mono text-sm tracking-[0.15em] uppercase py-3 px-6 rounded-full transition-all duration-300 text-white/60 hover:text-white hover:bg-white/10 cursor-pointer"
+              className="w-full py-3 px-5 rounded-xl font-mono text-xs tracking-[0.2em] uppercase transition-all duration-200 text-white/70 hover:text-white hover:bg-white/[0.04] cursor-pointer"
             >
               {t('nav.contact')}
             </button>
+
+            <div className="w-12 h-px bg-white/[0.08] my-1" />
+
+            <button
+              onClick={toggleLang}
+              className="font-mono text-xs tracking-widest border border-white/[0.1] text-white/80 hover:text-[#00e5ff] px-6 py-2 rounded-full transition-all duration-200 cursor-pointer"
+            >
+              {i18n.language === 'es' ? 'ENGLISH' : 'ESPAÑOL'}
+            </button>
           </div>
-
-          {/* Separador */}
-          <div className="w-12 h-px bg-white/20 my-4" />
-
-          {/* Botón de idioma en menú móvil */}
-          <button
-            onClick={toggleLang}
-            className="font-mono text-sm tracking-widest border border-[rgba(0,229,255,0.4)] text-[#00e5ff] hover:bg-[#00e5ff]/10 px-6 py-2 rounded-md transition-all duration-200 cursor-pointer"
-          >
-            {i18n.language === 'es' ? 'ENGLISH' : 'ESPAÑOL'}
-          </button>
-
-          {/* Texto decorativo */}
-          <p className="absolute bottom-8 text-[10px] font-mono text-white/20 tracking-wider">
-            Symmetrical Code 2026
-          </p>
         </div>
-      </div>
+      )}
 
       {/* Modal de contacto */}
       {contactOpen && <ContactModal onClose={() => setContactOpen(false)} />}
