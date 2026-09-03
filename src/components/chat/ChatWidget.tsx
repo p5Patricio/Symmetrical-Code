@@ -83,7 +83,7 @@ export default function ChatWidget({ forceVisible = false }: ChatWidgetProps) {
       >
         <button
           onClick={handleDismiss}
-          className="absolute -top-2 -right-2 w-5 h-5 bg-[#020408] border border-white/10 rounded-full flex items-center justify-center text-[10px] text-white/40 hover:text-white hover:border-[#00e5ff]/40 transition-colors"
+          className="absolute -top-2 -right-2 w-5 h-5 bg-[#020408] border border-white/10 rounded-full flex items-center justify-center text-[10px] text-white/40 hover:text-white hover:border-[#004EBB]/40 transition-colors"
           aria-label="Cerrar aviso"
         >
           ✕
@@ -103,8 +103,8 @@ export default function ChatWidget({ forceVisible = false }: ChatWidgetProps) {
           w-14 h-14 rounded-full shrink-0
           flex items-center justify-center
           transition-all duration-300 ease-out
-          bg-gradient-to-br from-[#00e5ff] to-[#1565ff] text-[#020408]
-          hover:scale-110 hover:shadow-[0_0_40px_rgba(0,229,255,0.5)]
+          bg-gradient-to-br from-[#004EBB] to-[#00296b] text-white
+          hover:scale-110 hover:shadow-[0_0_40px_rgba(0,78,187,0.6)]
         "
         aria-label="WhatsApp"
       >

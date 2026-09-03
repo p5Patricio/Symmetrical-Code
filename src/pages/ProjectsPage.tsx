@@ -57,7 +57,7 @@ const ImageWithFallback = ({ src, alt, fallback }: { src?: string; alt: string; 
 };
 
 const ProjectImage = ({ index, title }: { index: number; title: string }) => {
-  const colors = ['bg-[#00e5ff]/10', 'bg-[#1565ff]/10', 'bg-[#7c3aed]/10'];
+  const colors = ['bg-[#004EBB]/15', 'bg-[#1565ff]/10', 'bg-[#7c3aed]/10'];
   return (
     <div className={`w-full h-full ${colors[index % 3]} flex flex-col items-center justify-center p-4 sm:p-6 gap-2 sm:gap-3 text-center`}>
       <span className="font-syne font-black text-base sm:text-xl text-white/10 select-none uppercase tracking-tighter leading-none">{title}</span>
@@ -176,9 +176,9 @@ const DetailModal = ({ project, index, totalProjects, onNext, onPrev, onClose }:
                 }
               `}</style>
               <div className="flex-shrink-0">
-                <span className="font-mono text-[8px] sm:text-[9px] text-[#00e5ff]/40 tracking-widest uppercase mb-1.5 block">{t('projects.case_label', { defaultValue: 'CASO DE PROYECTO' })}</span>
+                <span className="font-mono text-[8px] sm:text-[9px] text-[#004EBB] tracking-widest uppercase mb-1.5 block">{t('projects.case_label', { defaultValue: 'CASO DE PROYECTO' })}</span>
                 <h3 className="font-syne font-black text-xl sm:text-2xl md:text-3xl text-white tracking-tight">{project.title}</h3>
-                <div className="w-8 sm:w-10 h-0.5 sm:h-1 bg-[#00e5ff] mt-2 sm:mt-3" />
+                <div className="w-8 sm:w-10 h-0.5 sm:h-1 bg-[#004EBB] mt-2 sm:mt-3" />
               </div>
               
               {/* Description with hidden scrollbar */}
@@ -199,7 +199,7 @@ const DetailModal = ({ project, index, totalProjects, onNext, onPrev, onClose }:
               {/* Buttons */}
               <div className="flex flex-wrap gap-1.5 sm:gap-2 flex-shrink-0 pt-3 sm:pt-4 border-t border-white/5">
                 {project.demoUrl && (
-                  <a href={project.demoUrl} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-1.5 font-mono text-[9px] sm:text-[10px] tracking-wider uppercase px-3 sm:px-5 py-1.5 sm:py-2 bg-[#00e5ff] text-[#020408] font-bold rounded-md transition-all hover:scale-105 hover:shadow-[0_0_25px_rgba(0,229,255,0.4)]">
+                  <a href={project.demoUrl} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-1.5 font-mono text-[9px] sm:text-[10px] tracking-wider uppercase px-3 sm:px-5 py-1.5 sm:py-2 bg-[#004EBB] text-white font-bold rounded-md transition-all hover:scale-105 hover:shadow-[0_0_25px_rgba(0,78,187,0.5)]">
                     <ExternalLinkIcon />{t('projects.view_demo')}
                   </a>
                 )}
@@ -218,8 +218,8 @@ const DetailModal = ({ project, index, totalProjects, onNext, onPrev, onClose }:
 
         <div className="flex flex-col items-center gap-4 sm:gap-6 shrink-0" onClick={e => e.stopPropagation()}>
            <div className="flex items-center gap-3 sm:gap-6">
-              <button onClick={onPrev} className="group flex items-center gap-1.5 sm:gap-2 text-white/40 hover:text-[#00e5ff] transition-all">
-                <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full border border-white/10 flex items-center justify-center group-hover:border-[#00e5ff]/40 group-hover:bg-[#00e5ff]/5">
+              <button onClick={onPrev} className="group flex items-center gap-1.5 sm:gap-2 text-white/40 hover:text-[#004EBB] transition-all">
+                <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full border border-white/10 flex items-center justify-center group-hover:border-[#004EBB]/40 group-hover:bg-[#004EBB]/10">
                   <ChevronLeft />
                 </div>
                 <span className="hidden sm:inline font-mono text-[10px] uppercase tracking-[.2em] font-bold">{t('projects.prev_project', { defaultValue: 'VER ANTERIOR PROYECTO' })}</span>
@@ -227,9 +227,9 @@ const DetailModal = ({ project, index, totalProjects, onNext, onPrev, onClose }:
 
               <div className="h-6 w-px bg-white/10 hidden sm:block" />
 
-              <button onClick={onNext} className="group flex items-center gap-1.5 sm:gap-2 text-white/40 hover:text-[#00e5ff] transition-all text-right">
+              <button onClick={onNext} className="group flex items-center gap-1.5 sm:gap-2 text-white/40 hover:text-[#004EBB] transition-all text-right">
                 <span className="hidden sm:inline font-mono text-[10px] uppercase tracking-[.2em] font-bold">{t('projects.next_project', { defaultValue: 'VER SIGUIENTE PROYECTO' })}</span>
-                <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full border border-white/10 flex items-center justify-center group-hover:border-[#00e5ff]/40 group-hover:bg-[#00e5ff]/5">
+                <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full border border-white/10 flex items-center justify-center group-hover:border-[#004EBB]/40 group-hover:bg-[#004EBB]/10">
                   <ChevronRight />
                 </div>
               </button>
@@ -331,7 +331,7 @@ export default function Projects({ isFullPage = false }: { isFullPage?: boolean 
                   key={cat}
                   onClick={() => setActiveFilter(cat)}
                   className={`font-mono text-[9px] sm:text-[10px] tracking-widest uppercase px-2 sm:px-4 py-1.5 sm:py-2 transition-all ${
-                    activeFilter === cat ? 'text-[#00e5ff] border-b border-[#00e5ff]' : 'text-white/40 hover:text-white'
+                    activeFilter === cat ? 'text-[#004EBB] border-b border-[#004EBB]' : 'text-white/40 hover:text-white'
                   }`}
                 >
                   {cat === 'all' ? t('projects.filter_all') : cat}
@@ -359,15 +359,15 @@ export default function Projects({ isFullPage = false }: { isFullPage?: boolean 
                     <div className="w-full h-36 sm:h-40 relative overflow-hidden shrink-0">
                       <ImageWithFallback src={project.ogImageUrl} alt={project.title} fallback={<ProjectImage index={globalIndex} title={project.title} />} />
                       <div className="absolute inset-0 flex items-center justify-center bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity">
-                        <span className="font-mono text-[9px] sm:text-[10px] tracking-wider text-[#00e5ff] uppercase">{t('projects.view_detail')} →</span>
+                        <span className="font-mono text-[9px] sm:text-[10px] tracking-wider text-[#004EBB] uppercase">{t('projects.view_detail')} →</span>
                       </div>
                     </div>
                     <div className="p-4 sm:p-5 flex flex-col flex-1">
                       <div className="flex items-center justify-between mb-2 sm:mb-3">
-                        <span className="font-mono text-[9px] sm:text-[10px] text-[#00e5ff]/30 tracking-wider">_{String(globalIndex + 1).padStart(2, '0')}</span>
+                        <span className="font-mono text-[9px] sm:text-[10px] text-[#004EBB]/30 tracking-wider">_{String(globalIndex + 1).padStart(2, '0')}</span>
                       </div>
                       <div className="min-h-[3rem] sm:min-h-[3.5rem] flex flex-col justify-start">
-                        <h4 className="font-syne font-bold text-sm sm:text-base text-white group-hover:text-[#00e5ff] transition-colors leading-tight">{project.title}</h4>
+                        <h4 className="font-syne font-bold text-sm sm:text-base text-white group-hover:text-[#004EBB] transition-colors leading-tight">{project.title}</h4>
                       </div>
                       <div className="min-h-[4rem] sm:min-h-[5rem] mt-2">
                         <p className="text-white/40 text-xs sm:text-sm leading-relaxed text-justify line-clamp-3">{project.description}</p>
@@ -413,7 +413,7 @@ export default function Projects({ isFullPage = false }: { isFullPage?: boolean 
           <div className="mb-12 sm:mb-16 md:mb-20">
             <div className="flex items-center gap-3 mb-4 sm:mb-6">
               <span className="section-label text-xs sm:text-sm">{t('projects.label')}</span>
-              <div className="h-px flex-1 bg-gradient-to-r from-[#00e5ff]/20 to-transparent" />
+              <div className="h-px flex-1 bg-gradient-to-r from-[#004EBB]/30 to-transparent" />
             </div>
             <div className="flex flex-col md:flex-row md:items-end gap-6 md:gap-8 justify-between">
               <h2 className="font-syne font-black text-3xl sm:text-5xl md:text-6xl lg:text-7xl text-white leading-[1.1]">
@@ -449,7 +449,7 @@ export default function Projects({ isFullPage = false }: { isFullPage?: boolean 
                   </div>
                   <div className="p-5 sm:p-6 md:p-8 flex flex-col flex-1">
                     <div className="min-h-[3rem] sm:min-h-[4rem] flex flex-col justify-start mb-3 sm:mb-4">
-                      <h3 className="font-syne font-black text-xl sm:text-2xl text-white group-hover:text-[#00e5ff] transition-colors leading-tight">{project.title}</h3>
+                      <h3 className="font-syne font-black text-xl sm:text-2xl text-white group-hover:text-[#004EBB] transition-colors leading-tight">{project.title}</h3>
                     </div>
                     <div className="min-h-[4rem] sm:min-h-[6rem] mb-4 sm:mb-6">
                       <p className="text-white/40 text-xs sm:text-sm leading-relaxed text-justify line-clamp-3">{project.description}</p>
@@ -457,7 +457,7 @@ export default function Projects({ isFullPage = false }: { isFullPage?: boolean 
                     <div className="flex items-center gap-2 sm:gap-3 -mt-2.5">
                       {uniqueTechTags.slice(0, 5).map(tag => (
                         techIconMap[tag] && (
-                          <div key={tag} className="w-7 h-7 sm:w-9 sm:h-9 rounded-lg sm:rounded-xl bg-white/5 border border-white/10 flex items-center justify-center p-1.5 sm:p-2 group-hover:border-[#00e5ff]/20 transition-all shrink-0" title={tag}>
+                          <div key={tag} className="w-7 h-7 sm:w-9 sm:h-9 rounded-lg sm:rounded-xl bg-white/5 border border-white/10 flex items-center justify-center p-1.5 sm:p-2 group-hover:border-[#004EBB]/40 transition-all shrink-0" title={tag}>
                             <img 
                               src={techIconMap[tag]} 
                               alt={tag} 
@@ -470,7 +470,7 @@ export default function Projects({ isFullPage = false }: { isFullPage?: boolean 
                     </div>
                     <div className="mt-auto pt-5 sm:pt-6 border-t border-white/5 flex items-center justify-between">
                       <span className="font-mono text-[9px] sm:text-[10px] text-white/20 uppercase tracking-widest">{project.category}</span>
-                      <span className="text-[#00e5ff] text-[10px] sm:text-xs font-bold uppercase tracking-tighter flex items-center gap-1.5 sm:gap-2 group-hover:gap-3 transition-all">Explore <ExternalLinkIcon /></span>
+                      <span className="text-[#004EBB] text-[10px] sm:text-xs font-bold uppercase tracking-tighter flex items-center gap-1.5 sm:gap-2 group-hover:gap-3 transition-all">Explore <ExternalLinkIcon /></span>
                     </div>
                   </div>
                 </article>
@@ -481,7 +481,7 @@ export default function Projects({ isFullPage = false }: { isFullPage?: boolean 
           <div className="mt-12 sm:mt-16 md:mt-20 flex justify-center">
             <button
               onClick={() => navigate('/proyectos')}
-              className="group flex items-center gap-2 sm:gap-4 font-mono text-[10px] sm:text-xs tracking-[0.2em] sm:tracking-[.3em] uppercase px-6 sm:px-10 py-3 sm:py-5 bg-white/5 border border-white/10 hover:border-[#00e5ff]/40 hover:bg-white/[0.08] transition-all duration-300 rounded-full"
+              className="group flex items-center gap-2 sm:gap-4 font-mono text-[10px] sm:text-xs tracking-[0.2em] sm:tracking-[.3em] uppercase px-6 sm:px-10 py-3 sm:py-5 bg-white/5 border border-white/10 hover:border-[#004EBB]/50 hover:bg-white/[0.08] transition-all duration-300 rounded-full"
             >
               <GridIcon /> {t('projects.view_all')}
             </button>

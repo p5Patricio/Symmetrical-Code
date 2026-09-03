@@ -42,7 +42,7 @@ type ServiceItem = {
 const ORBIT_ANGLES = [-90, -30, 30, 90, 150, 210];
 
 function OrbitCard({ service, index, style }: { service: ServiceItem; index: number; style?: React.CSSProperties }) {
-  const accent = SERVICE_COLORS[index] || '#00e5ff';
+  const accent = SERVICE_COLORS[index] || '#004EBB';
   const slug = service.slug || SERVICE_SLUGS[index] || 'software-empresarial';
   const iconName = SERVICE_REICONS[index] || 'database';
 
@@ -124,10 +124,10 @@ export default function Services() {
         {/* Section header */}
         <div className="mb-12 sm:mb-16 md:mb-20">
           <div className="flex items-center gap-3 mb-4">
-            <span className="section-label text-[#00e5ff] tracking-[0.25em] text-xs font-mono uppercase">
+            <span className="section-label text-[#004EBB] tracking-[0.25em] text-xs font-mono uppercase">
               {t('services.label')}
             </span>
-            <div className="h-px flex-1 bg-gradient-to-r from-[#00e5ff]/20 to-transparent" />
+            <div className="h-px flex-1 bg-gradient-to-r from-[#004EBB]/40 to-transparent" />
           </div>
           <div className="flex flex-col md:flex-row md:items-end gap-6 md:gap-8 justify-between">
             <h2 className="font-syne font-black text-3xl sm:text-5xl md:text-6xl lg:text-7xl text-white leading-[1.1] tracking-[-0.03em] max-w-3xl">

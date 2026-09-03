@@ -82,7 +82,7 @@ export default function GalleryNavbar({
           {/* Left: Volver Button */}
           <button 
             onClick={handleClose}
-            className="flex items-center gap-2 sm:gap-3 px-3 sm:px-5 py-1.5 sm:py-2.5 rounded-full bg-white/5 border border-white/10 text-white/80 hover:bg-[#00e5ff] hover:text-black hover:border-[#00e5ff] transition-all duration-300 group shadow-lg shrink-0"
+            className="flex items-center gap-2 sm:gap-3 px-3 sm:px-5 py-1.5 sm:py-2.5 rounded-full bg-white/5 border border-white/10 text-white/80 hover:bg-[#004EBB] hover:text-white hover:border-[#004EBB] transition-all duration-300 group shadow-lg shrink-0"
           >
             <ArrowLeftIcon />
             <span className="font-mono text-[10px] sm:text-xs font-bold tracking-widest uppercase">
@@ -98,13 +98,13 @@ export default function GalleryNavbar({
                 onClick={() => handleNavigate(link.id)}
                 className={`relative font-mono ${navLinkTextClass} tracking-[0.15em] uppercase px-3 lg:px-4 py-1.5 rounded-full transition-all duration-200 ${
                   link.id === activeSection 
-                    ? 'text-[#00e5ff]' 
+                    ? 'text-[#004EBB]' 
                     : 'text-white/70 hover:text-white hover:bg-white/10'
                 }`}
               >
                 {t(link.key)}
                 {link.id === activeSection && (
-                  <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-4 h-0.5 bg-[#00e5ff] rounded-full" />
+                  <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-4 h-0.5 bg-[#004EBB] rounded-full" />
                 )}
               </button>
             ))}
@@ -122,7 +122,7 @@ export default function GalleryNavbar({
           <div className="flex items-center gap-2 sm:gap-3">
             <button 
               onClick={() => i18n.changeLanguage(lang === 'es' ? 'en' : 'es')}
-              className="font-mono text-[10px] sm:text-xs tracking-wider border border-[rgba(0,229,255,0.3)] text-[#00e5ff]/80 hover:text-[#00e5ff] hover:border-[#00e5ff] px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full transition-all duration-200"
+              className="font-mono text-[10px] sm:text-xs tracking-wider border border-[rgba(0,78,187,0.4)] text-[#004EBB] hover:border-[#004EBB] px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full transition-all duration-200"
             >
               {lang === 'es' ? 'EN' : 'ES'}
             </button>
@@ -134,21 +134,21 @@ export default function GalleryNavbar({
             >
               {!menuOpen ? (
                 <div className="flex flex-col items-center gap-1.5">
-                  <span className="block w-5 h-0.5 bg-[#00e5ff] rounded-full transition-all duration-300" />
-                  <span className="block w-5 h-0.5 bg-[#00e5ff] rounded-full transition-all duration-300" />
-                  <span className="block w-5 h-0.5 bg-[#00e5ff] rounded-full transition-all duration-300" />
+                  <span className="block w-5 h-0.5 bg-[#004EBB] rounded-full transition-all duration-300" />
+                  <span className="block w-5 h-0.5 bg-[#004EBB] rounded-full transition-all duration-300" />
+                  <span className="block w-5 h-0.5 bg-[#004EBB] rounded-full transition-all duration-300" />
                 </div>
               ) : (
                 <div className="relative w-5 h-5">
-                  <span className="absolute top-1/2 left-0 w-5 h-0.5 bg-[#00e5ff] rounded-full -translate-y-1/2 rotate-45 transition-all duration-300" />
-                  <span className="absolute top-1/2 left-0 w-5 h-0.5 bg-[#00e5ff] rounded-full -translate-y-1/2 -rotate-45 transition-all duration-300" />
+                  <span className="absolute top-1/2 left-0 w-5 h-0.5 bg-[#004EBB] rounded-full -translate-y-1/2 rotate-45 transition-all duration-300" />
+                  <span className="absolute top-1/2 left-0 w-5 h-0.5 bg-[#004EBB] rounded-full -translate-y-1/2 -rotate-45 transition-all duration-300" />
                 </div>
               )}
             </button>
           </div>
         </nav>
 
-        <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#00e5ff]/30 to-transparent" />
+        <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#004EBB]/40 to-transparent" />
       </header>
 
       {/* Mobile Menu */}
@@ -168,10 +168,10 @@ export default function GalleryNavbar({
             <img
               src="/logo.png"
               alt="Symmetrical Code"
-              className="h-16 w-auto mb-3 drop-shadow-[0_0_20px_rgba(0,229,255,0.4)]"
+              className="h-16 w-auto mb-3 drop-shadow-[0_0_20px_rgba(0,78,187,0.4)]"
             />
             <span className="font-syne font-bold text-lg tracking-wide text-white">
-              Symmetrical<span className="text-[#00e5ff]">Code</span>
+              Symmetrical<span className="text-[#004EBB]">Code</span>
             </span>
           </div>
 
@@ -182,7 +182,7 @@ export default function GalleryNavbar({
                 onClick={() => handleNavigate(link.id)}
                 className={`w-full text-center font-mono text-sm tracking-[0.15em] uppercase py-3 px-6 rounded-full transition-all duration-300 ${
                   link.id === activeSection
-                    ? 'text-[#00e5ff] bg-white/5'
+                    ? 'text-[#004EBB] bg-white/5'
                     : 'text-white/60 hover:text-white hover:bg-white/10'
                 }`}
                 style={{
@@ -207,7 +207,7 @@ export default function GalleryNavbar({
 
           <button
             onClick={() => i18n.changeLanguage(lang === 'es' ? 'en' : 'es')}
-            className="font-mono text-sm tracking-widest border border-[rgba(0,229,255,0.4)] text-[#00e5ff] hover:bg-[#00e5ff]/10 px-6 py-2 rounded-full transition-all duration-200"
+            className="font-mono text-sm tracking-widest border border-[rgba(0,78,187,0.4)] text-[#004EBB] hover:bg-[#004EBB]/15 px-6 py-2 rounded-full transition-all duration-200"
           >
             {lang === 'es' ? 'ENGLISH' : 'ESPAÑOL'}
           </button>

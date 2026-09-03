@@ -173,7 +173,7 @@ export default function DeviceShowcase() {
             {/* App preview view */}
             <div ref={appViewRef} className="dv-view">
               <div className="dv-titlebar dv-titlebar-app">
-                <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="#00e5ff" strokeWidth="2.4">
+                <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="#004EBB" strokeWidth="2.4">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4" />
                   <circle cx="12" cy="12" r="9" />
                 </svg>
@@ -360,7 +360,7 @@ export default function DeviceShowcase() {
           height: 8px;
           margin-left: 1px;
           vertical-align: -1px;
-          background: #00e5ff;
+          background: #004EBB;
           animation: dv-blink 1s steps(2, start) infinite;
         }
 
@@ -410,7 +410,7 @@ export default function DeviceShowcase() {
           width: 8px;
           height: 8px;
           border-radius: 3px;
-          background: linear-gradient(135deg, #00e5ff, #00b4d8);
+          background: linear-gradient(135deg, #004EBB, #1565ff);
           flex-shrink: 0;
         }
 
@@ -430,8 +430,8 @@ export default function DeviceShowcase() {
           width: 30px;
           height: 10px;
           border-radius: 3px;
-          background: rgba(0, 229, 255, 0.18);
-          box-shadow: inset 0 0 0 1px rgba(0, 229, 255, 0.3);
+          background: rgba(0, 78, 187, 0.25);
+          box-shadow: inset 0 0 0 1px rgba(0, 78, 187, 0.4);
         }
 
         .dv-app-hero {
@@ -454,7 +454,7 @@ export default function DeviceShowcase() {
         }
 
         .dv-app-heading.h1 { width: 88%; }
-        .dv-app-heading.h2 { width: 62%; background: #00e5ff; }
+        .dv-app-heading.h2 { width: 62%; background: #004EBB; }
 
         .dv-app-paragraph {
           height: 4px;
@@ -469,16 +469,16 @@ export default function DeviceShowcase() {
           width: 44px;
           height: 12px;
           border-radius: 4px;
-          background: linear-gradient(135deg, #00e5ff, #00b4d8);
-          box-shadow: 0 3px 10px rgba(0, 229, 255, 0.3);
+          background: linear-gradient(135deg, #004EBB, #1565ff);
+          box-shadow: 0 3px 10px rgba(0, 78, 187, 0.4);
         }
 
         .dv-app-hero-art {
           flex: 1;
           align-self: stretch;
           border-radius: 6px;
-          background: linear-gradient(150deg, rgba(0, 229, 255, 0.16) 0%, rgba(125, 211, 252, 0.05) 100%);
-          box-shadow: inset 0 0 0 1px rgba(0, 229, 255, 0.14);
+          background: linear-gradient(150deg, rgba(0, 78, 187, 0.25) 0%, rgba(21, 101, 255, 0.1) 100%);
+          box-shadow: inset 0 0 0 1px rgba(0, 78, 187, 0.2);
         }
 
         .dv-app-features {
@@ -582,7 +582,7 @@ export default function DeviceShowcase() {
           width: 12px;
           height: 12px;
           border-radius: 50%;
-          background: linear-gradient(135deg, #00e5ff, #00b4d8);
+          background: linear-gradient(135deg, #004EBB, #1565ff);
           flex-shrink: 0;
         }
 
@@ -606,8 +606,8 @@ export default function DeviceShowcase() {
         .dv-hero-card {
           height: 42px;
           border-radius: 5px;
-          background: linear-gradient(135deg, rgba(0, 229, 255, 0.18) 0%, rgba(0, 180, 216, 0.05) 100%);
-          box-shadow: inset 0 0 0 1px rgba(0, 229, 255, 0.16);
+          background: linear-gradient(135deg, rgba(0, 78, 187, 0.25) 0%, rgba(21, 101, 255, 0.08) 100%);
+          box-shadow: inset 0 0 0 1px rgba(0, 78, 187, 0.25);
         }
 
         .dv-grid {
@@ -628,8 +628,8 @@ export default function DeviceShowcase() {
           margin-top: auto;
           height: 17px;
           border-radius: 4px;
-          background: linear-gradient(135deg, #00e5ff, #00b4d8);
-          color: #04070c;
+          background: linear-gradient(135deg, #004EBB, #1565ff);
+          color: #ffffff;
           font-family: 'Inter', system-ui, sans-serif;
           font-size: 7px;
           font-weight: 700;
@@ -637,7 +637,7 @@ export default function DeviceShowcase() {
           display: flex;
           align-items: center;
           justify-content: center;
-          box-shadow: 0 4px 12px rgba(0, 229, 255, 0.28);
+          box-shadow: 0 4px 12px rgba(0, 78, 187, 0.35);
         }
 
         /* ─────────── Responsive ─────────── */

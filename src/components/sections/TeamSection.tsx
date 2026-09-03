@@ -28,9 +28,9 @@ const TrendingIcon = () => (
 );
 
 const pillarIcons = [<CodeIcon />, <ShieldIcon />, <ZapIcon />];
-const pillarColors = ['#00e5ff', '#1565ff', '#7c3aed'];
+const pillarColors = ['#004EBB', '#1565ff', '#7c3aed'];
 const pillarGradients = [
-  'from-cyan-500/20 via-cyan-500/5 to-transparent',
+  'from-blue-600/20 via-blue-600/5 to-transparent',
   'from-blue-500/20 via-blue-500/5 to-transparent',
   'from-purple-500/20 via-purple-500/5 to-transparent'
 ];
@@ -50,17 +50,17 @@ export default function Team() {
     <section id="team" className="relative py-20 sm:py-24 md:py-28 lg:py-32 overflow-hidden bg-transparent">
       {/* Fondo decorativo sutil */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-[#00e5ff]/3 rounded-full blur-[180px]" />
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-[#004EBB]/5 rounded-full blur-[180px]" />
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section header - EXACTAMENTE COMO LA IMAGEN */}
         <div className="mb-12 sm:mb-16 md:mb-20">
           <div className="flex items-center gap-3 mb-4 sm:mb-6">
-            <span className="section-label text-[#00e5ff] tracking-[0.3em] sm:tracking-[0.4em] text-xs sm:text-sm">
+            <span className="section-label text-[#004EBB] tracking-[0.3em] sm:tracking-[0.4em] text-xs sm:text-sm">
               {t('team.label')}
             </span>
-            <div className="h-px flex-1 bg-gradient-to-r from-[#00e5ff]/20 to-transparent" />
+            <div className="h-px flex-1 bg-gradient-to-r from-[#004EBB]/40 to-transparent" />
           </div>
           <div className="flex flex-col md:flex-row md:items-end gap-6 md:gap-8 justify-between">
             <h2 className="font-syne font-black text-3xl sm:text-5xl md:text-6xl lg:text-7xl text-white leading-[1.1] max-w-3xl">
@@ -77,7 +77,7 @@ export default function Team() {
           {pillars.map((pillar, i) => (
             <div
               key={i}
-              className="group relative bg-gradient-to-b from-white/[0.03] to-transparent border border-white/10 rounded-2xl overflow-hidden hover:border-[#00e5ff]/30 transition-all duration-500 hover:-translate-y-1 hover:shadow-2xl hover:shadow-[#00e5ff]/5"
+              className="group relative bg-gradient-to-b from-white/[0.03] to-transparent border border-white/10 rounded-2xl overflow-hidden hover:border-[#004EBB]/40 transition-all duration-500 hover:-translate-y-1 hover:shadow-2xl hover:shadow-[#004EBB]/10"
             >
               {/* Fondo de gradiente en hover */}
               <div className={`absolute inset-0 bg-gradient-to-br ${pillarGradients[i]} opacity-0 group-hover:opacity-100 transition-opacity duration-700`} />
@@ -93,7 +93,7 @@ export default function Team() {
                 {/* Icono y número */}
                 <div className="flex items-center justify-between mb-6">
                   <div
-                    className="w-14 h-14 flex items-center justify-center rounded-2xl border border-white/10 bg-white/5 text-white/60 group-hover:text-white group-hover:border-[#00e5ff]/40 transition-all duration-500"
+                    className="w-14 h-14 flex items-center justify-center rounded-2xl border border-white/10 bg-white/5 text-white/60 group-hover:text-white group-hover:border-[#004EBB]/40 transition-all duration-500"
                     style={{ color: pillarColors[i] }}
                   >
                     {pillarIcons[i]}
@@ -104,7 +104,7 @@ export default function Team() {
                 </div>
 
                 {/* Título */}
-                <h3 className="font-syne font-extrabold text-xl sm:text-2xl text-white mb-3 group-hover:text-[#00e5ff] transition-colors duration-300">
+                <h3 className="font-syne font-extrabold text-xl sm:text-2xl text-white mb-3 group-hover:text-[#004EBB] transition-colors duration-300">
                   {pillar.title}
                 </h3>
 
@@ -118,7 +118,7 @@ export default function Team() {
                   {pillar.details.map((detail, j) => (
                     <span
                       key={j}
-                      className="font-mono text-[10px] px-3 py-1.5 rounded-lg border border-white/10 bg-white/5 text-white/40 group-hover:text-white/70 group-hover:border-[#00e5ff]/20 transition-all duration-300 uppercase tracking-wider"
+                      className="font-mono text-[10px] px-3 py-1.5 rounded-lg border border-white/10 bg-white/5 text-white/40 group-hover:text-white/70 group-hover:border-[#004EBB]/30 transition-all duration-300 uppercase tracking-wider"
                       style={{
                         borderColor: j === 0 ? `${pillarColors[i]}40` : undefined,
                         color: j === 0 ? pillarColors[i] : undefined,
@@ -130,7 +130,7 @@ export default function Team() {
                 </div>
 
                 {/* Línea decorativa inferior */}
-                <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#00e5ff]/0 to-transparent group-hover:via-[#00e5ff]/30 transition-all duration-700" />
+                <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#004EBB]/0 to-transparent group-hover:via-[#004EBB]/40 transition-all duration-700" />
               </div>
             </div>
           ))}
@@ -138,16 +138,16 @@ export default function Team() {
 
         {/* Declaración de confianza */}
         <div className="mt-16 sm:mt-20 md:mt-24 relative">
-          <div className="absolute inset-0 bg-gradient-to-r from-[#00e5ff]/5 via-transparent to-[#1565ff]/5 rounded-3xl blur-xl" />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#004EBB]/10 via-transparent to-[#1565ff]/10 rounded-3xl blur-xl" />
           
           <div className="relative bg-gradient-to-b from-white/[0.02] to-transparent border border-white/10 rounded-3xl p-8 sm:p-10 md:p-12 lg:p-16">
             <div className="grid grid-cols-1 md:grid-cols-5 gap-8 md:gap-12 items-center">
               <div className="md:col-span-2">
                 <div className="flex items-center gap-3 mb-4">
-                  <div className="w-8 h-8 rounded-full bg-[#00e5ff]/10 flex items-center justify-center text-[#00e5ff]">
+                  <div className="w-8 h-8 rounded-full bg-[#004EBB]/15 flex items-center justify-center text-[#004EBB]">
                     <TrendingIcon />
                   </div>
-                  <span className="font-mono text-[10px] tracking-[0.2em] text-[#00e5ff] uppercase">
+                  <span className="font-mono text-[10px] tracking-[0.2em] text-[#004EBB] uppercase">
                     Confianza
                   </span>
                 </div>
@@ -156,12 +156,12 @@ export default function Team() {
                 </h4>
                 <div 
                   className="h-0.5 w-16 mt-4 rounded-full"
-                  style={{ background: 'linear-gradient(90deg, #00e5ff, #1565ff)' }}
+                  style={{ background: 'linear-gradient(90deg, #004EBB, #1565ff)' }}
                 />
               </div>
               
               <div className="md:col-span-3">
-                <p className="text-white/40 text-sm sm:text-base leading-relaxed border-l-2 border-[#00e5ff]/30 pl-5 sm:pl-6 md:pl-8">
+                <p className="text-white/40 text-sm sm:text-base leading-relaxed border-l-2 border-[#004EBB]/40 pl-5 sm:pl-6 md:pl-8">
                   {t('team.quote_body')}
                 </p>
               </div>

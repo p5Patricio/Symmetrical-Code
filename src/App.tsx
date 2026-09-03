@@ -52,13 +52,7 @@ function App() {
               <Footer />
             </>
           } />
-          <Route path="/proyectos" element={
-            <>
-              <Navbar />
-              <ProjectsPage isFullPage={true} />
-              <Footer />
-            </>
-          } />
+          <Route path="/proyectos" element={<ProjectsPage isFullPage={true} />} />
           <Route path="/servicios/:slug" element={<ServiceDetailPage />} />
         </Routes>
       </ClickSpark>

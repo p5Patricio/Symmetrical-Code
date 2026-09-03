@@ -202,7 +202,7 @@ export default function Footer() {
             left: 0;
             right: 0;
             height: 2px;
-            background: linear-gradient(90deg, transparent, #00e5ff, #00e5ff, transparent);
+            background: linear-gradient(90deg, transparent, #004EBB, #004EBB, transparent);
           }
 
           .modal-header {
@@ -221,9 +221,9 @@ export default function Footer() {
             display: flex;
             align-items: center;
             justify-content: center;
-            background: rgba(0, 229, 255, 0.08);
-            color: #00e5ff;
-            border: 1px solid rgba(0, 229, 255, 0.15);
+            background: rgba(0, 78, 187, 0.15);
+            color: #004EBB;
+            border: 1px solid rgba(0, 78, 187, 0.3);
             flex-shrink: 0;
           }
 
@@ -264,9 +264,9 @@ export default function Footer() {
           }
 
           .modal-close:hover {
-            background: rgba(0, 229, 255, 0.12);
-            border-color: #00e5ff;
-            color: #00e5ff;
+            background: rgba(0, 78, 187, 0.2);
+            border-color: #004EBB;
+            color: #004EBB;
           }
 
           .modal-close:active {
@@ -293,17 +293,17 @@ export default function Footer() {
           }
 
           .modal-content-wrapper::-webkit-scrollbar-thumb {
-            background: rgba(0, 229, 255, 0.3);
+            background: rgba(0, 78, 187, 0.4);
             border-radius: 10px;
           }
 
           .modal-content-wrapper::-webkit-scrollbar-thumb:hover {
-            background: #00e5ff;
+            background: #004EBB;
           }
 
           .modal-content-wrapper {
             scrollbar-width: thin;
-            scrollbar-color: rgba(0, 229, 255, 0.3) transparent;
+            scrollbar-color: rgba(0, 78, 187, 0.4) transparent;
           }
 
           .modal-section {
@@ -322,7 +322,7 @@ export default function Footer() {
             font-family: 'Inter', system-ui, sans-serif;
             font-size: 15px;
             font-weight: 600;
-            color: #00e5ff;
+            color: #004EBB;
             margin: 0 0 8px 0;
           }
 
@@ -335,7 +335,7 @@ export default function Footer() {
           }
 
           .modal-section p strong {
-            color: #00e5ff;
+            color: #004EBB;
           }
 
           .modal-footer {
@@ -359,17 +359,17 @@ export default function Footer() {
             font-family: 'Inter', system-ui, sans-serif;
             font-size: 14px;
             font-weight: 600;
-            color: #000000;
-            background: #00e5ff;
+            color: #ffffff;
+            background: #004EBB;
             cursor: pointer;
             transition: all 0.2s ease;
-            box-shadow: 0 4px 15px rgba(0, 229, 255, 0.25);
+            box-shadow: 0 4px 15px rgba(0, 78, 187, 0.35);
           }
 
           .modal-button:hover {
-            background: #00ccee;
+            background: #003d94;
             transform: translateY(-1px);
-            box-shadow: 0 6px 20px rgba(0, 229, 255, 0.3);
+            box-shadow: 0 6px 20px rgba(0, 78, 187, 0.45);
           }
 
           .modal-button:active {
@@ -577,7 +577,7 @@ export default function Footer() {
                 color: '#ffffff',
                 letterSpacing: '-0.5px'
               }}>
-                Symmetrical<span style={{ color: '#00e5ff' }}>Code</span>
+                Symmetrical<span style={{ color: '#004EBB' }}>Code</span>
               </span>
             </div>
 
@@ -598,7 +598,7 @@ export default function Footer() {
                 fontWeight: 600,
                 letterSpacing: '0.1em',
                 textTransform: 'uppercase',
-                color: '#00e5ff',
+                color: '#004EBB',
                 marginBottom: '14px',
               }}>
                 {t('footer.follow')}
@@ -628,9 +628,9 @@ export default function Footer() {
                       }}
                       onMouseEnter={e => {
                         const target = e.currentTarget as HTMLElement;
-                        target.style.background = '#00e5ff';
-                        target.style.color = '#000000';
-                        target.style.borderColor = '#00e5ff';
+                        target.style.background = '#004EBB';
+                        target.style.color = '#ffffff';
+                        target.style.borderColor = '#004EBB';
                         target.style.transform = 'translateY(-2px)';
                       }}
                       onMouseLeave={e => {
@@ -656,7 +656,7 @@ export default function Footer() {
               fontWeight: 600,
               letterSpacing: '0.1em',
               textTransform: 'uppercase',
-              color: '#00e5ff',
+              color: '#004EBB',
               marginBottom: '20px',
             }}>
               {t('footer.contact_title')}
@@ -683,8 +683,8 @@ export default function Footer() {
                     <Icon
                       size={18}
                       style={{
-                        color: '#00e5ff',
-                        opacity: 0.8,
+                        color: '#004EBB',
+                        opacity: 0.9,
                         flexShrink: 0,
                       }}
                     />
@@ -742,7 +742,7 @@ export default function Footer() {
               fontWeight: 600,
               letterSpacing: '0.1em',
               textTransform: 'uppercase',
-              color: '#00e5ff',
+              color: '#004EBB',
               marginBottom: '20px',
             }}>
               {t('footer.project_title')}
@@ -767,7 +767,7 @@ export default function Footer() {
                 fontFamily: "'Inter', system-ui, sans-serif",
                 fontSize: '15px',
                 fontWeight: 600,
-                color: '#00e5ff',
+                color: '#004EBB',
                 marginBottom: '10px',
               }}>
                 {t('footer.project_sub')}
@@ -846,7 +846,7 @@ export default function Footer() {
 
         <div style={{
           height: '1px',
-          background: 'linear-gradient(90deg, transparent, rgba(0,229,255,0.1), rgba(0,229,255,0.1), transparent)',
+          background: 'linear-gradient(90deg, transparent, rgba(0, 78, 187, 0.2), rgba(0, 78, 187, 0.2), transparent)',
           margin: '30px 0 25px',
         }} />
 
@@ -894,8 +894,8 @@ export default function Footer() {
                 }}
                 onMouseEnter={e => {
                   const target = e.currentTarget as HTMLElement;
-                  target.style.color = '#00e5ff';
-                  target.style.background = 'rgba(0, 229, 255, 0.08)';
+                  target.style.color = '#004EBB';
+                  target.style.background = 'rgba(0, 78, 187, 0.12)';
                 }}
                 onMouseLeave={e => {
                   const target = e.currentTarget as HTMLElement;
@@ -948,27 +948,27 @@ export default function Footer() {
         }
 
         .copyright-text:hover {
-          color: #00e5ff;
-          text-shadow: 0 0 20px rgba(0, 229, 255, 0.4);
+          color: #004EBB;
+          text-shadow: 0 0 20px rgba(0, 78, 187, 0.4);
           animation-play-state: paused;
         }
 
         @keyframes glowPulse {
           0%, 100% {
             color: rgba(255, 255, 255, 0.25);
-            text-shadow: 0 0 0px rgba(0, 229, 255, 0);
+            text-shadow: 0 0 0px rgba(0, 78, 187, 0);
           }
           30% {
             color: rgba(255, 255, 255, 0.5);
-            text-shadow: 0 0 10px rgba(0, 229, 255, 0.15);
+            text-shadow: 0 0 10px rgba(0, 78, 187, 0.15);
           }
           50% {
-            color: #00e5ff;
-            text-shadow: 0 0 25px rgba(0, 229, 255, 0.4), 0 0 50px rgba(0, 229, 255, 0.15);
+            color: #004EBB;
+            text-shadow: 0 0 25px rgba(0, 78, 187, 0.4), 0 0 50px rgba(0, 78, 187, 0.15);
           }
           70% {
             color: rgba(255, 255, 255, 0.5);
-            text-shadow: 0 0 10px rgba(0, 229, 255, 0.15);
+            text-shadow: 0 0 10px rgba(0, 78, 187, 0.15);
           }
         }
 

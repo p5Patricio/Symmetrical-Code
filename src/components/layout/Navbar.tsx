@@ -229,7 +229,7 @@ export default function Navbar() {
                   onClick={() => handleNavClick(link.id)}
                   className={`w-full py-3 px-5 rounded-xl font-mono text-xs tracking-[0.2em] uppercase transition-all duration-200 cursor-pointer ${
                     isActive
-                      ? 'text-[#00e5ff] bg-[#00e5ff]/10 border border-[#00e5ff]/20 font-medium'
+                      ? 'text-[#004EBB] bg-[#004EBB]/15 border border-[#004EBB]/30 font-medium'
                       : 'text-white/70 hover:text-white hover:bg-white/[0.04]'
                   }`}
                 >
@@ -249,7 +249,7 @@ export default function Navbar() {
 
             <button
               onClick={toggleLang}
-              className="font-mono text-xs tracking-widest border border-white/[0.1] text-white/80 hover:text-[#00e5ff] px-6 py-2 rounded-full transition-all duration-200 cursor-pointer"
+              className="font-mono text-xs tracking-widest border border-white/[0.1] text-white/80 hover:text-[#004EBB] px-6 py-2 rounded-full transition-all duration-200 cursor-pointer"
             >
               {i18n.language === 'es' ? 'ENGLISH' : 'ESPAÑOL'}
             </button>

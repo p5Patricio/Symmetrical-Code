@@ -111,7 +111,7 @@ export const TechIcon: React.FC<TechIconProps> = ({
   }
 
   // Fallback for custom or unrecognized names
-  return <FiCpu size={size} className={className} color="#00e5ff" />;
+  return <FiCpu size={size} className={className} color="#004EBB" />;
 };
 
 export function getTechBrandColor(name: string): string {
@@ -119,7 +119,7 @@ export function getTechBrandColor(name: string): string {
   const found = Object.entries(TECH_MAP).find(([key]) =>
     normalized.includes(key)
   );
-  return found ? found[1].brandColor : '#00e5ff';
+  return found ? found[1].brandColor : '#004EBB';
 }
 
 export default TechIcon;
