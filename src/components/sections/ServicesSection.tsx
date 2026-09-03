@@ -76,12 +76,12 @@ function OrbitCard({ service, index, style }: { service: ServiceItem; index: num
             </span>
           </div>
 
-          <h3 className="font-syne font-semibold text-base sm:text-lg text-white group-hover:text-white transition-colors mb-2 leading-snug">
+          <h3 className="font-syne font-semibold text-sm sm:text-base text-white group-hover:text-white transition-colors mb-2 leading-snug min-h-[2.5rem] flex items-center">
             {service.title}
           </h3>
 
           <p
-            className="text-xs sm:text-sm line-clamp-3 leading-relaxed font-normal transition-colors"
+            className="text-xs sm:text-[13px] leading-relaxed font-normal transition-colors"
             style={{ color: `${accent}cc` }}
           >
             {service.description}
@@ -194,20 +194,21 @@ export default function Services() {
         }
 
         @media (min-width: 1280px) {
-          .orbit-stage { display: block; height: 940px; }
+          .orbit-stage { display: block; height: 980px; }
           .orbit-guide { display: block; position: absolute; inset: 0; width: 100%; height: 100%; }
           .orbit-center { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: 460px; z-index: 2; }
-          .orbit-card-link { position: absolute; transform: translate(-50%, -50%); width: 270px; z-index: 3; }
+          .orbit-card-link { position: absolute; transform: translate(-50%, -50%); width: 285px; z-index: 3; }
           .orbit-card-link:hover { transform: translate(-50%, -50%) translateY(-4px); }
         }
 
         .orbit-card {
-          min-height: 230px;
-          padding: 24px 26px;
+          min-height: 290px;
+          height: 100%;
+          padding: 22px 24px;
         }
 
         @media (min-width: 1280px) {
-          .orbit-card { height: 265px; }
+          .orbit-card { height: 310px; }
         }
       `}</style>
     </section>
