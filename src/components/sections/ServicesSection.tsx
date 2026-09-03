@@ -53,7 +53,7 @@ function OrbitCard({ service, index, style }: { service: ServiceItem; index: num
       style={style}
     >
       <SpotlightCard
-        spotlightColor={`${accent}20`}
+        accentColor={accent}
         className="orbit-card h-full flex flex-col justify-between"
       >
         <div>

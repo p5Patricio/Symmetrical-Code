@@ -194,7 +194,7 @@ export default function ServiceDetailPage() {
                 return (
                   <SpotlightCard
                     key={idx}
-                    spotlightColor={`${service.accentColor}18`}
+                    accentColor={service.accentColor}
                     className="p-7 sm:p-8 flex flex-col justify-between"
                   >
                     <div>
@@ -246,7 +246,7 @@ export default function ServiceDetailPage() {
              ══════════════════════════════════════════ */}
           <section className="mb-24 sm:mb-32">
             <SpotlightCard
-              spotlightColor={`${service.accentColor}12`}
+              accentColor={service.accentColor}
               className="p-8 sm:p-12 lg:p-14"
             >
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-start">
@@ -324,7 +324,7 @@ export default function ServiceDetailPage() {
               {deliverables.map((item: string, idx: number) => (
                 <SpotlightCard
                   key={idx}
-                  spotlightColor={`${service.accentColor}10`}
+                  accentColor={service.accentColor}
                   className="p-6 sm:p-7 flex flex-col justify-between"
                 >
                   <div>
@@ -457,7 +457,7 @@ export default function ServiceDetailPage() {
              ══════════════════════════════════════════ */}
           <section className="mb-24 sm:mb-32">
             <SpotlightCard
-              spotlightColor={`${service.accentColor}20`}
+              accentColor={service.accentColor}
               className="p-8 sm:p-14 text-center relative overflow-hidden"
               style={{ borderColor: `${service.accentColor}33` }}
             >
@@ -525,7 +525,7 @@ export default function ServiceDetailPage() {
                   className="block group no-underline"
                 >
                   <SpotlightCard
-                    spotlightColor={`${other.accentColor}15`}
+                    accentColor={other.accentColor}
                     className="p-4 h-full flex flex-col justify-between"
                   >
                     <div>
