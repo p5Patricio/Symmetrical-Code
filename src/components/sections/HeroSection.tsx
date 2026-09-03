@@ -1,6 +1,7 @@
 // src/components/sections/HeroSection.tsx
 import { useTranslation } from 'react-i18next';
 import SpecularButton from '../ui/SpecularButton';
+import RotatingText from '../ui/RotatingText';
 
 export default function HeroSection() {
   const { t, i18n } = useTranslation();
@@ -14,6 +15,10 @@ export default function HeroSection() {
     { value: t('hero.stat_2_value'), label: t('hero.stat_2_label') },
     { value: t('hero.stat_3_value'), label: t('hero.stat_3_label') },
   ];
+
+  const rotatingWords = isEs
+    ? ['Code', 'Sistemas', 'Software', 'Studio', 'Soluciones', 'IA']
+    : ['Code', 'Systems', 'Software', 'Studio', 'Solutions', 'AI'];
 
   return (
     <section
@@ -38,32 +43,30 @@ export default function HeroSection() {
           </span>
         </div>
 
-        {/* ─── 2. Centered Emblem / Logo ─── */}
+        {/* ─── 2. Standalone Large Isotype Logo (Sin contenedor) ─── */}
         <div
-          className="relative mb-6 sm:mb-8 group opacity-0 animate-fade-up"
+          className="relative mb-6 sm:mb-8 opacity-0 animate-fade-up"
           style={{ animationDelay: '0.18s', animationFillMode: 'forwards' }}
         >
-          {/* Ambient Backlight Reflection */}
-          <div
-            className="absolute inset-0 rounded-3xl blur-2xl bg-[#00e5ff]/15 transform scale-110 group-hover:scale-130 transition-transform duration-700 pointer-events-none"
-            aria-hidden="true"
+          <img
+            src="/favicon.svg"
+            alt="Symmetrical Code Isotype"
+            className="w-28 h-28 sm:w-32 sm:h-32 md:w-36 md:h-36 object-contain filter drop-shadow-[0_16px_40px_rgba(0,229,255,0.32)] hover:scale-105 transition-transform duration-500 cursor-pointer"
+            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
           />
-
-          <div className="relative w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 rounded-3xl p-3.5 sm:p-4 border border-white/[0.1] bg-white/[0.03] backdrop-blur-2xl shadow-[0_16px_40px_rgba(0,0,0,0.5),inset_0_1px_1px_rgba(255,255,255,0.22)] flex items-center justify-center transition-all duration-500 group-hover:border-white/[0.22] group-hover:-translate-y-1">
-            <img
-              src="/favicon.svg"
-              alt="Symmetrical Code Logo"
-              className="w-full h-full object-contain filter drop-shadow-[0_4px_16px_rgba(0,0,0,0.5)]"
-            />
-          </div>
         </div>
 
-        {/* ─── 3. Grand Studio Headline (Brand + Manifesto) ─── */}
+        {/* ─── 3. Grand Studio Headline with React Bits RotatingText ─── */}
         <h1
-          className="font-syne font-black text-3xl sm:text-5xl md:text-6xl lg:text-7xl tracking-[-0.03em] leading-[0.98] text-white mb-4 sm:mb-5 opacity-0 animate-fade-up"
+          className="font-syne font-black text-3xl sm:text-5xl md:text-6xl tracking-[-0.03em] leading-none text-white mb-5 sm:mb-6 flex items-center justify-center gap-x-2.5 sm:gap-x-3.5 whitespace-nowrap opacity-0 animate-fade-up"
           style={{ animationDelay: '0.26s', animationFillMode: 'forwards' }}
         >
-          Symmetrical<span className="text-[#00e5ff]">Code</span>
+          <span className="shrink-0">Symmetrical</span>
+          <RotatingText
+            texts={rotatingWords}
+            rotationInterval={2800}
+            staggerDuration={0.025}
+          />
         </h1>
 
         <p
