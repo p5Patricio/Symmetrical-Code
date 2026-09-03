@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useTheme } from '../../context/ThemeContext';
 
 const WhatsAppIcon = () => (
   <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
@@ -13,6 +14,8 @@ interface ChatWidgetProps {
 
 export default function ChatWidget({ forceVisible = false }: ChatWidgetProps) {
   const { t } = useTranslation();
+  const { theme } = useTheme();
+  const isLight = theme === 'light';
   const [hovered, setHovered] = useState(false);
   const [showTooltip, setShowTooltip] = useState(false);
   const [footerVisible, setFooterVisible] = useState(false);
@@ -73,8 +76,7 @@ export default function ChatWidget({ forceVisible = false }: ChatWidgetProps) {
     >
       <div
         className={`
-          relative bg-[#070d14] border border-[rgba(0,229,255,0.3)] px-4 py-2.5 rounded-xl
-          shadow-[0_10px_30px_rgba(0,0,0,0.5)]
+          relative ${isLight ? 'bg-white border-[rgba(25,95,193,0.2)] shadow-[0_10px_30px_rgba(25,95,193,0.12)]' : 'bg-[#070d14] border-[rgba(25,95,193,0.3)] shadow-[0_10px_30px_rgba(0,0,0,0.5)]'} px-4 py-2.5 rounded-xl
           transition-all duration-300 ease-out
           ${(showTooltip || hovered)
             ? 'opacity-100 translate-x-0 pointer-events-auto'
@@ -83,12 +85,12 @@ export default function ChatWidget({ forceVisible = false }: ChatWidgetProps) {
       >
         <button
           onClick={handleDismiss}
-          className="absolute -top-2 -right-2 w-5 h-5 bg-[#020408] border border-white/10 rounded-full flex items-center justify-center text-[10px] text-white/40 hover:text-white hover:border-[#004EBB]/40 transition-colors"
+          className={`absolute -top-2 -right-2 w-5 h-5 rounded-full flex items-center justify-center text-[10px] transition-colors ${isLight ? 'bg-white border border-[#195fc1]/20 text-slate-400 hover:text-slate-800' : 'bg-[#020408] border border-white/10 text-white/40 hover:text-white hover:border-[#195fc1]/40'}`}
           aria-label="Cerrar aviso"
         >
           ✕
         </button>
-        <p className="text-white text-[11px] font-mono tracking-wider whitespace-nowrap pr-2">
+        <p className={`${isLight ? 'text-[#0B132B]' : 'text-white'} text-[11px] font-mono tracking-wider whitespace-nowrap pr-2`}>
           {t('contact.whatsapp_tooltip', { defaultValue: 'Contáctanos por WhatsApp' })}
         </p>
       </div>
@@ -103,8 +105,8 @@ export default function ChatWidget({ forceVisible = false }: ChatWidgetProps) {
           w-14 h-14 rounded-full shrink-0
           flex items-center justify-center
           transition-all duration-300 ease-out
-          bg-gradient-to-br from-[#004EBB] to-[#00296b] text-white
-          hover:scale-110 hover:shadow-[0_0_40px_rgba(0,78,187,0.6)]
+          bg-gradient-to-br from-[#195fc1] to-[#0d3b82] text-white
+          hover:scale-110 hover:shadow-[0_0_40px_rgba(25,95,193,0.6)]
         "
         aria-label="WhatsApp"
       >

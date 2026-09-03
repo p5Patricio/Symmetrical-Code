@@ -46,7 +46,7 @@ export default function ContactModal({ onClose }: ContactModalProps) {
       label: t('footer.contact_email_label'), 
       text: email, 
       copyable: true, 
-      color: '#004EBB' 
+      color: '#195fc1' 
     },
     { 
       icon: FiClock, 
@@ -225,7 +225,7 @@ export default function ContactModal({ onClose }: ContactModalProps) {
           left: 0;
           right: 0;
           height: 2px;
-          background: linear-gradient(90deg, transparent, #004EBB, #004EBB, transparent);
+          background: linear-gradient(90deg, transparent, #195fc1, #195fc1, transparent);
         }
 
         .contact-modal-header {
@@ -245,11 +245,11 @@ export default function ContactModal({ onClose }: ContactModalProps) {
           display: flex;
           align-items: center;
           justify-content: center;
-          background: radial-gradient(circle at 30% 20%, rgba(0, 78, 187, 0.2), #050505 70%);
-          border: 1px solid rgba(0, 78, 187, 0.35);
+          background: radial-gradient(circle at 30% 20%, rgba(25, 95, 193, 0.2), #050505 70%);
+          border: 1px solid rgba(25, 95, 193, 0.35);
           flex-shrink: 0;
           overflow: hidden;
-          box-shadow: 0 0 0 4px rgba(0, 78, 187, 0.08), 0 4px 14px rgba(0, 78, 187, 0.15);
+          box-shadow: 0 0 0 4px rgba(25, 95, 193, 0.08), 0 4px 14px rgba(25, 95, 193, 0.15);
         }
 
         .contact-modal-logo img {
@@ -300,9 +300,9 @@ export default function ContactModal({ onClose }: ContactModalProps) {
         }
 
         .contact-modal-close:hover {
-          background: rgba(0, 78, 187, 0.18);
-          border-color: #004EBB;
-          color: #004EBB;
+          background: rgba(25, 95, 193, 0.18);
+          border-color: #195fc1;
+          color: #195fc1;
         }
 
         .contact-modal-body {
@@ -414,14 +414,14 @@ export default function ContactModal({ onClose }: ContactModalProps) {
         }
 
         .contact-modal-copy-btn:hover {
-          border-color: #004EBB;
-          color: #004EBB;
+          border-color: #195fc1;
+          color: #195fc1;
         }
 
         .contact-modal-copy-btn.is-copied {
-          background: rgba(0, 78, 187, 0.2);
-          border-color: #004EBB;
-          color: #004EBB;
+          background: rgba(25, 95, 193, 0.2);
+          border-color: #195fc1;
+          color: #195fc1;
         }
 
         .contact-modal-label {
@@ -463,17 +463,17 @@ export default function ContactModal({ onClose }: ContactModalProps) {
         }
 
         .contact-modal-social-link:hover {
-          background: #004EBB;
+          background: #195fc1;
           color: #ffffff;
-          border-color: #004EBB;
+          border-color: #195fc1;
           transform: translateY(-1px);
         }
 
         .contact-modal-project {
           padding: 18px;
           border-radius: 16px;
-          background: linear-gradient(160deg, rgba(0, 78, 187, 0.1), rgba(0, 78, 187, 0.02));
-          border: 1px solid rgba(0, 78, 187, 0.25);
+          background: linear-gradient(160deg, rgba(25, 95, 193, 0.1), rgba(25, 95, 193, 0.02));
+          border: 1px solid rgba(25, 95, 193, 0.25);
         }
 
         .contact-modal-project-badge {
@@ -483,9 +483,9 @@ export default function ContactModal({ onClose }: ContactModalProps) {
           font-weight: 700;
           letter-spacing: 0.06em;
           text-transform: uppercase;
-          color: #004EBB;
-          background: rgba(0, 78, 187, 0.15);
-          border: 1px solid rgba(0, 78, 187, 0.3);
+          color: #195fc1;
+          background: rgba(25, 95, 193, 0.15);
+          border: 1px solid rgba(25, 95, 193, 0.3);
           padding: 4px 10px;
           border-radius: 20px;
           margin-bottom: 10px;
@@ -526,10 +526,10 @@ export default function ContactModal({ onClose }: ContactModalProps) {
           color: #ffffff;
           text-decoration: none;
           padding: 13px 20px;
-          background: #004EBB;
+          background: #195fc1;
           border-radius: 12px;
           transition: all 0.25s ease;
-          box-shadow: 0 4px 14px rgba(0, 78, 187, 0.35);
+          box-shadow: 0 4px 14px rgba(25, 95, 193, 0.35);
           width: 100%;
           max-width: 100%;
           box-sizing: border-box;
@@ -540,7 +540,7 @@ export default function ContactModal({ onClose }: ContactModalProps) {
         .contact-modal-cta:hover {
           background: #003d94;
           transform: translateY(-1px);
-          box-shadow: 0 8px 22px rgba(0, 78, 187, 0.45);
+          box-shadow: 0 8px 22px rgba(25, 95, 193, 0.45);
         }
 
         .contact-modal-cta:active {

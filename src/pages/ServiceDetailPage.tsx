@@ -58,7 +58,7 @@ export default function ServiceDetailPage() {
   const otherServices = servicesData.filter((s) => s.slug !== service.slug);
 
   return (
-    <div className="min-h-screen bg-[#020408] text-white selection:bg-[#004EBB] selection:text-white overflow-x-hidden font-inter relative">
+    <div className="min-h-screen bg-[#020408] text-white selection:bg-[#195fc1] selection:text-white overflow-x-hidden font-inter relative">
       <Helmet>
         <title>{`${title} — Symmetrical Code`}</title>
         <meta name="description" content={isEs ? service.shortDescEs : service.shortDescEn} />
@@ -149,10 +149,10 @@ export default function ServiceDetailPage() {
                 radius={14}
                 onClick={() => setIsContactOpen(true)}
                 className="font-mono font-semibold text-xs sm:text-sm tracking-wider uppercase"
-                tint="#004EBB"
+                tint="#195fc1"
                 tintOpacity={0.06}
                 blur={16}
-                lineColor="#004EBB"
+                lineColor="#195fc1"
                 baseColor="#071b38"
                 intensity={1.4}
               >
@@ -489,10 +489,10 @@ export default function ServiceDetailPage() {
                     radius={14}
                     onClick={() => setIsContactOpen(true)}
                     className="font-mono font-semibold text-xs sm:text-sm tracking-wider uppercase"
-                    tint="#004EBB"
+                    tint="#195fc1"
                     tintOpacity={0.06}
                     blur={16}
-                    lineColor="#004EBB"
+                    lineColor="#195fc1"
                     baseColor="#071b38"
                     intensity={1.4}
                   >

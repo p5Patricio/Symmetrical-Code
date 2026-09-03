@@ -27,7 +27,7 @@ export default function HeroSection() {
     >
       {/* ─── Ambient Subtle Radial Depth (Center) ─── */}
       <div
-        className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[720px] h-[720px] rounded-full blur-[160px] bg-[#004EBB]/[0.10]"
+        className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[720px] h-[720px] rounded-full blur-[160px] bg-[#195fc1]/[0.10]"
         aria-hidden="true"
       />
 
@@ -37,13 +37,13 @@ export default function HeroSection() {
           className="inline-flex items-center gap-2 px-3.5 sm:px-5 py-1.5 sm:py-2 rounded-full border border-white/[0.08] bg-white/[0.02] backdrop-blur-md mb-6 sm:mb-8 shadow-[inset_0_1px_1px_rgba(255,255,255,0.12)] opacity-0 animate-fade-up cursor-default"
           style={{ animationDelay: '0.1s', animationFillMode: 'forwards' }}
         >
-          <span className="w-1.5 h-1.5 rounded-full bg-[#004EBB] animate-pulse shrink-0" />
+          <span className="w-1.5 h-1.5 rounded-full bg-[#195fc1] animate-pulse shrink-0" />
           <ScrambledText
             radius={70}
             duration={1.0}
             speed={0.5}
             scrambleChars=".:"
-            scrambleColor="#004EBB"
+            scrambleColor="#195fc1"
             className="font-mono text-[10px] sm:text-xs md:text-sm tracking-[0.12em] sm:tracking-[0.22em] uppercase text-white/85 text-center whitespace-nowrap"
           >
             {isEs ? 'Estudio de Desarrollo de Software' : 'Software Development Studio'}
@@ -58,7 +58,7 @@ export default function HeroSection() {
           <img
             src="/favicon.svg"
             alt="Symmetrical Code Isotype"
-            className="w-20 h-20 sm:w-28 sm:h-28 md:w-36 md:h-36 object-contain filter drop-shadow-[0_16px_40px_rgba(0,78,187,0.35)] hover:scale-105 transition-transform duration-500 cursor-pointer"
+            className="w-20 h-20 sm:w-28 sm:h-28 md:w-36 md:h-36 object-contain filter drop-shadow-[0_16px_40px_rgba(25,95,193,0.35)] hover:scale-105 transition-transform duration-500 cursor-pointer"
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
           />
         </div>
@@ -70,7 +70,7 @@ export default function HeroSection() {
         >
           <span className="shrink-0">Symmetrical</span>
           <RotatingText
-            textColor="#004EBB"
+            textColor="#195fc1"
             texts={rotatingWords}
             rotationInterval={2800}
             staggerDuration={0.025}
@@ -87,10 +87,10 @@ export default function HeroSection() {
             radius={14}
             onClick={() => document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' })}
             className="font-syne font-bold text-xs sm:text-sm tracking-wider uppercase px-6 sm:px-7 py-3 w-full sm:w-auto text-center justify-center"
-            tint="#004EBB"
+            tint="#195fc1"
             tintOpacity={0.06}
             blur={16}
-            lineColor="#004EBB"
+            lineColor="#195fc1"
             baseColor="#071b38"
             intensity={1.4}
           >
@@ -107,7 +107,7 @@ export default function HeroSection() {
             tint="#ffffff"
             tintOpacity={0.02}
             blur={12}
-            lineColor="#004EBB"
+            lineColor="#195fc1"
             baseColor="#0a1626"
             intensity={1.1}
           >
@@ -140,7 +140,7 @@ export default function HeroSection() {
           style={{ animationDelay: '0.64s', animationFillMode: 'forwards' }}
         >
           <span className="flex items-center gap-1.5">
-            <span className="w-1 h-1 rounded-full bg-[#004EBB]" />
+            <span className="w-1 h-1 rounded-full bg-[#195fc1]" />
             {t('hero.location', 'Guanajuato, México · Remoto')}
           </span>
           <span className="text-white/20">|</span>

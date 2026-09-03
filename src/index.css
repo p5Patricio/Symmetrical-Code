@@ -5,17 +5,17 @@
 @tailwind utilities;
 
 :root {
-  --brand-blue: #004EBB;
-  --cyan: #004EBB;
-  --blue: #004EBB;
-  --cyan-dim: rgba(0, 78, 187, 0.15);
-  --blue-dim: rgba(0, 78, 187, 0.15);
-  --glow-cyan: 0 0 40px rgba(0, 78, 187, 0.4);
-  --glow-blue: 0 0 40px rgba(0, 78, 187, 0.4);
-  --card-bg: rgba(0, 78, 187, 0.03);
+  --brand-blue: #195fc1;
+  --cyan: #195fc1;
+  --blue: #195fc1;
+  --cyan-dim: rgba(25, 95, 193, 0.15);
+  --blue-dim: rgba(25, 95, 193, 0.15);
+  --glow-cyan: 0 0 40px rgba(25, 95, 193, 0.4);
+  --glow-blue: 0 0 40px rgba(25, 95, 193, 0.4);
+  --card-bg: rgba(25, 95, 193, 0.03);
   
-  --svc-web: #004EBB;
-  --svc-systems: #004EBB;
+  --svc-web: #195fc1;
+  --svc-systems: #195fc1;
   --svc-cloud: #7c3aed;
   --svc-security: #10b981;
   --svc-uiux: #f43f5e;
@@ -345,4 +345,235 @@ section.projects-section {
 main,
 .layout-root {
   background: transparent !important;
+}
+
+/* ============================================
+   LIGHT THEME (#F5F7FB base + #195fc1 blue)
+   ============================================ */
+html.light body {
+  background-color: #F5F7FB !important;
+  color: #1e293b !important;
+}
+
+html.light ::-webkit-scrollbar-track {
+  background: #F5F7FB;
+}
+
+html.light ::-webkit-scrollbar-thumb {
+  background: rgba(25, 95, 193, 0.4);
+}
+
+/* Headings and High-Contrast Text */
+html.light .text-white {
+  color: #0B132B !important;
+}
+
+html.light .text-white\/90,
+html.light .text-white\/85,
+html.light .text-white\/80,
+html.light .text-white\/70 {
+  color: #334155 !important;
+}
+
+html.light .text-white\/60,
+html.light .text-white\/50,
+html.light .text-white\/40 {
+  color: #64748B !important;
+}
+
+html.light .text-white\/35,
+html.light .text-white\/30,
+html.light .text-white\/25,
+html.light .text-white\/20,
+html.light .text-white\/10,
+html.light .text-white\/5 {
+  color: #94A3B8 !important;
+}
+
+/* Light Surface Cards & Glass */
+html.light .glass-card,
+html.light .glass-card-enhanced,
+html.light .orbit-card {
+  background: rgba(255, 255, 255, 0.88) !important;
+  border-color: rgba(25, 95, 193, 0.14) !important;
+  box-shadow: 0 10px 30px rgba(25, 95, 193, 0.06), inset 0 1px 1px rgba(255, 255, 255, 0.9) !important;
+}
+
+html.light .bg-white\/5,
+html.light .bg-white\/\[0\.02\],
+html.light .bg-white\/\[0\.03\],
+html.light .bg-white\/\[0\.04\] {
+  background-color: rgba(255, 255, 255, 0.8) !important;
+}
+
+html.light .border-white\/10,
+html.light .border-white\/5,
+html.light .border-white\/\[0\.08\],
+html.light .border-white\/\[0\.07\],
+html.light .border-white\/\[0\.1\] {
+  border-color: rgba(25, 95, 193, 0.14) !important;
+}
+
+html.light .divide-white\/\[0\.07\] > :not([hidden]) ~ :not([hidden]) {
+  border-color: rgba(25, 95, 193, 0.1) !important;
+}
+
+/* Light Pill Navbars */
+html.light header > div {
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.92) 0%, rgba(245, 247, 251, 0.88) 100%) !important;
+  border-color: rgba(25, 95, 193, 0.16) !important;
+  box-shadow: 0 10px 32px rgba(25, 95, 193, 0.08), inset 0 1px 1px rgba(255, 255, 255, 0.9) !important;
+}
+
+/* Light Gallery Overlay and Modals */
+html.light #gallery-scroll,
+html.light .fixed.inset-0.z-\[150\] {
+  background-color: #F5F7FB !important;
+}
+
+html.light .detail-modal-card {
+  background: #FFFFFF !important;
+  border-color: rgba(25, 95, 193, 0.15) !important;
+  box-shadow: 0 20px 60px rgba(25, 95, 193, 0.12) !important;
+}
+
+html.light .contact-modal-container {
+  background: #FFFFFF !important;
+  border-color: rgba(25, 95, 193, 0.15) !important;
+  box-shadow: 0 25px 70px rgba(25, 95, 193, 0.15) !important;
+}
+
+html.light .contact-modal-header {
+  border-bottom: 1px solid rgba(25, 95, 193, 0.1) !important;
+}
+
+html.light .contact-modal-body {
+  background: #FFFFFF !important;
+}
+
+html.light .contact-modal-item {
+  background: #F8FAFC !important;
+  border-color: rgba(25, 95, 193, 0.08) !important;
+}
+
+html.light .contact-modal-item-text {
+  color: #0B132B !important;
+}
+
+html.light .modal-container {
+  background: #FFFFFF !important;
+  border-color: rgba(25, 95, 193, 0.15) !important;
+}
+
+html.light .modal-header,
+html.light .modal-footer {
+  border-color: rgba(25, 95, 193, 0.1) !important;
+}
+
+html.light .modal-section p {
+  color: #334155 !important;
+}
+
+/* Light Specular Buttons */
+html.light .specular-button {
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9), 0 8px 24px rgba(25, 95, 193, 0.08) !important;
+}
+
+html.light .specular-button__label,
+html.light .specular-button span {
+  color: #0B132B !important;
+}
+
+/* Light Footer */
+html.light footer {
+  border-top: 1px solid rgba(25, 95, 193, 0.12) !important;
+}
+
+html.light footer p {
+  color: #334155 !important;
+}
+
+html.light footer .footer-col span {
+  color: #0B132B !important;
+}
+
+html.light footer .footer-col span[style*="#195fc1"] {
+  color: #195fc1 !important;
+}
+
+html.light footer a[aria-label] {
+  background: rgba(25, 95, 193, 0.05) !important;
+  color: #334155 !important;
+  border-color: rgba(25, 95, 193, 0.15) !important;
+}
+
+html.light footer a[aria-label]:hover {
+  background: #195fc1 !important;
+  color: #ffffff !important;
+}
+
+html.light footer a.whatsapp-btn {
+  background: #ffffff !important;
+  color: #0B132B !important;
+  border-color: rgba(25, 95, 193, 0.2) !important;
+  box-shadow: 0 8px 24px rgba(25, 95, 193, 0.08) !important;
+}
+
+html.light footer a.whatsapp-btn:hover {
+  background: rgba(25, 95, 193, 0.08) !important;
+  border-color: #195fc1 !important;
+}
+
+html.light footer .legal-btn {
+  color: #64748B !important;
+}
+
+html.light footer .legal-btn:hover {
+  color: #195fc1 !important;
+  background: rgba(25, 95, 193, 0.08) !important;
+}
+
+html.light footer .copyright-text {
+  color: #64748B !important;
+}
+
+/* Light Team Section */
+html.light #team p {
+  color: #334155 !important;
+}
+
+html.light #team h3,
+html.light #team h4 {
+  color: #0B132B !important;
+}
+
+html.light #team .section-label {
+  color: #195fc1 !important;
+}
+
+/* Light Services Section */
+html.light #services h2 {
+  color: #0B132B !important;
+}
+
+html.light #services p {
+  color: #334155 !important;
+}
+
+html.light .orbit-card h3 {
+  color: #0B132B !important;
+}
+
+html.light .orbit-card p {
+  color: #475569 !important;
+}
+
+/* Light Projects Section */
+html.light #projects h2,
+html.light #projects h3 {
+  color: #0B132B !important;
+}
+
+html.light #projects p {
+  color: #475569 !important;
 }

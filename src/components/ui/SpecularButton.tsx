@@ -1,5 +1,6 @@
 import React, { useRef, useEffect } from 'react';
 import { Renderer, Program, Mesh, Triangle, Color } from 'ogl';
+import { useTheme } from '../../context/ThemeContext';
 import './SpecularButton.css';
 
 const PAD = 20;
@@ -98,11 +99,11 @@ export default function SpecularButton({
   children = 'Get Started',
   size = 'md',
   radius = 18,
-  tint = '#004EBB',
+  tint = '#195fc1',
   tintOpacity = 0.04,
   blur = 12,
   textColor = '#f5f5f5',
-  lineColor = '#004EBB',
+  lineColor = '#195fc1',
   baseColor = '#0a1626',
   intensity = 1.3,
   shineSize = 14,
@@ -121,12 +122,26 @@ export default function SpecularButton({
   target,
   rel,
 }: SpecularButtonProps) {
+  let isLight = false;
+  try {
+    const themeCtx = useTheme();
+    isLight = themeCtx.theme === 'light';
+  } catch {
+    // fallback if outside context
+  }
+
+  const effectiveBaseColor = isLight
+    ? (baseColor === '#071b38' ? '#d8e5f8' : (baseColor === '#0a1626' ? '#e5effc' : '#f0f4fa'))
+    : baseColor;
+  const effectiveTextColor = isLight ? '#0B132B' : textColor;
+  const effectiveLineColor = isLight ? '#195fc1' : lineColor;
+
   const btnRef = useRef<HTMLButtonElement | HTMLAnchorElement | null>(null);
   const fxRef = useRef<HTMLSpanElement | null>(null);
   const propsRef = useRef({
     radius,
-    lineColor,
-    baseColor,
+    lineColor: effectiveLineColor,
+    baseColor: effectiveBaseColor,
     intensity,
     shineSize,
     shineFade,
@@ -139,8 +154,8 @@ export default function SpecularButton({
 
   propsRef.current = {
     radius,
-    lineColor,
-    baseColor,
+    lineColor: effectiveLineColor,
+    baseColor: effectiveBaseColor,
     intensity,
     shineSize,
     shineFade,
@@ -297,7 +312,7 @@ export default function SpecularButton({
       '--sb-tint': tint,
       '--sb-tint-opacity': tintOpacity,
       '--sb-blur': `${blur}px`,
-      '--sb-text-color': textColor,
+      '--sb-text-color': effectiveTextColor,
       ...style,
     } as React.CSSProperties,
   };

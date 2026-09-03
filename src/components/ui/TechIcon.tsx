@@ -111,15 +111,13 @@ export const TechIcon: React.FC<TechIconProps> = ({
   }
 
   // Fallback for custom or unrecognized names
-  return <FiCpu size={size} className={className} color="#004EBB" />;
+  return <FiCpu size={size} className={className} color="#195fc1" />;
 };
 
-export function getTechBrandColor(name: string): string {
-  const normalized = name.toLowerCase().trim();
-  const found = Object.entries(TECH_MAP).find(([key]) =>
-    normalized.includes(key)
-  );
-  return found ? found[1].brandColor : '#004EBB';
+export function getTechBrandColor(tag: string): string {
+  const norm = tag.toLowerCase().replace(/[^a-z0-9]/g, '');
+  const found = Object.entries(TECH_MAP).find(([k]) => k.toLowerCase().replace(/[^a-z0-9]/g, '') === norm);
+  return found ? found[1].brandColor : '#195fc1';
 }
 
 export default TechIcon;

@@ -11,28 +11,34 @@ import ServiceDetailPage from './pages/ServiceDetailPage';
 import ChatWidget from './components/chat/ChatWidget';
 import Aurora from './components/Aurora';
 import ClickSpark from './components/ui/ClickSpark';
+import { ThemeProvider, useTheme } from './context/ThemeContext';
 
-function App() {
+function AppContent() {
   const { i18n } = useTranslation();
   const currentLang = i18n.language;
+  const { theme } = useTheme();
+
+  const auroraStops = theme === 'dark'
+    ? ['#030b17', '#00296b', '#195fc1']
+    : ['#E8EFF9', '#D0E1F9', '#8DB4EA'];
 
   return (
     <>
       <Helmet>
-        <html lang={currentLang} />
+        <html lang={currentLang} className={theme} />
       </Helmet>
 
       {/* Efecto Aurora - Fondo fijo */}
       <Aurora 
-        colorStops={['#030b17', '#00296b', '#004EBB']}
-        amplitude={1.0}
-        blend={0.5}
+        colorStops={auroraStops}
+        amplitude={theme === 'dark' ? 1.0 : 0.75}
+        blend={theme === 'dark' ? 0.5 : 0.6}
         speed={0.8}
       />
 
       {/* Contenido interactivo con ClickSpark */}
       <ClickSpark
-        sparkColor="#004EBB"
+        sparkColor="#195fc1"
         sparkSize={10}
         sparkRadius={20}
         sparkCount={8}
@@ -57,6 +63,14 @@ function App() {
         </Routes>
       </ClickSpark>
     </>
+  );
+}
+
+function App() {
+  return (
+    <ThemeProvider>
+      <AppContent />
+    </ThemeProvider>
   );
 }
 

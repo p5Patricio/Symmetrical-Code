@@ -1,13 +1,16 @@
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { FiSun, FiMoon } from 'react-icons/fi';
 import ContactModal from './ContactModal';
+import { useTheme } from '../../context/ThemeContext';
 
 export default function Navbar() {
   const { t, i18n } = useTranslation();
   const location = useLocation();
   const navigate = useNavigate();
   const isHome = location.pathname === '/';
+  const { theme, toggleTheme } = useTheme();
 
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -177,6 +180,16 @@ export default function Navbar() {
 
           {/* Controls (Derecha) */}
           <div className="flex items-center gap-2 sm:gap-2.5">
+            {/* Theme Toggle Button */}
+            <button
+              onClick={toggleTheme}
+              className="w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center rounded-full border border-white/[0.08] hover:border-[#195fc1]/50 bg-white/[0.02] hover:bg-[#195fc1]/10 text-white/80 hover:text-[#195fc1] transition-all duration-300 cursor-pointer"
+              aria-label={theme === 'dark' ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro'}
+              title={theme === 'dark' ? 'Modo claro' : 'Modo oscuro'}
+            >
+              {theme === 'dark' ? <FiSun size={13} /> : <FiMoon size={13} />}
+            </button>
+
             <button
               onClick={toggleLang}
               className="font-mono text-[10px] sm:text-[11px] tracking-wider border border-white/[0.08] hover:border-white/[0.25] bg-white/[0.02] hover:bg-white/[0.06] text-white/70 hover:text-white px-2.5 sm:px-3 py-1 rounded-full transition-all duration-200 cursor-pointer"
@@ -229,7 +242,7 @@ export default function Navbar() {
                   onClick={() => handleNavClick(link.id)}
                   className={`w-full py-3 px-5 rounded-xl font-mono text-xs tracking-[0.2em] uppercase transition-all duration-200 cursor-pointer ${
                     isActive
-                      ? 'text-[#004EBB] bg-[#004EBB]/15 border border-[#004EBB]/30 font-medium'
+                      ? 'text-[#195fc1] bg-[#195fc1]/15 border border-[#195fc1]/30 font-medium'
                       : 'text-white/70 hover:text-white hover:bg-white/[0.04]'
                   }`}
                 >
@@ -247,12 +260,21 @@ export default function Navbar() {
 
             <div className="w-12 h-px bg-white/[0.08] my-1" />
 
-            <button
-              onClick={toggleLang}
-              className="font-mono text-xs tracking-widest border border-white/[0.1] text-white/80 hover:text-[#004EBB] px-6 py-2 rounded-full transition-all duration-200 cursor-pointer"
-            >
-              {i18n.language === 'es' ? 'ENGLISH' : 'ESPAÑOL'}
-            </button>
+            <div className="flex items-center gap-3">
+              <button
+                onClick={toggleTheme}
+                className="flex items-center gap-2 font-mono text-xs tracking-wider border border-white/[0.1] text-white/80 hover:text-[#195fc1] px-4 py-2 rounded-full transition-all duration-200 cursor-pointer"
+              >
+                {theme === 'dark' ? <><FiSun size={13} /> <span>CLARO</span></> : <><FiMoon size={13} /> <span>OSCURO</span></>}
+              </button>
+
+              <button
+                onClick={toggleLang}
+                className="font-mono text-xs tracking-widest border border-white/[0.1] text-white/80 hover:text-[#195fc1] px-5 py-2 rounded-full transition-all duration-200 cursor-pointer"
+              >
+                {i18n.language === 'es' ? 'EN' : 'ES'}
+              </button>
+            </div>
           </div>
         </div>
       )}

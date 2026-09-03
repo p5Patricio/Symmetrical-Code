@@ -202,7 +202,7 @@ export default function Footer() {
             left: 0;
             right: 0;
             height: 2px;
-            background: linear-gradient(90deg, transparent, #004EBB, #004EBB, transparent);
+            background: linear-gradient(90deg, transparent, #195fc1, #195fc1, transparent);
           }
 
           .modal-header {
@@ -221,9 +221,9 @@ export default function Footer() {
             display: flex;
             align-items: center;
             justify-content: center;
-            background: rgba(0, 78, 187, 0.15);
-            color: #004EBB;
-            border: 1px solid rgba(0, 78, 187, 0.3);
+            background: rgba(25, 95, 193, 0.15);
+            color: #195fc1;
+            border: 1px solid rgba(25, 95, 193, 0.3);
             flex-shrink: 0;
           }
 
@@ -264,9 +264,9 @@ export default function Footer() {
           }
 
           .modal-close:hover {
-            background: rgba(0, 78, 187, 0.2);
-            border-color: #004EBB;
-            color: #004EBB;
+            background: rgba(25, 95, 193, 0.2);
+            border-color: #195fc1;
+            color: #195fc1;
           }
 
           .modal-close:active {
@@ -293,17 +293,17 @@ export default function Footer() {
           }
 
           .modal-content-wrapper::-webkit-scrollbar-thumb {
-            background: rgba(0, 78, 187, 0.4);
+            background: rgba(25, 95, 193, 0.4);
             border-radius: 10px;
           }
 
           .modal-content-wrapper::-webkit-scrollbar-thumb:hover {
-            background: #004EBB;
+            background: #195fc1;
           }
 
           .modal-content-wrapper {
             scrollbar-width: thin;
-            scrollbar-color: rgba(0, 78, 187, 0.4) transparent;
+            scrollbar-color: rgba(25, 95, 193, 0.4) transparent;
           }
 
           .modal-section {
@@ -322,7 +322,7 @@ export default function Footer() {
             font-family: 'Inter', system-ui, sans-serif;
             font-size: 15px;
             font-weight: 600;
-            color: #004EBB;
+            color: #195fc1;
             margin: 0 0 8px 0;
           }
 
@@ -335,7 +335,7 @@ export default function Footer() {
           }
 
           .modal-section p strong {
-            color: #004EBB;
+            color: #195fc1;
           }
 
           .modal-footer {
@@ -360,16 +360,16 @@ export default function Footer() {
             font-size: 14px;
             font-weight: 600;
             color: #ffffff;
-            background: #004EBB;
+            background: #195fc1;
             cursor: pointer;
             transition: all 0.2s ease;
-            box-shadow: 0 4px 15px rgba(0, 78, 187, 0.35);
+            box-shadow: 0 4px 15px rgba(25, 95, 193, 0.35);
           }
 
           .modal-button:hover {
             background: #003d94;
             transform: translateY(-1px);
-            box-shadow: 0 6px 20px rgba(0, 78, 187, 0.45);
+            box-shadow: 0 6px 20px rgba(25, 95, 193, 0.45);
           }
 
           .modal-button:active {
@@ -577,7 +577,7 @@ export default function Footer() {
                 color: '#ffffff',
                 letterSpacing: '-0.5px'
               }}>
-                Symmetrical<span style={{ color: '#004EBB' }}>Code</span>
+                Symmetrical<span style={{ color: '#195fc1' }}>Code</span>
               </span>
             </div>
 
@@ -598,7 +598,7 @@ export default function Footer() {
                 fontWeight: 600,
                 letterSpacing: '0.1em',
                 textTransform: 'uppercase',
-                color: '#004EBB',
+                color: '#195fc1',
                 marginBottom: '14px',
               }}>
                 {t('footer.follow')}
@@ -628,9 +628,9 @@ export default function Footer() {
                       }}
                       onMouseEnter={e => {
                         const target = e.currentTarget as HTMLElement;
-                        target.style.background = '#004EBB';
+                        target.style.background = '#195fc1';
                         target.style.color = '#ffffff';
-                        target.style.borderColor = '#004EBB';
+                        target.style.borderColor = '#195fc1';
                         target.style.transform = 'translateY(-2px)';
                       }}
                       onMouseLeave={e => {
@@ -656,7 +656,7 @@ export default function Footer() {
               fontWeight: 600,
               letterSpacing: '0.1em',
               textTransform: 'uppercase',
-              color: '#004EBB',
+              color: '#195fc1',
               marginBottom: '20px',
             }}>
               {t('footer.contact_title')}
@@ -683,7 +683,7 @@ export default function Footer() {
                     <Icon
                       size={18}
                       style={{
-                        color: '#004EBB',
+                        color: '#195fc1',
                         opacity: 0.9,
                         flexShrink: 0,
                       }}
@@ -708,9 +708,9 @@ export default function Footer() {
                           borderRadius: '6px',
                           fontSize: '11px',
                           fontFamily: "'Inter', system-ui, sans-serif",
-                          color: copiedEmail ? '#004EBB' : 'rgba(255,255,255,0.6)',
-                          background: copiedEmail ? 'rgba(0, 78, 187, 0.15)' : 'rgba(255,255,255,0.05)',
-                          border: `1px solid ${copiedEmail ? '#004EBB' : 'rgba(255,255,255,0.1)'}`,
+                          color: copiedEmail ? '#195fc1' : 'rgba(255,255,255,0.6)',
+                          background: copiedEmail ? 'rgba(25, 95, 193, 0.15)' : 'rgba(255,255,255,0.05)',
+                          border: `1px solid ${copiedEmail ? '#195fc1' : 'rgba(255,255,255,0.1)'}`,
                           cursor: 'pointer',
                           transition: 'all 0.2s ease',
                           marginLeft: 'auto',
@@ -718,7 +718,7 @@ export default function Footer() {
                       >
                         {copiedEmail ? (
                           <>
-                            <FaCheckCircle size={10} color="#004EBB" />
+                            <FaCheckCircle size={10} color="#195fc1" />
                             <span>Copiado</span>
                           </>
                         ) : (
@@ -742,7 +742,7 @@ export default function Footer() {
               fontWeight: 600,
               letterSpacing: '0.1em',
               textTransform: 'uppercase',
-              color: '#004EBB',
+              color: '#195fc1',
               marginBottom: '20px',
             }}>
               {t('footer.project_title')}
@@ -767,7 +767,7 @@ export default function Footer() {
                 fontFamily: "'Inter', system-ui, sans-serif",
                 fontSize: '15px',
                 fontWeight: 600,
-                color: '#004EBB',
+                color: '#195fc1',
                 marginBottom: '10px',
               }}>
                 {t('footer.project_sub')}
@@ -805,7 +805,7 @@ export default function Footer() {
                   borderRadius: '12px',
                   backdropFilter: 'blur(12px)',
                   transition: 'all 0.3s ease',
-                  boxShadow: 'inset 0 1px 1px rgba(255, 255, 255, 0.15), 0 4px 16px rgba(0, 78, 187, 0.15)',
+                  boxShadow: 'inset 0 1px 1px rgba(255, 255, 255, 0.15), 0 4px 16px rgba(25, 95, 193, 0.15)',
                   width: '100%',
                   cursor: 'pointer',
                   boxSizing: 'border-box',
@@ -815,17 +815,17 @@ export default function Footer() {
                 }}
                 onMouseEnter={e => {
                   const target = e.currentTarget as HTMLElement;
-                  target.style.background = 'rgba(0, 78, 187, 0.22)';
-                  target.style.borderColor = '#004EBB';
+                  target.style.background = 'rgba(25, 95, 193, 0.22)';
+                  target.style.borderColor = '#195fc1';
                   target.style.transform = 'translateY(-2px)';
-                  target.style.boxShadow = 'inset 0 1px 1px rgba(255, 255, 255, 0.25), 0 8px 24px rgba(0, 78, 187, 0.35)';
+                  target.style.boxShadow = 'inset 0 1px 1px rgba(255, 255, 255, 0.25), 0 8px 24px rgba(25, 95, 193, 0.35)';
                 }}
                 onMouseLeave={e => {
                   const target = e.currentTarget as HTMLElement;
                   target.style.background = 'rgba(255, 255, 255, 0.03)';
                   target.style.borderColor = 'rgba(255, 255, 255, 0.12)';
                   target.style.transform = 'translateY(0)';
-                  target.style.boxShadow = 'inset 0 1px 1px rgba(255, 255, 255, 0.15), 0 4px 16px rgba(0, 78, 187, 0.15)';
+                  target.style.boxShadow = 'inset 0 1px 1px rgba(255, 255, 255, 0.15), 0 4px 16px rgba(25, 95, 193, 0.15)';
                 }}
               >
                 <div style={{
@@ -846,7 +846,7 @@ export default function Footer() {
 
         <div style={{
           height: '1px',
-          background: 'linear-gradient(90deg, transparent, rgba(0, 78, 187, 0.2), rgba(0, 78, 187, 0.2), transparent)',
+          background: 'linear-gradient(90deg, transparent, rgba(25, 95, 193, 0.2), rgba(25, 95, 193, 0.2), transparent)',
           margin: '30px 0 25px',
         }} />
 
@@ -894,8 +894,8 @@ export default function Footer() {
                 }}
                 onMouseEnter={e => {
                   const target = e.currentTarget as HTMLElement;
-                  target.style.color = '#004EBB';
-                  target.style.background = 'rgba(0, 78, 187, 0.12)';
+                  target.style.color = '#195fc1';
+                  target.style.background = 'rgba(25, 95, 193, 0.12)';
                 }}
                 onMouseLeave={e => {
                   const target = e.currentTarget as HTMLElement;
@@ -948,27 +948,27 @@ export default function Footer() {
         }
 
         .copyright-text:hover {
-          color: #004EBB;
-          text-shadow: 0 0 20px rgba(0, 78, 187, 0.4);
+          color: #195fc1;
+          text-shadow: 0 0 20px rgba(25, 95, 193, 0.4);
           animation-play-state: paused;
         }
 
         @keyframes glowPulse {
           0%, 100% {
             color: rgba(255, 255, 255, 0.25);
-            text-shadow: 0 0 0px rgba(0, 78, 187, 0);
+            text-shadow: 0 0 0px rgba(25, 95, 193, 0);
           }
           30% {
             color: rgba(255, 255, 255, 0.5);
-            text-shadow: 0 0 10px rgba(0, 78, 187, 0.15);
+            text-shadow: 0 0 10px rgba(25, 95, 193, 0.15);
           }
           50% {
-            color: #004EBB;
-            text-shadow: 0 0 25px rgba(0, 78, 187, 0.4), 0 0 50px rgba(0, 78, 187, 0.15);
+            color: #195fc1;
+            text-shadow: 0 0 25px rgba(25, 95, 193, 0.4), 0 0 50px rgba(25, 95, 193, 0.15);
           }
           70% {
             color: rgba(255, 255, 255, 0.5);
-            text-shadow: 0 0 10px rgba(0, 78, 187, 0.15);
+            text-shadow: 0 0 10px rgba(25, 95, 193, 0.15);
           }
         }
 
