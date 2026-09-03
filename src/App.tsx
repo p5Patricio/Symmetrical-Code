@@ -10,6 +10,7 @@ import ProjectsPage from './pages/ProjectsPage';
 import ServiceDetailPage from './pages/ServiceDetailPage';
 import ChatWidget from './components/chat/ChatWidget';
 import Aurora from './components/Aurora';
+import ClickSpark from './components/ui/ClickSpark';
 
 function App() {
   const { i18n } = useTranslation();
@@ -29,13 +30,16 @@ function App() {
         speed={0.8}
       />
 
-      {/* Contenido - Todo sobre el efecto */}
-      <div style={{ 
-        position: 'relative', 
-        zIndex: 1,
-        minHeight: '100vh',
-        background: 'transparent'
-      }}>
+      {/* Contenido interactivo con ClickSpark */}
+      <ClickSpark
+        sparkColor="#00e5ff"
+        sparkSize={10}
+        sparkRadius={20}
+        sparkCount={8}
+        duration={420}
+        isGlobal={true}
+        className="relative z-10 min-h-screen bg-transparent"
+      >
         <Routes>
           <Route path="/" element={
             <>
@@ -57,7 +61,7 @@ function App() {
           } />
           <Route path="/servicios/:slug" element={<ServiceDetailPage />} />
         </Routes>
-      </div>
+      </ClickSpark>
     </>
   );
 }
