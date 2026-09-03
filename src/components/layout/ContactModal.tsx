@@ -64,8 +64,7 @@ export default function ContactModal({ onClose }: ContactModalProps) {
     },
   ];
 
-  const whatsappMessage = t('whatsapp.message_modal');
-  const whatsappUrl = `https://wa.me/524737374224?text=${encodeURIComponent(whatsappMessage)}`;
+  const whatsappUrl = 'https://wa.me/524737374224';
 
   const handleCopyEmail = async () => {
     try {

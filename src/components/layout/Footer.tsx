@@ -1,11 +1,12 @@
 import { useState, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
-import { FaFacebookF, FaInstagram, FaLinkedinIn, FaShieldAlt, FaFileContract, FaCookieBite, FaCheckCircle } from 'react-icons/fa';
-import { FiMapPin, FiMail, FiClock, FiX } from 'react-icons/fi';
+import { FaFacebookF, FaInstagram, FaLinkedinIn, FaShieldAlt, FaFileContract, FaCheckCircle, FaWhatsapp } from 'react-icons/fa';
+import { FiMapPin, FiMail, FiClock, FiX, FiCopy } from 'react-icons/fi';
 
 export default function Footer() {
   const { t } = useTranslation();
-  const [activeModal, setActiveModal] = useState<'privacidad' | 'terminos' | 'cookies' | null>(null);
+  const [activeModal, setActiveModal] = useState<'privacidad' | 'terminos' | null>(null);
+  const [copiedEmail, setCopiedEmail] = useState(false);
   const modalContentRef = useRef<HTMLDivElement>(null);
 
   const socialLinks = [
@@ -20,8 +21,17 @@ export default function Footer() {
     { icon: FiMapPin, text: t('footer.location') },
   ];
 
-  const whatsappMessage = t('whatsapp.message_footer');
-  const whatsappUrl = `https://wa.me/524737374224?text=${encodeURIComponent(whatsappMessage)}`;
+  const whatsappUrl = 'https://wa.me/524737374224';
+
+  const handleCopyEmail = async () => {
+    try {
+      await navigator.clipboard.writeText('contacto@symmetricalcode.com');
+      setCopiedEmail(true);
+      setTimeout(() => setCopiedEmail(false), 2000);
+    } catch {
+      // fallback
+    }
+  };
 
   useEffect(() => {
     if (activeModal) {
@@ -111,42 +121,6 @@ export default function Footer() {
           <div className="modal-section">
             <h3>{t('footer.terms_s6_title')}</h3>
             <p>{t('footer.terms_s6_body')}</p>
-          </div>
-        </>
-      )
-    },
-    cookies: {
-      titulo: t('footer.modal_cookies_title'),
-      icon: FaCookieBite,
-      fecha: t('footer.modal_last_updated'),
-      contenido: (
-        <>
-          <div className="modal-section">
-            <h3>{t('footer.cookies_s1_title')}</h3>
-            <p>{t('footer.cookies_s1_body')}</p>
-          </div>
-          <div className="modal-section">
-            <h3>{t('footer.cookies_s2_title')}</h3>
-            <p><strong>{t('footer.cookies_s2_essential_label')}</strong> {t('footer.cookies_s2_essential_body')}</p>
-            <p><strong>{t('footer.cookies_s2_performance_label')}</strong> {t('footer.cookies_s2_performance_body')}</p>
-            <p><strong>{t('footer.cookies_s2_functional_label')}</strong> {t('footer.cookies_s2_functional_body')}</p>
-            <p><strong>{t('footer.cookies_s2_ads_label')}</strong> {t('footer.cookies_s2_ads_body')}</p>
-          </div>
-          <div className="modal-section">
-            <h3>{t('footer.cookies_s3_title')}</h3>
-            <p>{t('footer.cookies_s3_body')}</p>
-          </div>
-          <div className="modal-section">
-            <h3>{t('footer.cookies_s4_title')}</h3>
-            <p>{t('footer.cookies_s4_body')}</p>
-          </div>
-          <div className="modal-section">
-            <h3>{t('footer.cookies_s5_title')}</h3>
-            <p>{t('footer.cookies_s5_body')}</p>
-          </div>
-          <div className="modal-section">
-            <h3>{t('footer.cookies_s6_title')}</h3>
-            <p>{t('footer.cookies_s6_body')}</p>
           </div>
         </>
       )
@@ -581,18 +555,6 @@ export default function Footer() {
         pointerEvents: 'none',
       }} />
 
-      <div style={{
-        position: 'absolute',
-        top: '20%',
-        left: '50%',
-        transform: 'translateX(-50%)',
-        width: '800px',
-        height: '400px',
-        background: 'radial-gradient(ellipse at center, rgba(0, 180, 220, 0.07) 0%, transparent 65%)',
-        pointerEvents: 'none',
-        zIndex: 0,
-      }} />
-
       <div style={{ 
         maxWidth: '1200px', 
         margin: '0 auto', 
@@ -734,6 +696,39 @@ export default function Footer() {
                     }}>
                       {item.text}
                     </div>
+                    {idx === 0 && (
+                      <button
+                        onClick={handleCopyEmail}
+                        title={copiedEmail ? '¡Copiado!' : 'Copiar correo'}
+                        style={{
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          gap: '5px',
+                          padding: '3px 8px',
+                          borderRadius: '6px',
+                          fontSize: '11px',
+                          fontFamily: "'Inter', system-ui, sans-serif",
+                          color: copiedEmail ? '#004EBB' : 'rgba(255,255,255,0.6)',
+                          background: copiedEmail ? 'rgba(0, 78, 187, 0.15)' : 'rgba(255,255,255,0.05)',
+                          border: `1px solid ${copiedEmail ? '#004EBB' : 'rgba(255,255,255,0.1)'}`,
+                          cursor: 'pointer',
+                          transition: 'all 0.2s ease',
+                          marginLeft: 'auto',
+                        }}
+                      >
+                        {copiedEmail ? (
+                          <>
+                            <FaCheckCircle size={10} color="#004EBB" />
+                            <span>Copiado</span>
+                          </>
+                        ) : (
+                          <>
+                            <FiCopy size={11} />
+                            <span>Copiar</span>
+                          </>
+                        )}
+                      </button>
+                    )}
                   </div>
                 );
               })}
@@ -791,42 +786,59 @@ export default function Footer() {
                 href={whatsappUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="whatsapp-btn"
+                className="whatsapp-btn group"
                 style={{
                   display: 'inline-flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  gap: '8px',
-                  fontFamily: "'Inter', system-ui, sans-serif",
+                  gap: '10px',
+                  fontFamily: "'Syne', sans-serif",
                   fontSize: '13px',
-                  fontWeight: 600,
-                  color: '#000000',
+                  fontWeight: 700,
+                  color: '#ffffff',
                   textDecoration: 'none',
-                  padding: '12px 20px',
-                  background: '#00e5ff',
-                  borderRadius: '10px',
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.06em',
+                  padding: '13px 22px',
+                  background: 'rgba(255, 255, 255, 0.03)',
+                  border: '1px solid rgba(255, 255, 255, 0.12)',
+                  borderRadius: '12px',
+                  backdropFilter: 'blur(12px)',
                   transition: 'all 0.3s ease',
-                  boxShadow: '0 4px 12px rgba(0, 229, 255, 0.2)',
+                  boxShadow: 'inset 0 1px 1px rgba(255, 255, 255, 0.15), 0 4px 16px rgba(0, 78, 187, 0.15)',
                   width: '100%',
-                  border: 'none',
                   cursor: 'pointer',
                   boxSizing: 'border-box',
                   marginTop: 'auto',
+                  position: 'relative',
+                  overflow: 'hidden',
                 }}
                 onMouseEnter={e => {
                   const target = e.currentTarget as HTMLElement;
-                  target.style.background = '#00ccee';
+                  target.style.background = 'rgba(0, 78, 187, 0.22)';
+                  target.style.borderColor = '#004EBB';
                   target.style.transform = 'translateY(-2px)';
-                  target.style.boxShadow = '0 6px 18px rgba(0, 229, 255, 0.3)';
+                  target.style.boxShadow = 'inset 0 1px 1px rgba(255, 255, 255, 0.25), 0 8px 24px rgba(0, 78, 187, 0.35)';
                 }}
                 onMouseLeave={e => {
                   const target = e.currentTarget as HTMLElement;
-                  target.style.background = '#00e5ff';
+                  target.style.background = 'rgba(255, 255, 255, 0.03)';
+                  target.style.borderColor = 'rgba(255, 255, 255, 0.12)';
                   target.style.transform = 'translateY(0)';
-                  target.style.boxShadow = '0 4px 12px rgba(0, 229, 255, 0.2)';
+                  target.style.boxShadow = 'inset 0 1px 1px rgba(255, 255, 255, 0.15), 0 4px 16px rgba(0, 78, 187, 0.15)';
                 }}
               >
-                {t('footer.cta')}
+                <div style={{
+                  position: 'absolute',
+                  top: 0,
+                  left: '15%',
+                  right: '15%',
+                  height: '1px',
+                  background: 'linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent)',
+                  pointerEvents: 'none',
+                }} />
+                <FaWhatsapp size={18} style={{ color: '#25D366' }} />
+                <span>{t('footer.cta')}</span>
               </a>
             </div>
           </div>
@@ -858,8 +870,7 @@ export default function Footer() {
               [
                 { key: 'privacidad', label: t('footer.privacy') },
                 { key: 'terminos',   label: t('footer.terms') },
-                { key: 'cookies',    label: t('footer.cookies') },
-              ] as { key: 'privacidad' | 'terminos' | 'cookies'; label: string }[]
+              ] as { key: 'privacidad' | 'terminos'; label: string }[]
             ).map(({ key, label }) => (
               <button
                 key={key}

@@ -24,12 +24,12 @@ const SERVICE_SLUGS = [
 ];
 
 const SERVICE_COLORS = [
-  '#86efac', // systems / software empresarial (soft emerald)
-  '#7dd3fc', // cloud / IA (soft sky blue)
-  '#00b4d8', // web & móvil (cyan)
-  '#fde68a', // security (soft amber)
-  '#c4b5fd', // uiux (soft purple/lavender)
-  '#f9a8d4', // analytics (soft rose)
+  '#4ade80', // systems / software empresarial (emerald)
+  '#a855f7', // IA (electric purple - differentiated from cyan/blue)
+  '#00e5ff', // web & móvil (vibrant electric cyan)
+  '#facc15', // security (cyber gold)
+  '#f43f5e', // uiux (vibrant coral rose)
+  '#38bdf8', // analytics (sky blue)
 ];
 
 type ServiceItem = {
@@ -88,16 +88,21 @@ function OrbitCard({ service, index, style }: { service: ServiceItem; index: num
           </p>
         </div>
 
-        <div className="pt-3 border-t border-white/[0.06] flex items-center justify-between text-[11px] font-mono transition-colors">
-          <span className="truncate max-w-[110px]" style={{ color: `${accent}88` }}>
+        <div className="pt-2.5 mt-auto border-t border-white/[0.06] flex flex-col gap-1.5 transition-colors">
+          <span
+            className="font-mono text-[11px] uppercase tracking-wider block"
+            style={{ color: `${accent}99` }}
+          >
             {service.slug || 'SERVICIO'}
           </span>
-          <span
-            className="transition-colors group-hover:underline shrink-0 ml-2 font-medium"
-            style={{ color: accent }}
-          >
-            Ver detalle →
-          </span>
+          <div className="flex justify-end">
+            <span
+              className="font-mono text-[11px] font-medium inline-flex items-center gap-1 transition-transform duration-200 group-hover:translate-x-1"
+              style={{ color: accent }}
+            >
+              Ver detalle →
+            </span>
+          </div>
         </div>
       </SpotlightCard>
     </Link>
@@ -125,7 +130,7 @@ export default function Services() {
             <div className="h-px flex-1 bg-gradient-to-r from-[#00e5ff]/20 to-transparent" />
           </div>
           <div className="flex flex-col md:flex-row md:items-end gap-6 md:gap-8 justify-between">
-            <h2 className="font-syne font-bold text-3xl sm:text-5xl md:text-6xl text-white leading-[1.12] max-w-3xl">
+            <h2 className="font-syne font-black text-3xl sm:text-5xl md:text-6xl lg:text-7xl text-white leading-[1.1] tracking-[-0.03em] max-w-3xl">
               {t('services.title')}
             </h2>
             <p className="text-white/60 text-base sm:text-lg max-w-md leading-relaxed md:text-right font-normal">
@@ -194,7 +199,7 @@ export default function Services() {
         }
 
         @media (min-width: 1280px) {
-          .orbit-stage { display: block; height: 980px; }
+          .orbit-stage { display: block; height: 1010px; }
           .orbit-guide { display: block; position: absolute; inset: 0; width: 100%; height: 100%; }
           .orbit-center { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: 460px; z-index: 2; }
           .orbit-card-link { position: absolute; transform: translate(-50%, -50%); width: 285px; z-index: 3; }
@@ -202,13 +207,13 @@ export default function Services() {
         }
 
         .orbit-card {
-          min-height: 290px;
+          min-height: 295px;
           height: 100%;
           padding: 22px 24px;
         }
 
         @media (min-width: 1280px) {
-          .orbit-card { height: 310px; }
+          .orbit-card { height: 325px; }
         }
       `}</style>
     </section>

@@ -8,8 +8,7 @@ export default function HeroSection() {
   const { t, i18n } = useTranslation();
   const isEs = i18n.language !== 'en';
 
-  const whatsappMessage = t('whatsapp.message_hero', 'Hola Symmetrical Code, me gustaría conversar sobre un proyecto.');
-  const whatsappUrl = `https://wa.me/524737374224?text=${encodeURIComponent(whatsappMessage)}`;
+  const whatsappUrl = 'https://wa.me/524737374224';
 
   const principles = [
     { value: t('hero.stat_1_value'), label: t('hero.stat_1_label') },

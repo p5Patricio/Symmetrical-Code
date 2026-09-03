@@ -57,12 +57,6 @@ export default function ServiceDetailPage() {
   // Other services for bottom navigation
   const otherServices = servicesData.filter((s) => s.slug !== service.slug);
 
-  const whatsappMessage = encodeURIComponent(
-    isEs
-      ? `¡Hola! Me gustaría platicar sobre el servicio de "${service.titleEs}".`
-      : `Hello! I would like to discuss the "${service.titleEn}" service.`
-  );
-
   return (
     <div className="min-h-screen bg-[#020408] text-white selection:bg-[#00e5ff] selection:text-[#020408] overflow-x-hidden font-inter relative">
       <Helmet>
@@ -167,7 +161,7 @@ export default function ServiceDetailPage() {
               </SpecularButton>
 
               <a
-                href={`https://wa.me/524731000000?text=${whatsappMessage}`}
+                href="https://wa.me/524737374224"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-6 py-3.5 bg-white/[0.03] border border-white/[0.08] hover:border-white/[0.18] text-white/80 hover:text-white font-mono font-medium text-xs sm:text-sm tracking-wider uppercase rounded-xl transition-all duration-300 hover:bg-white/[0.06]"
@@ -506,7 +500,7 @@ export default function ServiceDetailPage() {
                   </SpecularButton>
 
                   <a
-                    href={`https://wa.me/524731000000?text=${whatsappMessage}`}
+                    href="https://wa.me/524737374224"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-2 px-7 py-3.5 bg-white/[0.03] border border-white/[0.08] hover:border-white/[0.18] text-white/80 hover:text-white font-mono font-medium text-xs sm:text-sm tracking-wider uppercase rounded-xl hover:bg-white/[0.06] transition-all"
