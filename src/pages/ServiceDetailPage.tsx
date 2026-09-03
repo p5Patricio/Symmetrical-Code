@@ -9,6 +9,7 @@ import Footer from '../components/layout/Footer';
 import ContactModal from '../components/layout/ContactModal';
 import ChatWidget from '../components/chat/ChatWidget';
 import SpotlightCard from '../components/ui/SpotlightCard';
+import SpecularButton from '../components/ui/SpecularButton';
 import TechIcon from '../components/ui/TechIcon';
 import ReiconIcon from '../components/ui/ReiconIcon';
 import { SiWhatsapp } from 'react-icons/si';
@@ -149,14 +150,21 @@ export default function ServiceDetailPage() {
 
             {/* Action Buttons */}
             <div className="flex flex-wrap items-center gap-4">
-              <button
+              <SpecularButton
+                size="md"
+                radius={14}
                 onClick={() => setIsContactOpen(true)}
-                className="inline-flex items-center gap-2 px-7 py-3.5 text-[#020408] font-mono font-semibold text-xs sm:text-sm tracking-wider uppercase rounded-xl transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(255,255,255,0.25)] cursor-pointer"
-                style={{ backgroundColor: service.accentColor }}
+                className="font-mono font-semibold text-xs sm:text-sm tracking-wider uppercase"
+                tint="#ffffff"
+                tintOpacity={0.06}
+                blur={16}
+                lineColor="#ffffff"
+                baseColor="#4b5563"
+                intensity={1.2}
               >
                 <span>{isEs ? 'Cotizar proyecto' : 'Request quote'}</span>
                 <FiArrowUpRight size={14} />
-              </button>
+              </SpecularButton>
 
               <a
                 href={`https://wa.me/524731000000?text=${whatsappMessage}`}
@@ -482,13 +490,20 @@ export default function ServiceDetailPage() {
                 </p>
 
                 <div className="flex flex-wrap items-center justify-center gap-3.5">
-                  <button
+                  <SpecularButton
+                    size="md"
+                    radius={14}
                     onClick={() => setIsContactOpen(true)}
-                    className="px-8 py-3.5 text-[#020408] font-mono font-semibold text-xs sm:text-sm tracking-wider uppercase rounded-xl transition-all duration-300 hover:scale-105 hover:shadow-[0_0_25px_rgba(255,255,255,0.25)] cursor-pointer"
-                    style={{ backgroundColor: service.accentColor }}
+                    className="font-mono font-semibold text-xs sm:text-sm tracking-wider uppercase"
+                    tint="#ffffff"
+                    tintOpacity={0.06}
+                    blur={16}
+                    lineColor="#ffffff"
+                    baseColor="#4b5563"
+                    intensity={1.2}
                   >
                     {isEs ? 'Cotizar proyecto' : 'Request quote'}
-                  </button>
+                  </SpecularButton>
 
                   <a
                     href={`https://wa.me/524731000000?text=${whatsappMessage}`}

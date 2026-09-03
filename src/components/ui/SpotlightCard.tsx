@@ -9,8 +9,6 @@ interface SpotlightCardProps extends React.HTMLAttributes<HTMLDivElement> {
 
 export const SpotlightCard: React.FC<SpotlightCardProps> = ({
   children,
-  spotlightColor = 'rgba(255, 255, 255, 0.08)',
-  accentColor,
   className = '',
   style,
   ...props
@@ -36,8 +34,6 @@ export const SpotlightCard: React.FC<SpotlightCardProps> = ({
     setIsHovered(false);
   }, []);
 
-  const activeSpotlight = accentColor ? `${accentColor}20` : spotlightColor;
-
   return (
     <div
       ref={cardRef}
@@ -47,38 +43,34 @@ export const SpotlightCard: React.FC<SpotlightCardProps> = ({
       className={`group relative overflow-hidden rounded-2xl border transition-all duration-500 ease-out ${className}`}
       style={{
         background: isHovered
-          ? 'linear-gradient(145deg, rgba(255, 255, 255, 0.045) 0%, rgba(255, 255, 255, 0.015) 50%, rgba(3, 7, 18, 0.7) 100%)'
-          : 'linear-gradient(145deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0.008) 50%, rgba(3, 7, 18, 0.6) 100%)',
+          ? 'linear-gradient(145deg, rgba(255, 255, 255, 0.04) 0%, rgba(255, 255, 255, 0.01) 50%, rgba(3, 7, 18, 0.7) 100%)'
+          : 'linear-gradient(145deg, rgba(255, 255, 255, 0.025) 0%, rgba(255, 255, 255, 0.006) 50%, rgba(3, 7, 18, 0.6) 100%)',
         backdropFilter: 'blur(24px) saturate(180%)',
         WebkitBackdropFilter: 'blur(24px) saturate(180%)',
-        borderColor: isHovered && accentColor ? `${accentColor}40` : isHovered ? 'rgba(255, 255, 255, 0.18)' : 'rgba(255, 255, 255, 0.08)',
-        boxShadow: isHovered && accentColor
-          ? `inset 0 1px 1px 0 rgba(255, 255, 255, 0.22), inset 0 0 0 1px ${accentColor}25, 0 16px 36px -12px ${accentColor}18, 0 8px 24px rgba(0, 0, 0, 0.4)`
-          : isHovered
-          ? 'inset 0 1px 1px 0 rgba(255, 255, 255, 0.18), inset 0 0 0 1px rgba(255, 255, 255, 0.05), 0 12px 30px rgba(0, 0, 0, 0.4)'
-          : 'inset 0 1px 1px 0 rgba(255, 255, 255, 0.1), inset 0 0 0 1px rgba(255, 255, 255, 0.02), 0 6px 20px rgba(0, 0, 0, 0.3)',
+        borderColor: isHovered ? 'rgba(255, 255, 255, 0.2)' : 'rgba(255, 255, 255, 0.07)',
+        boxShadow: isHovered
+          ? 'inset 0 1px 1px 0 rgba(255, 255, 255, 0.25), inset 0 0 0 1px rgba(255, 255, 255, 0.04), 0 14px 34px -10px rgba(0, 0, 0, 0.5)'
+          : 'inset 0 1px 1px 0 rgba(255, 255, 255, 0.1), inset 0 0 0 1px rgba(255, 255, 255, 0.02), 0 6px 20px rgba(0, 0, 0, 0.35)',
         transform: isHovered ? 'translateY(-2px)' : 'translateY(0)',
         ...style,
       }}
       {...props}
     >
-      {/* ─── Liquid Glass Specular Top Sheen ─── */}
+      {/* ─── Physical Specular Top Sheen (Pure Neutral Rim) ─── */}
       <div
         className="pointer-events-none absolute inset-x-0 top-0 h-px transition-opacity duration-500"
         style={{
-          background: isHovered && accentColor
-            ? `linear-gradient(90deg, transparent 0%, ${accentColor}88 50%, transparent 100%)`
-            : 'linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.25) 50%, transparent 100%)',
-          opacity: isHovered ? 1 : 0.4,
+          background: 'linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.35) 50%, transparent 100%)',
+          opacity: isHovered ? 1 : 0.3,
         }}
       />
 
-      {/* ─── Minimalist Soft Radial Spotlight ─── */}
+      {/* ─── Physical Specular Surface Reflection (Zero Neon) ─── */}
       <div
         className="pointer-events-none absolute -inset-px transition-opacity duration-500"
         style={{
           opacity: isHovered ? 1 : 0,
-          background: `radial-gradient(460px circle at ${position.x}px ${position.y}px, ${activeSpotlight}, transparent 65%)`,
+          background: `radial-gradient(380px circle at ${position.x}px ${position.y}px, rgba(255, 255, 255, 0.045), transparent 65%)`,
         }}
       />
 

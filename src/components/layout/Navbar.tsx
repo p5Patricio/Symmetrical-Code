@@ -140,10 +140,10 @@ export default function Navbar() {
             <img
               src="/favicon.svg"
               alt="Symmetrical Code"
-              className="h-6 sm:h-7 w-auto transition-transform duration-300 group-hover:scale-105 group-hover:drop-shadow-[0_0_12px_rgba(0,229,255,0.5)]"
+              className="h-6 sm:h-7 w-auto transition-transform duration-300 group-hover:scale-105"
             />
             <span className="font-syne font-bold text-xs sm:text-sm tracking-tight text-white/90 group-hover:text-white transition-colors">
-              Symmetrical<span className="text-[#00e5ff]">Code</span>
+              Symmetrical<span className="text-white/80">Code</span>
             </span>
           </button>
 
@@ -157,7 +157,7 @@ export default function Navbar() {
                   onClick={() => handleNavClick(link.id)}
                   className={`relative font-mono text-[11px] lg:text-xs tracking-[0.14em] uppercase px-3.5 py-1.5 rounded-full transition-all duration-300 cursor-pointer ${
                     isActive
-                      ? 'text-[#00e5ff] bg-white/[0.06] border border-[#00e5ff]/20 shadow-[0_0_15px_rgba(0,229,255,0.12)] font-medium'
+                      ? 'text-white bg-white/[0.08] border border-white/[0.18] font-medium shadow-[inset_0_1px_1px_rgba(255,255,255,0.15)]'
                       : 'text-white/60 hover:text-white hover:bg-white/[0.04] border border-transparent'
                   }`}
                 >
@@ -179,7 +179,7 @@ export default function Navbar() {
           <div className="flex items-center gap-2 sm:gap-2.5">
             <button
               onClick={toggleLang}
-              className="font-mono text-[10px] sm:text-[11px] tracking-wider border border-white/[0.08] hover:border-[#00e5ff]/40 bg-white/[0.02] hover:bg-white/[0.05] text-white/70 hover:text-[#00e5ff] px-2.5 sm:px-3 py-1 rounded-full transition-all duration-200 cursor-pointer"
+              className="font-mono text-[10px] sm:text-[11px] tracking-wider border border-white/[0.08] hover:border-white/[0.25] bg-white/[0.02] hover:bg-white/[0.06] text-white/70 hover:text-white px-2.5 sm:px-3 py-1 rounded-full transition-all duration-200 cursor-pointer"
             >
               {i18n.language === 'es' ? 'EN' : 'ES'}
             </button>
