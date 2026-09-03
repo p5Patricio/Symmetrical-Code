@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { FiSun, FiMoon } from 'react-icons/fi';
-import ContactModal from './ContactModal';
 import { useTheme } from '../../context/ThemeContext';
 
 export default function Navbar() {
@@ -15,17 +14,16 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
-  const [contactOpen, setContactOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 40);
 
       if (isHome) {
-        const sections = ['team', 'projects', 'services', 'home'];
+        const sections = ['footer', 'team', 'projects', 'services', 'home'];
         for (const id of sections) {
-          const el = document.getElementById(id);
-          if (el && window.scrollY >= el.offsetTop - 140) {
+          const el = document.getElementById(id) || (id === 'footer' ? document.querySelector('footer') : null);
+          if (el && window.scrollY >= el.offsetTop - 180) {
             setActiveSection(id);
             return;
           }
@@ -65,27 +63,29 @@ export default function Navbar() {
 
   const handleNavClick = (id: string) => {
     setMenuOpen(false);
-    if (isHome) {
+    const scrollTarget = () => {
       if (id === 'home') {
         window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else if (id === 'footer') {
+        const el = document.getElementById('footer') || document.querySelector('footer');
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth' });
+        } else {
+          window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+        }
       } else {
         const el = document.getElementById(id);
         if (el) {
           el.scrollIntoView({ behavior: 'smooth' });
         }
       }
+    };
+
+    if (isHome) {
+      scrollTarget();
     } else {
       navigate('/');
-      setTimeout(() => {
-        if (id === 'home') {
-          window.scrollTo({ top: 0, behavior: 'smooth' });
-        } else {
-          const el = document.getElementById(id);
-          if (el) {
-            el.scrollIntoView({ behavior: 'smooth' });
-          }
-        }
-      }, 100);
+      setTimeout(scrollTarget, 150);
     }
   };
 
@@ -99,16 +99,12 @@ export default function Navbar() {
     }
   };
 
-  const openContact = () => {
-    setMenuOpen(false);
-    setContactOpen(true);
-  };
-
   const navLinks = [
     { key: 'nav.home', id: 'home' },
     { key: 'nav.services', id: 'services' },
     { key: 'nav.projects', id: 'projects' },
     { key: 'nav.team', id: 'team' },
+    { key: 'nav.contact', id: 'footer' },
   ];
 
   return (
@@ -168,14 +164,6 @@ export default function Navbar() {
                 </button>
               );
             })}
-
-            {/* Contact Link */}
-            <button
-              onClick={openContact}
-              className="relative font-mono text-[11px] lg:text-xs tracking-[0.14em] uppercase px-3.5 py-1.5 rounded-full transition-all duration-300 text-white/60 hover:text-white hover:bg-white/[0.04] border border-transparent cursor-pointer"
-            >
-              {t('nav.contact')}
-            </button>
           </nav>
 
           {/* Controls (Derecha) */}
@@ -251,13 +239,6 @@ export default function Navbar() {
               );
             })}
 
-            <button
-              onClick={openContact}
-              className="w-full py-3 px-5 rounded-xl font-mono text-xs tracking-[0.2em] uppercase transition-all duration-200 text-white/70 hover:text-white hover:bg-white/[0.04] cursor-pointer"
-            >
-              {t('nav.contact')}
-            </button>
-
             <div className="w-12 h-px bg-white/[0.08] my-1" />
 
             <div className="flex items-center gap-3">
@@ -278,9 +259,6 @@ export default function Navbar() {
           </div>
         </div>
       )}
-
-      {/* Modal de contacto */}
-      {contactOpen && <ContactModal onClose={() => setContactOpen(false)} />}
     </>
   );
 }

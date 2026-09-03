@@ -541,13 +541,16 @@ export default function Footer() {
   };
 
   return (
-    <footer style={{
-      background: 'transparent',
-      borderTop: '1px solid rgba(255, 255, 255, 0.06)',
-      position: 'relative',
-      marginTop: 'auto',
-      overflow: 'hidden',
-    }}>
+    <footer 
+      id="footer"
+      style={{
+        background: 'transparent',
+        borderTop: '1px solid rgba(255, 255, 255, 0.06)',
+        position: 'relative',
+        marginTop: 'auto',
+        overflow: 'hidden',
+      }}
+    >
       <div style={{
         position: 'absolute',
         top: 0,

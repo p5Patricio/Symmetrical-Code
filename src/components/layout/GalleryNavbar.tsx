@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { FiSun, FiMoon } from 'react-icons/fi';
-import ContactModal from './ContactModal';
 import { useTheme } from '../../context/ThemeContext';
 
 const ArrowLeftIcon = () => (
@@ -25,7 +24,6 @@ export default function GalleryNavbar({
   const lang = i18n.language;
   const { theme, toggleTheme } = useTheme();
   const [menuOpen, setMenuOpen] = useState(false);
-  const [contactOpen, setContactOpen] = useState(false);
 
   useEffect(() => {
     const handleScrollClose = () => {
@@ -51,6 +49,7 @@ export default function GalleryNavbar({
     { key: 'nav.services', id: 'services' },
     { key: 'nav.projects', id: 'projects' },
     { key: 'nav.team', id: 'team' },
+    { key: 'nav.contact', id: 'footer' },
   ];
 
   // Misma clase de tamaño de letra que el Navbar principal
@@ -67,11 +66,6 @@ export default function GalleryNavbar({
       const el = document.getElementById('projects');
       if (el) el.scrollIntoView({ behavior: 'smooth' });
     }, 300);
-  };
-
-  const openContact = () => {
-    setMenuOpen(false);
-    setContactOpen(true);
   };
 
   return (
@@ -111,14 +105,6 @@ export default function GalleryNavbar({
                 )}
               </button>
             ))}
-
-            {/* Contacto */}
-            <button
-              onClick={openContact}
-              className={`relative font-mono ${navLinkTextClass} tracking-[0.15em] uppercase px-3 lg:px-4 py-1.5 rounded-full transition-all duration-200 text-white/70 hover:text-white hover:bg-white/10`}
-            >
-              {t('nav.contact')}
-            </button>
           </div>
 
           {/* Right: Controls + Hamburger */}
@@ -206,14 +192,6 @@ export default function GalleryNavbar({
                 {t(link.key)}
               </button>
             ))}
-
-            {/* Contacto */}
-            <button
-              onClick={openContact}
-              className="w-full text-center font-mono text-sm tracking-[0.15em] uppercase py-3 px-6 rounded-full transition-all duration-300 text-white/60 hover:text-white hover:bg-white/10"
-            >
-              {t('nav.contact')}
-            </button>
           </div>
 
           <div className="w-12 h-px bg-white/20 my-4" />
@@ -239,9 +217,6 @@ export default function GalleryNavbar({
           </p>
         </div>
       </div>
-
-      {/* Modal de contacto */}
-      {contactOpen && <ContactModal onClose={() => setContactOpen(false)} />}
     </>
   );
 }
