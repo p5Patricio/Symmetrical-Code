@@ -461,7 +461,15 @@ html.light .fixed.inset-0.z-\[150\] {
 html.light .detail-modal-card {
   background: #FFFFFF !important;
   border-color: rgba(25, 95, 193, 0.15) !important;
-  box-shadow: 0 20px 60px rgba(25, 95, 193, 0.12) !important;
+  box-shadow: 0 25px 70px rgba(25, 95, 193, 0.14) !important;
+}
+
+html.light .detail-modal-card h3 {
+  color: #0B132B !important;
+}
+
+html.light .detail-modal-card p {
+  color: #475569 !important;
 }
 
 html.light .contact-modal-container {
@@ -645,11 +653,12 @@ html.light .orbit-card p {
 
 /* Light Projects Section */
 html.light #projects h2,
-html.light #projects h3 {
+html.light #projects article h3 {
   color: #0B132B !important;
 }
 
-html.light #projects p {
+html.light #projects > div > div p,
+html.light #projects article p {
   color: #475569 !important;
 }
 
