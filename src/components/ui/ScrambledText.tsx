@@ -115,22 +115,22 @@ export const ScrambledText: React.FC<ScrambledTextProps> = ({
       rootEl.removeEventListener('pointermove', handlePointerMove as EventListener);
       entries.forEach(entry => {
         if (entry.timerId) clearInterval(entry.timerId);
-        entry.el.textContent = entry.originalChar;
       });
     };
   }, [radius, duration, speed, scrambleChars, scrambleColor, words]);
 
   return (
     <Component
+      key={children}
       ref={rootRef as any}
       className={`scrambled-text ${className}`}
       style={style}
     >
       {words.map((chars, wordIndex) => (
-        <span key={wordIndex} className="scrambled-word">
+        <span key={`${wordIndex}-${chars.length}`} className="scrambled-word">
           {chars.map((char, charIndex) => (
             <span
-              key={charIndex}
+              key={`${charIndex}-${char}`}
               className="scrambled-char"
               data-char={char}
             >

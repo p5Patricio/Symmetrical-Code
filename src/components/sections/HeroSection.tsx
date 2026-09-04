@@ -8,7 +8,7 @@ import Shuffle from '../ui/Shuffle';
 
 export default function HeroSection() {
   const { t, i18n } = useTranslation();
-  const isEs = i18n.language !== 'en';
+  const isEs = (i18n.resolvedLanguage || i18n.language || 'es').startsWith('es');
 
   const whatsappUrl = 'https://wa.me/524737374224';
 
@@ -55,6 +55,7 @@ export default function HeroSection() {
         >
           <span className="w-1.5 h-1.5 rounded-full bg-[#195fc1] animate-pulse shrink-0" />
           <ScrambledText
+            key={isEs ? 'es' : 'en'}
             radius={70}
             duration={1.0}
             speed={0.5}

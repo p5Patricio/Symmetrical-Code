@@ -57,8 +57,10 @@ export default function Navbar() {
     };
   }, [menuOpen]);
 
+  const isEs = (i18n.resolvedLanguage || i18n.language || 'es').startsWith('es');
+
   const toggleLang = () => {
-    i18n.changeLanguage(i18n.language === 'es' ? 'en' : 'es');
+    i18n.changeLanguage(isEs ? 'en' : 'es');
   };
 
   const handleNavClick = (id: string) => {
@@ -182,7 +184,7 @@ export default function Navbar() {
               onClick={toggleLang}
               className="font-mono text-xs sm:text-[11px] font-medium tracking-wider border border-white/[0.08] hover:border-white/[0.25] bg-white/[0.02] hover:bg-white/[0.06] text-white/70 hover:text-white px-3.5 sm:px-3 py-1.5 sm:py-1 rounded-full transition-all duration-200 cursor-pointer"
             >
-              {i18n.language === 'es' ? 'EN' : 'ES'}
+              {isEs ? 'EN' : 'ES'}
             </button>
 
             {/* Hamburger Button (Mobile) - 3 lines */}
@@ -253,14 +255,14 @@ export default function Navbar() {
                 onClick={toggleTheme}
                 className={`flex items-center gap-2 font-mono text-xs tracking-wider border ${theme === 'light' ? 'border-[#195fc1]/20 bg-white text-[#334155] hover:text-[#195fc1]' : 'border-white/[0.1] text-white/80 hover:text-[#195fc1] bg-transparent'} px-4 py-2 rounded-full transition-all duration-200 cursor-pointer`}
               >
-                {theme === 'dark' ? <><FiSun size={13} /> <span>CLARO</span></> : <><FiMoon size={13} /> <span>OSCURO</span></>}
+                {theme === 'dark' ? <><FiSun size={13} /> <span>{isEs ? 'CLARO' : 'LIGHT'}</span></> : <><FiMoon size={13} /> <span>{isEs ? 'OSCURO' : 'DARK'}</span></>}
               </button>
 
               <button
                 onClick={toggleLang}
                 className={`font-mono text-xs tracking-widest border ${theme === 'light' ? 'border-[#195fc1]/20 bg-white text-[#334155] hover:text-[#195fc1]' : 'border-white/[0.1] text-white/80 hover:text-[#195fc1] bg-transparent'} px-5 py-2 rounded-full transition-all duration-200 cursor-pointer`}
               >
-                {i18n.language === 'es' ? 'EN' : 'ES'}
+                {isEs ? 'EN' : 'ES'}
               </button>
             </div>
           </div>
