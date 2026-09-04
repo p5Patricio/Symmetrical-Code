@@ -1,9 +1,7 @@
-// src/components/sections/HeroSection.tsx
-import { useState, useMemo, useRef } from 'react';
+import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { motion, AnimatePresence } from 'motion/react';
 import SpecularButton from '../ui/SpecularButton';
-import RotatingText, { type RotatingTextRef } from '../ui/RotatingText';
+import RotatingText from '../ui/RotatingText';
 import ScrambledText from '../ui/ScrambledText';
 import Shuffle from '../ui/Shuffle';
 
@@ -13,15 +11,29 @@ export default function HeroSection() {
 
   const whatsappUrl = 'https://wa.me/524737374224';
 
-  const principles = useMemo(() => [
-    { value: t('hero.stat_1_value'), label: t('hero.stat_1_label') },
-    { value: t('hero.stat_2_value'), label: t('hero.stat_2_label') },
-    { value: t('hero.stat_3_value'), label: t('hero.stat_3_label') },
-  ], [t]);
-
-  const principleValues = useMemo(() => principles.map(p => p.value), [principles]);
-  const [activePrinciple, setActivePrinciple] = useState(0);
-  const rotatingTextRef = useRef<RotatingTextRef>(null);
+  const principleColumns = useMemo(() => [
+    {
+      words: isEs
+        ? ['Claridad', 'Estrategia', 'Visión', 'Precisión']
+        : ['Clarity', 'Strategy', 'Vision', 'Precision'],
+      label: t('hero.stat_1_label', 'Aterrizamos tu idea antes de construir'),
+      interval: 2800,
+    },
+    {
+      words: isEs
+        ? ['Balance', 'Arquitectura', 'Diseño Útil', 'Código Limpio']
+        : ['Balance', 'Architecture', 'Useful Design', 'Clean Code'],
+      label: t('hero.stat_2_label', 'Diseño útil + código limpio'),
+      interval: 3300,
+    },
+    {
+      words: isEs
+        ? ['Futuro', 'Escalabilidad', 'Innovación', 'Solidez']
+        : ['Future', 'Scalability', 'Innovation', 'Solidity'],
+      label: t('hero.stat_3_label', 'Base preparada para crecer'),
+      interval: 3800,
+    },
+  ], [isEs, t]);
 
   return (
     <section
@@ -66,7 +78,7 @@ export default function HeroSection() {
           />
         </div>
 
-        {/* ─── 3. Grand Studio Headline with React Bits Shuffle ─── */}
+        {/* ─── 3. Grand Studio Headline with React Bits Shuffle (Looping) ─── */}
         <h1
           className="font-syne font-black text-3xl sm:text-4xl md:text-5xl lg:text-6xl tracking-[-0.03em] leading-tight md:leading-none mb-8 sm:mb-12 flex flex-wrap items-center justify-center gap-x-3.5 md:gap-x-4 opacity-0 animate-fade-up text-center cursor-default select-none"
           style={{ animationDelay: '0.26s', animationFillMode: 'forwards' }}
@@ -79,6 +91,8 @@ export default function HeroSection() {
             stagger={0.03}
             shuffleTimes={1}
             animationMode="evenodd"
+            loop={true}
+            loopDelay={4.5}
             triggerOnHover={true}
           />
           <Shuffle
@@ -89,6 +103,8 @@ export default function HeroSection() {
             stagger={0.03}
             shuffleTimes={1}
             animationMode="evenodd"
+            loop={true}
+            loopDelay={4.5}
             triggerOnHover={true}
           />
         </h1>
@@ -131,60 +147,28 @@ export default function HeroSection() {
           </SpecularButton>
         </div>
 
-        {/* ─── 6. Studio Principles Ribbon with React Bits RotatingText ─── */}
+        {/* ─── 6. Studio Principles Ribbon (3 Columns with RotatingText) ─── */}
         <div
-          className="w-full max-w-2xl rounded-2xl border border-white/[0.07] bg-white/[0.02] backdrop-blur-xl p-5 sm:p-6 shadow-[inset_0_1px_1px_rgba(255,255,255,0.08),0_12px_36px_rgba(0,0,0,0.35)] opacity-0 animate-fade-up mb-8 sm:mb-0"
+          className="w-full max-w-3xl rounded-2xl border border-white/[0.07] bg-white/[0.02] backdrop-blur-xl p-4 sm:p-5 shadow-[inset_0_1px_1px_rgba(255,255,255,0.08),0_12px_36px_rgba(0,0,0,0.35)] opacity-0 animate-fade-up mb-8 sm:mb-0"
           style={{ animationDelay: '0.58s', animationFillMode: 'forwards' }}
         >
-          <div className="flex flex-col items-center justify-center text-center">
-            {/* Top principle indicators / tabs */}
-            <div className="flex items-center justify-center gap-2 sm:gap-4 mb-3">
-              {principles.map((p, idx) => (
-                <button
-                  key={idx}
-                  onClick={() => {
-                    setActivePrinciple(idx);
-                    rotatingTextRef.current?.jumpTo(idx);
-                  }}
-                  className={`font-mono text-[10px] sm:text-xs tracking-wider uppercase transition-all duration-300 cursor-pointer px-3 py-1 rounded-full ${
-                    activePrinciple === idx
-                      ? 'text-[#195fc1] bg-[#195fc1]/10 font-bold border border-[#195fc1]/30 shadow-sm'
-                      : 'text-white/40 hover:text-white/70 border border-transparent'
-                  }`}
-                >
-                  {p.value}
-                </button>
-              ))}
-            </div>
-
-            {/* Rotating Value with RotatingText */}
-            <div className="font-syne font-bold text-lg sm:text-2xl text-white tracking-wide mb-1.5 flex items-center justify-center h-8">
-              <RotatingText
-                ref={rotatingTextRef}
-                texts={principleValues}
-                textColor="#195fc1"
-                rotationInterval={3000}
-                staggerDuration={0.03}
-                onNext={(idx) => setActivePrinciple(idx)}
-                className="font-syne font-bold text-lg sm:text-2xl"
-              />
-            </div>
-
-            {/* Synchronized Label Description */}
-            <div className="min-h-[1.5rem] flex items-center justify-center">
-              <AnimatePresence mode="wait">
-                <motion.p
-                  key={activePrinciple}
-                  initial={{ opacity: 0, y: 6 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -6 }}
-                  transition={{ duration: 0.25, ease: 'easeOut' }}
-                  className="font-mono text-xs sm:text-sm text-white/50 leading-relaxed max-w-md"
-                >
-                  {principles[activePrinciple]?.label}
-                </motion.p>
-              </AnimatePresence>
-            </div>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 divide-y sm:divide-y-0 sm:divide-x divide-white/[0.07] text-center">
+            {principleColumns.map((col, i) => (
+              <div key={i} className="pt-3 sm:pt-0 sm:px-4 first:pt-0 first:px-0 flex flex-col items-center justify-center">
+                <div className="font-syne font-bold text-sm sm:text-base tracking-wide mb-1 flex items-center justify-center h-6 sm:h-7">
+                  <RotatingText
+                    texts={col.words}
+                    textColor="#195fc1"
+                    rotationInterval={col.interval}
+                    staggerDuration={0.025}
+                    className="font-syne font-bold text-sm sm:text-base tracking-wide"
+                  />
+                </div>
+                <div className="font-mono text-[10px] sm:text-[11px] text-white/50 leading-snug">
+                  {col.label}
+                </div>
+              </div>
+            ))}
           </div>
         </div>
 

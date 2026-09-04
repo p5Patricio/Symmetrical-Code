@@ -366,6 +366,7 @@ export const Shuffle: React.FC<ShuffleProps> = ({
           repeat: loop ? -1 : 0,
           repeatDelay: loop ? loopDelay : 0,
           onRepeat: () => {
+            playingRef.current = true;
             if (scrambleCharset) randomizeScrambles();
             if (isVertical) {
               gsap.set(strips, { y: (_, t) => parseFloat(t.getAttribute('data-start-y') || '0') });
@@ -430,6 +431,11 @@ export const Shuffle: React.FC<ShuffleProps> = ({
           });
         }
 
+        tl.add(() => {
+          playingRef.current = false;
+          onShuffleComplete?.();
+        });
+
         tlRef.current = tl;
       };
 
@@ -438,6 +444,12 @@ export const Shuffle: React.FC<ShuffleProps> = ({
         removeHover();
         const handler = () => {
           if (playingRef.current) return;
+          if (loop && tlRef.current) {
+            playingRef.current = true;
+            if (scrambleCharset) randomizeScrambles();
+            tlRef.current.restart(true);
+            return;
+          }
           build();
           if (scrambleCharset) randomizeScrambles();
           play();
