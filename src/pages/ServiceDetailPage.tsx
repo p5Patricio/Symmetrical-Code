@@ -17,7 +17,7 @@ import { FiArrowUpRight, FiCheck, FiChevronDown } from 'react-icons/fi';
 export default function ServiceDetailPage() {
   const { slug } = useParams<{ slug: string }>();
   const { i18n } = useTranslation();
-  const isEs = (i18n.resolvedLanguage || i18n.language || 'es').startsWith('es');
+  const isEs = (i18n?.resolvedLanguage || i18n?.language || 'es').startsWith('es');
 
   const [openFaq, setOpenFaq] = useState<number | null>(0);
   const [isContactOpen, setIsContactOpen] = useState(false);

@@ -8,7 +8,7 @@ import Shuffle from '../ui/Shuffle';
 
 export default function HeroSection() {
   const { t, i18n } = useTranslation();
-  const isEs = (i18n.resolvedLanguage || i18n.language || 'es').startsWith('es');
+  const isEs = (i18n?.resolvedLanguage || i18n?.language || 'es').startsWith('es');
 
   const whatsappUrl = 'https://wa.me/524737374224';
 

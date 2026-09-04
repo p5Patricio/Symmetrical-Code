@@ -24,12 +24,12 @@ const SERVICE_SLUGS = [
 ];
 
 const SERVICE_COLORS = [
-  '#4ade80', // systems / software empresarial (emerald)
-  '#a855f7', // IA (electric purple - differentiated from cyan/blue)
-  '#00e5ff', // web & móvil (vibrant electric cyan)
-  '#facc15', // security (cyber gold)
-  '#f43f5e', // uiux (vibrant coral rose)
-  '#38bdf8', // analytics (sky blue)
+  '#4ade80', // 01 systems / software empresarial (emerald)
+  '#a855f7', // 02 IA (electric purple)
+  '#00e5ff', // 03 web & móvil (vibrant electric cyan)
+  '#facc15', // 04 security (cyber gold)
+  '#f43f5e', // 05 uiux (vibrant coral rose)
+  '#f97316', // 06 analytics & automatización (vibrant cyber orange)
 ];
 
 type ServiceItem = {
@@ -41,7 +41,17 @@ type ServiceItem = {
 /* Six positions around an ellipse, starting at 12 o'clock and stepping 60°. */
 const ORBIT_ANGLES = [-90, -30, 30, 90, 150, 210];
 
-function OrbitCard({ service, index, style }: { service: ServiceItem; index: number; style?: React.CSSProperties }) {
+function OrbitCard({
+  service,
+  index,
+  isEs,
+  style,
+}: {
+  service: ServiceItem;
+  index: number;
+  isEs: boolean;
+  style?: React.CSSProperties;
+}) {
   const accent = SERVICE_COLORS[index] || '#195fc1';
   const slug = service.slug || SERVICE_SLUGS[index] || 'software-empresarial';
   const iconName = SERVICE_REICONS[index] || 'database';
@@ -54,9 +64,9 @@ function OrbitCard({ service, index, style }: { service: ServiceItem; index: num
     >
       <SpotlightCard
         accentColor={accent}
-        className="orbit-card h-full flex flex-col justify-between"
+        className="orbit-card h-full flex flex-col justify-between relative"
       >
-        <div>
+        <div className="pb-6">
           <div className="flex items-center justify-between mb-3.5">
             <div
               className="w-10 h-10 rounded-xl flex items-center justify-center border transition-all duration-300"
@@ -88,21 +98,14 @@ function OrbitCard({ service, index, style }: { service: ServiceItem; index: num
           </p>
         </div>
 
-        <div className="pt-2.5 mt-auto border-t border-white/[0.06] flex flex-col gap-1.5 transition-colors">
+        {/* Action Button: Pinned to bottom-right corner */}
+        <div className="absolute bottom-2.5 right-3.5 z-20">
           <span
-            className="font-mono text-[11px] uppercase tracking-wider block"
-            style={{ color: `${accent}99` }}
+            className="font-mono text-[11px] font-semibold inline-flex items-center gap-1 transition-transform duration-200 group-hover:translate-x-1"
+            style={{ color: accent }}
           >
-            {service.slug || 'SERVICIO'}
+            {isEs ? 'Ver detalle' : 'View details'} →
           </span>
-          <div className="flex justify-end">
-            <span
-              className="font-mono text-[11px] font-medium inline-flex items-center gap-1 transition-transform duration-200 group-hover:translate-x-1"
-              style={{ color: accent }}
-            >
-              Ver detalle →
-            </span>
-          </div>
         </div>
       </SpotlightCard>
     </Link>
@@ -110,7 +113,8 @@ function OrbitCard({ service, index, style }: { service: ServiceItem; index: num
 }
 
 export default function Services() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const isEs = (i18n?.resolvedLanguage || i18n?.language || 'es').startsWith('es');
   const rawItems = t('services.items', { returnObjects: true });
   const items = Array.isArray(rawItems) ? (rawItems as ServiceItem[]) : [];
 
@@ -167,6 +171,7 @@ export default function Services() {
                 key={i}
                 service={service}
                 index={i}
+                isEs={isEs}
                 style={{ left: `${x}%`, top: `${y}%` }}
               />
             );
@@ -199,21 +204,21 @@ export default function Services() {
         }
 
         @media (min-width: 1280px) {
-          .orbit-stage { display: block; height: 1010px; }
+          .orbit-stage { display: block; height: 980px; }
           .orbit-guide { display: block; position: absolute; inset: 0; width: 100%; height: 100%; }
           .orbit-center { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: 460px; z-index: 2; }
-          .orbit-card-link { position: absolute; transform: translate(-50%, -50%); width: 285px; z-index: 3; }
+          .orbit-card-link { position: absolute; transform: translate(-50%, -50%); width: 268px; z-index: 3; }
           .orbit-card-link:hover { transform: translate(-50%, -50%) translateY(-4px); }
         }
 
         .orbit-card {
-          min-height: 295px;
+          min-height: 260px;
           height: 100%;
-          padding: 22px 24px;
+          padding: 20px 20px 34px 20px;
         }
 
         @media (min-width: 1280px) {
-          .orbit-card { height: 325px; }
+          .orbit-card { height: 315px; }
         }
       `}</style>
     </section>

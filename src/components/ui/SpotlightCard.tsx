@@ -11,6 +11,8 @@ export const SpotlightCard: React.FC<SpotlightCardProps> = ({
   children,
   className = '',
   style,
+  accentColor,
+  spotlightColor,
   ...props
 }) => {
   const cardRef = useRef<HTMLDivElement>(null);
