@@ -139,9 +139,9 @@ export default function Navbar() {
             <img
               src="/favicon.svg"
               alt="Symmetrical Code"
-              className="h-6 sm:h-7 w-auto transition-transform duration-300 group-hover:scale-105"
+              className="h-7 w-auto transition-transform duration-300 group-hover:scale-105"
             />
-            <span className="font-syne font-bold text-xs sm:text-sm tracking-tight text-white/90 group-hover:text-white transition-colors">
+            <span className="hidden sm:inline font-syne font-bold text-xs sm:text-sm tracking-tight text-white/90 group-hover:text-white transition-colors">
               Symmetrical<span className="text-[#195fc1]">Code</span>
             </span>
           </button>
@@ -167,34 +167,35 @@ export default function Navbar() {
           </nav>
 
           {/* Controls (Derecha) */}
-          <div className="flex items-center gap-2 sm:gap-2.5">
+          <div className="flex items-center gap-2.5 sm:gap-2.5">
             {/* Theme Toggle Button */}
             <button
               onClick={toggleTheme}
-              className="w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center rounded-full border border-white/[0.08] hover:border-[#195fc1]/50 bg-white/[0.02] hover:bg-[#195fc1]/10 text-white/80 hover:text-[#195fc1] transition-all duration-300 cursor-pointer"
+              className="w-9 h-9 sm:w-8 sm:h-8 flex items-center justify-center rounded-full border border-white/[0.08] hover:border-[#195fc1]/50 bg-white/[0.02] hover:bg-[#195fc1]/10 text-white/80 hover:text-[#195fc1] transition-all duration-300 cursor-pointer"
               aria-label={theme === 'dark' ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro'}
               title={theme === 'dark' ? 'Modo claro' : 'Modo oscuro'}
             >
-              {theme === 'dark' ? <FiSun size={13} /> : <FiMoon size={13} />}
+              {theme === 'dark' ? <FiSun className="w-4 h-4 sm:w-3.5 sm:h-3.5" /> : <FiMoon className="w-4 h-4 sm:w-3.5 sm:h-3.5" />}
             </button>
 
             <button
               onClick={toggleLang}
-              className="font-mono text-[10px] sm:text-[11px] tracking-wider border border-white/[0.08] hover:border-white/[0.25] bg-white/[0.02] hover:bg-white/[0.06] text-white/70 hover:text-white px-2.5 sm:px-3 py-1 rounded-full transition-all duration-200 cursor-pointer"
+              className="font-mono text-xs sm:text-[11px] font-medium tracking-wider border border-white/[0.08] hover:border-white/[0.25] bg-white/[0.02] hover:bg-white/[0.06] text-white/70 hover:text-white px-3.5 sm:px-3 py-1.5 sm:py-1 rounded-full transition-all duration-200 cursor-pointer"
             >
               {i18n.language === 'es' ? 'EN' : 'ES'}
             </button>
 
-            {/* Hamburger Button (Mobile) */}
+            {/* Hamburger Button (Mobile) - 3 lines */}
             <button
               onClick={() => setMenuOpen(!menuOpen)}
-              className="md:hidden relative w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center focus:outline-none cursor-pointer rounded-full border border-white/[0.08] hover:border-[#195fc1]/50 bg-white/[0.02] hover:bg-[#195fc1]/10 text-white/80 hover:text-[#195fc1] transition-all duration-300"
+              className="md:hidden relative w-9 h-9 sm:w-8 sm:h-8 flex items-center justify-center focus:outline-none cursor-pointer rounded-full border border-white/[0.08] hover:border-[#195fc1]/50 bg-white/[0.02] hover:bg-[#195fc1]/10 text-white/80 hover:text-[#195fc1] transition-all duration-300"
               aria-label={menuOpen ? 'Cerrar menú' : 'Abrir menú'}
             >
               {!menuOpen ? (
-                <div className="flex flex-col items-center gap-1">
-                  <span className="block w-3.5 h-0.5 rounded-full transition-colors" style={{ backgroundColor: theme === 'light' ? '#0B132B' : 'rgba(255, 255, 255, 0.85)' }} />
-                  <span className="block w-3.5 h-0.5 rounded-full transition-colors" style={{ backgroundColor: theme === 'light' ? '#0B132B' : 'rgba(255, 255, 255, 0.85)' }} />
+                <div className="flex flex-col items-center justify-center gap-1">
+                  <span className="block w-4 h-0.5 rounded-full transition-colors" style={{ backgroundColor: theme === 'light' ? '#0B132B' : 'rgba(255, 255, 255, 0.85)' }} />
+                  <span className="block w-4 h-0.5 rounded-full transition-colors" style={{ backgroundColor: theme === 'light' ? '#0B132B' : 'rgba(255, 255, 255, 0.85)' }} />
+                  <span className="block w-4 h-0.5 rounded-full transition-colors" style={{ backgroundColor: theme === 'light' ? '#0B132B' : 'rgba(255, 255, 255, 0.85)' }} />
                 </div>
               ) : (
                 <div className="relative w-4 h-4 flex items-center justify-center">
