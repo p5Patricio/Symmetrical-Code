@@ -657,6 +657,10 @@ html.light #projects article h3 {
   color: #0B132B !important;
 }
 
+html.light #projects h2 .count-highlight {
+  color: #195fc1 !important;
+}
+
 html.light #projects > div > div p,
 html.light #projects article p {
   color: #475569 !important;

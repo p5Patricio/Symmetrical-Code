@@ -11,6 +11,17 @@ globalThis.ResizeObserver = class ResizeObserver {
   disconnect = vi.fn();
 };
 
+// Mock de IntersectionObserver para useInView en JSDOM
+globalThis.IntersectionObserver = class IntersectionObserver {
+  root = null;
+  rootMargin = '';
+  thresholds = [];
+  observe = vi.fn();
+  unobserve = vi.fn();
+  disconnect = vi.fn();
+  takeRecords = vi.fn(() => []);
+};
+
 // Mock de window.matchMedia para GSAP y animaciones en JSDOM
 if (typeof window !== 'undefined') {
   Object.defineProperty(window, 'matchMedia', {
