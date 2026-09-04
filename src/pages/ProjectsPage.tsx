@@ -37,12 +37,12 @@ const GridIcon = () => (
   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><rect x="3" y="3" width="7" height="7" /><rect x="14" y="3" width="7" height="7" /><rect x="14" y="14" width="7" height="7" /><rect x="3" y="14" width="7" height="7" /></svg>
 );
 
-const ChevronLeft = () => (
-  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+const ChevronLeft = ({ className = "w-4 h-4" }: { className?: string }) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className={className}><polyline points="15 18 9 12 15 6"/></svg>
 );
 
-const ChevronRight = () => (
-  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+const ChevronRight = ({ className = "w-4 h-4" }: { className?: string }) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className={className}><polyline points="9 18 15 12 9 6"/></svg>
 );
 
 const CloseIcon = () => (
@@ -50,10 +50,17 @@ const CloseIcon = () => (
 );
 
 // --- Subcomponents ---
-const ImageWithFallback = ({ src, alt, fallback }: { src?: string; alt: string; fallback: React.ReactNode }) => {
+const ImageWithFallback = ({ src, alt, fallback, className }: { src?: string; alt: string; fallback: React.ReactNode; className?: string }) => {
   const [error, setError] = useState(false);
   if (!src || error) return <>{fallback}</>;
-  return <img src={src} alt={alt} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" onError={() => setError(true)} />;
+  return (
+    <img 
+      src={src} 
+      alt={alt} 
+      className={className || "w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"} 
+      onError={() => setError(true)} 
+    />
+  );
 };
 
 const ProjectImage = ({ index, title }: { index: number; title: string }) => {
@@ -97,7 +104,7 @@ const GalleryModal = ({ title, images, onClose }: { title: string; images: strin
           }} 
           className="absolute left-3 sm:left-6 z-10 p-2 sm:p-3 rounded-full bg-white/10 text-white/70 hover:text-white hover:bg-white/20 transition-all cursor-pointer"
         >
-          <ChevronLeft />
+          <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6" />
         </button>
         
         {/* Contenedor de imagen - Tamaño reducido y centrado */}
@@ -121,7 +128,7 @@ const GalleryModal = ({ title, images, onClose }: { title: string; images: strin
           }} 
           className="absolute right-3 sm:right-6 z-10 p-2 sm:p-3 rounded-full bg-white/10 text-white/70 hover:text-white hover:bg-white/20 transition-all cursor-pointer"
         >
-          <ChevronRight />
+          <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6" />
         </button>
       </div>
       
@@ -153,92 +160,158 @@ const DetailModal = ({ project, index, totalProjects, onNext, onPrev, onClose }:
   const modalContent = (
     <>
       <div className="fixed inset-0 z-[400] bg-slate-900/40 dark:bg-[#020408]/95 backdrop-blur-md dark:backdrop-blur-2xl flex flex-col items-center justify-center p-3 sm:p-4 overflow-y-auto" onClick={onClose}>
-        {/* Fixed height container with consistent sizing */}
-        <div className="detail-modal-card w-full max-w-4xl h-[85vh] max-h-[700px] bg-white dark:bg-gradient-to-br dark:from-[#070d14] dark:to-[#03060a] border border-slate-200/90 dark:border-white/10 rounded-xl sm:rounded-2xl relative shadow-2xl shadow-blue-500/10 dark:shadow-2xl mb-8 shrink-0 overflow-hidden" onClick={e => e.stopPropagation()}>
-          <button onClick={onClose} className="absolute top-4 right-4 sm:top-6 sm:right-6 p-2 rounded-full text-slate-400 hover:text-slate-700 bg-slate-100/90 hover:bg-slate-200 dark:bg-white/5 dark:text-white/30 dark:hover:text-white dark:hover:bg-white/10 transition-colors z-20 cursor-pointer"><CloseIcon /></button>
-          <div className="flex flex-col md:grid md:grid-cols-2 h-full">
-            {/* Left column - Image */}
-            <div className="relative h-48 sm:h-56 md:h-full bg-slate-100 dark:bg-[#03060a] overflow-hidden">
-              <div className="w-full h-full">
-                <ImageWithFallback 
-                  src={project.ogImageUrl} 
-                  alt={project.title} 
-                  fallback={<ProjectImage index={index} title={project.title} />} 
-                />
-              </div>
-              <div className="absolute inset-0 bg-gradient-to-t from-white/90 via-transparent to-transparent md:bg-gradient-to-r md:from-transparent md:to-white/80 dark:from-[#020408] dark:via-transparent dark:to-transparent dark:md:from-transparent dark:md:to-[#070d14]" />
+        {/* Modal Card Container */}
+        <div 
+          className="detail-modal-card w-full max-w-4xl lg:max-w-5xl h-[88vh] sm:h-[85vh] max-h-[740px] md:max-h-[640px] bg-white dark:bg-gradient-to-br dark:from-[#070d14] dark:to-[#03060a] border border-slate-200/90 dark:border-white/10 rounded-xl sm:rounded-2xl relative shadow-2xl shadow-blue-500/10 dark:shadow-2xl mb-4 sm:mb-6 shrink-0 overflow-hidden flex flex-col md:flex-row" 
+          onClick={e => e.stopPropagation()}
+        >
+          {/* Close Button */}
+          <button 
+            onClick={onClose} 
+            className="absolute top-3.5 right-3.5 sm:top-5 sm:right-5 p-2 rounded-full text-slate-600 hover:text-slate-900 bg-white/80 hover:bg-white dark:bg-black/60 dark:text-white/70 dark:hover:text-white dark:hover:bg-black/80 backdrop-blur-md transition-all z-30 shadow-md cursor-pointer"
+            aria-label="Cerrar modal"
+          >
+            <CloseIcon />
+          </button>
+
+          {/* ─── Image Section ─── */}
+          {/* Mobile: top (order-1), Desktop: right (md:order-2) full width without right crop */}
+          <div className="order-1 md:order-2 w-full md:w-[55%] lg:w-[58%] h-48 sm:h-56 md:h-full relative bg-[#03060a] flex items-center justify-center overflow-hidden shrink-0 group/img">
+            {project.ogImageUrl && (
+              <img 
+                src={project.ogImageUrl} 
+                alt="" 
+                aria-hidden="true" 
+                className="absolute inset-0 w-full h-full object-cover blur-2xl opacity-40 dark:opacity-25 pointer-events-none scale-110" 
+              />
+            )}
+            <div className="relative z-10 w-full h-full flex items-center justify-center p-0 md:p-3">
+              <ImageWithFallback 
+                src={project.ogImageUrl} 
+                alt={project.title} 
+                fallback={<ProjectImage index={index} title={project.title} />} 
+                className="w-full h-full object-cover md:object-contain object-center transition-transform duration-500 group-hover/img:scale-[1.01]"
+              />
             </div>
-            {/* Right column - Content */}
-            <div className="p-4 sm:p-5 md:p-6 lg:p-8 flex flex-col gap-3 sm:gap-4 md:gap-5 overflow-y-auto" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
-              <style>{`
-                .detail-content::-webkit-scrollbar {
-                  display: none;
-                  width: 0;
-                  height: 0;
-                }
-              `}</style>
-              <div className="flex-shrink-0">
-                <span className="font-mono text-[8px] sm:text-[9px] text-[#195fc1] tracking-widest uppercase mb-1.5 block font-bold">{t('projects.case_label', { defaultValue: 'CASO DE PROYECTO' })}</span>
-                <h3 className="font-syne font-black text-xl sm:text-2xl md:text-3xl text-slate-900 dark:text-white tracking-tight">{project.title}</h3>
-                <div className="w-8 sm:w-10 h-0.5 sm:h-1 bg-[#195fc1] mt-2 sm:mt-3" />
-              </div>
-              
-              {/* Description with hidden scrollbar */}
-              <div className="flex-1 min-h-0 overflow-y-auto detail-content" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
-                <p className="text-slate-600 dark:text-white/50 leading-relaxed text-xs sm:text-sm text-justify">{project.description}</p>
-              </div>
-              
+          </div>
+
+          {/* ─── Description / Content Section ─── */}
+          {/* Mobile: bottom (order-2), Desktop: left (md:order-1) */}
+          <div 
+            className="order-2 md:order-1 w-full md:w-[45%] lg:w-[42%] p-4 sm:p-6 md:p-7 lg:p-8 flex flex-col flex-1 min-h-0 overflow-y-auto detail-content"
+            style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+          >
+            <style>{`
+              .detail-content::-webkit-scrollbar {
+                display: none;
+                width: 0;
+                height: 0;
+              }
+            `}</style>
+            
+            {/* Header */}
+            <div className="flex-shrink-0">
+              <span className="font-mono text-[8px] sm:text-[9px] text-[#195fc1] tracking-widest uppercase mb-1.5 block font-bold">
+                {t('projects.case_label', { defaultValue: 'CASO DE PROYECTO' })}
+              </span>
+              <h3 className="font-syne font-black text-xl sm:text-2xl md:text-3xl text-slate-900 dark:text-white tracking-tight">
+                {project.title}
+              </h3>
+              <div className="w-8 sm:w-10 h-0.5 sm:h-1 bg-[#195fc1] mt-2 sm:mt-3" />
+            </div>
+
+            {/* Description paragraph */}
+            <div className="flex-1 min-h-0 overflow-y-auto detail-content my-3 sm:my-4" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+              <p className="text-slate-600 dark:text-white/50 leading-relaxed text-xs sm:text-sm text-justify">
+                {project.description}
+              </p>
+            </div>
+
+            {/* Bottom section: tech tags & action buttons anchored at bottom */}
+            <div className="mt-auto shrink-0 flex flex-col gap-3 pt-2">
               {/* Tags */}
-              <div className="flex flex-wrap gap-1.5 sm:gap-2 flex-shrink-0">
+              <div className="flex flex-wrap gap-1.5 sm:gap-2">
                 {project.tags.slice(0, 6).map(tag => (
                   <div key={tag} className="flex items-center gap-1 px-2 py-0.5 sm:py-1 rounded-md border border-slate-200/90 bg-slate-100/80 text-slate-700 dark:border-white/5 dark:bg-white/5 dark:text-white/40 group/tag">
-                    {techIconMap[tag] && <img src={techIconMap[tag]} alt={tag} className="w-2.5 h-2.5 sm:w-3 sm:h-3 opacity-70 group-hover/tag:opacity-100 dark:opacity-50 dark:group-hover/tag:opacity-100 transition-opacity" />}
+                    {techIconMap[tag] && (
+                      <img 
+                        src={techIconMap[tag]} 
+                        alt={tag} 
+                        className="w-2.5 h-2.5 sm:w-3 sm:h-3 opacity-70 group-hover/tag:opacity-100 dark:opacity-50 dark:group-hover/tag:opacity-100 transition-opacity" 
+                        onError={(e) => (e.currentTarget.style.display = 'none')}
+                      />
+                    )}
                     <span className="text-slate-700 group-hover/tag:text-slate-900 dark:text-white/40 dark:group-hover/tag:text-white transition-colors text-[8px] sm:text-[9px] font-mono uppercase tracking-wider font-medium">{tag}</span>
                   </div>
                 ))}
               </div>
 
-              {/* Buttons */}
-              <div className="flex flex-wrap gap-1.5 sm:gap-2 flex-shrink-0 pt-3 sm:pt-4 border-t border-slate-200/80 dark:border-white/5">
+              {/* Action buttons */}
+              <div className="flex flex-wrap gap-1.5 sm:gap-2 pt-3 border-t border-slate-200/80 dark:border-white/5">
                 {project.demoUrl && (
-                  <a href={project.demoUrl} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-1.5 font-mono text-[9px] sm:text-[10px] tracking-wider uppercase px-3 sm:px-5 py-1.5 sm:py-2 bg-[#195fc1] text-white font-bold rounded-md transition-all hover:scale-105 hover:shadow-[0_0_25px_rgba(25,95,193,0.5)]">
-                    <ExternalLinkIcon />{t('projects.view_demo')}
+                  <a 
+                    href={project.demoUrl} 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    className="flex items-center justify-center gap-1.5 font-mono text-[9px] sm:text-[10px] tracking-wider uppercase px-3 sm:px-5 py-1.5 sm:py-2 bg-[#195fc1] text-white font-bold rounded-md transition-all hover:scale-105 hover:shadow-[0_0_25px_rgba(25,95,193,0.5)]"
+                  >
+                    <ExternalLinkIcon />{t('projects.view_demo', { defaultValue: 'Ver Demo' })}
                   </a>
                 )}
-                {project.githubUrl && (
-                  <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-1.5 font-mono text-[9px] sm:text-[10px] tracking-wider uppercase px-3 sm:px-4 py-1.5 sm:py-2 bg-slate-100 border border-slate-200 text-slate-700 hover:bg-slate-200 hover:text-slate-900 dark:bg-white/5 dark:border-white/10 dark:text-white/70 dark:hover:bg-white/10 rounded-md transition-all">
+                {project.githubUrl && project.githubUrl.trim() !== '' && (
+                  <a 
+                    href={project.githubUrl} 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    className="flex items-center justify-center gap-1.5 font-mono text-[9px] sm:text-[10px] tracking-wider uppercase px-3 sm:px-4 py-1.5 sm:py-2 bg-slate-100 border border-slate-200 text-slate-700 hover:bg-slate-200 hover:text-slate-900 dark:bg-white/5 dark:border-white/10 dark:text-white/70 dark:hover:bg-white/10 rounded-md transition-all"
+                  >
                     <GithubIcon />Source
                   </a>
                 )}
-                <button onClick={() => setGalleryOpen(true)} className="flex items-center justify-center gap-1.5 font-mono text-[9px] sm:text-[10px] tracking-wider uppercase px-3 sm:px-4 py-1.5 sm:py-2 bg-slate-100 border border-slate-200 text-slate-700 hover:bg-slate-200 hover:text-slate-900 dark:bg-white/5 dark:border-white/10 dark:text-white/70 dark:hover:bg-white/10 rounded-md transition-all cursor-pointer">
-                  <ImagesIcon />{t('projects.gallery')}
+                <button 
+                  onClick={() => setGalleryOpen(true)} 
+                  className="flex items-center justify-center gap-1.5 font-mono text-[9px] sm:text-[10px] tracking-wider uppercase px-3 sm:px-4 py-1.5 sm:py-2 bg-slate-100 border border-slate-200 text-slate-700 hover:bg-slate-200 hover:text-slate-900 dark:bg-white/5 dark:border-white/10 dark:text-white/70 dark:hover:bg-white/10 rounded-md transition-all cursor-pointer"
+                >
+                  <ImagesIcon />{t('projects.gallery', { defaultValue: 'Galería' })}
                 </button>
               </div>
             </div>
           </div>
         </div>
 
-        <div className="flex flex-col items-center gap-4 sm:gap-6 shrink-0" onClick={e => e.stopPropagation()}>
-           <div className="flex items-center gap-3 sm:gap-6">
-              <button onClick={onPrev} className="group flex items-center gap-1.5 sm:gap-2 text-slate-700 hover:text-[#195fc1] dark:text-white/40 dark:hover:text-[#195fc1] transition-all cursor-pointer">
-                <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full border border-slate-300/90 bg-white/90 text-slate-700 group-hover:border-[#195fc1] group-hover:text-[#195fc1] shadow-sm dark:border-white/10 dark:bg-transparent dark:text-white/40 dark:group-hover:border-[#195fc1]/40 dark:group-hover:bg-[#195fc1]/10 flex items-center justify-center transition-all">
-                  <ChevronLeft />
-                </div>
-                <span className="hidden sm:inline font-mono text-[10px] uppercase tracking-[.2em] font-bold">{t('projects.prev_project', { defaultValue: 'VER ANTERIOR PROYECTO' })}</span>
-              </button>
+        {/* ─── Bottom Navigation Controls Pinned to Edges ─── */}
+        <div 
+          className="w-full max-w-4xl lg:max-w-5xl px-2 sm:px-4 flex items-center justify-between shrink-0 mb-1 sm:mb-2" 
+          onClick={e => e.stopPropagation()}
+        >
+          {/* Anterior Button (pinned left) */}
+          <button 
+            onClick={onPrev} 
+            className="group flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 rounded-full bg-white/90 hover:bg-white text-slate-700 hover:text-[#195fc1] border border-slate-200/90 shadow-sm backdrop-blur-md dark:bg-slate-900/80 dark:hover:bg-slate-900 dark:text-white/70 dark:hover:text-white dark:border-white/10 hover:border-[#195fc1]/50 dark:hover:border-[#195fc1]/50 transition-all cursor-pointer select-none"
+          >
+            <ChevronLeft className="w-3.5 h-3.5 sm:w-4 sm:h-4 transition-transform group-hover:-translate-x-0.5" />
+            <span className="font-mono text-[9px] sm:text-[11px] uppercase tracking-wider sm:tracking-[0.15em] font-bold">
+              {t('projects.prev_short', { defaultValue: 'Anterior' })}
+            </span>
+          </button>
 
-              <div className="h-6 w-px bg-slate-300 dark:bg-white/10 hidden sm:block" />
-
-              <button onClick={onNext} className="group flex items-center gap-1.5 sm:gap-2 text-slate-700 hover:text-[#195fc1] dark:text-white/40 dark:hover:text-[#195fc1] transition-all text-right cursor-pointer">
-                <span className="hidden sm:inline font-mono text-[10px] uppercase tracking-[.2em] font-bold">{t('projects.next_project', { defaultValue: 'VER SIGUIENTE PROYECTO' })}</span>
-                <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full border border-slate-300/90 bg-white/90 text-slate-700 group-hover:border-[#195fc1] group-hover:text-[#195fc1] shadow-sm dark:border-white/10 dark:bg-transparent dark:text-white/40 dark:group-hover:border-[#195fc1]/40 dark:group-hover:bg-[#195fc1]/10 flex items-center justify-center transition-all">
-                  <ChevronRight />
-                </div>
-              </button>
-           </div>
-           <div className="font-mono text-[9px] text-slate-600 dark:text-white/20 tracking-[.3em] uppercase font-bold dark:font-normal">
+          {/* Project Indicator (in the middle) */}
+          <div className="flex items-center justify-center px-3 sm:px-4 py-1.5 rounded-full bg-white/90 border border-slate-200/90 shadow-sm backdrop-blur-md dark:bg-slate-900/80 dark:border-white/10">
+            <span className="font-mono text-[10px] sm:text-xs text-slate-800 dark:text-white/80 font-bold tracking-[0.2em] uppercase">
               {String(index + 1).padStart(2, '0')} / {String(totalProjects).padStart(2, '0')}
-           </div>
+            </span>
+          </div>
+
+          {/* Siguiente Button (pinned right) */}
+          <button 
+            onClick={onNext} 
+            className="group flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 rounded-full bg-white/90 hover:bg-white text-slate-700 hover:text-[#195fc1] border border-slate-200/90 shadow-sm backdrop-blur-md dark:bg-slate-900/80 dark:hover:bg-slate-900 dark:text-white/70 dark:hover:text-white dark:border-white/10 hover:border-[#195fc1]/50 dark:hover:border-[#195fc1]/50 transition-all cursor-pointer select-none text-right"
+          >
+            <span className="font-mono text-[9px] sm:text-[11px] uppercase tracking-wider sm:tracking-[0.15em] font-bold">
+              {t('projects.next_short', { defaultValue: 'Siguiente' })}
+            </span>
+            <ChevronRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 transition-transform group-hover:translate-x-0.5" />
+          </button>
         </div>
       </div>
       {galleryOpen && <GalleryModal title={project.title} images={images} onClose={() => setGalleryOpen(false)} />}

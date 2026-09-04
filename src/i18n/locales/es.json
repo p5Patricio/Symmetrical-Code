@@ -167,7 +167,9 @@
     "case_label": "Caso de proyecto",
     "technologies": "Tecnologías",
     "no_projects": "No hay proyectos en esta categoría.",
-    "source_code": "Código fuente"
+    "source_code": "Código fuente",
+    "prev_short": "Anterior",
+    "next_short": "Siguiente"
   },
   "team": {
     "label": "Nuestro Equipo",
