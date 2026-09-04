@@ -1,4 +1,5 @@
 import { useTranslation } from 'react-i18next';
+import ProjectWorkflow from './ProjectWorkflow';
 
 const CodeIcon = () => (
   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -197,6 +198,11 @@ export default function Team() {
             })}
           </div>
         </div>
+
+        {/* ========================================================= */}
+        {/* BLOQUE: CROQUIS METODOLOGÍA / WORKFLOW EN 4 ETAPAS        */}
+        {/* ========================================================= */}
+        <ProjectWorkflow />
 
         {/* ========================================================= */}
         {/* BLOQUE: LOS 3 PILARES DE INGENIERÍA                      */}

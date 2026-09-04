@@ -176,6 +176,57 @@
     "label": "Our Team",
     "title": "Why Symmetrical Code?",
     "subtitle": "We combine high-level software engineering with a comprehensive approach geared towards empowering your business.",
+    "workflow_label": "METHODOLOGY // 4-STAGE PIPELINE",
+    "workflow_title": "How we bring your projects to life",
+    "workflow_subtitle": "A transparent and structured engineering process: zero ambiguity, fixed budgets, and functional progress every two weeks.",
+    "workflow_touchpoint_label": "Client touchpoint:",
+    "workflow_deliverables_label": "Key deliverables:",
+    "workflow_steps": [
+      {
+        "id": "analysis",
+        "step": "STAGE_01",
+        "status": "DIAGNOSTIC",
+        "title": "Analysis & Requirements",
+        "tagline": "In-depth diagnostic & technical feasibility",
+        "description": "We deconstruct your operational bottleneck. We audit existing workflows and translate business needs into rigorous, unambiguous software engineering specifications.",
+        "deliverables": ["Technical SRS Document", "Data Flow Diagram (DFD)", "Feasibility & Stack Matrix"],
+        "touchpoint": "1-on-1 Discovery Workshop",
+        "badge": "0% Ambiguity"
+      },
+      {
+        "id": "scope",
+        "step": "STAGE_02",
+        "status": "BLUEPRINT",
+        "title": "Scope Definition & Design",
+        "tagline": "Data architecture & fixed budget agreement",
+        "description": "We model relational databases and design interactive UX/UI prototypes in Figma. We lock in a sprint schedule with fixed costs: you know what you get, when, and at what price.",
+        "deliverables": ["Interactive Figma Prototype", "Entity-Relationship Model (ERD)", "Locked Sprint Roadmap"],
+        "touchpoint": "Prototype Sign-off & Contract",
+        "badge": "Fixed Budget"
+      },
+      {
+        "id": "development",
+        "step": "STAGE_03",
+        "status": "IN SPRINTS",
+        "title": "Development & Engineering",
+        "tagline": "Modular code, CI/CD & bi-weekly demos",
+        "description": "We build under clean architecture principles and automated testing. Continuous deployments to private staging environments allow you to validate real progress every 14 days.",
+        "deliverables": ["Modular Clean Codebase", "Private Staging Environment", "Unit & Security Test Suites"],
+        "touchpoint": "Bi-weekly live sprint demos",
+        "badge": "Working Sprints"
+      },
+      {
+        "id": "delivery",
+        "step": "STAGE_04",
+        "status": "PRODUCTION",
+        "title": "Final Delivery & Deployment",
+        "tagline": "Cloud launch, 100% code ownership & warranty",
+        "description": "Production launch on high-availability cloud infrastructure with SSL and 24/7 monitoring. We transfer 100% intellectual property, train your team, and back the system with a post-launch warranty.",
+        "deliverables": ["Production Cloud Deployment", "100% Code Ownership Transfer", "Warranty & Support Policy"],
+        "touchpoint": "Go-Live + Hands-on Training",
+        "badge": "100% Your Code"
+      }
+    ],
     "institutions_label": "TECHNICAL BACKGROUND & EDUCATION",
     "institutions_title": "Backed by elite academic training & global certifications",
     "institutions_desc": "Our team unites rigorous formal software engineering with hands-on mastery of industry-leading cloud and web technologies.",

@@ -175,6 +175,57 @@
     "label": "Nuestro Equipo",
     "title": "¿Por qué Symmetrical Code?",
     "subtitle": "Combinamos ingeniería de software de alto nivel con un enfoque integral orientado a potenciar tu negocio.",
+    "workflow_label": "METODOLOGÍA // INGENIERÍA EN 4 ETAPAS",
+    "workflow_title": "Cómo llevamos tus proyectos a la realidad",
+    "workflow_subtitle": "Un proceso de ingeniería transparente y estructurado: cero ambigüedad, presupuestos blindados y avances funcionales cada dos semanas.",
+    "workflow_touchpoint_label": "Punto de contacto:",
+    "workflow_deliverables_label": "Entregables clave:",
+    "workflow_steps": [
+      {
+        "id": "analysis",
+        "step": "FASE_01",
+        "status": "DIAGNÓSTICO",
+        "title": "Análisis y Requerimientos",
+        "tagline": "Diagnóstico profundo y viabilidad técnica",
+        "description": "Deconstruimos tu problema operativo. Analizamos tus flujos de trabajo actuales y traducimos necesidades de negocio en especificaciones técnicas de software sin ambigüedades.",
+        "deliverables": ["Documento SRS Técnico", "Diagrama de Flujo de Datos (DFD)", "Matriz de Viabilidad & Stack"],
+        "touchpoint": "Taller 1-a-1 de Descubrimiento",
+        "badge": "0% Ambigüedad"
+      },
+      {
+        "id": "scope",
+        "step": "FASE_02",
+        "status": "BLUEPRINT",
+        "title": "Definición de Alcance y Diseño",
+        "tagline": "Arquitectura de datos y presupuesto cerrado",
+        "description": "Modelamos las bases de datos y diseñamos la experiencia interactiva en Figma. Pactamos un cronograma por sprints con un costo blindado: sabes qué recibirás, cuándo y por qué costo.",
+        "deliverables": ["Prototipo Interactivo Figma", "Modelo Entidad-Relación (ERD)", "Cronograma de Sprints Cerrado"],
+        "touchpoint": "Aprobación de Prototipo y Alcance",
+        "badge": "Presupuesto Fijo"
+      },
+      {
+        "id": "development",
+        "step": "FASE_03",
+        "status": "EN SPRINTS",
+        "title": "Desarrollo e Ingeniería",
+        "tagline": "Código modular, CI/CD y demos quincenales",
+        "description": "Programamos con arquitectura limpia y pruebas automatizadas. Desplegamos en entornos de Staging para que pruebes avances funcionales cada 14 días sin esperar al final del proyecto.",
+        "deliverables": ["Repositorio de Código Limpio", "Entorno Privado de Staging", "Pruebas Unitarias & de Seguridad"],
+        "touchpoint": "Demos quincenales en vivo",
+        "badge": "Sprints Funcionales"
+      },
+      {
+        "id": "delivery",
+        "step": "FASE_04",
+        "status": "PRODUCCIÓN",
+        "title": "Entrega Final y Despliegue",
+        "tagline": "Puesta en marcha, código 100% tuyo y garantía",
+        "description": "Lanzamiento a servidores cloud con SSL y monitoreo 24/7. Te entregamos la propiedad total del repositorio, capacitamos a tu equipo y respaldamos el sistema con póliza de garantía post-entrega.",
+        "deliverables": ["Despliegue Cloud en Producción", "100% Transferencia de Código", "Póliza de Garantía & Soporte"],
+        "touchpoint": "Go-Live + Sesión de Capacitación",
+        "badge": "100% Tu Código"
+      }
+    ],
     "institutions_label": "FORMACIÓN & PREPARACIÓN TÉCNICA",
     "institutions_title": "Respaldados por formación de élite y certificaciones globales",
     "institutions_desc": "Nuestro equipo combina el rigor de la ingeniería formal con la experiencia práctica en tecnologías líderes de la industria.",
