@@ -48,11 +48,16 @@ export default function DeviceShowcase() {
   const appViewRef = useRef<HTMLDivElement>(null);
   const appElsRef = useRef<HTMLDivElement>(null);
   const phoneRef = useRef<HTMLDivElement>(null);
+  const phoneBuildViewRef = useRef<HTMLDivElement>(null);
+  const phoneAppViewRef = useRef<HTMLDivElement>(null);
+  const phoneProgressRef = useRef<HTMLDivElement>(null);
+  const phonePercentRef = useRef<HTMLSpanElement>(null);
+  const phoneStepRef = useRef<HTMLDivElement>(null);
   const timersRef = useRef<ReturnType<typeof setTimeout>[]>([]);
 
   /* ── Build → preview cycle, paused while off-screen ──
-     Laptop types code, holds, then crossfades to a rendered app preview
-     while the phone assembles its own screen in step — then resets. */
+     Laptop types code while phone displays real-time compilation sync with Symmetrical logo.
+     When deployed, both laptop and phone transition into live graphical applications. */
   useEffect(() => {
     const root = rootRef.current;
     const code = codeRef.current;
@@ -60,6 +65,11 @@ export default function DeviceShowcase() {
     const appView = appViewRef.current;
     const appEls = appElsRef.current;
     const phone = phoneRef.current;
+    const phoneBuild = phoneBuildViewRef.current;
+    const phoneApp = phoneAppViewRef.current;
+    const phoneProgress = phoneProgressRef.current;
+    const phonePercent = phonePercentRef.current;
+    const phoneStep = phoneStepRef.current;
     if (!root || !code || !codeView || !appView || !appEls || !phone) return;
 
     const clearTimers = () => {
@@ -71,19 +81,26 @@ export default function DeviceShowcase() {
     };
 
     const appElNodes = Array.from(appEls.querySelectorAll<HTMLElement>('.dv-app-el'));
-    const phoneRows = Array.from(phone.querySelectorAll<HTMLElement>('.dv-row'));
 
     const showApp = () => {
       codeView.classList.remove('is-active');
       appView.classList.add('is-active');
       appElNodes.forEach((el) => el.classList.add('is-on'));
-      phoneRows.forEach((r) => r.classList.add('is-on'));
+
+      if (phoneBuild) phoneBuild.classList.remove('is-active');
+      if (phoneApp) phoneApp.classList.add('is-active');
     };
+
     const showCode = () => {
       appView.classList.remove('is-active');
       codeView.classList.add('is-active');
       appElNodes.forEach((el) => el.classList.remove('is-on'));
-      phoneRows.forEach((r) => r.classList.remove('is-on'));
+
+      if (phoneApp) phoneApp.classList.remove('is-active');
+      if (phoneBuild) phoneBuild.classList.add('is-active');
+      if (phoneProgress) phoneProgress.style.width = '0%';
+      if (phonePercent) phonePercent.textContent = '0%';
+      if (phoneStep) phoneStep.textContent = 'INIT SYNC';
     };
 
     const paintAll = () => {
@@ -107,9 +124,19 @@ export default function DeviceShowcase() {
       row.innerHTML = CODE_LINES[i] + '<span class="dv-caret"></span>';
       code.querySelectorAll('.dv-caret').forEach((c) => c.remove());
       code.appendChild(row);
-      // 16 lines don't fit the panel's fixed height — scroll like a live
-      // build log instead of trimming the narrative or the type size.
       code.scrollTop = code.scrollHeight;
+
+      // Synchronize phone build progress and real-time status with current line
+      const pct = Math.min(100, Math.round(((i + 1) / CODE_LINES.length) * 100));
+      if (phoneProgress) phoneProgress.style.width = `${pct}%`;
+      if (phonePercent) phonePercent.textContent = `${pct}%`;
+      if (phoneStep) {
+        if (i < 4) phoneStep.textContent = 'LINKING MODULES';
+        else if (i < 8) phoneStep.textContent = 'ASSEMBLING CORE';
+        else if (i < 12) phoneStep.textContent = 'STYLING UI & DESIGN';
+        else phoneStep.textContent = 'SHIPPING DEPLOY';
+      }
+
       later(() => typeLine(i + 1, onDone), CODE_LINES[i].length > 0 ? 210 + Math.random() * 90 : 90);
     };
 
@@ -224,21 +251,128 @@ export default function DeviceShowcase() {
         <div className="dv-phone">
           <img className="dv-shot" src="/mockups/phone.webp" alt="" width={620} height={1222} />
           <div ref={phoneRef} className="dv-phone-screen" style={asStyle(PHONE_SCREEN)}>
-            <div className="dv-row dv-row-head">
-              <div className="dv-avatar" />
-              <div className="dv-bars">
-                <span className="dv-bar w-1" />
-                <span className="dv-bar w-2" />
+            {/* 1. Phone Build View (Active while laptop types code) */}
+            <div ref={phoneBuildViewRef} className="dv-phone-view dv-phone-build is-active">
+              <div className="dv-phone-statusbar">
+                <span className="dv-phone-time">9:41</span>
+                <div className="dv-phone-status-icons">
+                  <span className="dv-phone-sig" />
+                  <span className="dv-phone-wifi" />
+                  <span className="dv-phone-bat" />
+                </div>
+              </div>
+
+              <div className="dv-phone-logo-container">
+                <div className="dv-phone-radar-ring" />
+                <div className="dv-phone-radar-glow" />
+                <div className="dv-phone-logo-card">
+                  <img src="/favicon.svg" alt="Symmetrical Code" className="dv-phone-brand-logo" />
+                </div>
+              </div>
+
+              <div className="dv-phone-progress-box">
+                <div className="dv-phone-progress-head">
+                  <span className="dv-phone-progress-label">BUILD SYNC</span>
+                  <span ref={phonePercentRef} className="dv-phone-percent">0%</span>
+                </div>
+                <div className="dv-phone-progress-track">
+                  <div ref={phoneProgressRef} className="dv-phone-progress-bar" style={{ width: '0%' }} />
+                </div>
+                <div ref={phoneStepRef} className="dv-phone-step">INIT SYNC</div>
+              </div>
+
+              <div className="dv-phone-terminal-stream">
+                <div className="dv-phone-term-line l1" />
+                <div className="dv-phone-term-line l2" />
+                <div className="dv-phone-term-line l3" />
               </div>
             </div>
-            <div className="dv-row dv-hero-card" />
-            <div className="dv-row dv-grid">
-              <span />
-              <span />
-              <span />
-              <span />
+
+            {/* 2. Phone App View (Active when code is deployed) */}
+            <div ref={phoneAppViewRef} className="dv-phone-view dv-phone-app">
+              <div className="dv-phone-statusbar">
+                <span className="dv-phone-time">9:41</span>
+                <div className="dv-phone-status-icons">
+                  <span className="dv-phone-sig" />
+                  <span className="dv-phone-wifi" />
+                  <span className="dv-phone-bat" />
+                </div>
+              </div>
+
+              <div className="dv-app-phone-header">
+                <div className="flex items-center gap-1">
+                  <img src="/favicon.svg" alt="" className="w-2.5 h-2.5 rounded shrink-0" />
+                  <span className="font-syne font-bold text-[6.5px] text-white tracking-tight">Symmetrical</span>
+                </div>
+                <span className="dv-phone-badge-live">● LIVE</span>
+              </div>
+
+              <div className="dv-phone-stat-card">
+                <div className="flex items-center justify-between">
+                  <span className="text-[5px] font-mono text-white/50">PERFORMANCE</span>
+                  <span className="text-[5.5px] font-mono text-[#00e5ff] font-semibold">+98.4%</span>
+                </div>
+                <div className="text-[8.5px] font-syne font-bold text-white leading-tight mt-0.5">$28,450</div>
+                <div className="dv-phone-chart-wrap">
+                  <svg viewBox="0 0 70 20" className="dv-phone-chart-svg" preserveAspectRatio="none">
+                    <defs>
+                      <linearGradient id="phoneChartGrad" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stopColor="#00e5ff" stopOpacity="0.5" />
+                        <stop offset="100%" stopColor="#195fc1" stopOpacity="0.0" />
+                      </linearGradient>
+                    </defs>
+                    <path
+                      d="M0,18 Q15,4 32,12 T54,5 L70,8 L70,20 L0,20 Z"
+                      fill="url(#phoneChartGrad)"
+                    />
+                    <path
+                      d="M0,18 Q15,4 32,12 T54,5 L70,8"
+                      fill="none"
+                      stroke="#00e5ff"
+                      strokeWidth="1.3"
+                      strokeLinecap="round"
+                    />
+                  </svg>
+                </div>
+              </div>
+
+              <div className="dv-phone-bento">
+                <div className="dv-phone-bento-item">
+                  <div className="dv-phone-bento-top">
+                    <span className="dv-phone-bento-dot bg-[#00e5ff]" />
+                    <span className="text-[5px] font-mono text-white/70">UI/UX</span>
+                  </div>
+                  <div className="dv-phone-mock-switch">
+                    <span className="dv-phone-mock-knob" />
+                  </div>
+                </div>
+                <div className="dv-phone-bento-item">
+                  <div className="dv-phone-bento-top">
+                    <span className="dv-phone-bento-dot bg-[#4ade80]" />
+                    <span className="text-[5px] font-mono text-white/70">CLOUD</span>
+                  </div>
+                  <div className="flex gap-1 items-center mt-1">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#4ade80]" />
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#195fc1]" />
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#00e5ff]" />
+                  </div>
+                </div>
+              </div>
+
+              <div className="dv-phone-action-btn">
+                <span>Deploy Ready</span>
+                <svg width="5" height="5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M5 12h14M12 5l7 7-7 7" />
+                </svg>
+              </div>
+
+              <div className="dv-phone-tabbar">
+                <span className="dv-phone-tab is-active" />
+                <span className="dv-phone-tab" />
+                <span className="dv-phone-tab" />
+              </div>
             </div>
-            <div className="dv-row dv-cta">Deploy</div>
+
             <div className="dv-screen-glare dv-screen-glare-phone" />
           </div>
         </div>
@@ -547,97 +681,356 @@ export default function DeviceShowcase() {
 
         .dv-phone-screen {
           position: absolute;
-          /* Matches the artwork's screen corner radius. */
           border-radius: 11px;
-          background: linear-gradient(165deg, #070c14 0%, #04080e 100%);
-          padding: 15px 7px 8px;
+          background: linear-gradient(165deg, #070c14 0%, #03060a 100%);
+          overflow: hidden;
+        }
+
+        .dv-phone-view {
+          position: absolute;
+          inset: 0;
+          padding: 11px 6.5px 7px;
           display: flex;
           flex-direction: column;
-          gap: 6px;
-          overflow: hidden;
+          opacity: 0;
+          transform: translateY(6px) scale(0.97);
+          transition: opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1), transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+          pointer-events: none;
+        }
+
+        .dv-phone-view.is-active {
+          opacity: 1;
+          transform: none;
+          pointer-events: auto;
         }
 
         .dv-screen-glare-phone {
           border-radius: inherit;
         }
 
-        .dv-row {
-          opacity: 0;
-          transform: translateY(7px);
-          transition: opacity 0.45s ease, transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
-        }
-
-        .dv-row.is-on {
-          opacity: 1;
-          transform: translateY(0);
-        }
-
-        .dv-row-head {
+        /* Phone Status Bar */
+        .dv-phone-statusbar {
           display: flex;
           align-items: center;
-          gap: 5px;
-        }
-
-        .dv-avatar {
-          width: 12px;
-          height: 12px;
-          border-radius: 50%;
-          background: linear-gradient(135deg, #195fc1, #1565ff);
+          justify-content: space-between;
+          font-family: 'JetBrains Mono', monospace;
+          font-size: 5.5px;
+          color: rgba(255, 255, 255, 0.5);
+          margin-bottom: 5px;
           flex-shrink: 0;
         }
 
-        .dv-bars {
+        .dv-phone-status-icons {
+          display: flex;
+          align-items: center;
+          gap: 2.5px;
+        }
+
+        .dv-phone-sig {
+          width: 6px;
+          height: 3.5px;
+          background: linear-gradient(90deg, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0.7) 100%);
+          clip-path: polygon(0 100%, 25% 65%, 25% 100%, 60% 35%, 60% 100%, 100% 0, 100% 100%);
+        }
+
+        .dv-phone-wifi {
+          width: 4px;
+          height: 4px;
+          border-radius: 50%;
+          border: 1px solid rgba(255, 255, 255, 0.6);
+        }
+
+        .dv-phone-bat {
+          width: 7px;
+          height: 3.5px;
+          border: 0.8px solid rgba(255, 255, 255, 0.6);
+          border-radius: 1px;
+          position: relative;
+        }
+
+        .dv-phone-bat::after {
+          content: '';
+          position: absolute;
+          left: 0.5px;
+          top: 0.5px;
+          bottom: 0.5px;
+          width: 4px;
+          background: #4ade80;
+          border-radius: 0.5px;
+        }
+
+        /* ── Phone Build View ── */
+        .dv-phone-logo-container {
+          position: relative;
+          width: 44px;
+          height: 44px;
+          margin: 4px auto 6px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-shrink: 0;
+        }
+
+        .dv-phone-radar-ring {
+          position: absolute;
+          inset: 0;
+          border-radius: 50%;
+          border: 1px dashed rgba(0, 229, 255, 0.35);
+          animation: dv-spin 10s linear infinite;
+        }
+
+        .dv-phone-radar-glow {
+          position: absolute;
+          inset: -4px;
+          border-radius: 50%;
+          background: radial-gradient(circle, rgba(25, 95, 193, 0.35) 0%, transparent 70%);
+          filter: blur(5px);
+          animation: dv-pulse 2s ease-in-out infinite;
+        }
+
+        .dv-phone-logo-card {
+          width: 25px;
+          height: 25px;
+          border-radius: 6px;
+          background: rgba(255, 255, 255, 0.05);
+          border: 1px solid rgba(0, 229, 255, 0.3);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.7), inset 0 1px 1px rgba(255, 255, 255, 0.2);
+          z-index: 1;
+        }
+
+        .dv-phone-brand-logo {
+          width: 16px;
+          height: 16px;
+          object-fit: contain;
+          user-select: none;
+        }
+
+        .dv-phone-progress-box {
+          padding: 5px 5px;
+          border-radius: 5px;
+          background: rgba(255, 255, 255, 0.03);
+          border: 1px solid rgba(255, 255, 255, 0.06);
           display: flex;
           flex-direction: column;
           gap: 3px;
-          flex: 1;
+          margin-bottom: 5px;
         }
 
-        .dv-bar {
+        .dv-phone-progress-head {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          font-family: 'JetBrains Mono', monospace;
+          font-size: 5px;
+          color: rgba(255, 255, 255, 0.6);
+          letter-spacing: 0.04em;
+        }
+
+        .dv-phone-percent {
+          color: #00e5ff;
+          font-weight: 700;
+        }
+
+        .dv-phone-progress-track {
           height: 3px;
-          border-radius: 2px;
-          background: rgba(255, 255, 255, 0.16);
+          border-radius: 1.5px;
+          background: rgba(255, 255, 255, 0.1);
+          overflow: hidden;
+        }
+
+        .dv-phone-progress-bar {
+          height: 100%;
+          border-radius: 1.5px;
+          background: linear-gradient(90deg, #195fc1, #00e5ff);
+          box-shadow: 0 0 6px rgba(0, 229, 255, 0.7);
+          transition: width 0.25s ease;
+        }
+
+        .dv-phone-step {
+          font-family: 'JetBrains Mono', monospace;
+          font-size: 4.8px;
+          color: rgba(255, 255, 255, 0.5);
+          text-align: center;
+          letter-spacing: 0.04em;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+
+        .dv-phone-terminal-stream {
+          display: flex;
+          flex-direction: column;
+          gap: 3px;
+          padding: 4px 5px;
+          margin-top: auto;
+          border-radius: 4px;
+          background: rgba(0, 0, 0, 0.35);
+          border: 1px solid rgba(255, 255, 255, 0.04);
+        }
+
+        .dv-phone-term-line {
+          height: 2.2px;
+          border-radius: 1px;
+          background: rgba(255, 255, 255, 0.2);
+          animation: dv-term-pulse 1.8s ease-in-out infinite;
+        }
+
+        .dv-phone-term-line.l1 { width: 75%; }
+        .dv-phone-term-line.l2 { width: 50%; animation-delay: 0.3s; }
+        .dv-phone-term-line.l3 { width: 65%; animation-delay: 0.6s; }
+
+        /* ── Phone App View ── */
+        .dv-app-phone-header {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding-bottom: 4px;
+          border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+          margin-bottom: 4px;
+        }
+
+        .dv-phone-badge-live {
+          font-family: 'JetBrains Mono', monospace;
+          font-size: 4.8px;
+          font-weight: 700;
+          color: #4ade80;
+          background: rgba(74, 222, 128, 0.15);
+          border: 1px solid rgba(74, 222, 128, 0.35);
+          padding: 1px 3px;
+          border-radius: 3px;
+          letter-spacing: 0.03em;
+        }
+
+        .dv-phone-stat-card {
+          padding: 4.5px 5.5px;
+          border-radius: 5px;
+          background: linear-gradient(145deg, rgba(25, 95, 193, 0.22) 0%, rgba(2, 4, 8, 0.75) 100%);
+          border: 1px solid rgba(0, 229, 255, 0.22);
+          box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.15);
+          display: flex;
+          flex-direction: column;
+          gap: 1.5px;
+          margin-bottom: 4px;
+        }
+
+        .dv-phone-chart-wrap {
+          height: 16px;
+          width: 100%;
+          margin-top: 1px;
+        }
+
+        .dv-phone-chart-svg {
+          width: 100%;
+          height: 100%;
           display: block;
         }
 
-        .dv-bar.w-1 { width: 70%; }
-        .dv-bar.w-2 { width: 42%; }
-
-        .dv-hero-card {
-          height: 42px;
-          border-radius: 5px;
-          background: linear-gradient(135deg, rgba(25, 95, 193, 0.25) 0%, rgba(21, 101, 255, 0.08) 100%);
-          box-shadow: inset 0 0 0 1px rgba(25, 95, 193, 0.25);
-        }
-
-        .dv-grid {
+        .dv-phone-bento {
           display: grid;
           grid-template-columns: 1fr 1fr;
-          gap: 5px;
+          gap: 3.5px;
+          margin-bottom: 4px;
         }
 
-        .dv-grid span {
-          height: 19px;
-          border-radius: 3px;
-          background: rgba(255, 255, 255, 0.05);
-          box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.05);
-          display: block;
-        }
-
-        .dv-cta {
-          margin-top: auto;
-          height: 17px;
+        .dv-phone-bento-item {
+          padding: 3.5px;
           border-radius: 4px;
+          background: rgba(255, 255, 255, 0.03);
+          border: 1px solid rgba(255, 255, 255, 0.06);
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          min-height: 20px;
+        }
+
+        .dv-phone-bento-top {
+          display: flex;
+          align-items: center;
+          gap: 2px;
+        }
+
+        .dv-phone-bento-dot {
+          width: 2.5px;
+          height: 2.5px;
+          border-radius: 50%;
+          display: inline-block;
+        }
+
+        .dv-phone-mock-switch {
+          width: 13px;
+          height: 6.5px;
+          border-radius: 3.5px;
+          background: rgba(0, 229, 255, 0.3);
+          border: 0.8px solid rgba(0, 229, 255, 0.6);
+          position: relative;
+          margin-top: 2px;
+        }
+
+        .dv-phone-mock-knob {
+          width: 4.5px;
+          height: 4.5px;
+          border-radius: 50%;
+          background: #ffffff;
+          position: absolute;
+          right: 0.5px;
+          top: 0.2px;
+          box-shadow: 0 0 3px rgba(0, 229, 255, 0.9);
+        }
+
+        .dv-phone-action-btn {
+          margin-top: auto;
+          height: 15px;
+          border-radius: 3.5px;
           background: linear-gradient(135deg, #195fc1, #1565ff);
           color: #ffffff;
-          font-family: 'Inter', system-ui, sans-serif;
-          font-size: 7px;
+          font-family: 'JetBrains Mono', monospace;
+          font-size: 5.5px;
           font-weight: 700;
           letter-spacing: 0.03em;
           display: flex;
           align-items: center;
           justify-content: center;
-          box-shadow: 0 4px 12px rgba(25, 95, 193, 0.35);
+          gap: 2.5px;
+          box-shadow: 0 3px 8px rgba(25, 95, 193, 0.4);
+          border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .dv-phone-tabbar {
+          display: flex;
+          align-items: center;
+          justify-content: space-around;
+          padding-top: 3.5px;
+          margin-top: 3px;
+          border-top: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .dv-phone-tab {
+          width: 3.5px;
+          height: 3.5px;
+          border-radius: 1px;
+          background: rgba(255, 255, 255, 0.25);
+        }
+
+        .dv-phone-tab.is-active {
+          background: #00e5ff;
+          box-shadow: 0 0 4px rgba(0, 229, 255, 0.8);
+        }
+
+        @keyframes dv-spin {
+          100% { transform: rotate(360deg); }
+        }
+
+        @keyframes dv-pulse {
+          0%, 100% { transform: scale(1); opacity: 0.3; }
+          50% { transform: scale(1.15); opacity: 0.6; }
+        }
+
+        @keyframes dv-term-pulse {
+          0%, 100% { opacity: 0.25; }
+          50% { opacity: 0.7; }
         }
 
         /* ─────────── Responsive ─────────── */
@@ -646,10 +1039,12 @@ export default function DeviceShowcase() {
           .dv-phone { width: 78px; right: -36px; bottom: -36px; }
           .dv-code { font-size: 7.6px; padding: 8px 10px; }
           .dv-app-ui { padding: 8px 9px 7px; gap: 7px; }
-          .dv-phone-screen { padding: 13px 6px 7px; gap: 5px; }
-          .dv-hero-card { height: 37px; }
-          .dv-grid span { height: 17px; }
-          .dv-cta { height: 15px; font-size: 6.5px; }
+          .dv-phone-view { padding: 9px 5px 6px; }
+          .dv-phone-logo-container { width: 36px; height: 36px; margin: 2px auto 4px; }
+          .dv-phone-logo-card { width: 21px; height: 21px; }
+          .dv-phone-brand-logo { width: 13px; height: 13px; }
+          .dv-phone-chart-wrap { height: 13px; }
+          .dv-phone-action-btn { height: 13px; font-size: 5px; }
         }
 
         @media (max-width: 420px) {
@@ -673,20 +1068,24 @@ export default function DeviceShowcase() {
           .dv-app-features { gap: 4px; }
           .dv-app-feature { padding: 4px 4px 5px; gap: 3px; }
           .dv-app-feature-icon { width: 7px; height: 7px; }
-          .dv-phone-screen { padding: 10px 4px 5px; gap: 3px; border-radius: 8px; }
-          .dv-avatar { width: 8px; height: 8px; }
-          .dv-bar { height: 2px; }
-          .dv-hero-card { height: 26px; border-radius: 4px; }
-          .dv-grid { gap: 3px; }
-          .dv-grid span { height: 12px; }
-          .dv-cta { height: 11px; font-size: 5px; border-radius: 3px; }
+          .dv-phone-view { padding: 7px 4px 4px; }
+          .dv-phone-statusbar { font-size: 4px; margin-bottom: 3px; }
+          .dv-phone-logo-container { width: 26px; height: 26px; margin: 1px auto 2px; }
+          .dv-phone-logo-card { width: 16px; height: 16px; }
+          .dv-phone-brand-logo { width: 10px; height: 10px; }
+          .dv-phone-progress-box { padding: 3px; gap: 2px; margin-bottom: 3px; }
+          .dv-phone-stat-card { padding: 3px; margin-bottom: 2px; }
+          .dv-phone-bento { gap: 2px; margin-bottom: 2px; }
+          .dv-phone-action-btn { height: 10px; font-size: 4px; }
         }
 
         @media (prefers-reduced-motion: reduce) {
-          .dv-row { opacity: 1; transform: none; transition: none; }
           .dv-app-el { opacity: 1; transform: none; transition: none; }
           .dv-view { transition: none; }
+          .dv-phone-view { transition: none; }
           .dv-caret { animation: none; }
+          .dv-phone-radar-ring { animation: none; }
+          .dv-phone-radar-glow { animation: none; }
         }
       `}</style>
     </div>
