@@ -78,20 +78,17 @@ describe('ProjectWorkflow', () => {
     expect(screen.getByText('Entrega Final y Despliegue')).toBeInTheDocument();
   });
 
-  it('allows clicking a step to toggle its active highlight', () => {
+  it('allows clicking a step to change active station and update the inspector', () => {
     render(<ProjectWorkflow />);
 
-    const stepOneCard = screen.getByText('Análisis y Requerimientos').closest('.glass-card-enhanced');
-    expect(stepOneCard).toBeInTheDocument();
+    // Initially FASE_01 is active in inspector
+    expect(screen.getByText('FASE_01: Análisis y Requerimientos')).toBeInTheDocument();
 
-    // Click to select
-    if (stepOneCard) {
-      fireEvent.click(stepOneCard);
-      expect(stepOneCard.className).toContain('border-[#195fc1]');
+    // Click FASE_02 station
+    const stepTwoTitle = screen.getByText('Definición de Alcance y Diseño');
+    fireEvent.click(stepTwoTitle);
 
-      // Click again to unselect
-      fireEvent.click(stepOneCard);
-      expect(stepOneCard.className).not.toContain('shadow-2xl');
-    }
+    // Inspector should now display FASE_02
+    expect(screen.getByText('FASE_02: Definición de Alcance y Diseño')).toBeInTheDocument();
   });
 });
