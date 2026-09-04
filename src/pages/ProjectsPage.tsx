@@ -493,7 +493,7 @@ export default function Projects({ isFullPage = false }: { isFullPage?: boolean 
               <div className="h-px flex-1 bg-gradient-to-r from-[#195fc1]/30 to-transparent" />
             </div>
             <div className="flex flex-col md:flex-row md:items-end gap-6 md:gap-8 justify-between">
-              <h2 className="font-syne font-black text-3xl sm:text-5xl md:text-6xl lg:text-7xl text-white leading-[1.1] uppercase tracking-tight flex items-baseline gap-3 sm:gap-4 flex-wrap">
+              <h2 className="font-syne font-black text-3xl sm:text-5xl md:text-6xl lg:text-7xl text-white leading-[1.05] uppercase tracking-tight flex flex-col items-start gap-1 sm:gap-2">
                 <span className="text-[#195fc1] count-highlight select-none">
                   <CountUp to={projects.length} duration={2} />
                 </span>
