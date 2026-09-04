@@ -34,13 +34,6 @@ const AcademicCapIcon = () => (
   </svg>
 );
 
-const CheckCircleIcon = () => (
-  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
-    <polyline points="22 4 12 14.01 9 11.01" />
-  </svg>
-);
-
 interface Pillar {
   title: string;
   description: string;
@@ -62,11 +55,36 @@ const pillarGradients = [
   'from-purple-500/20 via-purple-500/5 to-transparent'
 ];
 
-const institutionLogos: Record<string, { src: string; alt: string }> = {
-  ugto: { src: '/images/institutions/ugto.webp', alt: 'Universidad de Guanajuato' },
-  santander: { src: '/images/institutions/santander.png', alt: 'Santander Open Academy' },
-  aws: { src: '/images/institutions/aws.png', alt: 'Amazon Web Services' },
-  udemy: { src: '/images/institutions/udemy.png', alt: 'Udemy' },
+interface InstitutionLogoConfig {
+  src: string;
+  darkSrc?: string;
+  alt: string;
+  glow: string;
+}
+
+const institutionLogos: Record<string, InstitutionLogoConfig> = {
+  ugto: {
+    src: '/images/institutions/ugto.webp',
+    alt: 'Universidad de Guanajuato',
+    glow: 'rgba(197, 160, 89, 0.32)',
+  },
+  santander: {
+    src: '/images/institutions/santander.png',
+    darkSrc: '/images/institutions/santander-dark.png',
+    alt: 'Santander Open Academy',
+    glow: 'rgba(236, 0, 0, 0.28)',
+  },
+  aws: {
+    src: '/images/institutions/aws.png',
+    alt: 'Amazon Web Services',
+    glow: 'rgba(255, 153, 0, 0.3)',
+  },
+  udemy: {
+    src: '/images/institutions/udemy.png',
+    darkSrc: '/images/institutions/udemy-dark.png',
+    alt: 'Udemy',
+    glow: 'rgba(164, 53, 240, 0.3)',
+  },
 };
 
 export default function Team() {
@@ -123,51 +141,56 @@ export default function Team() {
             </p>
           </div>
 
-          {/* Grid de las 4 Instituciones */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 md:gap-6">
-            {institutions.map((inst) => {
+          {/* Floating Showcase de las 4 Instituciones */}
+          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6 md:gap-8">
+            {institutions.map((inst, index) => {
               const logo = institutionLogos[inst.id];
+              if (!logo) return null;
               return (
                 <div
                   key={inst.id}
-                  className="group relative bg-gradient-to-b from-white/[0.03] to-transparent border border-white/10 rounded-2xl p-5 sm:p-6 flex flex-col justify-between transition-all duration-500 hover:-translate-y-1 hover:border-[#195fc1]/40 hover:shadow-xl hover:shadow-[#195fc1]/10"
+                  className="inst-floating-stage group relative flex flex-col items-center justify-center p-4 sm:p-7 md:p-8 rounded-2xl sm:rounded-3xl transition-all duration-500 hover:-translate-y-2 cursor-default"
                 >
-                  {/* Glow decorativo sutil en hover */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-[#195fc1]/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 rounded-2xl transition-opacity duration-500 pointer-events-none" />
+                  {/* Aura luminosa ambiental por institución */}
+                  <div
+                    className="inst-ambient-glow"
+                    style={{ background: logo.glow }}
+                  />
 
-                  <div className="relative z-10 flex flex-col">
-                    {/* Contenedor del Logo con fondo blanco pulido para máximo contraste en dark y light */}
-                    <div className="w-full h-20 sm:h-22 rounded-xl bg-white flex items-center justify-center p-3.5 mb-5 shadow-[0_4px_16px_rgba(0,0,0,0.18)] border border-slate-100 group-hover:shadow-[0_8px_24px_rgba(25,95,193,0.18)] transition-all duration-300">
-                      {logo && (
-                        <img
-                          src={logo.src}
-                          alt={logo.alt}
-                          className="max-h-12 max-w-[85%] object-contain select-none transition-transform duration-300 group-hover:scale-105"
-                          loading="lazy"
-                        />
-                      )}
-                    </div>
-
-                    {/* Badge de área / especialidad */}
-                    <span className="font-mono text-[9px] sm:text-[10px] uppercase tracking-wider text-[#195fc1] bg-[#195fc1]/10 border border-[#195fc1]/20 px-2.5 py-1 rounded-md self-start font-semibold mb-3">
-                      {inst.badge}
-                    </span>
-
-                    {/* Nombre de la institución */}
-                    <h4 className="font-syne font-bold text-base sm:text-lg text-white mb-2 group-hover:text-[#195fc1] transition-colors duration-300 leading-snug">
-                      {inst.name}
-                    </h4>
-
-                    {/* Descripción de competencias */}
-                    <p className="text-white/50 text-xs sm:text-sm leading-relaxed text-justify">
-                      {inst.description}
-                    </p>
+                  {/* Contenedor del logo con levitación flotante */}
+                  <div
+                    className="inst-logo-wrap"
+                    style={{
+                      animation: `instFloat 5.2s ease-in-out infinite`,
+                      animationDelay: `${index * 1.3}s`,
+                    }}
+                  >
+                    {/* Logo versión estándar (light theme) */}
+                    <img
+                      src={logo.src}
+                      alt={logo.alt}
+                      className={`inst-logo-img ${logo.darkSrc ? 'inst-logo-light' : ''}`}
+                      loading="lazy"
+                    />
+                    {/* Logo versión adaptada para contraste en fondo oscuro */}
+                    {logo.darkSrc && (
+                      <img
+                        src={logo.darkSrc}
+                        alt={logo.alt}
+                        className="inst-logo-img inst-logo-dark"
+                        loading="lazy"
+                      />
+                    )}
                   </div>
 
-                  {/* Detalle inferior interactivo */}
-                  <div className="mt-5 pt-3 border-t border-white/5 flex items-center gap-1.5 text-[10px] font-mono text-white/30 group-hover:text-[#195fc1] transition-colors">
-                    <CheckCircleIcon />
-                    <span>{t('team.accreditation', { defaultValue: 'Acreditación Técnica' })}</span>
+                  {/* Metadatos minimalistas (badge y nombre de la institución) */}
+                  <div className="relative z-10 mt-5 flex flex-col items-center text-center gap-1.5 transition-all duration-300">
+                    <span className="font-mono text-[9px] sm:text-[10px] uppercase tracking-wider text-[#195fc1] bg-[#195fc1]/10 border border-[#195fc1]/20 px-2.5 py-0.5 rounded-full font-semibold">
+                      {inst.badge}
+                    </span>
+                    <h4 className="font-syne font-bold text-sm sm:text-base text-white group-hover:text-[#195fc1] transition-colors duration-300">
+                      {inst.name}
+                    </h4>
                   </div>
                 </div>
               );
@@ -297,6 +320,106 @@ export default function Team() {
           </div>
         </div>
       </div>
+
+      <style>{`
+        .inst-floating-stage {
+          background: radial-gradient(circle at center, rgba(255, 255, 255, 0.035) 0%, transparent 75%);
+          border: 1px solid rgba(255, 255, 255, 0.07);
+          box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+        }
+
+        html.light .inst-floating-stage {
+          background: radial-gradient(circle at center, rgba(25, 95, 193, 0.04) 0%, rgba(255, 255, 255, 0.85) 75%);
+          border: 1px solid rgba(0, 0, 0, 0.08);
+          box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+        }
+
+        .inst-floating-stage:hover {
+          background: radial-gradient(circle at center, rgba(25, 95, 193, 0.12) 0%, rgba(255, 255, 255, 0.03) 80%);
+          border-color: rgba(25, 95, 193, 0.4);
+          box-shadow: 0 20px 48px -12px rgba(0, 0, 0, 0.6), 0 0 32px -4px rgba(25, 95, 193, 0.25);
+        }
+
+        html.light .inst-floating-stage:hover {
+          background: radial-gradient(circle at center, rgba(25, 95, 193, 0.08) 0%, #ffffff 80%);
+          border-color: rgba(25, 95, 193, 0.35);
+          box-shadow: 0 20px 40px -12px rgba(25, 95, 193, 0.18);
+        }
+
+        .inst-ambient-glow {
+          position: absolute;
+          width: 140px;
+          height: 70px;
+          border-radius: 50%;
+          filter: blur(28px);
+          opacity: 0.25;
+          pointer-events: none;
+          transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .inst-floating-stage:hover .inst-ambient-glow {
+          opacity: 0.65;
+          transform: scale(1.25);
+        }
+
+        .inst-logo-wrap {
+          position: relative;
+          z-index: 10;
+          width: 100%;
+          height: 64px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @media (min-width: 640px) {
+          .inst-logo-wrap { height: 96px; }
+        }
+
+        @media (min-width: 768px) {
+          .inst-logo-wrap { height: 110px; }
+        }
+
+        .inst-floating-stage:hover .inst-logo-wrap {
+          transform: scale(1.1);
+          animation-play-state: paused;
+        }
+
+        .inst-logo-img {
+          max-height: 52px;
+          max-width: 88%;
+          object-fit: contain;
+          user-select: none;
+          transition: all 0.3s ease;
+          filter: drop-shadow(0 4px 14px rgba(0, 0, 0, 0.2));
+        }
+
+        @media (min-width: 640px) {
+          .inst-logo-img { max-height: 78px; }
+        }
+
+        @media (min-width: 768px) {
+          .inst-logo-img { max-height: 92px; }
+        }
+
+        /* Dual-theme logo switching */
+        .inst-logo-dark { display: block; }
+        .inst-logo-light { display: none; }
+
+        html.light .inst-logo-dark { display: none; }
+        html.light .inst-logo-light { display: block; }
+
+        @keyframes instFloat {
+          0%, 100% { transform: translateY(0px); }
+          50% { transform: translateY(-8px); }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          .inst-logo-wrap { animation: none !important; }
+          .inst-floating-stage { transition: none; }
+        }
+      `}</style>
     </section>
   );
 }
