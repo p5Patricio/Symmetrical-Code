@@ -142,7 +142,7 @@ export default function Navbar() {
               className="h-6 sm:h-7 w-auto transition-transform duration-300 group-hover:scale-105"
             />
             <span className="font-syne font-bold text-xs sm:text-sm tracking-tight text-white/90 group-hover:text-white transition-colors">
-              Symmetrical<span className="text-white/80">Code</span>
+              Symmetrical<span className="text-[#195fc1]">Code</span>
             </span>
           </button>
 
@@ -188,18 +188,18 @@ export default function Navbar() {
             {/* Hamburger Button (Mobile) */}
             <button
               onClick={() => setMenuOpen(!menuOpen)}
-              className="md:hidden relative w-8 h-8 flex items-center justify-center focus:outline-none cursor-pointer rounded-full border border-white/[0.08] bg-white/[0.02] text-white/80"
+              className="md:hidden relative w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center focus:outline-none cursor-pointer rounded-full border border-white/[0.08] hover:border-[#195fc1]/50 bg-white/[0.02] hover:bg-[#195fc1]/10 text-white/80 hover:text-[#195fc1] transition-all duration-300"
               aria-label={menuOpen ? 'Cerrar menú' : 'Abrir menú'}
             >
               {!menuOpen ? (
                 <div className="flex flex-col items-center gap-1">
-                  <span className="block w-3.5 h-0.5 bg-white/80 rounded-full" />
-                  <span className="block w-3.5 h-0.5 bg-white/80 rounded-full" />
+                  <span className="block w-3.5 h-0.5 rounded-full transition-colors" style={{ backgroundColor: theme === 'light' ? '#0B132B' : 'rgba(255, 255, 255, 0.85)' }} />
+                  <span className="block w-3.5 h-0.5 rounded-full transition-colors" style={{ backgroundColor: theme === 'light' ? '#0B132B' : 'rgba(255, 255, 255, 0.85)' }} />
                 </div>
               ) : (
                 <div className="relative w-4 h-4 flex items-center justify-center">
-                  <span className="absolute w-4 h-0.5 bg-white rounded-full rotate-45" />
-                  <span className="absolute w-4 h-0.5 bg-white rounded-full -rotate-45" />
+                  <span className="absolute w-4 h-0.5 rounded-full rotate-45 transition-colors" style={{ backgroundColor: theme === 'light' ? '#0B132B' : 'rgba(255, 255, 255, 0.85)' }} />
+                  <span className="absolute w-4 h-0.5 rounded-full -rotate-45 transition-colors" style={{ backgroundColor: theme === 'light' ? '#0B132B' : 'rgba(255, 255, 255, 0.85)' }} />
                 </div>
               )}
             </button>
@@ -210,15 +210,19 @@ export default function Navbar() {
       {/* ─── Mobile Menu Drawer (Floating Liquid Glass Card) ─── */}
       {menuOpen && (
         <div
-          className="fixed inset-0 z-40 bg-black/60 backdrop-blur-md md:hidden flex items-start justify-center pt-24 px-4 transition-opacity duration-300"
+          className={`fixed inset-0 z-40 ${theme === 'light' ? 'bg-slate-900/40' : 'bg-black/60'} backdrop-blur-md md:hidden flex items-start justify-center pt-24 px-4 transition-opacity duration-300`}
           onClick={() => setMenuOpen(false)}
         >
           <div
-            className="w-full max-w-sm rounded-3xl border border-white/[0.1] p-6 flex flex-col items-center gap-4 text-center shadow-[0_20px_50px_rgba(0,0,0,0.6)] animate-fade-in"
+            className={`w-full max-w-sm rounded-3xl border ${theme === 'light' ? 'border-[#195fc1]/20' : 'border-white/[0.1]'} p-6 flex flex-col items-center gap-4 text-center shadow-[0_20px_50px_rgba(0,0,0,0.6)] animate-fade-in`}
             style={{
-              background: 'linear-gradient(165deg, rgba(255, 255, 255, 0.05) 0%, rgba(2, 4, 8, 0.9) 100%)',
+              background: theme === 'light'
+                ? 'linear-gradient(165deg, rgba(255, 255, 255, 0.96) 0%, rgba(245, 247, 251, 0.94) 100%)'
+                : 'linear-gradient(165deg, rgba(255, 255, 255, 0.05) 0%, rgba(2, 4, 8, 0.9) 100%)',
               backdropFilter: 'blur(28px) saturate(180%)',
-              boxShadow: 'inset 0 1px 1px 0 rgba(255, 255, 255, 0.15)',
+              boxShadow: theme === 'light'
+                ? '0 20px 50px rgba(25, 95, 193, 0.12), inset 0 1px 1px 0 rgba(255, 255, 255, 0.9)'
+                : '0 20px 50px rgba(0,0,0,0.6), inset 0 1px 1px 0 rgba(255, 255, 255, 0.15)',
             }}
             onClick={(e) => e.stopPropagation()}
           >
@@ -230,8 +234,10 @@ export default function Navbar() {
                   onClick={() => handleNavClick(link.id)}
                   className={`w-full py-3 px-5 rounded-xl font-mono text-xs tracking-[0.2em] uppercase transition-all duration-200 cursor-pointer ${
                     isActive
-                      ? 'text-[#195fc1] bg-[#195fc1]/15 border border-[#195fc1]/30 font-medium'
-                      : 'text-white/70 hover:text-white hover:bg-white/[0.04]'
+                      ? 'text-[#195fc1] bg-[#195fc1]/15 border border-[#195fc1]/30 font-semibold'
+                      : theme === 'light'
+                        ? 'text-[#334155] hover:text-[#0B132B] hover:bg-slate-100/80 border border-transparent'
+                        : 'text-white/70 hover:text-white hover:bg-white/[0.04] border border-transparent'
                   }`}
                 >
                   {t(link.key)}
@@ -239,19 +245,19 @@ export default function Navbar() {
               );
             })}
 
-            <div className="w-12 h-px bg-white/[0.08] my-1" />
+            <div className={`w-12 h-px ${theme === 'light' ? 'bg-[#195fc1]/15' : 'bg-white/[0.08]'} my-1`} />
 
             <div className="flex items-center gap-3">
               <button
                 onClick={toggleTheme}
-                className="flex items-center gap-2 font-mono text-xs tracking-wider border border-white/[0.1] text-white/80 hover:text-[#195fc1] px-4 py-2 rounded-full transition-all duration-200 cursor-pointer"
+                className={`flex items-center gap-2 font-mono text-xs tracking-wider border ${theme === 'light' ? 'border-[#195fc1]/20 bg-white text-[#334155] hover:text-[#195fc1]' : 'border-white/[0.1] text-white/80 hover:text-[#195fc1] bg-transparent'} px-4 py-2 rounded-full transition-all duration-200 cursor-pointer`}
               >
                 {theme === 'dark' ? <><FiSun size={13} /> <span>CLARO</span></> : <><FiMoon size={13} /> <span>OSCURO</span></>}
               </button>
 
               <button
                 onClick={toggleLang}
-                className="font-mono text-xs tracking-widest border border-white/[0.1] text-white/80 hover:text-[#195fc1] px-5 py-2 rounded-full transition-all duration-200 cursor-pointer"
+                className={`font-mono text-xs tracking-widest border ${theme === 'light' ? 'border-[#195fc1]/20 bg-white text-[#334155] hover:text-[#195fc1]' : 'border-white/[0.1] text-white/80 hover:text-[#195fc1] bg-transparent'} px-5 py-2 rounded-full transition-all duration-200 cursor-pointer`}
               >
                 {i18n.language === 'es' ? 'EN' : 'ES'}
               </button>
