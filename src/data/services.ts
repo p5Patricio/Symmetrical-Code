@@ -34,6 +34,7 @@ export interface ServiceDetail {
   longDescEn: string;
   colorVar: string;
   accentColor: string;
+  accentColorLight: string;
   glowColor: string;
   practicalSolutions: PracticalSolution[];
   whoIsItForEs: string[];
@@ -58,8 +59,9 @@ export const servicesData: ServiceDetail[] = [
     longDescEs: 'Diseñamos y desarrollamos plataformas empresariales que reemplazan hojas de Excel dispersas y software genérico costoso. Centralizamos inventarios, ventas, compras, finanzas y personal en un sistema seguro, rápido y accesible desde cualquier dispositivo.',
     longDescEn: 'We design and build enterprise platforms that replace scattered Excel sheets and costly off-the-shelf software. We centralize inventory, sales, purchasing, finance, and HR into a secure, fast, and accessible system.',
     colorVar: '--svc-systems',
-    accentColor: '#86efac',
-    glowColor: 'rgba(134, 239, 172, 0.25)',
+    accentColor: '#4ade80',
+    accentColorLight: '#15803d',
+    glowColor: 'rgba(74, 222, 128, 0.25)',
     practicalSolutions: [
       {
         titleEs: 'Migración de Excel a Sistema Propio',
@@ -160,8 +162,9 @@ export const servicesData: ServiceDetail[] = [
     longDescEs: 'Integramos modelos de lenguaje de última generación (OpenAI, Claude, DeepSeek) y modelos privados entrenados con los manuales, catálogos y políticas de tu empresa. Respuestas precisas sin alucinaciones, extracción automática de datos de facturas o contratos, y visión por computadora.',
     longDescEn: 'We integrate cutting-edge language models (OpenAI, Claude, DeepSeek) and private models grounded on your company manuals, catalogs, and policies. Accurate answers with zero hallucinations, automated data extraction, and computer vision.',
     colorVar: '--svc-cloud',
-    accentColor: '#7dd3fc',
-    glowColor: 'rgba(125, 211, 252, 0.25)',
+    accentColor: '#a855f7',
+    accentColorLight: '#7e22ce',
+    glowColor: 'rgba(168, 85, 247, 0.25)',
     practicalSolutions: [
       {
         titleEs: 'Atención al Cliente Inteligente 24/7 (RAG)',
@@ -255,8 +258,9 @@ export const servicesData: ServiceDetail[] = [
     longDescEs: 'Construimos experiencias digitales modernas, desde landing pages que convierten visitantes en clientes hasta plataformas web complejas (SaaS) y aplicaciones móviles en iOS y Android con una sola base de código optimizada.',
     longDescEn: 'We build modern digital experiences, ranging from high-conversion landing pages to full SaaS platforms and mobile apps on iOS and Android with single-codebase efficiency.',
     colorVar: '--svc-web',
-    accentColor: '#00b4d8',
-    glowColor: 'rgba(0, 180, 216, 0.25)',
+    accentColor: '#00e5ff',
+    accentColorLight: '#0284c7',
+    glowColor: 'rgba(0, 229, 255, 0.25)',
     practicalSolutions: [
       {
         titleEs: 'Páginas Web Rápidas y Vendedoras',
@@ -350,8 +354,9 @@ export const servicesData: ServiceDetail[] = [
     longDescEs: 'La seguridad digital no es un lujo, es la garantía de que tu empresa no sufrirá hackeos, robo de bases de datos o multas por fuga de información. Auditamos sistemas ya construidos, protegemos APIs y asesoramos a directivos antes de realizar inversiones técnicas.',
     longDescEn: 'Digital security is essential to safeguard your business from ransomware, database breaches, and regulatory fines. We audit existing systems, shield APIs, and advise leadership before major technical investments.',
     colorVar: '--svc-security',
-    accentColor: '#fde68a',
-    glowColor: 'rgba(253, 230, 138, 0.25)',
+    accentColor: '#facc15',
+    accentColorLight: '#b45309',
+    glowColor: 'rgba(250, 204, 21, 0.25)',
     practicalSolutions: [
       {
         titleEs: 'Blindaje para Software que ya Tenés',
@@ -438,8 +443,9 @@ export const servicesData: ServiceDetail[] = [
     longDescEs: 'El buen diseño es aquel que hace que un producto digital complejo se sienta simple. Creamos prototipos navegables en Figma para que puedas interactuar con tu producto antes de escribir código, asegurando flujos de compra sin trabas y coherencia visual en cada pantalla.',
     longDescEn: 'Great design makes complex software feel effortless. We build interactive Figma prototypes so you can test user flows before writing code, ensuring frictionless conversions and brand consistency.',
     colorVar: '--svc-uiux',
-    accentColor: '#c4b5fd',
-    glowColor: 'rgba(196, 181, 253, 0.25)',
+    accentColor: '#f43f5e',
+    accentColorLight: '#be123c',
+    glowColor: 'rgba(244, 63, 94, 0.25)',
     practicalSolutions: [
       {
         titleEs: 'Mirá tu Producto Antes de Programarlo',
@@ -525,8 +531,9 @@ export const servicesData: ServiceDetail[] = [
     longDescEs: 'Hacemos que los sistemas de tu empresa se comuniquen automáticamente entre sí. Conectamos tu web con WhatsApp, pasarelas de pago, facturación e inventario para que las ventas se procesen solas, y construimos tableros interactivos para que tomes decisiones con datos precisos.',
     longDescEn: 'We bridge your business tools into seamless automated workflows. We connect your store with WhatsApp, payment gateways, electronic invoicing, and inventory so sales process automatically with real-time KPI visibility.',
     colorVar: '--svc-analytics',
-    accentColor: '#f9a8d4',
-    glowColor: 'rgba(249, 168, 212, 0.25)',
+    accentColor: '#f472b6',
+    accentColorLight: '#be185d',
+    glowColor: 'rgba(244, 114, 182, 0.25)',
     practicalSolutions: [
       {
         titleEs: 'Automatización de WhatsApp y Notificaciones',
