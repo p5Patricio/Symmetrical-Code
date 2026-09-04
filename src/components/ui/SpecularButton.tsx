@@ -50,8 +50,8 @@ void main() {
   float d = shapeSDF(p);
   vec2 L = vec2(cos(uAngle), sin(uAngle));
 
-  // Dark base stroke hugging the edge for physical depth
-  float base = (1.0 - smoothstep(0.0, uBaseWidth, abs(d))) * 0.45;
+  // Dark base stroke hugging the edge only when uBaseWidth > 0.0
+  float base = uBaseWidth > 0.0 ? (1.0 - smoothstep(0.0, uBaseWidth, abs(d))) * 0.45 : 0.0;
 
   // Symmetric specular rim reflection
   vec2 nEll = normalize(p / (uHalfSize * uHalfSize) + 1e-6);
@@ -69,6 +69,7 @@ void main() {
 
 export interface SpecularButtonProps {
   children?: React.ReactNode;
+  variant?: 'primary' | 'secondary' | 'custom';
   size?: 'sm' | 'md' | 'lg';
   radius?: number;
   tint?: string;
@@ -77,6 +78,7 @@ export interface SpecularButtonProps {
   textColor?: string;
   lineColor?: string;
   baseColor?: string;
+  baseWidth?: number;
   intensity?: number;
   shineSize?: number;
   shineFade?: number;
@@ -97,14 +99,16 @@ export interface SpecularButtonProps {
 
 export default function SpecularButton({
   children = 'Get Started',
+  variant = 'secondary',
   size = 'md',
-  radius = 18,
-  tint = '#195fc1',
-  tintOpacity = 0.04,
-  blur = 12,
-  textColor = '#f5f5f5',
-  lineColor = '#195fc1',
-  baseColor = '#0a1626',
+  radius = 14,
+  tint,
+  tintOpacity,
+  blur = 16,
+  textColor,
+  lineColor,
+  baseColor,
+  baseWidth,
   intensity = 1.3,
   shineSize = 14,
   shineFade = 45,
@@ -130,11 +134,19 @@ export default function SpecularButton({
     // fallback if outside context
   }
 
-  const effectiveBaseColor = isLight
-    ? (baseColor === '#071b38' ? '#d8e5f8' : (baseColor === '#0a1626' ? '#e5effc' : '#f0f4fa'))
-    : baseColor;
-  const effectiveTextColor = isLight ? '#0B132B' : textColor;
-  const effectiveLineColor = isLight ? '#195fc1' : lineColor;
+  const isPrimary = variant === 'primary';
+  const isSecondary = variant === 'secondary';
+
+  // For primary: specular sheen is pure crystalline gleam over signature blue
+  // For secondary: specular sheen is signature blue in light mode, sky blue in dark mode
+  const defaultLineColor = isPrimary
+    ? (isLight ? '#ffffff' : '#bfdbfe')
+    : (isLight ? '#195fc1' : '#60a5fa');
+
+  const effectiveLineColor = lineColor ?? defaultLineColor;
+  const effectiveBaseColor = baseColor ?? (isLight ? '#ffffff' : '#000000');
+  const effectiveBaseWidth = baseWidth ?? (isPrimary || isSecondary ? 0.0 : 1.0);
+  const effectiveTextColor = textColor ?? (isPrimary ? '#ffffff' : (isLight ? '#0B132B' : '#f8fafc'));
 
   const btnRef = useRef<HTMLButtonElement | HTMLAnchorElement | null>(null);
   const fxRef = useRef<HTMLSpanElement | null>(null);
@@ -142,6 +154,7 @@ export default function SpecularButton({
     radius,
     lineColor: effectiveLineColor,
     baseColor: effectiveBaseColor,
+    baseWidth: effectiveBaseWidth,
     intensity,
     shineSize,
     shineFade,
@@ -156,6 +169,7 @@ export default function SpecularButton({
     radius,
     lineColor: effectiveLineColor,
     baseColor: effectiveBaseColor,
+    baseWidth: effectiveBaseWidth,
     intensity,
     shineSize,
     shineFade,
@@ -290,6 +304,7 @@ export default function SpecularButton({
       program.uniforms.uShineSize.value = (p.shineSize * Math.PI) / 180;
       program.uniforms.uShineFade.value = (p.shineFade * Math.PI) / 180;
       program.uniforms.uThickness.value = p.thickness * dpr;
+      program.uniforms.uBaseWidth.value = p.baseWidth * dpr;
       renderer.render({ scene: mesh });
     };
     raf = requestAnimationFrame(update);
@@ -305,14 +320,18 @@ export default function SpecularButton({
     };
   }, []);
 
+  const variantClass = variant === 'primary'
+    ? 'specular-button--primary'
+    : (variant === 'custom' ? 'specular-button--custom' : 'specular-button--secondary');
+
   const commonProps = {
-    className: `specular-button specular-button--${size}${className ? ` ${className}` : ''}`,
+    className: `group specular-button specular-button--${size} ${variantClass}${className ? ` ${className}` : ''}`,
     style: {
       '--sb-radius': `${radius}px`,
-      '--sb-tint': tint,
-      '--sb-tint-opacity': tintOpacity,
-      '--sb-blur': `${blur}px`,
-      '--sb-text-color': effectiveTextColor,
+      ...(tint ? { '--sb-tint': tint } : {}),
+      ...(tintOpacity !== undefined ? { '--sb-tint-opacity': tintOpacity } : {}),
+      ...(blur !== undefined ? { '--sb-blur': `${blur}px` } : {}),
+      ...(effectiveTextColor ? { '--sb-text-color': effectiveTextColor } : {}),
       ...style,
     } as React.CSSProperties,
   };

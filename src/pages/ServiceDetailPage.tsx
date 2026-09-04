@@ -144,16 +144,11 @@ export default function ServiceDetailPage() {
             {/* Action Buttons */}
             <div className="flex flex-wrap items-center gap-4">
               <SpecularButton
+                variant="primary"
                 size="md"
                 radius={14}
                 onClick={() => setIsContactOpen(true)}
-                className="font-mono font-semibold text-xs sm:text-sm tracking-wider uppercase"
-                tint="#195fc1"
-                tintOpacity={0.06}
-                blur={16}
-                lineColor="#195fc1"
-                baseColor="#071b38"
-                intensity={1.4}
+                className="font-mono font-semibold text-xs sm:text-sm tracking-wider uppercase px-6 py-3 cursor-pointer"
               >
                 <span>{isEs ? 'Cotizar proyecto' : 'Request quote'}</span>
                 <FiArrowUpRight size={14} />
@@ -484,18 +479,14 @@ export default function ServiceDetailPage() {
 
                 <div className="flex flex-wrap items-center justify-center gap-3.5">
                   <SpecularButton
+                    variant="primary"
                     size="md"
                     radius={14}
                     onClick={() => setIsContactOpen(true)}
-                    className="font-mono font-semibold text-xs sm:text-sm tracking-wider uppercase"
-                    tint="#195fc1"
-                    tintOpacity={0.06}
-                    blur={16}
-                    lineColor="#195fc1"
-                    baseColor="#071b38"
-                    intensity={1.4}
+                    className="font-mono font-semibold text-xs sm:text-sm tracking-wider uppercase px-6 py-3 cursor-pointer"
                   >
-                    {isEs ? 'Cotizar proyecto' : 'Request quote'}
+                    <span>{isEs ? 'Cotizar proyecto' : 'Request quote'}</span>
+                    <FiArrowUpRight size={14} />
                   </SpecularButton>
 
                   <a

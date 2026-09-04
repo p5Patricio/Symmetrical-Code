@@ -1,5 +1,6 @@
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
+import { FiArrowUpRight } from 'react-icons/fi';
 import SpecularButton from '../ui/SpecularButton';
 import RotatingText from '../ui/RotatingText';
 import ScrambledText from '../ui/ScrambledText';
@@ -109,41 +110,32 @@ export default function HeroSection() {
           />
         </h1>
 
-        {/* ─── 5. Specular Action Buttons ─── */}
+        {/* ─── 5. Action Buttons with Crisp Specular Edge ─── */}
         <div
           className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 sm:gap-4 w-full sm:w-auto max-w-xs sm:max-w-none px-4 sm:px-0 mb-10 sm:mb-16 opacity-0 animate-fade-up"
           style={{ animationDelay: '0.5s', animationFillMode: 'forwards' }}
         >
           <SpecularButton
+            variant="primary"
             size="md"
             radius={14}
             onClick={() => document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' })}
-            className="font-syne font-bold text-xs sm:text-sm tracking-wider uppercase px-6 sm:px-7 py-3 w-full sm:w-auto text-center justify-center"
-            tint="#195fc1"
-            tintOpacity={0.06}
-            blur={16}
-            lineColor="#195fc1"
-            baseColor="#071b38"
-            intensity={1.4}
+            className="font-syne font-bold text-xs sm:text-sm tracking-wider uppercase px-6 sm:px-8 py-3.5 w-full sm:w-auto text-center justify-center cursor-pointer"
           >
-            {t('hero.cta_primary')}
+            <span>{t('hero.cta_primary')}</span>
           </SpecularButton>
 
           <SpecularButton
+            variant="secondary"
             size="md"
             radius={14}
             href={whatsappUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="font-syne font-bold text-xs sm:text-sm tracking-wider uppercase px-6 sm:px-7 py-3 w-full sm:w-auto text-center justify-center"
-            tint="#ffffff"
-            tintOpacity={0.02}
-            blur={12}
-            lineColor="#195fc1"
-            baseColor="#0a1626"
-            intensity={1.1}
+            className="font-syne font-bold text-xs sm:text-sm tracking-wider uppercase px-6 sm:px-8 py-3.5 w-full sm:w-auto text-center justify-center cursor-pointer"
           >
-            {t('hero.cta_secondary')}
+            <span>{t('hero.cta_secondary')}</span>
+            <FiArrowUpRight size={15} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
           </SpecularButton>
         </div>
 

@@ -501,15 +501,6 @@ html.light .modal-section p {
   color: #334155 !important;
 }
 
-/* Light Specular Buttons */
-html.light .specular-button {
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9), 0 8px 24px rgba(25, 95, 193, 0.08) !important;
-}
-
-html.light .specular-button__label,
-html.light .specular-button span {
-  color: #0B132B !important;
-}
 
 /* Light Chat Widget Tooltip */
 html.light .chat-widget-tooltip {
