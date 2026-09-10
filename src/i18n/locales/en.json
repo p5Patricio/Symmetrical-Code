@@ -5,7 +5,6 @@
     "services": "Services",
     "team": "Studio",
     "contact": "Contact"
-
   },
   "hero": {
     "label": "Software Development Studio",
@@ -179,6 +178,7 @@
     "workflow_label": "METHODOLOGY // 4-STAGE PIPELINE",
     "workflow_title": "How we bring your projects to life",
     "workflow_subtitle": "A transparent and structured engineering process: zero ambiguity, fixed budgets, and functional progress every two weeks.",
+    "workflow_hint": "Follow the route. Every waypoint marks a concrete deliverable you receive along the way.",
     "workflow_touchpoint_label": "Client touchpoint:",
     "workflow_deliverables_label": "Key deliverables:",
     "workflow_steps": [
@@ -189,7 +189,11 @@
         "title": "Analysis & Requirements",
         "tagline": "In-depth diagnostic & technical feasibility",
         "description": "We deconstruct your operational bottleneck. We audit existing workflows and translate business needs into rigorous, unambiguous software engineering specifications.",
-        "deliverables": ["Technical SRS Document", "Data Flow Diagram (DFD)", "Feasibility & Stack Matrix"],
+        "deliverables": [
+          "Technical SRS Document",
+          "Data Flow Diagram (DFD)",
+          "Feasibility & Stack Matrix"
+        ],
         "touchpoint": "1-on-1 Discovery Workshop",
         "badge": "0% Ambiguity"
       },
@@ -200,7 +204,11 @@
         "title": "Scope Definition & Design",
         "tagline": "Data architecture & fixed budget agreement",
         "description": "We model relational databases and design interactive UX/UI prototypes in Figma. We lock in a sprint schedule with fixed costs: you know what you get, when, and at what price.",
-        "deliverables": ["Interactive Figma Prototype", "Entity-Relationship Model (ERD)", "Locked Sprint Roadmap"],
+        "deliverables": [
+          "Interactive Figma Prototype",
+          "Entity-Relationship Model (ERD)",
+          "Locked Sprint Roadmap"
+        ],
         "touchpoint": "Prototype Sign-off & Contract",
         "badge": "Fixed Budget"
       },
@@ -211,7 +219,11 @@
         "title": "Development & Engineering",
         "tagline": "Modular code, CI/CD & bi-weekly demos",
         "description": "We build under clean architecture principles and automated testing. Continuous deployments to private staging environments allow you to validate real progress every 14 days.",
-        "deliverables": ["Modular Clean Codebase", "Private Staging Environment", "Unit & Security Test Suites"],
+        "deliverables": [
+          "Modular Clean Codebase",
+          "Private Staging Environment",
+          "Unit & Security Test Suites"
+        ],
         "touchpoint": "Bi-weekly live sprint demos",
         "badge": "Working Sprints"
       },
@@ -222,7 +234,11 @@
         "title": "Final Delivery & Deployment",
         "tagline": "Cloud launch, 100% code ownership & warranty",
         "description": "Production launch on high-availability cloud infrastructure with SSL and 24/7 monitoring. We transfer 100% intellectual property, train your team, and back the system with a post-launch warranty.",
-        "deliverables": ["Production Cloud Deployment", "100% Code Ownership Transfer", "Warranty & Support Policy"],
+        "deliverables": [
+          "Production Cloud Deployment",
+          "100% Code Ownership Transfer",
+          "Warranty & Support Policy"
+        ],
         "touchpoint": "Go-Live + Hands-on Training",
         "badge": "100% Your Code"
       }
