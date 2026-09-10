@@ -61,6 +61,13 @@ interface InstitutionLogoConfig {
   darkSrc?: string;
   alt: string;
   glow: string;
+  /**
+   * Optical balance factor. Each source file carries a different amount of
+   * built-in padding, so sizing them all to the same box makes a compact
+   * wordmark look twice the weight of a detailed crest. This normalizes the
+   * ink, not the canvas.
+   */
+  scale: number;
 }
 
 const institutionLogos: Record<string, InstitutionLogoConfig> = {
@@ -68,23 +75,27 @@ const institutionLogos: Record<string, InstitutionLogoConfig> = {
     src: '/images/institutions/ugto.webp',
     alt: 'Universidad de Guanajuato',
     glow: 'rgba(197, 160, 89, 0.32)',
+    scale: 0.92,
   },
   santander: {
     src: '/images/institutions/santander.png',
     darkSrc: '/images/institutions/santander-dark.png',
     alt: 'Santander Open Academy',
     glow: 'rgba(236, 0, 0, 0.28)',
+    scale: 0.95,
   },
   aws: {
     src: '/images/institutions/aws.png',
     alt: 'Amazon Web Services',
     glow: 'rgba(255, 153, 0, 0.3)',
+    scale: 0.62,
   },
   udemy: {
     src: '/images/institutions/udemy.png',
     darkSrc: '/images/institutions/udemy-dark.png',
     alt: 'Udemy',
     glow: 'rgba(164, 53, 240, 0.3)',
+    scale: 0.46,
   },
 };
 
@@ -142,58 +153,70 @@ export default function Team() {
             </p>
           </div>
 
-          {/* Floating Showcase de las 4 Instituciones */}
-          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6 md:gap-8">
+          {/* Vitrina: los logos flotan sin contenedor, sólo luz y reflejo */}
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-4 gap-y-14 sm:gap-x-8 sm:gap-y-16 pt-4">
             {institutions.map((inst, index) => {
               const logo = institutionLogos[inst.id];
               if (!logo) return null;
-              return (
-                <div
-                  key={inst.id}
-                  className="inst-floating-stage group relative flex flex-col items-center justify-center p-4 sm:p-7 md:p-8 rounded-2xl sm:rounded-3xl transition-all duration-500 hover:-translate-y-2 cursor-default"
-                >
-                  {/* Aura luminosa ambiental por institución */}
-                  <div
-                    className="inst-ambient-glow"
-                    style={{ background: logo.glow }}
-                  />
 
-                  {/* Contenedor del logo con levitación flotante */}
+              const variants = logo.darkSrc
+                ? [
+                    { src: logo.src, variantClass: 'inst-logo-light' },
+                    { src: logo.darkSrc, variantClass: 'inst-logo-dark' },
+                  ]
+                : [{ src: logo.src, variantClass: '' }];
+
+              return (
+                <figure
+                  key={inst.id}
+                  className="vitrine-item group"
+                  style={{ ['--logo-scale' as string]: logo.scale }}
+                >
+                  {/* Halo ambiental con el color propio de cada marca */}
+                  <span className="vitrine-aura" style={{ background: logo.glow }} aria-hidden="true" />
+
                   <div
-                    className="inst-logo-wrap"
+                    className="vitrine-lift"
                     style={{
-                      animation: `instFloat 5.2s ease-in-out infinite`,
-                      animationDelay: `${index * 1.3}s`,
+                      animation: 'vitrineFloat 6s ease-in-out infinite',
+                      animationDelay: `${index * 1.4}s`,
                     }}
                   >
-                    {/* Logo versión estándar (light theme) */}
-                    <img
-                      src={logo.src}
-                      alt={logo.alt}
-                      className={`inst-logo-img ${logo.darkSrc ? 'inst-logo-light' : ''}`}
-                      loading="lazy"
-                    />
-                    {/* Logo versión adaptada para contraste en fondo oscuro */}
-                    {logo.darkSrc && (
-                      <img
-                        src={logo.darkSrc}
-                        alt={logo.alt}
-                        className="inst-logo-img inst-logo-dark"
-                        loading="lazy"
-                      />
-                    )}
+                    <span className="vitrine-plate">
+                      {variants.map((variant) => (
+                        <img
+                          key={variant.src}
+                          src={variant.src}
+                          alt={logo.alt}
+                          className={`vitrine-logo ${variant.variantClass}`}
+                          loading="lazy"
+                        />
+                      ))}
+                    </span>
+
+                    {/* Reflejo sobre el cristal de la vitrina */}
+                    <span className="vitrine-plate vitrine-mirror" aria-hidden="true">
+                      {variants.map((variant) => (
+                        <img
+                          key={`mirror-${variant.src}`}
+                          src={variant.src}
+                          alt=""
+                          className={`vitrine-logo ${variant.variantClass}`}
+                          loading="lazy"
+                        />
+                      ))}
+                    </span>
                   </div>
 
-                  {/* Metadatos minimalistas (badge y nombre de la institución) */}
-                  <div className="relative z-10 mt-5 flex flex-col items-center text-center gap-1.5 transition-all duration-300">
-                    <span className="font-mono text-[9px] sm:text-[10px] uppercase tracking-wider text-[#195fc1] bg-[#195fc1]/10 border border-[#195fc1]/20 px-2.5 py-0.5 rounded-full font-semibold">
+                  <figcaption className="vitrine-caption">
+                    <span className="font-mono text-[9px] sm:text-[10px] uppercase tracking-[0.16em] text-[#195fc1]/70 group-hover:text-[#195fc1] transition-colors duration-500">
                       {inst.badge}
                     </span>
-                    <h4 className="font-syne font-bold text-sm sm:text-base text-white group-hover:text-[#195fc1] transition-colors duration-300">
+                    <h4 className="font-syne font-bold text-sm sm:text-base text-slate-800 dark:text-white/85 group-hover:text-[#195fc1] transition-colors duration-500">
                       {inst.name}
                     </h4>
-                  </div>
-                </div>
+                  </figcaption>
+                </figure>
               );
             })}
           </div>
@@ -328,102 +351,138 @@ export default function Team() {
       </div>
 
       <style>{`
-        .inst-floating-stage {
-          background: radial-gradient(circle at center, rgba(255, 255, 255, 0.035) 0%, transparent 75%);
-          border: 1px solid rgba(255, 255, 255, 0.07);
-          box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
-        }
-
-        html.light .inst-floating-stage {
-          background: radial-gradient(circle at center, rgba(25, 95, 193, 0.04) 0%, rgba(255, 255, 255, 0.85) 75%);
-          border: 1px solid rgba(0, 0, 0, 0.08);
-          box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
-        }
-
-        .inst-floating-stage:hover {
-          background: radial-gradient(circle at center, rgba(25, 95, 193, 0.12) 0%, rgba(255, 255, 255, 0.03) 80%);
-          border-color: rgba(25, 95, 193, 0.4);
-          box-shadow: 0 20px 48px -12px rgba(0, 0, 0, 0.6), 0 0 32px -4px rgba(25, 95, 193, 0.25);
-        }
-
-        html.light .inst-floating-stage:hover {
-          background: radial-gradient(circle at center, rgba(25, 95, 193, 0.08) 0%, #ffffff 80%);
-          border-color: rgba(25, 95, 193, 0.35);
-          box-shadow: 0 20px 40px -12px rgba(25, 95, 193, 0.18);
-        }
-
-        .inst-ambient-glow {
-          position: absolute;
-          width: 140px;
-          height: 70px;
-          border-radius: 50%;
-          filter: blur(28px);
-          opacity: 0.25;
-          pointer-events: none;
-          transition: opacity 0.5s ease, transform 0.5s ease;
-        }
-
-        .inst-floating-stage:hover .inst-ambient-glow {
-          opacity: 0.65;
-          transform: scale(1.25);
-        }
-
-        .inst-logo-wrap {
+        /* ── Vitrina de instituciones: sin caja, sólo luz, reflejo y aire ── */
+        .vitrine-item {
           position: relative;
-          z-index: 10;
-          width: 100%;
-          height: 64px;
           display: flex;
+          flex-direction: column;
           align-items: center;
-          justify-content: center;
-          transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+          cursor: default;
         }
 
-        @media (min-width: 640px) {
-          .inst-logo-wrap { height: 96px; }
+        .vitrine-aura {
+          position: absolute;
+          top: 4px;
+          left: 50%;
+          width: 150px;
+          height: 92px;
+          transform: translateX(-50%);
+          border-radius: 50%;
+          filter: blur(38px);
+          opacity: 0.3;
+          pointer-events: none;
+          transition: opacity 0.6s ease, transform 0.6s ease;
         }
 
-        @media (min-width: 768px) {
-          .inst-logo-wrap { height: 110px; }
+        .vitrine-item:hover .vitrine-aura {
+          opacity: 0.75;
+          transform: translateX(-50%) scale(1.3);
         }
 
-        .inst-floating-stage:hover .inst-logo-wrap {
-          transform: scale(1.1);
+        .vitrine-lift {
+          position: relative;
+          z-index: 1;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          width: 100%;
+          transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .vitrine-item:hover .vitrine-lift {
+          transform: scale(1.08) translateY(-6px);
           animation-play-state: paused;
         }
 
-        .inst-logo-img {
-          max-height: 52px;
-          max-width: 88%;
-          object-fit: contain;
-          user-select: none;
-          transition: all 0.3s ease;
-          filter: drop-shadow(0 4px 14px rgba(0, 0, 0, 0.2));
+        .vitrine-plate {
+          display: flex;
+          align-items: flex-end;
+          justify-content: center;
+          width: 100%;
+          height: 58px;
         }
 
         @media (min-width: 640px) {
-          .inst-logo-img { max-height: 78px; }
+          .vitrine-plate { height: 82px; }
         }
 
-        @media (min-width: 768px) {
-          .inst-logo-img { max-height: 92px; }
+        @media (min-width: 1024px) {
+          .vitrine-plate { height: 96px; }
         }
 
-        /* Dual-theme logo switching */
+        .vitrine-logo {
+          max-height: calc(100% * var(--logo-scale, 1));
+          max-width: 92%;
+          object-fit: contain;
+          user-select: none;
+          -webkit-user-drag: none;
+          transition: filter 0.5s ease;
+          filter: drop-shadow(0 10px 24px rgba(0, 0, 0, 0.45));
+        }
+
+        html.light .vitrine-logo {
+          filter: drop-shadow(0 10px 22px rgba(15, 30, 60, 0.16));
+        }
+
+        .vitrine-item:hover .vitrine-logo {
+          filter: drop-shadow(0 14px 30px rgba(25, 95, 193, 0.4));
+        }
+
+        /* Reflejo: misma escala que el logo, espejado y desvanecido.
+           El margen negativo recupera el alto que el degradado ya borró. */
+        .vitrine-mirror {
+          margin-top: 3px;
+          margin-bottom: -26px;
+          opacity: 0.17;
+          transform: scaleY(-1);
+          -webkit-mask-image: linear-gradient(to bottom, transparent 46%, #000 100%);
+          mask-image: linear-gradient(to bottom, transparent 46%, #000 100%);
+          transition: opacity 0.6s ease;
+        }
+
+        @media (min-width: 640px) {
+          .vitrine-mirror { margin-bottom: -36px; }
+        }
+
+        @media (min-width: 1024px) {
+          .vitrine-mirror { margin-bottom: -42px; }
+        }
+
+        html.light .vitrine-mirror { opacity: 0.1; }
+
+        .vitrine-item:hover .vitrine-mirror { opacity: 0.3; }
+        html.light .vitrine-item:hover .vitrine-mirror { opacity: 0.18; }
+
+        .vitrine-mirror .vitrine-logo {
+          filter: none;
+        }
+
+        .vitrine-caption {
+          position: relative;
+          z-index: 1;
+          margin-top: 18px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 3px;
+          text-align: center;
+        }
+
+        /* Conmutación de logo por tema */
         .inst-logo-dark { display: block; }
         .inst-logo-light { display: none; }
 
         html.light .inst-logo-dark { display: none; }
         html.light .inst-logo-light { display: block; }
 
-        @keyframes instFloat {
-          0%, 100% { transform: translateY(0px); }
-          50% { transform: translateY(-8px); }
+        @keyframes vitrineFloat {
+          0%, 100% { transform: translateY(0); }
+          50% { transform: translateY(-9px); }
         }
 
         @media (prefers-reduced-motion: reduce) {
-          .inst-logo-wrap { animation: none !important; }
-          .inst-floating-stage { transition: none; }
+          .vitrine-lift { animation: none !important; transition: none; }
+          .vitrine-aura { transition: none; }
         }
       `}</style>
     </section>

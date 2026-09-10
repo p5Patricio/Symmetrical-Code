@@ -606,13 +606,15 @@ html.light #team .section-label {
   color: #195fc1 !important;
 }
 
-html.light #team .group {
+/* Card surfaces in the team section. The vitrine opts out: its logos are
+   meant to float on the page with no surface behind them. */
+html.light #team .group:not(.vitrine-item) {
   background: rgba(255, 255, 255, 0.85) !important;
   border-color: rgba(25, 95, 193, 0.14) !important;
   box-shadow: 0 4px 20px rgba(25, 95, 193, 0.05) !important;
 }
 
-html.light #team .group:hover {
+html.light #team .group:not(.vitrine-item):hover {
   border-color: rgba(25, 95, 193, 0.35) !important;
   box-shadow: 0 10px 30px rgba(25, 95, 193, 0.1) !important;
 }
