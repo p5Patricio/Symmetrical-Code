@@ -205,7 +205,7 @@ export default function DeviceShowcase() {
                   <circle cx="12" cy="12" r="9" />
                 </svg>
                 <span className="dv-fname">console.symmetricalcode.com</span>
-                <span className="dv-titlebar-status">● Live Cluster</span>
+                <span className="dv-titlebar-status">● Producción</span>
               </div>
               <div ref={appElsRef} className="dv-app-ui">
                 {/* 1. Header Navigation */}
@@ -221,7 +221,7 @@ export default function DeviceShowcase() {
                     <span className="dv-app-nav-item">Deployments</span>
                   </div>
                   <div className="dv-app-nav-right">
-                    <span className="dv-app-status-badge">● 99.98% SLA</span>
+                    <span className="dv-app-status-badge">● Entorno activo</span>
                     <div className="dv-app-avatar">SC</div>
                   </div>
                 </div>

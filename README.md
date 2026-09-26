@@ -36,14 +36,15 @@ http://localhost:5173
 
 Si ese puerto está ocupado, Vite usará el siguiente disponible y lo mostrará en la terminal.
 
-## Qué se está haciendo ahora
+## Sistema de marca actual
 
 | Área | Decisión actual |
 | --- | --- |
-| Inicio / Hero | Mensaje orientado a startup inicial: sin prometer años de experiencia, clientes o métricas infladas. |
-| Slogan actual | **“Diseño y código en equilibrio para tu idea”**. |
-| Animación del hero | Se conserva la ventanita que genera código, pero el contenido ahora comunica proceso y marca. |
-| Tarjetas tecnológicas | Se removieron del inicio las tarjetas/chips como React, TypeScript, Node.js, Next.js, Docker y AWS. |
+| Concepto | Simetría, geometría precisa, un solo color de acento (`--brand-blue`). Diseño moderno y minimal — sin glassmorphism, sin efectos WebGL. |
+| Tokens de color | Custom properties en `src/index.css` (`--bg`, `--surface`, `--text`, `--muted`, `--brand-blue`, `--brand-cyan`, etc.), con overrides para tema claro bajo `html.light`. |
+| Tipografía | Dos familias autoalojadas vía `@fontsource-variable`: **Syne** (`font-syne`, solo H1/H2 de sección) y **Geist** (`font-sans`, cuerpo/labels) + **Geist Mono** (`font-mono`, eyebrows/números). |
+| Encabezados de sección | `src/components/ui/SectionHeading.tsx` centraliza el estilo estándar de H2/H3 (eyebrow + título + descripción opcional). |
+| Botones | Familia única `src/components/ui/Button.tsx` ("symmetric cut": dos esquinas cortadas a 45°), variantes `primary` / `secondary` / `link` / `icon`. |
 | Package manager | El frontend usa exclusivamente PNPM. |
 | Idiomas | Todo texto visible debe existir en español e inglés dentro de `src/i18n/locales/`. |
 
@@ -64,6 +65,8 @@ La landing está pensada como una página pública para explicar qué ofrece Sym
 
 - `/` muestra la landing completa.
 - `/proyectos` muestra la galería de proyectos en página completa.
+- `/servicios/:slug` muestra el detalle de un servicio (`src/pages/ServiceDetailPage.tsx`).
+- `/privacidad` y `/terminos` muestran el aviso de privacidad y los términos de uso (`src/pages/LegalPage.tsx`).
 - El botón flotante de WhatsApp queda visible sobre la página para contacto rápido.
 
 ## Reglas de contenido

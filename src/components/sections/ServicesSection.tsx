@@ -134,7 +134,7 @@ export default function Services() {
             <div className="h-px flex-1 bg-gradient-to-r from-[#195fc1]/40 to-transparent" />
           </div>
           <div className="flex flex-col lg:flex-row lg:items-end gap-6 lg:gap-8 justify-between">
-            <h2 className="font-syne font-black text-3xl sm:text-5xl md:text-6xl lg:text-7xl text-white leading-[1.1] tracking-[-0.03em] max-w-3xl">
+            <h2 className="font-syne font-bold text-text leading-[1.08] tracking-[-0.015em] text-balance text-[clamp(28px,4vw,44px)] max-w-3xl">
               {t('services.title')}
             </h2>
             <p className="text-white/60 text-base sm:text-lg max-w-md leading-relaxed lg:text-right font-normal">

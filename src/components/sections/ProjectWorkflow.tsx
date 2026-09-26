@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState, useSyncExternalStore } from 'react';
 import { useTranslation } from 'react-i18next';
+import SectionHeading from '../ui/SectionHeading';
 
 // ─── Data ────────────────────────────────────────────────────────────────────
 // A 4-phase engineering process rendered as a "route spine": a vertical list
@@ -62,8 +63,8 @@ const FALLBACK_STEPS: StepData[] = [
     title: 'Entrega Final y Despliegue',
     tagline: 'Puesta en marcha, código 100% tuyo y garantía',
     description:
-      'Lanzamiento a servidores cloud con SSL y monitoreo 24/7. Te entregamos la propiedad total del repositorio, capacitamos a tu equipo y respaldamos el sistema con póliza de garantía post-entrega.',
-    deliverables: ['Despliegue Cloud en Producción', '100% Transferencia de Código', 'Póliza de Garantía & Soporte'],
+      'Lanzamiento a servidores cloud con SSL y monitoreo con alertas automáticas. Te entregamos la propiedad total del repositorio, capacitamos a tu equipo y respaldamos el sistema con garantía de corrección de errores definida en el contrato.',
+    deliverables: ['Despliegue Cloud en Producción', '100% Transferencia de Código', 'Garantía Definida en Contrato & Soporte'],
     touchpoint: 'Go-Live + Sesión de Capacitación',
     badge: '100% Tu Código',
   },
@@ -191,15 +192,13 @@ export default function ProjectWorkflow() {
   return (
     <div id="project-workflow" className="relative mb-24 sm:mb-28 md:mb-32">
       {/* ─── Header ─── */}
-      <div className="mb-10 sm:mb-12">
-        <span className="font-mono text-[11px] sm:text-xs tracking-[0.14em] uppercase text-muted">
-          {t('team.workflow_label')}
-        </span>
-        <h3 className="mt-3 font-syne font-bold text-text leading-[1.08] tracking-[-0.015em] text-balance text-[clamp(28px,4vw,44px)]">
-          {t('team.workflow_title')}
-        </h3>
-        <p className="mt-3 max-w-2xl text-muted leading-relaxed">{t('team.workflow_subtitle')}</p>
-      </div>
+      <SectionHeading
+        as="h3"
+        eyebrow={t('team.workflow_label')}
+        title={t('team.workflow_title')}
+        description={t('team.workflow_subtitle')}
+        className="mb-10 sm:mb-12"
+      />
 
       {/* ─── Route spine ─── */}
       <ol ref={listRef} className="wf-list">

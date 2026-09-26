@@ -1,5 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import Button from '../ui/Button';
+import SectionHeading from '../ui/SectionHeading';
 
 interface WorkflowStepData {
   title: string;
@@ -21,14 +22,11 @@ export default function ProcessStrip({ onSeeFullProcess }: ProcessStripProps) {
 
   return (
     <div>
-      <div className="mb-10">
-        <span className="block font-mono text-[11px] uppercase tracking-[0.14em] text-muted mb-3">
-          {t('serviceDetail.process_eyebrow')}
-        </span>
-        <h2 className="font-syne font-bold text-text leading-[1.08] tracking-[-0.015em] text-balance text-[clamp(28px,4vw,44px)]">
-          {t('serviceDetail.process_title')}
-        </h2>
-      </div>
+      <SectionHeading
+        eyebrow={t('serviceDetail.process_eyebrow')}
+        title={t('serviceDetail.process_title')}
+        className="mb-10"
+      />
 
       <div className="ps-strip">
         {steps.map((step, idx) => (

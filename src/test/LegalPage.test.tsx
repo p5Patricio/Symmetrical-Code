@@ -25,10 +25,10 @@ const esPrivacySections = es.legal.privacy.sections as unknown as RawSection[];
 const esTermsSections = es.legal.terms.sections as unknown as RawSection[];
 
 // This suite uses the REAL i18next instance (not a mock) specifically to
-// prove that `t(key, { returnObjects: true, address, email })` deep-
-// interpolates {{address}}/{{email}} placeholders inside a nested array of
-// section/block objects — see LegalDocument's rendering logic, which relies
-// on that resolved (already-interpolated) text to linkify the email.
+// prove that `t(key, { returnObjects: true, email })` deep-interpolates the
+// {{email}} placeholder inside a nested array of section/block objects — see
+// LegalDocument's rendering logic, which relies on that resolved
+// (already-interpolated) text to linkify the email.
 function renderLegalPage(doc: 'privacy' | 'terms', path: '/privacidad' | '/terminos') {
   return render(
     <HelmetProvider>
@@ -42,20 +42,14 @@ function renderLegalPage(doc: 'privacy' | 'terms', path: '/privacidad' | '/termi
 }
 
 describe('i18next returnObjects + interpolation (verification)', () => {
-  it('deep-interpolates {{address}} and {{email}} inside a nested sections array', () => {
+  it('deep-interpolates {{email}} inside a nested sections array', () => {
     i18n.changeLanguage('es');
-    const address = i18n.t('legal.address');
     const email = i18n.t('legal.email');
 
     const sections = i18n.t('legal.privacy.sections', {
       returnObjects: true,
-      address,
       email,
     }) as Array<{ title: string; blocks: Array<{ type: string; text?: string }> }>;
-
-    const addressBlock = sections[0].blocks.find((b) => b.text?.includes(address));
-    expect(addressBlock).toBeDefined();
-    expect(addressBlock?.text).not.toContain('{{address}}');
 
     const emailBlock = sections[0].blocks.find((b) => b.text?.includes(email));
     expect(emailBlock).toBeDefined();
@@ -75,15 +69,13 @@ describe('es/en "legal" namespace parity', () => {
 });
 
 describe('LegalPage', () => {
-  it('renders every privacy section title and the interpolated address', () => {
+  it('renders every privacy section title', () => {
     i18n.changeLanguage('es');
     renderLegalPage('privacy', '/privacidad');
 
     for (const section of esPrivacySections) {
       expect(screen.getAllByText(section.title).length).toBeGreaterThan(0);
     }
-
-    expect(screen.getAllByText((content) => content.includes(es.legal.address)).length).toBeGreaterThan(0);
   });
 
   it('renders a real mailto: link for the contact email', () => {

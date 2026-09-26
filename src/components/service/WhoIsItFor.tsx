@@ -1,3 +1,5 @@
+import SectionHeading from '../ui/SectionHeading';
+
 interface WhoIsItForProps {
   eyebrow: string;
   title: string;
@@ -9,12 +11,7 @@ interface WhoIsItForProps {
 export default function WhoIsItFor({ eyebrow, title, items }: WhoIsItForProps) {
   return (
     <div>
-      <div className="mb-10">
-        <span className="block font-mono text-[11px] uppercase tracking-[0.14em] text-muted mb-3">{eyebrow}</span>
-        <h2 className="font-syne font-bold text-text leading-[1.08] tracking-[-0.015em] text-balance text-[clamp(28px,4vw,44px)]">
-          {title}
-        </h2>
-      </div>
+      <SectionHeading eyebrow={eyebrow} title={title} className="mb-10" />
 
       <ul className="grid grid-cols-1 md:grid-cols-2 md:gap-x-12">
         {items.map((item, idx) => (

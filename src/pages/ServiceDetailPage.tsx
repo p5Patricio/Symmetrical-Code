@@ -1,5 +1,4 @@
 import { useCallback, useEffect, useMemo } from 'react';
-import type { ComponentType } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Helmet } from 'react-helmet-async';
@@ -18,15 +17,6 @@ import TechStackList from '../components/service/TechStackList';
 import FaqAccordion from '../components/service/FaqAccordion';
 import ClosingBanner from '../components/service/ClosingBanner';
 import OtherServicesIndex from '../components/service/OtherServicesIndex';
-
-// Las páginas dedicadas con heroes SVG a medida (Ciberseguridad, UI/UX,
-// Modernización, Automatización) se retiraron: el resultado no representaba
-// bien el servicio. El rediseño siguiente usa imágenes reales/generadas en
-// vez de diagramas SVG. Los componentes siguen en el repo por si algo se
-// reaprovecha, pero ya no se despachan aquí — todos los servicios vuelven a
-// esta plantilla mientras se define el nuevo diseño.
-const DEDICATED_SERVICE_PAGES: Record<string, ComponentType> = {
-};
 
 const SECTION_CLASS = 'border-t border-line py-14 sm:py-[88px]';
 const WHATSAPP_NUMBER = '524737374224';
@@ -65,11 +55,6 @@ export default function ServiceDetailPage() {
         </Button>
       </div>
     );
-  }
-
-  const DedicatedPage = DEDICATED_SERVICE_PAGES[service.slug];
-  if (DedicatedPage) {
-    return <DedicatedPage />;
   }
 
   const title = isEs ? service.titleEs : service.titleEn;

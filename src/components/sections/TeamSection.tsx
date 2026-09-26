@@ -1,5 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import ProjectWorkflow from './ProjectWorkflow';
+import SectionHeading from '../ui/SectionHeading';
 
 const AcademicCapIcon = () => (
   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -88,9 +89,7 @@ export default function Team() {
             <div className="h-px flex-1 bg-line" />
           </div>
           <div className="flex flex-col md:flex-row md:items-end gap-6 md:gap-8 justify-between">
-            <h2 className="font-syne font-bold text-text leading-[1.08] tracking-[-0.015em] text-balance text-[clamp(28px,4vw,44px)] max-w-3xl">
-              {t('team.title')}
-            </h2>
+            <SectionHeading title={t('team.title')} className="max-w-3xl" />
             <p className="text-muted text-base sm:text-lg max-w-md leading-relaxed md:text-right">
               {t('team.subtitle')}
             </p>

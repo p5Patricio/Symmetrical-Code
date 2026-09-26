@@ -21,24 +21,23 @@ const ROUTE_BY_DOC: Record<LegalDocKey, string> = {
 /** Container for /privacidad and /terminos. Selects the `privacy` | `terms`
  * document via the `doc` prop (each route in App.tsx passes its own),
  * fetches its content from the `legal` i18n namespace (returnObjects, with
- * {{address}}/{{email}} interpolation — see LegalPage.test.tsx for proof
- * this works through a nested array) and hands it to the presentational
- * LegalDocument + LegalToc components. */
+ * {{email}} interpolation — see LegalPage.test.tsx for proof this works
+ * through a nested array) and hands it to the presentational LegalDocument +
+ * LegalToc components. */
 export default function LegalPage({ doc }: LegalPageProps) {
   const { t } = useTranslation();
 
-  const address = t('legal.address');
   const email = t('legal.email');
   const lastUpdated = t('legal.last_updated');
   const tocLabel = t('legal.toc_label');
   const backHomeLabel = t('legal.back_home');
 
   const title = t(`legal.${doc}.title`);
-  const intro = t(`legal.${doc}.intro`, { address, email });
+  const intro = t(`legal.${doc}.intro`, { email });
 
   const sections = useMemo(
-    () => t(`legal.${doc}.sections`, { returnObjects: true, address, email }) as LegalSection[],
-    [t, doc, address, email]
+    () => t(`legal.${doc}.sections`, { returnObjects: true, email }) as LegalSection[],
+    [t, doc, email]
   );
 
   const ids = useMemo(() => sections.map((_, i) => `section-${i + 1}`), [sections]);

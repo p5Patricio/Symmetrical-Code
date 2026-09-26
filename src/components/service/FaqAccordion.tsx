@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import SectionHeading from '../ui/SectionHeading';
 
 export interface FaqAccordionItem {
   question: string;
@@ -40,12 +41,7 @@ export default function FaqAccordion({ eyebrow, title, items }: FaqAccordionProp
 
   return (
     <div>
-      <div className="mb-10">
-        <span className="block font-mono text-[11px] uppercase tracking-[0.14em] text-muted mb-3">{eyebrow}</span>
-        <h2 className="font-syne font-bold text-text leading-[1.08] tracking-[-0.015em] text-balance text-[clamp(28px,4vw,44px)]">
-          {title}
-        </h2>
-      </div>
+      <SectionHeading eyebrow={eyebrow} title={title} className="mb-10" />
 
       <div>
         {items.map((item, idx) => {

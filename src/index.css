@@ -15,13 +15,6 @@ html.dark {
   --glow-blue: 0 0 40px rgba(25, 95, 193, 0.4);
   --card-bg: rgba(25, 95, 193, 0.03);
 
-  --svc-web: #195fc1;
-  --svc-systems: #195fc1;
-  --svc-cloud: #7c3aed;
-  --svc-security: #10b981;
-  --svc-uiux: #f43f5e;
-  --svc-analytics: #f59e0b;
-
   /* Design-spec tokens (dark = default) */
   --bg: #05070b;
   --surface: #0a0e16;
@@ -238,52 +231,6 @@ body {
   animation-delay: 0.5s;
 }
 
-.glass-card {
-  background: rgba(255, 255, 255, 0.02);
-  border: 1px solid rgba(0, 229, 255, 0.1);
-  -webkit-backdrop-filter: blur(10px);
-  backdrop-filter: blur(10px);
-  transition: all 0.3s ease;
-}
-
-.glass-card:hover {
-  background: rgba(0, 229, 255, 0.05);
-  border-color: rgba(0, 229, 255, 0.3);
-  box-shadow: 0 0 30px rgba(0, 229, 255, 0.1);
-  transform: translateY(-4px);
-}
-
-.glass-card-enhanced {
-  background: rgba(255, 255, 255, 0.01);
-  -webkit-backdrop-filter: blur(12px);
-  backdrop-filter: blur(12px);
-  position: relative;
-  overflow: hidden;
-  transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
-}
-
-.glass-card-enhanced:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-}
-
-.glowing-orb {
-  position: absolute;
-  width: 150px;
-  height: 150px;
-  border-radius: 50%;
-  filter: blur(60px);
-  opacity: 0;
-  transition: opacity 0.6s ease, transform 0.6s ease;
-  pointer-events: none;
-  z-index: 0;
-}
-
-.glass-card-enhanced:hover .glowing-orb {
-  opacity: 0.15;
-  transform: scale(1.2);
-}
-
 .section-label {
   font-family: 'JetBrains Mono', monospace;
   font-size: 0.7rem;
@@ -303,19 +250,9 @@ body {
   width: 100%;
 }
 
-.glass-card-enhanced .relative img {
-  object-fit: cover;
-  width: 100%;
-  height: 100%;
-}
-
-[class*="DetailModal"] img {
-  object-fit: cover;
-}
-
 /* ============================================
-   FORZAR FONDO TRANSPARENTE EN TODAS LAS SECCIONES
-   PARA QUE EL EFECTO AURORA SEA VISIBLE
+   Force a transparent background on layout sections/wrappers so the flat
+   --bg color set on body (see above) shows through consistently.
    ============================================ */
 
 section,
@@ -393,9 +330,7 @@ html.light .text-white\/5 {
   color: #94A3B8 !important;
 }
 
-/* Light Surface Cards & Liquid Glass */
-html.light .glass-card,
-html.light .glass-card-enhanced,
+/* Light Surface Cards (orbit-card is owned by ServicesSection.tsx) */
 html.light .orbit-card {
   background: linear-gradient(135deg, rgba(255, 255, 255, 0.92) 0%, rgba(240, 245, 255, 0.78) 100%) !important;
   backdrop-filter: blur(20px) saturate(180%) !important;
@@ -405,8 +340,6 @@ html.light .orbit-card {
   transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }
 
-html.light .glass-card-enhanced:hover,
-html.light .glass-card:hover,
 html.light .orbit-card:hover {
   border-color: #195fc1 !important;
   box-shadow: 0 20px 48px -10px rgba(25, 95, 193, 0.22), inset 0 1.5px 0 0 rgba(255, 255, 255, 1), inset 0 0 15px rgba(25, 95, 193, 0.08) !important;
@@ -421,7 +354,6 @@ html.light .group:hover [class*="group-hover:text-[#195fc1]"] {
   color: #195fc1 !important;
 }
 
-html.light article.glass-card-enhanced:hover,
 html.light article.group:not(.token-card):hover {
   border-color: #195fc1 !important;
   box-shadow: 0 16px 36px rgba(25, 95, 193, 0.16) !important;

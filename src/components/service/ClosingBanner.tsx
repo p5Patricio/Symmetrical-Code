@@ -1,4 +1,5 @@
 import Button from '../ui/Button';
+import SectionHeading from '../ui/SectionHeading';
 
 interface ClosingBannerProps {
   eyebrow: string;
@@ -22,11 +23,7 @@ export default function ClosingBanner({
 }: ClosingBannerProps) {
   return (
     <div className="max-w-2xl">
-      <span className="block font-mono text-[11px] uppercase tracking-[0.14em] text-muted mb-4">{eyebrow}</span>
-      <h2 className="font-syne font-bold text-text leading-[1.08] tracking-[-0.015em] text-balance text-[clamp(28px,4vw,44px)] mb-4">
-        {title}
-      </h2>
-      <p className="text-muted text-base sm:text-lg leading-relaxed mb-8 max-w-[60ch]">{desc}</p>
+      <SectionHeading eyebrow={eyebrow} title={title} description={desc} className="mb-8" />
 
       <div className="flex flex-wrap items-center gap-4 sm:gap-6">
         <Button variant="primary" size="lg" href={whatsappUrl} external arrow>

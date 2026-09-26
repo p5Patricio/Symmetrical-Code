@@ -92,7 +92,7 @@ const GalleryModal = ({ title, images, onClose }: { title: string; images: strin
   const modalContent = (
     <div className="fixed inset-0 z-[500] bg-slate-950/80 dark:bg-[#020408]/98 backdrop-blur-xl flex flex-col" onClick={onClose}>
       <div className="flex items-center justify-between p-4 sm:p-6">
-        <h3 className="font-syne font-black text-white text-lg sm:text-xl uppercase tracking-tighter truncate max-w-[200px] sm:max-w-md">{title}</h3>
+        <h3 className="font-sans font-semibold text-white text-lg sm:text-xl tracking-tight truncate max-w-[200px] sm:max-w-md">{title}</h3>
         <button onClick={onClose} className="p-2 text-white/60 hover:text-white transition-colors cursor-pointer"><CloseIcon /></button>
       </div>
       
@@ -216,7 +216,7 @@ const DetailModal = ({ project, index, totalProjects, onNext, onPrev, onClose }:
               <span className="font-mono text-[8px] sm:text-[9px] text-[#195fc1] tracking-widest uppercase mb-1.5 block font-bold">
                 {t('projects.case_label', { defaultValue: 'CASO DE PROYECTO' })}
               </span>
-              <h3 className="font-syne font-black text-xl sm:text-2xl md:text-3xl text-slate-900 dark:text-white tracking-tight">
+              <h3 className="font-sans font-semibold text-xl sm:text-2xl text-slate-900 dark:text-white tracking-tight">
                 {project.title}
               </h3>
               <div className="w-8 sm:w-10 h-0.5 sm:h-1 bg-[#195fc1] mt-2 sm:mt-3" />
@@ -271,7 +271,7 @@ const DetailModal = ({ project, index, totalProjects, onNext, onPrev, onClose }:
                     external
                     leadingIcon={<GithubIcon />}
                   >
-                    <span className="font-mono text-[9px] sm:text-[10px] tracking-wider uppercase">Source</span>
+                    <span className="font-mono text-[9px] sm:text-[10px] tracking-wider uppercase">{t('projects.source')}</span>
                   </Button>
                 )}
                 <Button variant="secondary" size="sm" onClick={() => setGalleryOpen(true)} leadingIcon={<ImagesIcon />}>
@@ -403,7 +403,7 @@ export default function Projects({ isFullPage = false }: { isFullPage?: boolean 
                 <span className="section-label text-xs sm:text-sm">{t('projects.gallery_label')}</span>
                 <div className="h-px w-8 sm:w-12 bg-slate-300 dark:bg-white/10" />
               </div>
-              <h3 className="font-syne font-black text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-slate-900 dark:text-white uppercase tracking-tighter">
+              <h3 className="font-syne font-bold text-slate-900 dark:text-white leading-[1.08] tracking-[-0.015em] text-balance text-[clamp(28px,4vw,44px)]">
                 {t('projects.gallery_title')}
               </h3>
             </div>
@@ -497,8 +497,8 @@ export default function Projects({ isFullPage = false }: { isFullPage?: boolean 
               <div className="h-px flex-1 bg-gradient-to-r from-[#195fc1]/30 to-transparent" />
             </div>
             <div className="flex flex-col lg:flex-row lg:items-end gap-6 lg:gap-8 justify-between">
-              <h2 className="font-syne font-black text-3xl sm:text-5xl md:text-6xl lg:text-7xl text-white leading-[1.05] uppercase tracking-tight flex flex-col items-start gap-1 sm:gap-2">
-                <span className="text-[#195fc1] count-highlight select-none">
+              <h2 className="font-syne font-bold text-text leading-[1.08] tracking-[-0.015em] text-balance text-[clamp(28px,4vw,44px)] flex flex-col items-start gap-1 sm:gap-2">
+                <span className="font-mono text-sm sm:text-base text-accent-cyan count-highlight select-none tracking-[0.05em]">
                   <CountUp to={projects.length} duration={2} />
                 </span>
                 <span>{t('projects.title')}</span>
@@ -534,7 +534,7 @@ export default function Projects({ isFullPage = false }: { isFullPage?: boolean 
                   </div>
                   <div className="p-5 sm:p-6 md:p-8 flex flex-col flex-1">
                     <div className="min-h-[3rem] sm:min-h-[4rem] flex flex-col justify-start mb-3 sm:mb-4">
-                      <h3 className="font-syne font-black text-xl sm:text-2xl text-white group-hover:text-[#195fc1] transition-colors leading-tight">{project.title}</h3>
+                      <h3 className="font-sans font-semibold text-xl sm:text-2xl text-white group-hover:text-[#195fc1] transition-colors leading-tight">{project.title}</h3>
                     </div>
                     <div className="min-h-[4rem] sm:min-h-[6rem] mb-4 sm:mb-6">
                       <p className="text-white/40 text-xs sm:text-sm leading-relaxed text-justify line-clamp-3">{project.description}</p>

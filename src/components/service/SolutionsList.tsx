@@ -1,4 +1,5 @@
 import type { PracticalSolution } from '../../data/services';
+import SectionHeading from '../ui/SectionHeading';
 
 interface SolutionsListProps {
   eyebrow: string;
@@ -13,10 +14,7 @@ export default function SolutionsList({ eyebrow, title, solutions, isEs }: Solut
   return (
     <div className="lg:grid lg:grid-cols-[minmax(0,.9fr)_minmax(0,2.1fr)] lg:gap-x-14">
       <div className="mb-8 lg:mb-0 lg:sticky lg:top-24 lg:self-start">
-        <span className="block font-mono text-[11px] uppercase tracking-[0.14em] text-muted mb-3">{eyebrow}</span>
-        <h2 className="font-syne font-bold text-text leading-[1.08] tracking-[-0.015em] text-balance text-[clamp(28px,4vw,44px)]">
-          {title}
-        </h2>
+        <SectionHeading eyebrow={eyebrow} title={title} />
       </div>
 
       <div>

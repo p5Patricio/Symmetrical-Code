@@ -14,32 +14,18 @@
   },
   "hero": {
     "label": "Estudio de Desarrollo de Software",
-    "title": "Ingeniería real",
-    "title_highlight": "para problemas",
-    "title_end": "reales.",
-    "subtitle": "Convertimos ideas claras en productos digitales simples, rápidos y listos para crecer contigo desde el primer lanzamiento.",
     "cta_primary": "Cotizar Proyecto",
     "cta_secondary": "Explorar servicios",
-    "stat_1_value": "Claridad",
     "stat_1_label": "Aterrizamos tu idea antes de construir",
-    "stat_2_value": "Balance",
     "stat_2_label": "Diseño útil + código limpio",
-    "stat_3_value": "Futuro",
     "stat_3_label": "Base preparada para crecer",
-    "email": "contacto@symmetricalcode.com",
     "location": "Guanajuato, México · Remoto",
-    "availability": "Abiertos a nuevos proyectos",
-    "foundation_note": "Estamos iniciando con una promesa simple: escuchar bien, construir con cuidado y ser transparentes desde el primer mensaje.",
-    "follow_us": "Síguenos"
+    "availability": "Abiertos a nuevos proyectos"
   },
   "services": {
     "label": "Nuestros Servicios",
     "title": "Servicios de Desarrollo a Medida",
     "subtitle": "Del código al despliegue: los servicios que tu negocio necesita para crecer.",
-    "learn_more": "Ver más detalles",
-    "modal_includes": "Lo que recibirás",
-    "modal_highlights": "Por qué elegirnos",
-    "modal_cta": "Platícanos tu proyecto",
     "items": [
       {
         "slug": "software-empresarial",
@@ -63,7 +49,7 @@
         "slug": "inteligencia-artificial",
         "title": "Implementación de IA a tu Negocio",
         "description": "Asistentes inteligentes 24/7, lectura automática de facturas/documentos y automatización con IA basada en tus datos.",
-        "longDescription": "Integramos modelos de lenguaje de última generación y modelos privados entrenados con los manuales, catálogos y políticas de tu empresa. Respuestas precisas sin alucinaciones, extracción automática de datos de facturas o contratos, y visión por computadora.",
+        "longDescription": "Integramos modelos de lenguaje de última generación y modelos privados entrenados con los manuales, catálogos y políticas de tu empresa. Respuestas precisas basadas en tus documentos, extracción automática de datos de facturas o contratos, y visión por computadora.",
         "highlights": [
           "Atención al cliente 24/7 con tus datos reales (RAG)",
           "Extracción automática de datos de facturas y PDFs",
@@ -74,7 +60,7 @@
           "Agentes IA 24/7",
           "Lectura de PDFs/Facturas",
           "Modelos Privados",
-          "Cero Alucinaciones"
+          "Respuestas Basadas en tus Documentos"
         ]
       },
       {
@@ -156,24 +142,15 @@
     "title": "Proyectos",
     "subtitle": "Soluciones reales para problemas reales. Cada proyecto es una oportunidad de superar expectativas.",
     "view_demo": "Ver demo",
-    "view_code": "Ver código",
     "view_detail": "Ver detalle",
     "view_all": "Galería completa",
     "gallery": "Galería",
+    "source": "Código",
     "gallery_label": "Portafolio completo",
     "gallery_title": "Todos los proyectos",
     "filter_all": "Todos",
-    "filter_web_app": "Web App",
-    "filter_ai_ml": "IA / ML",
-    "filter_game": "Juego",
-    "filter_erp": "ERP",
     "back": "Volver al sitio",
-    "single_image": "Solo una imagen disponible",
-    "explore": "Explorar",
     "case_label": "Caso de proyecto",
-    "technologies": "Tecnologías",
-    "no_projects": "No hay proyectos en esta categoría.",
-    "source_code": "Código fuente",
     "prev_short": "Anterior",
     "next_short": "Siguiente"
   },
@@ -239,18 +216,18 @@
         "status": "PRODUCCIÓN",
         "title": "Entrega Final y Despliegue",
         "tagline": "Puesta en marcha, código 100% tuyo y garantía",
-        "description": "Lanzamiento a servidores cloud con SSL y monitoreo 24/7. Te entregamos la propiedad total del repositorio, capacitamos a tu equipo y respaldamos el sistema con póliza de garantía post-entrega.",
+        "description": "Lanzamiento a servidores cloud con SSL y monitoreo con alertas automáticas. Te entregamos la propiedad total del repositorio, capacitamos a tu equipo y respaldamos el sistema con garantía de corrección de errores definida en el contrato.",
         "deliverables": [
           "Despliegue Cloud en Producción",
           "100% Transferencia de Código",
-          "Póliza de Garantía & Soporte"
+          "Garantía Definida en Contrato & Soporte"
         ],
         "touchpoint": "Go-Live + Sesión de Capacitación",
         "badge": "100% Tu Código"
       }
     ],
     "institutions_label": "FORMACIÓN & PREPARACIÓN TÉCNICA",
-    "institutions_title": "Respaldados por formación de élite y certificaciones globales",
+    "institutions_title": "Formación técnica",
     "institutions_desc": "Nuestro equipo combina el rigor de la ingeniería formal con la experiencia práctica en tecnologías líderes de la industria.",
     "institutions": [
       {
@@ -278,7 +255,6 @@
         "description": "Capacitación y dominio constante de los frameworks más modernos, patrones avanzados de arquitectura y ecosistemas full-stack."
       }
     ],
-    "accreditation": "Acreditación Técnica",
     "members_label": "Conoce al equipo",
     "members_link_aria": "Portafolio de {{name}} (se abre en una pestaña nueva)",
     "members": [
@@ -337,7 +313,6 @@
     "back_home": "Volver al inicio",
     "view_privacy": "Ver aviso de privacidad",
     "view_terms": "Ver términos y condiciones",
-    "address": "San Javier 1, Ex Hacienda San Matías 93 A, C.P. 36020, Guanajuato, Guanajuato, México",
     "email": "contacto@symmetricalcode.com",
     "last_updated": "Última actualización: septiembre de 2026",
     "privacy": {
@@ -345,10 +320,9 @@
       "intro": "En Symmetrical Code cuidamos los datos que nos compartes. Este aviso explica qué datos tratamos, para qué, dónde se guardan y cómo puedes ejercer tus derechos.",
       "sections": [
         {
-          "title": "Responsables y domicilio",
+          "title": "Responsables del tratamiento",
           "blocks": [
             { "type": "p", "text": "Patricio Antonio García Pérez Vela, Mario Jesús Delgado Hernández y Eduardo Estrada Estrada, quienes operan bajo el nombre comercial Symmetrical Code, son responsables del tratamiento de tus datos personales." },
-            { "type": "p", "text": "Domicilio para oír y recibir notificaciones: {{address}}." },
             { "type": "p", "text": "Correo de contacto: {{email}}." }
           ]
         },
@@ -433,7 +407,7 @@
         {
           "title": "Quiénes somos",
           "blocks": [
-            { "type": "p", "text": "Symmetrical Code es el nombre comercial bajo el que operan Patricio Antonio García Pérez Vela, Mario Jesús Delgado Hernández y Eduardo Estrada Estrada, con domicilio en {{address}}. Contacto: {{email}}." }
+            { "type": "p", "text": "Symmetrical Code es el nombre comercial bajo el que operan Patricio Antonio García Pérez Vela, Mario Jesús Delgado Hernández y Eduardo Estrada Estrada. Contacto: {{email}}." }
           ]
         },
         {
@@ -488,7 +462,7 @@
     }
   },
   "footer": {
-    "tagline": "Ingeniería real para problemas reales.",
+    "tagline": "Convertimos ideas claras en productos digitales listos para crecer.",
     "follow": "Síguenos",
     "contact_title": "Contacto",
     "schedule": "Lun - Vie: 9:00 - 18:00",
@@ -498,7 +472,6 @@
     "project_sub": "Hablemos.",
     "project_desc": "Contáctanos directamente por WhatsApp para platicar sobre tu proyecto.",
     "cta": "Cotizar Proyecto",
-    "whatsapp_message": "Hola, me gustaría obtener más información sobre sus servicios.",
     "privacy": "Privacidad",
     "terms": "Términos",
     "modal_understood": "Entendido",
@@ -506,47 +479,11 @@
     "contact_email_label": "Email",
     "contact_schedule_label": "Horario",
     "contact_location_label": "Ubicación",
-    "contact_copy_email": "Copiar email",
-    "contact_online": "En línea"
+    "contact_copy_email": "Copiar email"
   },
   "contact": {
-    "label": "Contactar",
     "whatsapp_tooltip": "Contáctanos por WhatsApp",
     "whatsapp_aria": "Chatear por WhatsApp",
     "dismiss_tooltip": "Cerrar aviso"
-  },
-  "scene": {
-    "phase_typing": "⌨️ escribiendo código...",
-    "phase_compiling": "⚙️ compilando...",
-    "phase_rendering": "🌐 renderizando interfaz...",
-    "studio_tag": "Estudio de Desarrollo de Software",
-    "studio_name": "Symmetrical",
-    "studio_highlight": "Code",
-    "studio_sub": "Ideas en equilibrio, código con propósito.",
-    "btn_projects": "Servicios",
-    "btn_contact": "Contactar",
-    "card_idea_title": "Idea",
-    "card_idea_desc": "Alcance claro",
-    "card_balance_title": "Balance",
-    "card_balance_desc": "Diseño + lógica",
-    "card_launch_title": "Lanzamiento",
-    "card_launch_desc": "Listo para crecer"
-  },
-  "chat": {
-    "welcome": "¡Hola! Soy el asistente de Symmetrical Code. ¿En qué puedo ayudarte hoy?",
-    "subtitle": "Asistente virtual",
-    "placeholder": "Escribí tu mensaje...",
-    "aria_open": "Abrir chat",
-    "aria_close": "Cerrar chat",
-    "aria_send": "Enviar mensaje",
-    "error_unknown": "Error desconocido del servidor",
-    "error_connect": "No se pudo conectar con el servidor",
-    "error_message": "⚠️ Lo siento, estoy teniendo problemas para conectarme. Por favor, asegurate de que el servidor esté corriendo en http://localhost:3001"
-  },
-  "whatsapp": {
-    "message_chatwidget": "¡¡Hola!! Estoy visitando su sitio web y me gustaría más información sobre sus servicios.",
-    "message_hero": "¡¡Hola!! Vi su página principal y me interesa platicar sobre un proyecto.",
-    "message_footer": "¡¡Hola!! Los contacté desde su sitio web, me gustaría más información sobre sus servicios.",
-    "message_modal": "¡¡Hola!! Me interesa el proyecto que describen, ¿podemos platicar?"
   }
 }
