@@ -1,21 +1,16 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
-import { FiSun, FiMoon } from 'react-icons/fi';
+import { FiSun, FiMoon, FiMenu, FiX, FiArrowLeft } from 'react-icons/fi';
 import { useTheme } from '../../context/ThemeContext';
+import Button from '../ui/Button';
 
-const ArrowLeftIcon = () => (
-  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-    <path d="M19 12H5M12 19l-7-7 7-7" />
-  </svg>
-);
-
-export default function GalleryNavbar({ 
-  scrolled, 
-  onClose, 
+export default function GalleryNavbar({
+  scrolled,
+  onClose,
   onNavigate,
-  activeSection 
-}: { 
-  scrolled: boolean; 
+  activeSection,
+}: {
+  scrolled: boolean;
   onClose: () => void;
   onNavigate: (id: string) => void;
   activeSection: string;
@@ -44,6 +39,34 @@ export default function GalleryNavbar({
     };
   }, [menuOpen]);
 
+  // Esc closes the mobile sheet.
+  useEffect(() => {
+    if (!menuOpen) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setMenuOpen(false);
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [menuOpen]);
+
+  // Move focus into the sheet on open, return it to the toggle button on close.
+  const sheetRef = useRef<HTMLDivElement>(null);
+  const wasMenuOpenRef = useRef(false);
+  useEffect(() => {
+    if (menuOpen) {
+      wasMenuOpenRef.current = true;
+      // The sheet is already committed to the DOM by the time this effect
+      // runs, so focus can move synchronously — no need to wait a frame
+      // (which also never fires while the tab is backgrounded).
+      sheetRef.current?.querySelector<HTMLElement>('button, a')?.focus();
+      return;
+    }
+    if (wasMenuOpenRef.current) {
+      wasMenuOpenRef.current = false;
+      document.getElementById('gallery-menu-toggle')?.focus();
+    }
+  }, [menuOpen]);
+
   const navLinks = [
     { key: 'nav.home', id: 'home' },
     { key: 'nav.services', id: 'services' },
@@ -52,8 +75,7 @@ export default function GalleryNavbar({
     { key: 'nav.contact', id: 'footer' },
   ];
 
-  // Misma clase de tamaño de letra que el Navbar principal
-  const navLinkTextClass = 'text-[11px] lg:text-[12px]';
+  const toggleLang = () => i18n.changeLanguage(lang === 'es' ? 'en' : 'es');
 
   const handleNavigate = (id: string) => {
     onNavigate(id);
@@ -70,153 +92,136 @@ export default function GalleryNavbar({
 
   return (
     <>
-      <header className={`fixed top-0 left-0 right-0 z-[160] transition-all duration-500 ${
-        scrolled
-          ? 'bg-white/90 dark:bg-black/95 backdrop-blur-xl border-b border-slate-200/80 dark:border-[rgba(0,229,255,0.1)] shadow-sm dark:shadow-[0_10px_40px_rgba(0,0,0,0.5)]'
-          : 'bg-white/80 dark:bg-black/80 backdrop-blur-sm border-b border-slate-200/60 dark:border-white/5'
-      }`}>
-        <nav className="max-w-7xl mx-auto px-4 sm:px-6 h-14 sm:h-16 flex items-center justify-between gap-4 sm:gap-8">
-          {/* Left: Volver Button */}
-          <button 
-            onClick={handleClose}
-            className="flex items-center gap-2 sm:gap-3 px-3 sm:px-5 py-1.5 sm:py-2.5 rounded-full bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-700 dark:text-white/80 hover:bg-[#195fc1] hover:text-white hover:border-[#195fc1] transition-all duration-300 group shadow-sm dark:shadow-lg shrink-0 cursor-pointer"
-          >
-            <ArrowLeftIcon />
-            <span className="font-mono text-[10px] sm:text-xs font-bold tracking-widest uppercase">
-              {t('projects.back')}
-            </span>
-          </button>
+      <header
+        className={`fixed top-0 left-0 right-0 z-[160] h-16 flex items-center transition-[border-color] duration-300 bg-[color-mix(in_srgb,var(--bg)_88%,transparent)] backdrop-blur-[8px] border-b ${
+          scrolled ? 'border-line' : 'border-transparent'
+        }`}
+      >
+        <nav className="w-full max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between gap-4">
+          {/* Left: back to projects */}
+          <Button variant="secondary" size="sm" leadingIcon={<FiArrowLeft size={13} />} onClick={handleClose}>
+            <span className="font-mono text-[11px] tracking-widest uppercase">{t('projects.back')}</span>
+          </Button>
 
-          {/* Center: Desktop Nav */}
-          <div className="hidden lg:flex items-center gap-1 bg-slate-100/90 dark:bg-black/60 backdrop-blur-md rounded-full px-1.5 py-1 border border-slate-200 dark:border-white/10 shadow-sm dark:shadow-lg absolute left-1/2 -translate-x-1/2">
-            {navLinks.map(link => (
-              <button 
-                key={link.id} 
-                onClick={() => handleNavigate(link.id)}
-                className={`relative font-mono ${navLinkTextClass} tracking-[0.15em] uppercase px-3 lg:px-4 py-1.5 rounded-full transition-all duration-200 cursor-pointer ${
-                  link.id === activeSection 
-                    ? 'text-[#195fc1] font-bold' 
-                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-200/60 dark:text-white/70 dark:hover:text-white dark:hover:bg-white/10'
-                }`}
-              >
-                {t(link.key)}
-                {link.id === activeSection && (
-                  <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-4 h-0.5 bg-[#195fc1] rounded-full" />
-                )}
-              </button>
-            ))}
+          {/* Center: desktop links */}
+          <div className="hidden lg:flex items-center gap-6 absolute left-1/2 -translate-x-1/2">
+            {navLinks.map((link) => {
+              const isActive = link.id === activeSection;
+              return (
+                <button
+                  key={link.id}
+                  onClick={() => handleNavigate(link.id)}
+                  aria-current={isActive ? 'page' : undefined}
+                  className={`relative font-mono text-[11px] tracking-[0.14em] uppercase py-2 transition-colors duration-200 cursor-pointer ${
+                    isActive ? 'text-text' : 'text-muted hover:text-text'
+                  }`}
+                >
+                  {t(link.key)}
+                  <span
+                    className={`absolute left-0 bottom-0 h-px w-full bg-accent-blue transition-opacity duration-200 ${
+                      isActive ? 'opacity-100' : 'opacity-0'
+                    }`}
+                    aria-hidden="true"
+                  />
+                </button>
+              );
+            })}
           </div>
 
-          {/* Right: Controls + Hamburger */}
-          <div className="flex items-center gap-2 sm:gap-3">
-            {/* Theme Toggle Button */}
-            <button
+          {/* Right: controls */}
+          <div className="flex items-center gap-2">
+            <Button
+              variant="icon"
+              size="sm"
               onClick={toggleTheme}
-              className="w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center rounded-full border border-slate-300/80 dark:border-white/[0.08] hover:border-[#195fc1]/50 bg-slate-100 dark:bg-white/[0.02] hover:bg-[#195fc1]/10 text-slate-700 dark:text-white/80 hover:text-[#195fc1] transition-all duration-300 cursor-pointer"
-              aria-label={theme === 'dark' ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro'}
-              title={theme === 'dark' ? 'Modo claro' : 'Modo oscuro'}
+              aria-label={theme === 'dark' ? t('nav.theme_to_light') : t('nav.theme_to_dark')}
+              title={theme === 'dark' ? t('nav.theme_to_light') : t('nav.theme_to_dark')}
             >
-              {theme === 'dark' ? <FiSun size={13} /> : <FiMoon size={13} />}
-            </button>
+              {theme === 'dark' ? <FiSun size={14} /> : <FiMoon size={14} />}
+            </Button>
 
-            <button 
-              onClick={() => i18n.changeLanguage(lang === 'es' ? 'en' : 'es')}
-              className="font-mono text-[10px] sm:text-xs tracking-wider border border-[rgba(25,95,193,0.4)] text-[#195fc1] hover:border-[#195fc1] px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full transition-all duration-200 cursor-pointer"
+            <Button
+              variant="icon"
+              size="sm"
+              onClick={toggleLang}
+              aria-label={t('nav.language_toggle')}
+              title={t('nav.language_toggle')}
             >
-              {lang === 'es' ? 'EN' : 'ES'}
-            </button>
+              <span className="font-mono text-[11px] font-semibold">{lang === 'es' ? 'EN' : 'ES'}</span>
+            </Button>
 
-            <button
-              onClick={() => setMenuOpen(!menuOpen)}
-              className="lg:hidden relative w-8 h-8 flex items-center justify-center focus:outline-none z-50 cursor-pointer"
-              aria-label={menuOpen ? 'Cerrar menú' : 'Abrir menú'}
-            >
-              {!menuOpen ? (
-                <div className="flex flex-col items-center gap-1.5">
-                  <span className="block w-5 h-0.5 bg-[#195fc1] rounded-full transition-all duration-300" />
-                  <span className="block w-5 h-0.5 bg-[#195fc1] rounded-full transition-all duration-300" />
-                  <span className="block w-5 h-0.5 bg-[#195fc1] rounded-full transition-all duration-300" />
-                </div>
-              ) : (
-                <div className="relative w-5 h-5">
-                  <span className="absolute top-1/2 left-0 w-5 h-0.5 bg-[#195fc1] rounded-full -translate-y-1/2 rotate-45 transition-all duration-300" />
-                  <span className="absolute top-1/2 left-0 w-5 h-0.5 bg-[#195fc1] rounded-full -translate-y-1/2 -rotate-45 transition-all duration-300" />
-                </div>
-              )}
-            </button>
+            {/* Wrapped in a plain div, not a Tailwind class on the Button
+                itself: Button.css sets `.sc-btn { display: inline-flex }`,
+                which ties in specificity with `.lg\:hidden` and wins on
+                source order when applied directly to the button. */}
+            <div className="lg:hidden">
+              <Button
+                variant="icon"
+                size="sm"
+                id="gallery-menu-toggle"
+                onClick={() => setMenuOpen((open) => !open)}
+                aria-label={menuOpen ? t('nav.menu_close') : t('nav.menu_open')}
+                aria-expanded={menuOpen}
+                aria-controls="gallery-mobile-sheet"
+              >
+                {menuOpen ? <FiX size={15} /> : <FiMenu size={15} />}
+              </Button>
+            </div>
           </div>
         </nav>
-
-        <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#195fc1]/40 to-transparent" />
       </header>
 
-      {/* Mobile Menu */}
-      <div
-        className={`fixed inset-0 bg-white/95 dark:bg-black/95 backdrop-blur-lg z-[150] transition-all duration-500 lg:hidden ${
-          menuOpen ? 'opacity-100 visible' : 'opacity-0 invisible'
-        }`}
-        onClick={() => setMenuOpen(false)}
-      >
+      {/* Mobile menu */}
+      {menuOpen && (
         <div
-          className={`flex flex-col items-center justify-center h-full gap-5 transform transition-all duration-500 ${
-            menuOpen ? 'translate-y-0' : 'translate-y-8'
-          }`}
-          onClick={(e) => e.stopPropagation()}
+          ref={sheetRef}
+          id="gallery-mobile-sheet"
+          role="dialog"
+          aria-modal="true"
+          aria-label={t('nav.menu_label')}
+          className="fixed inset-0 z-[150] bg-ink lg:hidden flex flex-col items-center justify-center gap-3 px-6"
         >
           <div className="mb-6 flex flex-col items-center">
-            <img
-              src="/logo.png"
-              alt="Symmetrical Code"
-              className="h-16 w-auto mb-3 drop-shadow-[0_0_20px_rgba(25,95,193,0.4)]"
-            />
-            <span className="font-syne font-bold text-lg tracking-wide text-slate-900 dark:text-white">
-              Symmetrical<span className="text-[#195fc1]">Code</span>
+            <img src="/logo.png" alt="Symmetrical Code" className="h-14 w-auto mb-3" />
+            <span className="font-syne font-bold text-lg tracking-wide text-text">
+              Symmetrical<span className="text-accent-blue">Code</span>
             </span>
           </div>
 
-          <div className="flex flex-col items-center gap-2 w-full max-w-[220px]">
-            {navLinks.map((link, idx) => (
+          {navLinks.map((link) => {
+            const isActive = link.id === activeSection;
+            return (
               <button
                 key={link.id}
                 onClick={() => handleNavigate(link.id)}
-                className={`w-full text-center font-mono text-sm tracking-[0.15em] uppercase py-3 px-6 rounded-full transition-all duration-300 ${
-                  link.id === activeSection
-                    ? 'text-[#195fc1] bg-slate-100 dark:bg-white/5 font-bold'
-                    : 'text-slate-700 hover:text-slate-900 hover:bg-slate-100 dark:text-white/60 dark:hover:text-white dark:hover:bg-white/10'
+                aria-current={isActive ? 'page' : undefined}
+                className={`font-mono text-sm tracking-[0.15em] uppercase py-2 transition-colors duration-200 ${
+                  isActive ? 'text-accent-blue' : 'text-text'
                 }`}
-                style={{
-                  animationDelay: `${idx * 100}ms`,
-                  animationFillMode: 'forwards',
-                }}
               >
                 {t(link.key)}
               </button>
-            ))}
-          </div>
+            );
+          })}
 
-          <div className="w-12 h-px bg-slate-200 dark:bg-white/20 my-4" />
+          <div className="w-12 h-px bg-line my-4" />
 
           <div className="flex items-center gap-3">
-            <button
+            <Button
+              variant="secondary"
+              size="sm"
+              leadingIcon={theme === 'dark' ? <FiSun size={13} /> : <FiMoon size={13} />}
               onClick={toggleTheme}
-              className="flex items-center gap-2 font-mono text-xs tracking-wider border border-slate-300 dark:border-white/[0.1] text-slate-700 dark:text-white/80 hover:text-[#195fc1] px-4 py-2 rounded-full transition-all duration-200 cursor-pointer"
             >
-              {theme === 'dark' ? <><FiSun size={13} /> <span>CLARO</span></> : <><FiMoon size={13} /> <span>OSCURO</span></>}
-            </button>
+              {theme === 'dark' ? t('nav.theme_to_light') : t('nav.theme_to_dark')}
+            </Button>
 
-            <button
-              onClick={() => i18n.changeLanguage(lang === 'es' ? 'en' : 'es')}
-              className="font-mono text-sm tracking-widest border border-[rgba(25,95,193,0.4)] text-[#195fc1] hover:bg-[#195fc1]/15 px-6 py-2 rounded-full transition-all duration-200"
-            >
+            <Button variant="secondary" size="sm" onClick={toggleLang}>
               {lang === 'es' ? 'ENGLISH' : 'ESPAÑOL'}
-            </button>
+            </Button>
           </div>
-
-          <p className="absolute bottom-8 text-[10px] font-mono text-slate-400 dark:text-white/20 tracking-wider">
-            Symmetrical Code 2026
-          </p>
         </div>
-      </div>
+      )}
     </>
   );
 }

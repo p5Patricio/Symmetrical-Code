@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { projects, techIconMap } from '../data/projects';
 import GalleryNavbar from '../components/layout/GalleryNavbar';
 import CountUp from '../components/ui/CountUp';
+import Button from '../components/ui/Button';
 
 // --- Types ---
 interface ProjectView {
@@ -248,33 +249,36 @@ const DetailModal = ({ project, index, totalProjects, onNext, onPrev, onClose }:
               </div>
 
               {/* Action buttons */}
-              <div className="flex flex-wrap gap-1.5 sm:gap-2 pt-3 border-t border-slate-200/80 dark:border-white/5">
+              <div className="flex flex-wrap gap-2 pt-3 border-t border-slate-200/80 dark:border-white/5">
                 {project.demoUrl && (
-                  <a 
-                    href={project.demoUrl} 
-                    target="_blank" 
-                    rel="noopener noreferrer" 
-                    className="flex items-center justify-center gap-1.5 font-mono text-[9px] sm:text-[10px] tracking-wider uppercase px-3 sm:px-5 py-1.5 sm:py-2 bg-[#195fc1] text-white font-bold rounded-md transition-all hover:scale-105 hover:shadow-[0_0_25px_rgba(25,95,193,0.5)]"
+                  <Button
+                    variant="primary"
+                    size="sm"
+                    href={project.demoUrl}
+                    external
+                    leadingIcon={<ExternalLinkIcon />}
                   >
-                    <ExternalLinkIcon />{t('projects.view_demo', { defaultValue: 'Ver Demo' })}
-                  </a>
+                    <span className="font-mono text-[9px] sm:text-[10px] tracking-wider uppercase">
+                      {t('projects.view_demo', { defaultValue: 'Ver Demo' })}
+                    </span>
+                  </Button>
                 )}
                 {project.githubUrl && project.githubUrl.trim() !== '' && (
-                  <a 
-                    href={project.githubUrl} 
-                    target="_blank" 
-                    rel="noopener noreferrer" 
-                    className="flex items-center justify-center gap-1.5 font-mono text-[9px] sm:text-[10px] tracking-wider uppercase px-3 sm:px-4 py-1.5 sm:py-2 bg-slate-100 border border-slate-200 text-slate-700 hover:bg-slate-200 hover:text-slate-900 dark:bg-white/5 dark:border-white/10 dark:text-white/70 dark:hover:bg-white/10 rounded-md transition-all"
+                  <Button
+                    variant="secondary"
+                    size="sm"
+                    href={project.githubUrl}
+                    external
+                    leadingIcon={<GithubIcon />}
                   >
-                    <GithubIcon />Source
-                  </a>
+                    <span className="font-mono text-[9px] sm:text-[10px] tracking-wider uppercase">Source</span>
+                  </Button>
                 )}
-                <button 
-                  onClick={() => setGalleryOpen(true)} 
-                  className="flex items-center justify-center gap-1.5 font-mono text-[9px] sm:text-[10px] tracking-wider uppercase px-3 sm:px-4 py-1.5 sm:py-2 bg-slate-100 border border-slate-200 text-slate-700 hover:bg-slate-200 hover:text-slate-900 dark:bg-white/5 dark:border-white/10 dark:text-white/70 dark:hover:bg-white/10 rounded-md transition-all cursor-pointer"
-                >
-                  <ImagesIcon />{t('projects.gallery', { defaultValue: 'Galería' })}
-                </button>
+                <Button variant="secondary" size="sm" onClick={() => setGalleryOpen(true)} leadingIcon={<ImagesIcon />}>
+                  <span className="font-mono text-[9px] sm:text-[10px] tracking-wider uppercase">
+                    {t('projects.gallery', { defaultValue: 'Galería' })}
+                  </span>
+                </Button>
               </div>
             </div>
           </div>
@@ -492,14 +496,14 @@ export default function Projects({ isFullPage = false }: { isFullPage?: boolean 
               <span className="section-label text-xs sm:text-sm">{t('projects.label')}</span>
               <div className="h-px flex-1 bg-gradient-to-r from-[#195fc1]/30 to-transparent" />
             </div>
-            <div className="flex flex-col md:flex-row md:items-end gap-6 md:gap-8 justify-between">
+            <div className="flex flex-col lg:flex-row lg:items-end gap-6 lg:gap-8 justify-between">
               <h2 className="font-syne font-black text-3xl sm:text-5xl md:text-6xl lg:text-7xl text-white leading-[1.05] uppercase tracking-tight flex flex-col items-start gap-1 sm:gap-2">
                 <span className="text-[#195fc1] count-highlight select-none">
                   <CountUp to={projects.length} duration={2} />
                 </span>
                 <span>{t('projects.title')}</span>
               </h2>
-              <p className="text-white/40 text-base sm:text-lg max-w-xs leading-relaxed md:text-right">
+              <p className="text-white/40 text-base sm:text-lg max-w-xs leading-relaxed lg:text-right">
                 {t('projects.subtitle')}
               </p>
             </div>
@@ -521,7 +525,8 @@ export default function Projects({ isFullPage = false }: { isFullPage?: boolean 
                 <article
                   key={i}
                   onClick={() => setSelectedProject({ project, index: globalIndex })}
-                  className="glass-card-enhanced group cursor-pointer overflow-hidden border border-white/10 rounded-xl sm:rounded-2xl transition-all duration-500 hover:border-[#195fc1]/50 hover:shadow-2xl hover:shadow-[#195fc1]/15 hover:scale-[1.02] flex flex-col min-h-[500px]"
+                  className="token-card group cursor-pointer overflow-hidden border border-line rounded-xl transition-colors duration-200 hover:border-line-2 flex flex-col min-h-[500px]"
+                  style={{ background: 'var(--surface)' }}
                 >
                   <div className="h-44 sm:h-48 overflow-hidden relative shrink-0">
                     <ImageWithFallback src={project.ogImageUrl} alt={project.title} fallback={<ProjectImage index={i} title={project.title} />} />
@@ -559,12 +564,9 @@ export default function Projects({ isFullPage = false }: { isFullPage?: boolean 
           </div>
 
           <div className="mt-12 sm:mt-16 md:mt-20 flex justify-center">
-            <button
-              onClick={() => navigate('/proyectos')}
-              className="group flex items-center gap-2 sm:gap-4 font-mono text-[10px] sm:text-xs tracking-[0.2em] sm:tracking-[.3em] uppercase px-6 sm:px-10 py-3 sm:py-5 bg-white/5 border border-white/10 hover:border-[#195fc1]/50 hover:bg-white/[0.08] transition-all duration-300 rounded-full"
-            >
-              <GridIcon /> {t('projects.view_all')}
-            </button>
+            <Button variant="secondary" size="lg" onClick={() => navigate('/proyectos')} leadingIcon={<GridIcon />}>
+              <span className="font-mono text-xs tracking-[0.2em] uppercase">{t('projects.view_all')}</span>
+            </Button>
           </div>
         </div>
 

@@ -10,7 +10,6 @@ vi.mock('react-i18next', () => ({
     t: (key: string) => {
       // Manejar retornos de objetos para .map()
       if (key === 'services.items') return [];
-      if (key === 'team.pillars') return [];
       if (key === 'projects.items') return [];
       return key;
     },

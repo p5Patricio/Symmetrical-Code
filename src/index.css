@@ -1,11 +1,12 @@
-@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --brand-blue: #195fc1;
+:root,
+html.dark {
+  /* Legacy vars — kept so untouched components still render; new code must use the tokens below.
+     --brand-blue is NOT a legacy var: nothing reads var(--brand-blue), so it is safe to define
+     it once below with the spec's accent value instead of the old #195fc1. */
   --cyan: #195fc1;
   --blue: #195fc1;
   --cyan-dim: rgba(25, 95, 193, 0.15);
@@ -13,13 +14,56 @@
   --glow-cyan: 0 0 40px rgba(25, 95, 193, 0.4);
   --glow-blue: 0 0 40px rgba(25, 95, 193, 0.4);
   --card-bg: rgba(25, 95, 193, 0.03);
-  
+
   --svc-web: #195fc1;
   --svc-systems: #195fc1;
   --svc-cloud: #7c3aed;
   --svc-security: #10b981;
   --svc-uiux: #f43f5e;
   --svc-analytics: #f59e0b;
+
+  /* Design-spec tokens (dark = default) */
+  --bg: #05070b;
+  --surface: #0a0e16;
+  --raised: #121a28;
+  --line: rgba(214, 226, 245, 0.09);
+  --line-2: rgba(214, 226, 245, 0.19);
+  --text: #e6ecf5;
+  --muted: #8c97aa;
+  --subtle: #5e687b;
+  --brand-blue: #005cfd;
+  --brand-blue-hover: #1f70ff;
+  --brand-cyan: #02e0fb;
+  --brand-deep: #003aae;
+  --on-brand: #ffffff;
+  --focus: #02e0fb;
+  --grid: rgba(110, 150, 225, 0.08);
+  --glow: rgba(0, 92, 253, 0.45);
+  --glow-2: rgba(2, 224, 251, 0.22);
+
+  --ff-display: 'Syne Variable', 'Syne', 'Geist Variable', ui-sans-serif, system-ui, sans-serif;
+  --ff-text: 'Geist Variable', 'Geist', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --ff-mono: 'Geist Mono Variable', 'Geist Mono', ui-monospace, 'SFMono-Regular', Consolas, monospace;
+}
+
+html.light {
+  --bg: #f5f7fa;
+  --surface: #ffffff;
+  --raised: #e9eef5;
+  --line: rgba(10, 22, 46, 0.1);
+  --line-2: rgba(10, 22, 46, 0.2);
+  --text: #0a0f1a;
+  --muted: #566175;
+  --subtle: #8a93a4;
+  --brand-blue: #0052e6;
+  --brand-blue-hover: #0046c8;
+  --brand-cyan: #0089b8;
+  --brand-deep: #003aae;
+  --on-brand: #ffffff;
+  --focus: #0052e6;
+  --grid: rgba(0, 60, 170, 0.07);
+  --glow: rgba(0, 92, 253, 0.2);
+  --glow-2: rgba(2, 190, 235, 0.16);
 }
 
 * {
@@ -33,9 +77,9 @@ html {
 }
 
 body {
-  background-color: #020408;
-  color: #e2e8f0;
-  font-family: 'Syne', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--ff-text);
   overflow-x: hidden;
 }
 
@@ -240,47 +284,6 @@ body {
   transform: scale(1.2);
 }
 
-.btn-primary {
-  background: linear-gradient(135deg, var(--cyan) 0%, var(--blue) 100%);
-  color: #020408;
-  font-weight: 700;
-  letter-spacing: 0.05em;
-  transition: all 0.3s ease;
-  position: relative;
-  overflow: hidden;
-}
-
-.btn-primary::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(135deg, #fff2 0%, transparent 50%);
-  opacity: 0;
-  transition: opacity 0.3s;
-}
-
-.btn-primary:hover::before {
-  opacity: 1;
-}
-
-.btn-primary:hover {
-  box-shadow: 0 0 30px rgba(0, 229, 255, 0.5);
-  transform: translateY(-2px);
-}
-
-.btn-outline {
-  border: 1px solid rgba(0, 229, 255, 0.4);
-  color: var(--cyan);
-  background: transparent;
-  transition: all 0.3s ease;
-}
-
-.btn-outline:hover {
-  background: rgba(0, 229, 255, 0.08);
-  border-color: var(--cyan);
-  box-shadow: 0 0 20px rgba(0, 229, 255, 0.2);
-}
-
 .section-label {
   font-family: 'JetBrains Mono', monospace;
   font-size: 0.7rem;
@@ -419,9 +422,16 @@ html.light .group:hover [class*="group-hover:text-[#195fc1]"] {
 }
 
 html.light article.glass-card-enhanced:hover,
-html.light article.group:hover {
+html.light article.group:not(.token-card):hover {
   border-color: #195fc1 !important;
   box-shadow: 0 16px 36px rgba(25, 95, 193, 0.16) !important;
+}
+
+/* Token-styled cards (see ProjectsPage.tsx) opt out of the legacy hardcoded
+   hover treatment above; they use --line-2 only, no shadow. */
+html.light article.token-card:hover {
+  border-color: var(--line-2) !important;
+  box-shadow: none !important;
 }
 
 html.light .bg-white\/5,
@@ -445,12 +455,7 @@ html.light .divide-white\/\[0\.07\] > :not([hidden]) ~ :not([hidden]) {
   border-color: rgba(25, 95, 193, 0.1) !important;
 }
 
-/* Light Pill Navbars */
-html.light header > div {
-  background: linear-gradient(145deg, rgba(255, 255, 255, 0.92) 0%, rgba(245, 247, 251, 0.88) 100%) !important;
-  border-color: rgba(25, 95, 193, 0.16) !important;
-  box-shadow: 0 10px 32px rgba(25, 95, 193, 0.08), inset 0 1px 1px rgba(255, 255, 255, 0.9) !important;
-}
+/* Navbar/GalleryNavbar are now token-based flat bars (see Navbar.tsx, GalleryNavbar.tsx) — no light-theme override needed. */
 
 /* Light Gallery Overlay and Modals */
 html.light #gallery-scroll,
@@ -472,169 +477,16 @@ html.light .detail-modal-card p {
   color: #475569 !important;
 }
 
-html.light .contact-modal-container {
-  background: #FFFFFF !important;
-  border-color: rgba(25, 95, 193, 0.15) !important;
-  box-shadow: 0 25px 70px rgba(25, 95, 193, 0.15) !important;
-}
+/* ContactModal and Footer's privacy/terms modal (.modal-*) are now token-based
+   (see ContactModal.tsx, Footer.tsx) — no light-theme override needed. */
 
-html.light .contact-modal-header {
-  border-bottom: 1px solid rgba(25, 95, 193, 0.1) !important;
-}
+/* Chat widget tooltip is now token-based (see ChatWidget.tsx) — no light-theme override needed. */
 
-html.light .contact-modal-body {
-  background: #FFFFFF !important;
-}
+/* Footer is now fully token-based (see Footer.tsx) — no light-theme override needed. */
 
-html.light .contact-modal-item {
-  background: #F8FAFC !important;
-  border-color: rgba(25, 95, 193, 0.08) !important;
-}
-
-html.light .contact-modal-item-text {
-  color: #0B132B !important;
-}
-
-html.light .modal-container {
-  background: #FFFFFF !important;
-  border-color: rgba(25, 95, 193, 0.15) !important;
-}
-
-html.light .modal-header,
-html.light .modal-footer {
-  border-color: rgba(25, 95, 193, 0.1) !important;
-}
-
-html.light .modal-section p {
-  color: #334155 !important;
-}
-
-
-/* Light Chat Widget Tooltip */
-html.light .chat-widget-tooltip {
-  background-color: rgba(255, 255, 255, 0.96) !important;
-  border-color: rgba(25, 95, 193, 0.22) !important;
-  box-shadow: 0 10px 30px rgba(25, 95, 193, 0.12) !important;
-}
-
-html.light .chat-widget-tooltip p {
-  color: #0B132B !important;
-}
-
-html.light .chat-widget-tooltip button {
-  background-color: #ffffff !important;
-  border-color: rgba(25, 95, 193, 0.25) !important;
-  color: #64748B !important;
-}
-
-html.light .chat-widget-tooltip button:hover {
-  color: #0B132B !important;
-  background-color: #f1f5f9 !important;
-}
-
-/* Light Footer */
-html.light footer {
-  border-top: 1px solid rgba(25, 95, 193, 0.12) !important;
-}
-
-html.light footer p {
-  color: #334155 !important;
-}
-
-html.light footer .footer-contact-text,
-html.light footer .footer-contact-text div,
-html.light footer .footer-col div {
-  color: #334155 !important;
-}
-
-html.light footer .footer-col span {
-  color: #0B132B !important;
-}
-
-html.light footer .footer-col span[style*="#195fc1"] {
-  color: #195fc1 !important;
-}
-
-html.light footer a[aria-label] {
-  background: rgba(25, 95, 193, 0.05) !important;
-  color: #334155 !important;
-  border-color: rgba(25, 95, 193, 0.15) !important;
-}
-
-html.light footer a[aria-label]:hover {
-  background: #195fc1 !important;
-  color: #ffffff !important;
-}
-
-html.light footer a.whatsapp-btn {
-  background: #ffffff !important;
-  color: #0B132B !important;
-  border-color: rgba(25, 95, 193, 0.2) !important;
-  box-shadow: 0 8px 24px rgba(25, 95, 193, 0.08) !important;
-}
-
-html.light footer a.whatsapp-btn:hover {
-  background: rgba(25, 95, 193, 0.08) !important;
-  border-color: #195fc1 !important;
-}
-
-html.light footer .legal-btn {
-  color: #64748B !important;
-}
-
-html.light footer .legal-btn:hover {
-  color: #195fc1 !important;
-  background: rgba(25, 95, 193, 0.08) !important;
-}
-
-html.light footer .copyright-text {
-  color: #64748B !important;
-}
-
-/* Light Team Section */
-html.light #team p {
-  color: #334155 !important;
-}
-
-html.light #team h2,
-html.light #team h3,
-html.light #team h4 {
-  color: #0B132B !important;
-}
-
-html.light #team .section-label {
-  color: #195fc1 !important;
-}
-
-/* Card surfaces in the team section. The vitrine opts out: its logos are
-   meant to float on the page with no surface behind them. */
-html.light #team .group:not(.vitrine-item) {
-  background: rgba(255, 255, 255, 0.85) !important;
-  border-color: rgba(25, 95, 193, 0.14) !important;
-  box-shadow: 0 4px 20px rgba(25, 95, 193, 0.05) !important;
-}
-
-html.light #team .group:not(.vitrine-item):hover {
-  border-color: rgba(25, 95, 193, 0.35) !important;
-  box-shadow: 0 10px 30px rgba(25, 95, 193, 0.1) !important;
-}
-
-html.light #team .border-white\/10 {
-  border-color: rgba(25, 95, 193, 0.12) !important;
-}
-
-html.light #team .border-white\/5 {
-  border-color: rgba(25, 95, 193, 0.08) !important;
-}
-
-html.light #team .bg-white\/5 {
-  background: rgba(25, 95, 193, 0.05) !important;
-  border-color: rgba(25, 95, 193, 0.12) !important;
-}
-
-html.light #team span.font-mono.text-5xl {
-  color: rgba(25, 95, 193, 0.12) !important;
-}
+/* Team header, institutions vitrine, workflow spine and members block are
+   now token-based (see TeamSection.tsx, ProjectWorkflow.tsx) — no
+   light-theme override needed. */
 
 /* Light Services Section */
 html.light #services h2 {

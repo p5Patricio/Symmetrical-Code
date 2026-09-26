@@ -1,10 +1,10 @@
 import { describe, it, expect, vi } from 'vitest';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import ProjectWorkflow from '../components/sections/ProjectWorkflow';
 
 vi.mock('react-i18next', () => ({
   useTranslation: () => ({
-    t: (key: string, options?: { defaultValue?: string; returnObjects?: boolean }) => {
+    t: (key: string) => {
       if (key === 'team.workflow_steps') {
         return [
           {
@@ -53,42 +53,49 @@ vi.mock('react-i18next', () => ({
           },
         ];
       }
-      return options?.defaultValue || key;
+      const values: Record<string, string> = {
+        'team.workflow_label': 'METODOLOGÍA // INGENIERÍA EN 4 ETAPAS',
+        'team.workflow_title': 'Cómo llevamos tus proyectos a la realidad',
+        'team.workflow_subtitle': 'Un proceso de ingeniería transparente y estructurado.',
+        'team.workflow_phase_label': 'Fase',
+        'team.workflow_touchpoint_label': 'Tu participación',
+        'team.workflow_deliverables_label': 'Qué recibes',
+      };
+      return values[key] ?? key;
     },
   }),
 }));
 
 describe('ProjectWorkflow', () => {
-  it('renders workflow section header and all 4 steps', () => {
+  it('renders the section header from i18n keys', () => {
     render(<ProjectWorkflow />);
-
-    // Check header
     expect(screen.getByText('Cómo llevamos tus proyectos a la realidad')).toBeInTheDocument();
+    expect(screen.getByText('Un proceso de ingeniería transparente y estructurado.')).toBeInTheDocument();
+  });
 
-    // Check all 4 steps are rendered
-    expect(screen.getByText('FASE_01')).toBeInTheDocument();
-    expect(screen.getByText('FASE_02')).toBeInTheDocument();
-    expect(screen.getByText('FASE_03')).toBeInTheDocument();
-    expect(screen.getByText('FASE_04')).toBeInTheDocument();
+  it('renders all 4 phases as a static list with formatted phase numbers', () => {
+    const { container } = render(<ProjectWorkflow />);
 
-    // Check titles
+    const list = container.querySelector('ol');
+    expect(list).toBeInTheDocument();
+    expect(list?.querySelectorAll(':scope > li')).toHaveLength(4);
+
+    // Formatted "Fase 0N" eyebrows — never the raw "FASE_0N" step code.
+    expect(screen.getByText('Fase 01')).toBeInTheDocument();
+    expect(screen.getByText('Fase 02')).toBeInTheDocument();
+    expect(screen.getByText('Fase 03')).toBeInTheDocument();
+    expect(screen.getByText('Fase 04')).toBeInTheDocument();
+    expect(screen.queryByText('FASE_01')).not.toBeInTheDocument();
+
+    // Titles
     expect(screen.getByText('Análisis y Requerimientos')).toBeInTheDocument();
     expect(screen.getByText('Definición de Alcance y Diseño')).toBeInTheDocument();
     expect(screen.getByText('Desarrollo e Ingeniería')).toBeInTheDocument();
     expect(screen.getByText('Entrega Final y Despliegue')).toBeInTheDocument();
-  });
 
-  it('allows clicking a step to change active station and update the inspector', () => {
-    render(<ProjectWorkflow />);
-
-    // Initially FASE_01 is active in inspector
-    expect(screen.getByText('FASE_01: Análisis y Requerimientos')).toBeInTheDocument();
-
-    // Click FASE_02 station
-    const stepTwoTitle = screen.getByText('Definición de Alcance y Diseño');
-    fireEvent.click(stepTwoTitle);
-
-    // Inspector should now display FASE_02
-    expect(screen.getByText('FASE_02: Definición de Alcance y Diseño')).toBeInTheDocument();
+    // Touchpoint and deliverables columns render for every phase.
+    expect(screen.getAllByText('Tu participación')).toHaveLength(4);
+    expect(screen.getAllByText('Qué recibes')).toHaveLength(4);
+    expect(screen.getByText('Documento SRS Técnico')).toBeInTheDocument();
   });
 });

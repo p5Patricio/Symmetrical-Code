@@ -133,11 +133,11 @@ export default function Services() {
             </span>
             <div className="h-px flex-1 bg-gradient-to-r from-[#195fc1]/40 to-transparent" />
           </div>
-          <div className="flex flex-col md:flex-row md:items-end gap-6 md:gap-8 justify-between">
+          <div className="flex flex-col lg:flex-row lg:items-end gap-6 lg:gap-8 justify-between">
             <h2 className="font-syne font-black text-3xl sm:text-5xl md:text-6xl lg:text-7xl text-white leading-[1.1] tracking-[-0.03em] max-w-3xl">
               {t('services.title')}
             </h2>
-            <p className="text-white/60 text-base sm:text-lg max-w-md leading-relaxed md:text-right font-normal">
+            <p className="text-white/60 text-base sm:text-lg max-w-md leading-relaxed lg:text-right font-normal">
               {t('services.subtitle')}
             </p>
           </div>
