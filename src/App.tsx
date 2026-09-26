@@ -10,6 +10,7 @@ import ProjectsPage from './pages/ProjectsPage';
 import ServiceDetailPage from './pages/ServiceDetailPage';
 import LegalPage from './pages/LegalPage';
 import ChatWidget from './components/chat/ChatWidget';
+import ScrollToTop from './components/layout/ScrollToTop';
 import { ThemeProvider, useTheme } from './context/ThemeContext';
 
 function AppContent() {
@@ -23,6 +24,7 @@ function AppContent() {
         <html lang={currentLang} className={theme} />
       </Helmet>
 
+      <ScrollToTop />
       <div className="relative z-10 min-h-screen bg-transparent">
         <Routes>
           <Route path="/" element={
