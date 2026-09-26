@@ -4,6 +4,9 @@ import { HelmetProvider } from 'react-helmet-async';
 import { BrowserRouter } from 'react-router-dom';  // ✅ MANTÉN ESTO
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/react';
+import '@fontsource-variable/syne';
+import '@fontsource-variable/geist';
+import '@fontsource-variable/geist-mono';
 import './i18n/index';
 import './index.css';
 import App from './App.tsx';

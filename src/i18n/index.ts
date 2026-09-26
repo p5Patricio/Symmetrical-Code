@@ -14,6 +14,9 @@ i18n
       en: { translation: en },
     },
     fallbackLng: 'es',
+    load: 'languageOnly',
+    supportedLngs: ['es', 'en'],
+    nonExplicitSupportedLngs: true,
     detection: {
       order: ['localStorage', 'navigator'],
       caches: ['localStorage'],

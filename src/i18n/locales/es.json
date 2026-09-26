@@ -4,137 +4,135 @@
     "projects": "Proyectos",
     "services": "Servicios",
     "team": "Equipo",
-    "contact": "Contacto"
+    "contact": "Contacto",
+    "theme_to_light": "Cambiar a modo claro",
+    "theme_to_dark": "Cambiar a modo oscuro",
+    "menu_open": "Abrir menú",
+    "menu_close": "Cerrar menú",
+    "menu_label": "Menú de navegación",
+    "language_toggle": "Cambiar idioma"
   },
   "hero": {
     "label": "Estudio de Desarrollo de Software",
-    "title": "Ingeniería real",
-    "title_highlight": "para problemas",
-    "title_end": "reales.",
-    "subtitle": "Convertimos ideas claras en productos digitales simples, rápidos y listos para crecer contigo desde el primer lanzamiento.",
-    "cta_primary": "Explorar servicios",
-    "cta_secondary": "Cotizar Proyecto",
-    "stat_1_value": "Claridad",
+    "cta_primary": "Cotizar Proyecto",
+    "cta_secondary": "Explorar servicios",
     "stat_1_label": "Aterrizamos tu idea antes de construir",
-    "stat_2_value": "Balance",
     "stat_2_label": "Diseño útil + código limpio",
-    "stat_3_value": "Futuro",
     "stat_3_label": "Base preparada para crecer",
-    "email": "contacto@symmetricalcode.com",
     "location": "Guanajuato, México · Remoto",
-    "availability": "Abiertos a nuevos proyectos",
-    "foundation_note": "Estamos iniciando con una promesa simple: escuchar bien, construir con cuidado y ser transparentes desde el primer mensaje.",
-    "follow_us": "Síguenos"
+    "availability": "Abiertos a nuevos proyectos"
   },
   "services": {
     "label": "Nuestros Servicios",
     "title": "Servicios de Desarrollo a Medida",
     "subtitle": "Del código al despliegue: los servicios que tu negocio necesita para crecer.",
-    "learn_more": "Ver más detalles",
-    "modal_includes": "Lo que recibirás",
-    "modal_highlights": "Por qué elegirnos",
-    "modal_cta": "Platícanos tu proyecto",
     "items": [
       {
-        "title": "Páginas y Apps que Venden",
-        "description": "Sitios y aplicaciones con diseño profesional y carga veloz, hechos para convertir visitantes en clientes.",
-        "longDescription": "Diseñamos y construimos sitios web que no solo se ven bien, sino que trabajan para ti. Nos enfocamos en la experiencia de usuario y el rendimiento para que tus clientes encuentren lo que buscan rápido y sin fricciones. Desde landing pages hasta tiendas en línea, creamos tu ventana al mundo digital.",
+        "slug": "software-empresarial",
+        "title": "Software Empresarial y Sistemas Internos",
+        "description": "Migración de Excels a sistemas propios, ERPs y control total de inventarios, compras y ventas.",
+        "longDescription": "Diseñamos y desarrollamos plataformas empresariales que reemplazan hojas de Excel dispersas y software genérico costoso. Centralizamos inventarios, ventas, compras, finanzas y personal en un sistema seguro, rápido y accesible desde cualquier dispositivo.",
         "highlights": [
-          "Diseño moderno que genera confianza",
-          "Rápida carga en cualquier dispositivo",
-          "Fácil de usar para tus clientes",
-          "Lista para posicionar en Google (SEO)"
+          "Migración completa de Excel a base de datos segura",
+          "Control integrado de inventarios, compras y ventas",
+          "Permisos por empleado y roles personalizados",
+          "Acceso en la nube 24/7 desde celular y computadora"
         ],
         "bullets": [
-          "Diseño Profesional",
-          "Velocidad Optimizada",
-          "Funciona en Celulares",
-          "Fácil de Administrar"
+          "ERPs a Medida",
+          "Migración de Datos",
+          "Control de Roles",
+          "Gestión Centralizada"
         ]
       },
       {
-        "title": "Automatización y Sistemas",
-        "description": "Conectamos tus herramientas y automatizamos procesos para que tu operación funcione sola.",
-        "longDescription": "Creamos el cerebro de tu operación. Conectamos tus bases de datos, herramientas de pago y sistemas de terceros en una plataforma robusta y segura. Si tienes una tarea repetitiva, nosotros la automatizamos. Si tienes datos dispersos, nosotros los organizamos.",
+        "slug": "inteligencia-artificial",
+        "title": "Implementación de IA a tu Negocio",
+        "description": "Asistentes inteligentes 24/7, lectura automática de facturas/documentos y automatización con IA basada en tus datos.",
+        "longDescription": "Integramos modelos de lenguaje de última generación y modelos privados entrenados con los manuales, catálogos y políticas de tu empresa. Respuestas precisas basadas en tus documentos, extracción automática de datos de facturas o contratos, y visión por computadora.",
         "highlights": [
-          "Automatización de tareas manuales",
-          "Conexión con pagos y redes sociales",
-          "Manejo seguro de tu información",
-          "Sistemas que crecen con tu empresa"
+          "Atención al cliente 24/7 con tus datos reales (RAG)",
+          "Extracción automática de datos de facturas y PDFs",
+          "Transcripción de audios y minutas de reuniones",
+          "Visión por computadora y control de calidad"
         ],
         "bullets": [
-          "Automatización de Procesos",
-          "Integración de Pagos",
-          "Bases de Datos Seguras",
-          "Sistemas Escalables"
+          "Agentes IA 24/7",
+          "Lectura de PDFs/Facturas",
+          "Modelos Privados",
+          "Respuestas Basadas en tus Documentos"
         ]
       },
       {
-        "title": "Tu Negocio Siempre Activo",
-        "description": "Infraestructura en la nube con alta disponibilidad, para que tu sitio nunca se caiga.",
-        "longDescription": "Nos encargamos de toda la complejidad técnica detrás de cámaras. Configuramos servidores en la nube que se ajustan automáticamente a la cantidad de personas que te visitan, asegurando que tu inversión sea eficiente y tu sitio esté siempre disponible.",
+        "slug": "desarrollo-web-movil",
+        "title": "Desarrollo de Páginas Web y Apps Móviles",
+        "description": "Sitios web de carga instantánea que generan ventas, pasarelas de pago y aplicaciones móviles en iOS y Android.",
+        "longDescription": "Construimos experiencias digitales modernas, desde landing pages que convierten visitantes en clientes hasta plataformas web complejas (SaaS) y aplicaciones móviles en iOS y Android con una sola base de código optimizada.",
         "highlights": [
-          "99.9% de tiempo en línea garantizado",
-          "Optimización de costos en la nube",
-          "Seguridad contra ataques",
-          "Actualizaciones automáticas"
+          "Carga ultrarrápida en menos de 1 segundo",
+          "Apps móviles para iOS y Android en Flutter y React",
+          "Integración de pagos (Mercado Pago, Stripe, transferencias)",
+          "Arquitectura optimizada para posicionar en Google (SEO)"
         ],
         "bullets": [
-          "Infraestructura Cloud",
-          "Seguridad Avanzada",
-          "Escalabilidad Total",
-          "Soporte Continuo"
+          "Webs de Alta Conversión",
+          "Apps iOS y Android",
+          "Pagos en Línea",
+          "SEO Técnico Impecable"
         ]
       },
       {
-        "title": "Ciberseguridad",
-        "description": "Protegemos tus datos y los de tus clientes con seguridad de nivel bancario.",
-        "longDescription": "La seguridad no es opcional. Protegemos tu propiedad intelectual y los datos sensibles de tus usuarios siguiendo los más altos estándares de la industria. Realizamos auditorías constantes para asegurar que tu negocio sea un lugar seguro para transaccionar.",
+        "slug": "ciberseguridad",
+        "title": "Ciberseguridad y Asesoría",
+        "description": "Blindaje para software que ya tienes, auditorías de vulnerabilidades, copias de seguridad y cifrado de datos.",
+        "longDescription": "La seguridad digital no es un lujo, es la garantía de que tu empresa no sufrirá hackeos, robo de bases de datos o multas por fuga de información. Auditamos sistemas ya construidos, protegemos APIs y asesoramos a directivos antes de realizar inversiones técnicas.",
         "highlights": [
-          "Cifrado de datos sensibles",
-          "Protección contra hackers",
-          "Cumplimiento de leyes de privacidad",
-          "Auditorías de seguridad regulares"
+          "Auditorías y blindaje para software existente",
+          "Cifrado de grado bancario para datos y contraseñas",
+          "Copias de seguridad automáticas ante desastres",
+          "Asesoría técnica honesta antes de invertir"
         ],
         "bullets": [
-          "Blindaje de Datos",
-          "Prevención de Ataques",
-          "Privacidad Garantizada",
-          "Consultoría Experta"
+          "Blindaje de Software",
+          "Cifrado de Datos",
+          "Copias de Seguridad",
+          "Consultoría Senior"
         ]
       },
       {
-        "title": "Diseño de Interfaces",
-        "description": "Interfaces claras e intuitivas, pensadas para que tus usuarios naveguen sin fricción.",
-        "longDescription": "El buen diseño es invisible: simplemente funciona. Creamos experiencias digitales intuitivas que guían a tus usuarios hacia la acción que deseas. Desde el primer boceto hasta el producto final, cada detalle está pensado para deleitar a quien lo usa.",
+        "slug": "diseno-ui-ux",
+        "title": "Diseño de Interfaces y Experiencia de Usuario",
+        "description": "Software intuitivo que se entiende sin manual, prototipos interactivos antes de programar y adaptación móvil.",
+        "longDescription": "El buen diseño es aquel que hace que un producto digital complejo se sienta simple. Creamos prototipos navegables en Figma para que puedas interactuar con tu producto antes de escribir código, asegurando flujos de compra sin trabas y coherencia visual en cada pantalla.",
         "highlights": [
-          "Interfaces fáciles de navegar",
-          "Prototipos para que veas antes de construir",
-          "Diseño que refleja tu marca",
-          "Pruebas con usuarios reales"
+          "Prototipos interactivos para probar antes de programar",
+          "Interfaces fáciles de usar que reducen soporte",
+          "Adaptación ergonómica y perfecta a celulares",
+          "Sistemas de diseño reutilizables y profesionales"
         ],
         "bullets": [
-          "Diseño Intuitivo",
-          "Prototipado Visual",
-          "Imagen de Marca",
-          "Enfoque en el Usuario"
+          "Prototipado en Figma",
+          "Experiencia sin Fricción",
+          "Diseño Mobile-First",
+          "Design Systems"
         ]
       },
       {
-        "title": "Analítica y Reportes",
-        "description": "Dashboards claros para entender a tus clientes y tomar mejores decisiones de negocio.",
-        "longDescription": "Lo que no se mide, no se puede mejorar. Te ayudamos a instalar y entender tableros de control que te muestran exactamente qué está pasando en tu negocio digital. Así podrás invertir con confianza donde realmente obtienes resultados.",
+        "slug": "automatizacion-analitica",
+        "title": "Automatización, Analítica y Reportes",
+        "description": "Automatización de WhatsApp, conexión entre plataformas, eliminación de tareas manuales y dashboards en vivo.",
+        "longDescription": "Hacemos que los sistemas de tu empresa se comuniquen automáticamente entre sí. Conectamos tu web con WhatsApp, pasarelas de pago, facturación e inventario para que las ventas se procesen solas, y construimos tableros interactivos para que tomes decisiones con datos precisos.",
         "highlights": [
-          "Reportes fáciles de entender",
-          "Seguimiento de ventas y conversiones",
-          "Mejora continua de resultados",
-          "Análisis de comportamiento de clientes"
+          "Automatización de mensajes y avisos por WhatsApp",
+          "Eliminación de tareas repetitivas de captura manual",
+          "Dashboards y gráficas de ventas en tiempo real",
+          "Conexión entre tus herramientas con APIs y Webhooks"
         ],
         "bullets": [
-          "Dashboards Claros",
-          "Optimización de Ventas",
-          "Reportes Mensuales",
-          "Estrategia de Datos"
+          "WhatsApp Automático",
+          "Workflows sin Fricción",
+          "Dashboards en Vivo",
+          "Integración de APIs"
         ]
       }
     ]
@@ -144,169 +142,348 @@
     "title": "Proyectos",
     "subtitle": "Soluciones reales para problemas reales. Cada proyecto es una oportunidad de superar expectativas.",
     "view_demo": "Ver demo",
-    "view_code": "Ver código",
     "view_detail": "Ver detalle",
     "view_all": "Galería completa",
     "gallery": "Galería",
+    "source": "Código",
     "gallery_label": "Portafolio completo",
     "gallery_title": "Todos los proyectos",
     "filter_all": "Todos",
-    "filter_web_app": "Web App",
-    "filter_ai_ml": "IA / ML",
-    "filter_game": "Juego",
-    "filter_erp": "ERP",
     "back": "Volver al sitio",
-    "single_image": "Solo una imagen disponible",
-    "explore": "Explorar",
     "case_label": "Caso de proyecto",
-    "technologies": "Tecnologías",
-    "no_projects": "No hay proyectos en esta categoría.",
-    "source_code": "Código fuente"
+    "prev_short": "Anterior",
+    "next_short": "Siguiente"
   },
   "team": {
     "label": "Nuestro Equipo",
     "title": "¿Por qué Symmetrical Code?",
     "subtitle": "Combinamos ingeniería de software de alto nivel con un enfoque integral orientado a potenciar tu negocio.",
-    "quote": "\"Ingeniería real para problemas reales.\"",
-    "quote_body": "En Symmetrical Code trabajamos con un equipo especializado que mantiene altos estándares de desarrollo. Cada línea de código es revisada internamente para construir soluciones robustas, mantenibles y listas para escalar.",
-    "pillars": [
+    "workflow_label": "METODOLOGÍA // INGENIERÍA EN 4 ETAPAS",
+    "workflow_title": "Cómo llevamos tus proyectos a la realidad",
+    "workflow_subtitle": "Un proceso de ingeniería transparente y estructurado: cero ambigüedad, presupuestos blindados y avances funcionales cada dos semanas.",
+    "workflow_phase_label": "Fase",
+    "workflow_touchpoint_label": "Tu participación",
+    "workflow_deliverables_label": "Qué recibes",
+    "workflow_steps": [
       {
-        "title": "Arquitectura de Software",
-        "description": "No solo escribimos código; diseñamos sistemas robustos y escalables. Dividimos nuestras tareas en especialidades (Frontend, Backend y DevOps) para asegurar que cada pieza del software reciba atención experta.",
-        "details": [
-          "Arquitectura Limpia",
-          "Bases de datos optimizadas",
-          "Nube e Infraestructura"
-        ]
+        "id": "analysis",
+        "step": "FASE_01",
+        "status": "DIAGNÓSTICO",
+        "title": "Análisis y Requerimientos",
+        "tagline": "Diagnóstico profundo y viabilidad técnica",
+        "description": "Deconstruimos tu problema operativo. Analizamos tus flujos de trabajo actuales y traducimos necesidades de negocio en especificaciones técnicas de software sin ambigüedades.",
+        "deliverables": [
+          "Documento SRS Técnico",
+          "Diagrama de Flujo de Datos (DFD)",
+          "Matriz de Viabilidad & Stack"
+        ],
+        "touchpoint": "Taller 1-a-1 de Descubrimiento",
+        "badge": "0% Ambigüedad"
       },
       {
-        "title": "Estándares de Calidad",
-        "description": "La confianza se construye con software que no falla. Implementamos pruebas automatizadas (tests), revisiones de código rigurosas y auditorías de seguridad en cada entrega.",
-        "details": [
-          "Pruebas de Software",
-          "Seguridad Bancaria",
-          "Código Mantenible"
-        ]
+        "id": "scope",
+        "step": "FASE_02",
+        "status": "BLUEPRINT",
+        "title": "Definición de Alcance y Diseño",
+        "tagline": "Arquitectura de datos y presupuesto cerrado",
+        "description": "Modelamos las bases de datos y diseñamos la experiencia interactiva en Figma. Pactamos un cronograma por sprints con un costo blindado: sabes qué recibirás, cuándo y por qué costo.",
+        "deliverables": [
+          "Prototipo Interactivo Figma",
+          "Modelo Entidad-Relación (ERD)",
+          "Cronograma de Sprints Cerrado"
+        ],
+        "touchpoint": "Aprobación de Prototipo y Alcance",
+        "badge": "Presupuesto Fijo"
       },
       {
-        "title": "Diseño que Convierte",
-        "description": "El software debe ser una herramienta comercial. Creamos interfaces intuitivas pensadas para el usuario final, optimizando la velocidad y la facilidad de uso para maximizar tus ventas.",
-        "details": [
-          "UI / UX Moderno",
-          "Velocidad Extrema",
-          "Enfoque en Conversión"
-        ]
+        "id": "development",
+        "step": "FASE_03",
+        "status": "EN SPRINTS",
+        "title": "Desarrollo e Ingeniería",
+        "tagline": "Código modular, CI/CD y demos quincenales",
+        "description": "Programamos con arquitectura limpia y pruebas automatizadas. Desplegamos en entornos de Staging para que pruebes avances funcionales cada 14 días sin esperar al final del proyecto.",
+        "deliverables": [
+          "Repositorio de Código Limpio",
+          "Entorno Privado de Staging",
+          "Pruebas Unitarias & de Seguridad"
+        ],
+        "touchpoint": "Demos quincenales en vivo",
+        "badge": "Sprints Funcionales"
+      },
+      {
+        "id": "delivery",
+        "step": "FASE_04",
+        "status": "PRODUCCIÓN",
+        "title": "Entrega Final y Despliegue",
+        "tagline": "Puesta en marcha, código 100% tuyo y garantía",
+        "description": "Lanzamiento a servidores cloud con SSL y monitoreo con alertas automáticas. Te entregamos la propiedad total del repositorio, capacitamos a tu equipo y respaldamos el sistema con garantía de corrección de errores definida en el contrato.",
+        "deliverables": [
+          "Despliegue Cloud en Producción",
+          "100% Transferencia de Código",
+          "Garantía Definida en Contrato & Soporte"
+        ],
+        "touchpoint": "Go-Live + Sesión de Capacitación",
+        "badge": "100% Tu Código"
+      }
+    ],
+    "institutions_label": "FORMACIÓN & PREPARACIÓN TÉCNICA",
+    "institutions_title": "Formación técnica",
+    "institutions_desc": "Nuestro equipo combina el rigor de la ingeniería formal con la experiencia práctica en tecnologías líderes de la industria.",
+    "institutions": [
+      {
+        "id": "ugto",
+        "name": "Universidad de Guanajuato",
+        "badge": "Alma Máter · Ingeniería",
+        "description": "Bases matemáticas, ciencias de la computación, algoritmia de alto rendimiento y pensamiento formal en ingeniería de software."
+      },
+      {
+        "id": "santander",
+        "name": "Santander Open Academy",
+        "badge": "Especialización & Becas",
+        "description": "Programas internacionales de excelencia técnica, ciberseguridad y metodologías ágiles avaladas por Santander Universidades."
+      },
+      {
+        "id": "aws",
+        "name": "Amazon Web Services",
+        "badge": "Cloud & Infraestructura",
+        "description": "Arquitectura distribuida en la nube, alta disponibilidad, microservicios, seguridad perimetral y despliegues serverless."
+      },
+      {
+        "id": "udemy",
+        "name": "Udemy",
+        "badge": "Especialización Continua",
+        "description": "Capacitación y dominio constante de los frameworks más modernos, patrones avanzados de arquitectura y ecosistemas full-stack."
+      }
+    ],
+    "members_label": "Conoce al equipo",
+    "members_link_aria": "Portafolio de {{name}} (se abre en una pestaña nueva)",
+    "members": [
+      {
+        "name": "Mario Delgado",
+        "role": "Ingeniero en Sistemas Computacionales y diseñador UI/UX",
+        "url": "https://portafolio-mario-delgado.vercel.app/",
+        "domain": "portafolio-mario-delgado.vercel.app"
+      },
+      {
+        "name": "Patricio García",
+        "role": "Ingeniero de software, desarrollador full stack y DevOps",
+        "url": "https://patodev.com/",
+        "domain": "patodev.com"
+      },
+      {
+        "name": "Eduardo Estrada",
+        "role": "Ingeniero en Sistemas Computacionales",
+        "url": "https://www.linkedin.com/in/eduardo-estrada-988a05371",
+        "domain": "linkedin.com/in/eduardo-estrada"
       }
     ]
   },
+  "serviceDetail": {
+    "breadcrumb_aria": "Ruta de navegación",
+    "not_found_title": "Servicio no encontrado",
+    "not_found_desc": "El servicio que buscas no existe o fue reubicado.",
+    "not_found_cta": "Volver a servicios",
+    "cta_whatsapp": "Cotizar por WhatsApp",
+    "cta_deliverables": "Qué incluye",
+    "hero_image_alt": "Vista previa de {{title}}",
+    "whatsapp_quote_message": "Hola, me interesa cotizar el servicio de {{title}}.",
+    "solutions_eyebrow": "Qué Resolvemos",
+    "solutions_title": "Qué resolvemos para tu negocio",
+    "who_eyebrow": "Para Quién Es",
+    "who_title": "¿Es este el servicio adecuado para ti?",
+    "process_eyebrow": "Cómo Lo Trabajamos",
+    "process_title": "Nuestro proceso de trabajo",
+    "process_cta": "Ver el proceso completo",
+    "deliverables_eyebrow": "Qué Recibes",
+    "deliverables_title": "Lo que recibes al trabajar con nosotros",
+    "stack_eyebrow": "Stack Tecnológico",
+    "stack_title": "Tecnología y herramientas",
+    "stack_description": "Trabajamos con tecnología de nivel productivo, con alta escalabilidad y soporte a largo plazo.",
+    "faq_eyebrow": "Preguntas Frecuentes",
+    "faq_title": "Lo que usualmente nos preguntan",
+    "closing_eyebrow": "Comencemos",
+    "closing_title": "¿Hablamos sobre tu proyecto?",
+    "closing_desc": "Cuéntanos qué necesidad o reto quieres resolver. Te damos un diagnóstico claro en menos de 24 horas.",
+    "closing_secondary_cta": "Ver todos los servicios",
+    "other_services_eyebrow": "Otros Servicios"
+  },
+  "legal": {
+    "eyebrow": "Legal",
+    "toc_label": "Contenido",
+    "back_home": "Volver al inicio",
+    "view_privacy": "Ver aviso de privacidad",
+    "view_terms": "Ver términos y condiciones",
+    "email": "contacto@symmetricalcode.com",
+    "last_updated": "Última actualización: septiembre de 2026",
+    "privacy": {
+      "title": "Aviso de privacidad integral",
+      "intro": "En Symmetrical Code cuidamos los datos que nos compartes. Este aviso explica qué datos tratamos, para qué, dónde se guardan y cómo puedes ejercer tus derechos.",
+      "sections": [
+        {
+          "title": "Responsables del tratamiento",
+          "blocks": [
+            { "type": "p", "text": "Patricio Antonio García Pérez Vela, Mario Jesús Delgado Hernández y Eduardo Estrada Estrada, quienes operan bajo el nombre comercial Symmetrical Code, son responsables del tratamiento de tus datos personales." },
+            { "type": "p", "text": "Correo de contacto: {{email}}." }
+          ]
+        },
+        {
+          "title": "Datos personales que tratamos",
+          "blocks": [
+            { "type": "p", "text": "Solo tratamos los datos que tú decides compartirnos cuando nos escribes por WhatsApp o por correo electrónico: nombre, número de teléfono, correo electrónico, nombre de tu empresa (si lo compartes) y la información de tu proyecto que incluyas en la conversación. No solicitamos datos personales sensibles; te pedimos no enviarlos en tus mensajes. Al navegar el sitio también se generan datos técnicos de la visita, descritos en la sección 6." }
+          ]
+        },
+        {
+          "title": "Finalidades",
+          "blocks": [
+            { "type": "p", "text": "Usamos tus datos para: (a) responder tus consultas; (b) preparar y enviarte cotizaciones; (c) coordinar, desarrollar y dar seguimiento a los proyectos que contrates con nosotros. Todas estas finalidades son necesarias para atender tu solicitud o la relación de servicio que establezcas con nosotros. No usamos tus datos para publicidad, boletines ni promociones. Si algún día quisiéramos hacerlo, actualizaremos este aviso y te pediremos tu consentimiento antes." }
+          ]
+        },
+        {
+          "title": "Dónde se guardan tus datos y quién más participa",
+          "blocks": [
+            { "type": "p", "text": "No mantenemos bases de datos de clientes ni de prospectos. Tus datos permanecen únicamente:" },
+            { "type": "ul", "items": [
+              "en las conversaciones de WhatsApp, un servicio de Meta. Al escribirnos por WhatsApp, tu comunicación también se rige por el aviso de privacidad de WhatsApp;",
+              "en nuestro correo: {{email}} es un reenvío que administra nuestro proveedor de dominio, Porkbun, hacia los buzones de correo de los responsables."
+            ] },
+            { "type": "p", "text": "Estos proveedores, algunos ubicados fuera de México, tratan la información solo para prestar su servicio. No vendemos, rentamos ni transferimos tus datos a terceros para sus propios fines; solo los compartiríamos si una autoridad competente lo requiere conforme a la ley." }
+          ]
+        },
+        {
+          "title": "Conservación",
+          "blocks": [
+            { "type": "p", "text": "Conservamos tus conversaciones mientras sean necesarias para atender tu solicitud o tu proyecto, y por el tiempo que exijan las obligaciones legales aplicables. Puedes pedirnos en cualquier momento que las eliminemos (sección 7)." }
+          ]
+        },
+        {
+          "title": "Tecnologías en tu navegador y analítica",
+          "blocks": [
+            { "type": "p", "text": "Este sitio no usa cookies. Usamos:" },
+            { "type": "ul", "items": [
+              "almacenamiento local del navegador (localStorage) para recordar tu tema claro u oscuro y tu idioma;",
+              "almacenamiento de sesión (sessionStorage) para no repetir el aviso de WhatsApp durante tu visita;",
+              "Vercel Web Analytics y Speed Insights, que miden visitas y rendimiento de forma agregada y sin cookies: identifican la visita con un valor calculado a partir de la solicitud, que se descarta a las 24 horas y no permite identificarte."
+            ] },
+            { "type": "p", "text": "El sitio está alojado en Vercel, que procesa datos técnicos de conexión, como la dirección IP, para entregar el sitio y protegerlo. Los íconos de tecnologías de la sección de proyectos se cargan desde jsDelivr y Simple Icons, que también reciben esos datos técnicos al mostrarlos. Puedes borrar el almacenamiento local desde la configuración de tu navegador." }
+          ]
+        },
+        {
+          "title": "Derechos ARCO y revocación del consentimiento",
+          "blocks": [
+            { "type": "p", "text": "Puedes acceder a tus datos, rectificarlos, cancelarlos u oponerte a su tratamiento (derechos ARCO), o revocar tu consentimiento, escribiendo a {{email}}. Tu solicitud debe incluir:" },
+            { "type": "ul", "items": [
+              "tu nombre y un medio para responderte;",
+              "un documento que acredite tu identidad o, en su caso, la de tu representante;",
+              "la descripción clara de los datos y del derecho que quieres ejercer;",
+              "cualquier elemento que nos ayude a localizar tus datos."
+            ] },
+            { "type": "p", "text": "Te responderemos en un plazo máximo de 20 días hábiles y, si procede, lo haremos efectivo dentro de los 15 días hábiles siguientes a nuestra respuesta. Estos plazos pueden ampliarse una sola vez por un periodo igual cuando el caso lo justifique." }
+          ]
+        },
+        {
+          "title": "Cómo limitar el uso de tus datos",
+          "blocks": [
+            { "type": "p", "text": "Puedes pedirnos en cualquier momento que dejemos de contactarte o que eliminemos tu conversación, por correo a {{email}} o en el mismo chat de WhatsApp." }
+          ]
+        },
+        {
+          "title": "Cambios a este aviso",
+          "blocks": [
+            { "type": "p", "text": "Publicaremos cualquier cambio en esta página con su fecha de actualización. Si un cambio implica nuevas finalidades, te lo informaremos por el medio con el que nos contactaste." }
+          ]
+        },
+        {
+          "title": "Autoridad",
+          "blocks": [
+            { "type": "p", "text": "Si consideras que se vulneró tu derecho a la protección de datos personales, puedes acudir a la Secretaría Anticorrupción y Buen Gobierno, autoridad competente en la materia." }
+          ]
+        }
+      ]
+    },
+    "terms": {
+      "title": "Términos y condiciones de uso",
+      "intro": "Estos términos regulan el uso del sitio www.symmetricalcode.com. Al usarlo, los aceptas.",
+      "sections": [
+        {
+          "title": "Quiénes somos",
+          "blocks": [
+            { "type": "p", "text": "Symmetrical Code es el nombre comercial bajo el que operan Patricio Antonio García Pérez Vela, Mario Jesús Delgado Hernández y Eduardo Estrada Estrada. Contacto: {{email}}." }
+          ]
+        },
+        {
+          "title": "Uso del sitio",
+          "blocks": [
+            { "type": "p", "text": "El sitio es informativo: presenta nuestros servicios, proyectos y medios de contacto. Te comprometes a usarlo de forma lícita y a no intentar dañarlo ni acceder sin autorización a sus sistemas." }
+          ]
+        },
+        {
+          "title": "Cotizaciones y contratos",
+          "blocks": [
+            { "type": "p", "text": "La información del sitio no es una oferta vinculante. Precios, alcances, plazos, entregables, garantías y la propiedad de lo que desarrollemos para ti se definen por escrito en la cotización o el contrato de cada proyecto, que prevalecen sobre lo publicado aquí." }
+          ]
+        },
+        {
+          "title": "Propiedad intelectual",
+          "blocks": [
+            { "type": "p", "text": "Los textos, el diseño, los logotipos y las imágenes de este sitio pertenecen a Symmetrical Code o a sus respectivos titulares y no pueden reproducirse sin autorización. Las marcas de terceros que aparecen en el sitio, como tecnologías o instituciones, pertenecen a sus dueños." }
+          ]
+        },
+        {
+          "title": "Enlaces a terceros",
+          "blocks": [
+            { "type": "p", "text": "El sitio incluye enlaces a servicios de terceros, como WhatsApp, redes sociales y portafolios. No somos responsables de su contenido ni de sus políticas." }
+          ]
+        },
+        {
+          "title": "Disponibilidad y responsabilidad",
+          "blocks": [
+            { "type": "p", "text": "Procuramos que la información sea correcta y que el sitio esté disponible, pero puede contener errores o cambiar sin aviso. En la medida que lo permita la ley, no somos responsables por daños derivados del uso del sitio." }
+          ]
+        },
+        {
+          "title": "Privacidad",
+          "blocks": [
+            { "type": "p-link", "before": "El tratamiento de tus datos se describe en nuestro ", "linkLabel": "Aviso de privacidad", "to": "/privacidad", "after": "." }
+          ]
+        },
+        {
+          "title": "Ley aplicable y jurisdicción",
+          "blocks": [
+            { "type": "p", "text": "Estos términos se rigen por las leyes de México. Para cualquier controversia, te sometes a los tribunales competentes de Guanajuato, Guanajuato." }
+          ]
+        },
+        {
+          "title": "Cambios",
+          "blocks": [
+            { "type": "p", "text": "Podemos actualizar estos términos. La versión vigente es la publicada en esta página con su fecha de actualización." }
+          ]
+        }
+      ]
+    }
+  },
   "footer": {
-    "tagline": "Ingeniería real para problemas reales.",
+    "tagline": "Convertimos ideas claras en productos digitales listos para crecer.",
     "follow": "Síguenos",
     "contact_title": "Contacto",
     "schedule": "Lun - Vie: 9:00 - 18:00",
-    "location": "Guanajuato, Guanajuato, México",
+    "location": "Guanajuato, México",
     "project_title": "Proyecto",
     "project_headline": "¿Tienes un proyecto?",
     "project_sub": "Hablemos.",
     "project_desc": "Contáctanos directamente por WhatsApp para platicar sobre tu proyecto.",
     "cta": "Cotizar Proyecto",
-    "whatsapp_message": "Hola, me gustaría obtener más información sobre sus servicios.",
     "privacy": "Privacidad",
     "terms": "Términos",
-    "cookies": "Cookies",
     "modal_understood": "Entendido",
-    "modal_last_updated": "Última actualización: 19 de mayo de 2026",
-    "modal_privacy_title": "Política de Privacidad",
-    "modal_terms_title": "Términos y Condiciones",
-    "modal_cookies_title": "Política de Cookies",
-    "privacy_s1_title": "Información que recopilamos",
-    "privacy_s1_body": "En Symmetrical Code, recopilamos información que usted nos proporciona directamente, como su nombre, dirección de correo electrónico, número de teléfono y cualquier otra información que elija compartir cuando se comunica con nosotros a través de nuestro sitio web o servicios.",
-    "privacy_s2_title": "Cómo usamos su información",
-    "privacy_s2_body": "Utilizamos su información para proporcionar, mantener y mejorar nuestros servicios, responder a sus consultas y solicitudes, enviarle información sobre nuestros servicios y promociones, y proteger contra fraudes y actividades no autorizadas.",
-    "privacy_s3_title": "Compartir información",
-    "privacy_s3_body": "No vendemos, comerciamos ni alquilamos su información personal a terceros. Podemos compartir su información con proveedores de servicios que nos ayudan a operar nuestro negocio, siempre bajo estrictas obligaciones de confidencialidad.",
-    "privacy_s4_title": "Seguridad de los datos",
-    "privacy_s4_body": "Implementamos medidas de seguridad técnicas y organizativas para proteger su información personal contra acceso no autorizado, alteración, divulgación o destrucción.",
-    "privacy_s5_title": "Sus derechos",
-    "privacy_s5_body": "Usted tiene derecho a acceder, corregir o eliminar su información personal. Para ejercer estos derechos, contáctenos a contacto@symmetricalcode.com.",
-    "privacy_s6_title": "Retención de datos",
-    "privacy_s6_body": "Conservamos su información personal durante el tiempo necesario para cumplir con los fines descritos en esta política, a menos que se requiera un período de retención más largo por ley.",
-    "privacy_s7_title": "Cambios a esta política",
-    "privacy_s7_body": "Podemos actualizar esta política de privacidad periódicamente. Le notificaremos cualquier cambio publicando la nueva política en esta página.",
-    "terms_s1_title": "Aceptación de los términos",
-    "terms_s1_body": "Al acceder y utilizar el sitio web de Symmetrical Code, usted acepta cumplir con estos Términos y Condiciones. Si no está de acuerdo con alguna parte de estos términos, no debe utilizar nuestro sitio.",
-    "terms_s2_title": "Descripción del servicio",
-    "terms_s2_body": "Symmetrical Code ofrece servicios de desarrollo de software, consultoría tecnológica y soluciones de infraestructura. Nos reservamos el derecho de modificar o discontinuar cualquier servicio sin previo aviso.",
-    "terms_s3_title": "Propiedad intelectual",
-    "terms_s3_body": "Todo el contenido de este sitio web, incluyendo textos, gráficos, logotipos, iconos, imágenes y software, es propiedad de Symmetrical Code o de sus proveedores de contenido y está protegido por leyes de derechos de autor.",
-    "terms_s4_title": "Limitación de responsabilidad",
-    "terms_s4_body": "Symmetrical Code no será responsable por daños indirectos, incidentales, especiales, consecuentes o punitivos que resulten del uso o la imposibilidad de usar nuestros servicios.",
-    "terms_s5_title": "Ley aplicable",
-    "terms_s5_body": "Estos términos se rigen por las leyes de México. Cualquier disputa relacionada con estos términos será resuelta en los tribunales de Guanajuato, México.",
-    "terms_s6_title": "Modificaciones",
-    "terms_s6_body": "Nos reservamos el derecho de modificar estos términos en cualquier momento. Los cambios serán efectivos inmediatamente después de su publicación.",
-    "cookies_s1_title": "¿Qué son las cookies?",
-    "cookies_s1_body": "Las cookies son pequeños archivos de texto que los sitios web colocan en su dispositivo cuando los visita. Se utilizan ampliamente para hacer que los sitios web funcionen de manera más eficiente y proporcionar información a los propietarios del sitio.",
-    "cookies_s2_title": "Tipos de cookies que utilizamos",
-    "cookies_s2_essential_label": "Cookies esenciales:",
-    "cookies_s2_essential_body": "Necesarias para el funcionamiento básico del sitio.",
-    "cookies_s2_performance_label": "Cookies de rendimiento:",
-    "cookies_s2_performance_body": "Nos ayudan a entender cómo los visitantes interactúan con nuestro sitio.",
-    "cookies_s2_functional_label": "Cookies funcionales:",
-    "cookies_s2_functional_body": "Permiten recordar sus preferencias para mejorar su experiencia.",
-    "cookies_s2_ads_label": "Cookies de publicidad:",
-    "cookies_s2_ads_body": "Se utilizan para mostrar anuncios relevantes.",
-    "cookies_s3_title": "Cómo controlar las cookies",
-    "cookies_s3_body": "Puede controlar y/o eliminar las cookies según lo desee. La mayoría de los navegadores le permiten rechazar todas las cookies o indicarle cuando se envía una cookie. Sin embargo, si bloquea las cookies, es posible que algunas partes de nuestro sitio no funcionen correctamente.",
-    "cookies_s4_title": "Cookies de terceros",
-    "cookies_s4_body": "Podemos utilizar servicios de terceros que también pueden colocar cookies en su dispositivo. No tenemos control sobre estas cookies y le recomendamos revisar las políticas de privacidad de dichos servicios.",
-    "cookies_s5_title": "Consentimiento",
-    "cookies_s5_body": "Al continuar utilizando nuestro sitio web, usted acepta el uso de cookies de acuerdo con esta política.",
-    "cookies_s6_title": "Configuración del navegador",
-    "cookies_s6_body": "Puede configurar su navegador para rechazar todas las cookies o para que le avise cuando se envía una cookie. Cada navegador tiene diferentes procedimientos para gestionar las cookies.",
     "contact_subtitle": "Estamos aquí para ayudarte",
     "contact_email_label": "Email",
     "contact_schedule_label": "Horario",
     "contact_location_label": "Ubicación",
-    "contact_copy_email": "Copiar email",
-     "contact_online": "En línea"
+    "contact_copy_email": "Copiar email"
   },
   "contact": {
-    "label": "Contactar",
-    "whatsapp_tooltip": "Contáctanos por WhatsApp"
-  },
-  "scene": {
-    "phase_typing": "⌨️ escribiendo código...",
-    "phase_compiling": "⚙️ compilando...",
-    "phase_rendering": "🌐 renderizando interfaz...",
-    "studio_tag": "Estudio de Desarrollo de Software",
-    "studio_name": "Symmetrical",
-    "studio_highlight": "Code",
-    "studio_sub": "Ideas en equilibrio, código con propósito.",
-    "btn_projects": "Servicios",
-    "btn_contact": "Contactar",
-    "card_idea_title": "Idea",
-    "card_idea_desc": "Alcance claro",
-    "card_balance_title": "Balance",
-    "card_balance_desc": "Diseño + lógica",
-    "card_launch_title": "Lanzamiento",
-    "card_launch_desc": "Listo para crecer"
-  },
-  "chat": {
-    "welcome": "¡Hola! Soy el asistente de Symmetrical Code. ¿En qué puedo ayudarte hoy?",
-    "subtitle": "Asistente virtual",
-    "placeholder": "Escribí tu mensaje...",
-    "aria_open": "Abrir chat",
-    "aria_close": "Cerrar chat",
-    "aria_send": "Enviar mensaje",
-    "error_unknown": "Error desconocido del servidor",
-    "error_connect": "No se pudo conectar con el servidor",
-    "error_message": "⚠️ Lo siento, estoy teniendo problemas para conectarme. Por favor, asegurate de que el servidor esté corriendo en http://localhost:3001"
-  },
-  "whatsapp": {
-    "message_chatwidget": "¡¡Hola!! Estoy visitando su sitio web y me gustaría más información sobre sus servicios.",
-    "message_hero": "¡¡Hola!! Vi su página principal y me interesa platicar sobre un proyecto.",
-    "message_footer": "¡¡Hola!! Los contacté desde su sitio web, me gustaría más información sobre sus servicios.",
-    "message_modal": "¡¡Hola!! Me interesa el proyecto que describen, ¿podemos platicar?"
+    "whatsapp_tooltip": "Contáctanos por WhatsApp",
+    "whatsapp_aria": "Chatear por WhatsApp",
+    "dismiss_tooltip": "Cerrar aviso"
   }
 }

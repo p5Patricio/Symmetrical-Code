@@ -1,0 +1,43 @@
+/* Hero entrance — ONE orchestrated reveal (fade + 12px rise), 80ms stagger
+   per element. No scramble/shuffle. Honors prefers-reduced-motion. */
+
+/* H1 font-size. Syne 800 renders "Symmetrical" at ~10.04x its font-size
+   (measured in-browser: 401.6px wide at 40px). The original
+   clamp(40px, 7vw, 80px) floors at a flat 40px for any viewport under
+   ~571px, so "Symmetrical" stayed ~402px wide even at 320px — wider than
+   the viewport itself, and section#home's overflow-hidden clipped it plus
+   everything below it in the centered column.
+   min(40px, calc((100vw - 40px) / 10.04)) keeps the rendered word inside
+   (100vw - 40px) — the section's ~32px horizontal padding below `sm` plus
+   an 8px safety margin — for any viewport under ~442px, then saturates at
+   the original 40px for 442-571px (identical to before) and hands off to
+   the untouched 7vw / 80px curve above that, so the approved desktop look
+   is unchanged. */
+.hero-title {
+  font-size: clamp(min(40px, calc((100vw - 40px) / 10.04)), 7vw, 80px);
+}
+
+@keyframes hero-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hero-reveal {
+  opacity: 0;
+  animation: hero-reveal 600ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation-delay: var(--reveal-delay, 0ms);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-reveal {
+    opacity: 1;
+    animation: none;
+    transform: none;
+  }
+}

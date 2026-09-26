@@ -1,24 +1,62 @@
-@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --cyan: #00e5ff;
-  --blue: #1565ff;
-  --cyan-dim: rgba(0, 229, 255, 0.15);
-  --blue-dim: rgba(21, 101, 255, 0.15);
-  --glow-cyan: 0 0 40px rgba(0, 229, 255, 0.4);
-  --glow-blue: 0 0 40px rgba(21, 101, 255, 0.4);
-  --card-bg: rgba(0, 229, 255, 0.03);
-  
-  --svc-web: #00e5ff;
-  --svc-systems: #1565ff;
-  --svc-cloud: #7c3aed;
-  --svc-security: #10b981;
-  --svc-uiux: #f43f5e;
-  --svc-analytics: #f59e0b;
+:root,
+html.dark {
+  /* Legacy vars — kept so untouched components still render; new code must use the tokens below.
+     --brand-blue is NOT a legacy var: nothing reads var(--brand-blue), so it is safe to define
+     it once below with the spec's accent value instead of the old #195fc1. */
+  --cyan: #195fc1;
+  --blue: #195fc1;
+  --cyan-dim: rgba(25, 95, 193, 0.15);
+  --blue-dim: rgba(25, 95, 193, 0.15);
+  --glow-cyan: 0 0 40px rgba(25, 95, 193, 0.4);
+  --glow-blue: 0 0 40px rgba(25, 95, 193, 0.4);
+  --card-bg: rgba(25, 95, 193, 0.03);
+
+  /* Design-spec tokens (dark = default) */
+  --bg: #05070b;
+  --surface: #0a0e16;
+  --raised: #121a28;
+  --line: rgba(214, 226, 245, 0.09);
+  --line-2: rgba(214, 226, 245, 0.19);
+  --text: #e6ecf5;
+  --muted: #8c97aa;
+  --subtle: #5e687b;
+  --brand-blue: #005cfd;
+  --brand-blue-hover: #1f70ff;
+  --brand-cyan: #02e0fb;
+  --brand-deep: #003aae;
+  --on-brand: #ffffff;
+  --focus: #02e0fb;
+  --grid: rgba(110, 150, 225, 0.08);
+  --glow: rgba(0, 92, 253, 0.45);
+  --glow-2: rgba(2, 224, 251, 0.22);
+
+  --ff-display: 'Syne Variable', 'Syne', 'Geist Variable', ui-sans-serif, system-ui, sans-serif;
+  --ff-text: 'Geist Variable', 'Geist', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --ff-mono: 'Geist Mono Variable', 'Geist Mono', ui-monospace, 'SFMono-Regular', Consolas, monospace;
+}
+
+html.light {
+  --bg: #f5f7fa;
+  --surface: #ffffff;
+  --raised: #e9eef5;
+  --line: rgba(10, 22, 46, 0.1);
+  --line-2: rgba(10, 22, 46, 0.2);
+  --text: #0a0f1a;
+  --muted: #566175;
+  --subtle: #8a93a4;
+  --brand-blue: #0052e6;
+  --brand-blue-hover: #0046c8;
+  --brand-cyan: #0089b8;
+  --brand-deep: #003aae;
+  --on-brand: #ffffff;
+  --focus: #0052e6;
+  --grid: rgba(0, 60, 170, 0.07);
+  --glow: rgba(0, 92, 253, 0.2);
+  --glow-2: rgba(2, 190, 235, 0.16);
 }
 
 * {
@@ -32,9 +70,9 @@ html {
 }
 
 body {
-  background-color: #020408;
-  color: #e2e8f0;
-  font-family: 'Syne', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--ff-text);
   overflow-x: hidden;
 }
 
@@ -193,93 +231,6 @@ body {
   animation-delay: 0.5s;
 }
 
-.glass-card {
-  background: rgba(255, 255, 255, 0.02);
-  border: 1px solid rgba(0, 229, 255, 0.1);
-  -webkit-backdrop-filter: blur(10px);
-  backdrop-filter: blur(10px);
-  transition: all 0.3s ease;
-}
-
-.glass-card:hover {
-  background: rgba(0, 229, 255, 0.05);
-  border-color: rgba(0, 229, 255, 0.3);
-  box-shadow: 0 0 30px rgba(0, 229, 255, 0.1);
-  transform: translateY(-4px);
-}
-
-.glass-card-enhanced {
-  background: rgba(255, 255, 255, 0.01);
-  -webkit-backdrop-filter: blur(12px);
-  backdrop-filter: blur(12px);
-  position: relative;
-  overflow: hidden;
-  transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
-}
-
-.glass-card-enhanced:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-}
-
-.glowing-orb {
-  position: absolute;
-  width: 150px;
-  height: 150px;
-  border-radius: 50%;
-  filter: blur(60px);
-  opacity: 0;
-  transition: opacity 0.6s ease, transform 0.6s ease;
-  pointer-events: none;
-  z-index: 0;
-}
-
-.glass-card-enhanced:hover .glowing-orb {
-  opacity: 0.15;
-  transform: scale(1.2);
-}
-
-.btn-primary {
-  background: linear-gradient(135deg, var(--cyan) 0%, var(--blue) 100%);
-  color: #020408;
-  font-weight: 700;
-  letter-spacing: 0.05em;
-  transition: all 0.3s ease;
-  position: relative;
-  overflow: hidden;
-}
-
-.btn-primary::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(135deg, #fff2 0%, transparent 50%);
-  opacity: 0;
-  transition: opacity 0.3s;
-}
-
-.btn-primary:hover::before {
-  opacity: 1;
-}
-
-.btn-primary:hover {
-  box-shadow: 0 0 30px rgba(0, 229, 255, 0.5);
-  transform: translateY(-2px);
-}
-
-.btn-outline {
-  border: 1px solid rgba(0, 229, 255, 0.4);
-  color: var(--cyan);
-  background: transparent;
-  transition: all 0.3s ease;
-}
-
-.btn-outline:hover {
-  background: rgba(0, 229, 255, 0.08);
-  border-color: var(--cyan);
-  box-shadow: 0 0 20px rgba(0, 229, 255, 0.2);
-}
-
 .section-label {
   font-family: 'JetBrains Mono', monospace;
   font-size: 0.7rem;
@@ -299,19 +250,9 @@ body {
   width: 100%;
 }
 
-.glass-card-enhanced .relative img {
-  object-fit: cover;
-  width: 100%;
-  height: 100%;
-}
-
-[class*="DetailModal"] img {
-  object-fit: cover;
-}
-
 /* ============================================
-   FORZAR FONDO TRANSPARENTE EN TODAS LAS SECCIONES
-   PARA QUE EL EFECTO AURORA SEA VISIBLE
+   Force a transparent background on layout sections/wrappers so the flat
+   --bg color set on body (see above) shows through consistently.
    ============================================ */
 
 section,
@@ -347,26 +288,172 @@ main,
 }
 
 /* ============================================
-   NAVBAR Y FOOTER CON FONDO NEGRO SÓLIDO
-   (TAPAN EL EFECTO AURORA)
+   LIGHT THEME (#F5F7FB base + #195fc1 blue)
    ============================================ */
-
-nav,
-.navbar,
-header {
-  background: #020408 !important;
-  -webkit-backdrop-filter: none !important;
-  backdrop-filter: none !important;
-  position: sticky;
-  top: 0;
-  z-index: 50;
-  border-bottom: 1px solid rgba(0, 229, 255, 0.06);
+html.light body {
+  background-color: #F5F7FB !important;
+  color: #1e293b !important;
 }
 
-footer,
-.footer {
-  background: #020408 !important;
-  position: relative;
-  z-index: 50;
-  border-top: 1px solid rgba(0, 229, 255, 0.06);
+html.light ::-webkit-scrollbar-track {
+  background: #F5F7FB;
+}
+
+html.light ::-webkit-scrollbar-thumb {
+  background: rgba(25, 95, 193, 0.4);
+}
+
+/* Headings and High-Contrast Text */
+html.light .text-white {
+  color: #0B132B !important;
+}
+
+html.light .text-white\/90,
+html.light .text-white\/85,
+html.light .text-white\/80,
+html.light .text-white\/70 {
+  color: #334155 !important;
+}
+
+html.light .text-white\/60,
+html.light .text-white\/50,
+html.light .text-white\/40 {
+  color: #64748B !important;
+}
+
+html.light .text-white\/35,
+html.light .text-white\/30,
+html.light .text-white\/25,
+html.light .text-white\/20,
+html.light .text-white\/10,
+html.light .text-white\/5 {
+  color: #94A3B8 !important;
+}
+
+/* Light Surface Cards (orbit-card is owned by ServicesSection.tsx). No
+   border override here anymore: the card's ring is the cut-corner CutCard
+   treatment (CutCard.css), driven by --line-2 / the per-service accent. */
+html.light .orbit-card {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.92) 0%, rgba(240, 245, 255, 0.78) 100%) !important;
+  backdrop-filter: blur(20px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
+  box-shadow: 0 16px 40px -12px rgba(25, 95, 193, 0.12), inset 0 1.5px 0 0 rgba(255, 255, 255, 1), inset 0 -1px 0 0 rgba(25, 95, 193, 0.08) !important;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+html.light .orbit-card:hover {
+  box-shadow: 0 20px 48px -10px rgba(25, 95, 193, 0.22), inset 0 1.5px 0 0 rgba(255, 255, 255, 1), inset 0 0 15px rgba(25, 95, 193, 0.08) !important;
+}
+
+/* Light Project Card Hovers */
+html.light article:hover .font-syne,
+html.light article:hover h3,
+html.light article:hover h4,
+html.light .group:hover .group-hover\:text-\[\#195fc1\],
+html.light .group:hover [class*="group-hover:text-[#195fc1]"] {
+  color: #195fc1 !important;
+}
+
+/* Both card grids now use the CutCard ring (see CutCard.css) instead of a
+   Tailwind border, so only the depth shadow is themed here. */
+html.light article.group:not(.token-card):hover {
+  box-shadow: 0 16px 36px rgba(25, 95, 193, 0.16) !important;
+}
+
+html.light article.token-card:hover {
+  box-shadow: none !important;
+}
+
+html.light .bg-white\/5,
+html.light .bg-white\/\[0\.02\],
+html.light .bg-white\/\[0\.03\],
+html.light .bg-white\/\[0\.04\] {
+  background-color: rgba(255, 255, 255, 0.88) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+}
+
+html.light .border-white\/10,
+html.light .border-white\/5,
+html.light .border-white\/\[0\.08\],
+html.light .border-white\/\[0\.07\],
+html.light .border-white\/\[0\.1\] {
+  border-color: rgba(25, 95, 193, 0.14) !important;
+}
+
+html.light .divide-white\/\[0\.07\] > :not([hidden]) ~ :not([hidden]) {
+  border-color: rgba(25, 95, 193, 0.1) !important;
+}
+
+/* Navbar/GalleryNavbar are now token-based flat bars (see Navbar.tsx, GalleryNavbar.tsx) — no light-theme override needed. */
+
+/* Light Gallery Overlay and Modals */
+html.light #gallery-scroll,
+html.light .fixed.inset-0.z-\[150\] {
+  background-color: #F5F7FB !important;
+}
+
+html.light .detail-modal-card {
+  background: #FFFFFF !important;
+  border-color: rgba(25, 95, 193, 0.15) !important;
+  box-shadow: 0 25px 70px rgba(25, 95, 193, 0.14) !important;
+}
+
+html.light .detail-modal-card h3 {
+  color: #0B132B !important;
+}
+
+html.light .detail-modal-card p {
+  color: #475569 !important;
+}
+
+/* ContactModal and Footer's privacy/terms modal (.modal-*) are now token-based
+   (see ContactModal.tsx, Footer.tsx) — no light-theme override needed. */
+
+/* Chat widget tooltip is now token-based (see ChatWidget.tsx) — no light-theme override needed. */
+
+/* Footer is now fully token-based (see Footer.tsx) — no light-theme override needed. */
+
+/* Team header, institutions vitrine, workflow spine and members block are
+   now token-based (see TeamSection.tsx, ProjectWorkflow.tsx) — no
+   light-theme override needed. */
+
+/* Light Services Section */
+html.light #services h2 {
+  color: #0B132B !important;
+}
+
+html.light #services p {
+  color: #334155 !important;
+}
+
+html.light .orbit-card h3 {
+  color: #0B132B !important;
+}
+
+html.light .orbit-card p {
+  color: #475569 !important;
+}
+
+/* Light Projects Section */
+html.light #projects h2,
+html.light #projects article h3 {
+  color: #0B132B !important;
+}
+
+html.light #projects h2 .count-highlight {
+  color: #195fc1 !important;
+}
+
+html.light #projects > div > div p,
+html.light #projects article p {
+  color: #475569 !important;
+}
+
+html.light #projects article:hover h3,
+html.light #projects article:hover h4,
+html.light #projects .group:hover h3,
+html.light #projects .group:hover h4,
+html.light #gallery-scroll article:hover h4 {
+  color: #195fc1 !important;
 }

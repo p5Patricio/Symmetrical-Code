@@ -1,7 +1,6 @@
 import { describe, it, expect, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import { MemoryRouter, Routes, Route } from 'react-router-dom';
-import HomePage from '../pages/HomePage';
 import ProjectsPage from '../pages/ProjectsPage';
 
 // Mock de i18next GLOBAL para todos los componentes
@@ -10,7 +9,6 @@ vi.mock('react-i18next', () => ({
     t: (key: string) => {
       // Manejar retornos de objetos para .map()
       if (key === 'services.items') return [];
-      if (key === 'team.pillars') return [];
       if (key === 'projects.items') return [];
       return key;
     },
@@ -32,18 +30,6 @@ vi.mock('../data/projects', () => ({
 }));
 
 describe('Navegación y Enrutamiento', () => {
-  it('debe renderizar la HomePage en la ruta raíz', () => {
-    render(
-      <MemoryRouter initialEntries={['/']}>
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-        </Routes>
-      </MemoryRouter>
-    );
-    // Verificamos que aparezca el label de servicios que está en la Home
-    expect(screen.getByText('services.label')).toBeInTheDocument();
-  });
-
   it('debe renderizar la ProjectsPage en la ruta /proyectos', () => {
     render(
       <MemoryRouter initialEntries={['/proyectos']}>

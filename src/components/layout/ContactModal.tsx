@@ -1,8 +1,9 @@
-import { useState, useEffect, type CSSProperties } from 'react';
+import { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { useTranslation } from 'react-i18next';
-import { FaFacebookF, FaInstagram, FaLinkedinIn } from 'react-icons/fa';
+import { FaFacebookF, FaInstagram, FaLinkedinIn, FaWhatsapp } from 'react-icons/fa';
 import { FiMapPin, FiMail, FiClock, FiX, FiCopy, FiCheck } from 'react-icons/fi';
+import Button from '../ui/Button';
 
 interface ContactModalProps {
   onClose: () => void;
@@ -16,7 +17,7 @@ export default function ContactModal({ onClose }: ContactModalProps) {
   useEffect(() => {
     setMounted(true);
     document.body.style.overflow = 'hidden';
-    
+
     return () => {
       document.body.style.overflow = '';
     };
@@ -24,7 +25,7 @@ export default function ContactModal({ onClose }: ContactModalProps) {
 
   useEffect(() => {
     if (!mounted) return;
-    
+
     const handleEsc = (e: KeyboardEvent) => {
       if (e.key === 'Escape') onClose();
     };
@@ -41,31 +42,27 @@ export default function ContactModal({ onClose }: ContactModalProps) {
   ];
 
   const contactItems = [
-    { 
-      icon: FiMail, 
-      label: t('footer.contact_email_label'), 
-      text: email, 
-      copyable: true, 
-      color: '#00e5ff' 
+    {
+      icon: FiMail,
+      label: t('footer.contact_email_label'),
+      text: email,
+      copyable: true,
     },
-    { 
-      icon: FiClock, 
-      label: t('footer.contact_schedule_label'), 
-      text: t('footer.schedule'), 
-      copyable: false, 
-      color: '#a78bfa' 
+    {
+      icon: FiClock,
+      label: t('footer.contact_schedule_label'),
+      text: t('footer.schedule'),
+      copyable: false,
     },
-    { 
-      icon: FiMapPin, 
-      label: t('footer.contact_location_label'), 
-      text: t('footer.location'), 
-      copyable: false, 
-      color: '#fbbf24' 
+    {
+      icon: FiMapPin,
+      label: t('footer.contact_location_label'),
+      text: t('footer.location'),
+      copyable: false,
     },
   ];
 
-  const whatsappMessage = t('whatsapp.message_modal');
-  const whatsappUrl = `https://wa.me/524737374224?text=${encodeURIComponent(whatsappMessage)}`;
+  const whatsappUrl = 'https://wa.me/524737374224';
 
   const handleCopyEmail = async () => {
     try {
@@ -84,8 +81,6 @@ export default function ContactModal({ onClose }: ContactModalProps) {
       <div className="contact-modal-overlay" onClick={onClose} />
 
       <div className="contact-modal-container" role="dialog" aria-modal="true" aria-labelledby="contact-modal-title">
-        <div className="contact-modal-glow" />
-
         <div className="contact-modal-header">
           <div className="contact-modal-logo">
             <img src="/favicon.svg" alt="Symmetrical Code" />
@@ -94,9 +89,9 @@ export default function ContactModal({ onClose }: ContactModalProps) {
             <h2 id="contact-modal-title">{t('footer.contact_title')}</h2>
             <p>{t('footer.contact_subtitle')}</p>
           </div>
-          <button className="contact-modal-close" onClick={onClose} aria-label="Close">
-            <FiX size={18} />
-          </button>
+          <Button variant="icon" size="sm" onClick={onClose} aria-label={t('footer.modal_understood')}>
+            <FiX size={16} />
+          </Button>
         </div>
 
         <div className="contact-modal-body">
@@ -104,11 +99,7 @@ export default function ContactModal({ onClose }: ContactModalProps) {
             {contactItems.map((item, idx) => {
               const Icon = item.icon;
               return (
-                <div
-                  className="contact-modal-item"
-                  key={idx}
-                  style={{ '--item-color': item.color } as CSSProperties}
-                >
+                <div className="contact-modal-item" key={idx}>
                   <div className="contact-modal-item-icon">
                     <Icon size={16} />
                   </div>
@@ -160,16 +151,16 @@ export default function ContactModal({ onClose }: ContactModalProps) {
               {t('footer.project_desc')}
             </p>
 
-            <div className="contact-modal-whatsapp-wrapper">
-              <a
-                href={whatsappUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="contact-modal-cta"
-              >
-                <span>{t('footer.cta')}</span>
-              </a>
-            </div>
+            <Button
+              variant="primary"
+              size="md"
+              href={whatsappUrl}
+              external
+              leadingIcon={<FaWhatsapp size={16} />}
+              className="w-full"
+            >
+              {t('footer.cta')}
+            </Button>
           </div>
         </div>
       </div>
@@ -194,9 +185,7 @@ export default function ContactModal({ onClose }: ContactModalProps) {
         .contact-modal-overlay {
           position: fixed;
           inset: 0;
-          background: rgba(0, 0, 0, 0.88);
-          backdrop-filter: blur(8px);
-          -webkit-backdrop-filter: blur(8px);
+          background: color-mix(in srgb, var(--bg) 78%, black 22%);
           z-index: 999998;
           animation: fadeIn 0.25s ease;
         }
@@ -209,10 +198,9 @@ export default function ContactModal({ onClose }: ContactModalProps) {
           width: 92%;
           max-width: 440px;
           max-height: 85vh;
-          background: #0a0a0a;
-          border-radius: 22px;
-          border: 1px solid rgba(0, 229, 255, 0.18);
-          box-shadow: 0 25px 60px -12px rgba(0, 0, 0, 0.85), 0 0 50px rgba(0, 180, 220, 0.05);
+          background: var(--surface);
+          border: 1px solid var(--line-2);
+          box-shadow: 0 25px 60px -12px rgba(0, 0, 0, 0.35);
           z-index: 999999;
           display: flex;
           flex-direction: column;
@@ -220,21 +208,12 @@ export default function ContactModal({ onClose }: ContactModalProps) {
           overflow: hidden;
         }
 
-        .contact-modal-glow {
-          position: absolute;
-          top: 0;
-          left: 0;
-          right: 0;
-          height: 2px;
-          background: linear-gradient(90deg, transparent, #00e5ff, #00e5ff, transparent);
-        }
-
         .contact-modal-header {
           padding: 22px 22px 18px;
           display: flex;
           align-items: flex-start;
           gap: 14px;
-          border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+          border-bottom: 1px solid var(--line);
           flex-shrink: 0;
         }
 
@@ -242,15 +221,13 @@ export default function ContactModal({ onClose }: ContactModalProps) {
           position: relative;
           width: 48px;
           height: 48px;
-          border-radius: 13px;
           display: flex;
           align-items: center;
           justify-content: center;
-          background: radial-gradient(circle at 30% 20%, rgba(0, 229, 255, 0.12), #050505 70%);
-          border: 1px solid rgba(0, 229, 255, 0.25);
+          background: color-mix(in srgb, var(--brand-blue) 10%, var(--surface));
+          border: 1px solid var(--line-2);
           flex-shrink: 0;
           overflow: hidden;
-          box-shadow: 0 0 0 4px rgba(0, 229, 255, 0.05), 0 4px 14px rgba(0, 229, 255, 0.08);
         }
 
         .contact-modal-logo img {
@@ -269,41 +246,20 @@ export default function ContactModal({ onClose }: ContactModalProps) {
         }
 
         .contact-modal-title-section h2 {
-          font-family: 'Inter', system-ui, sans-serif;
+          font-family: var(--ff-text);
           font-size: 18px;
           font-weight: 600;
-          color: #ffffff;
+          color: var(--text);
           margin: 0 0 3px 0;
           letter-spacing: -0.2px;
         }
 
         .contact-modal-title-section p {
-          font-family: 'Inter', system-ui, sans-serif;
-          font-size: 12.5px;
-          color: rgba(255, 255, 255, 0.45);
+          font-family: var(--ff-mono);
+          font-size: 12px;
+          color: var(--subtle);
           margin: 0;
           line-height: 1.4;
-        }
-
-        .contact-modal-close {
-          width: 34px;
-          height: 34px;
-          border-radius: 10px;
-          background: rgba(255, 255, 255, 0.04);
-          border: 1px solid rgba(255, 255, 255, 0.08);
-          cursor: pointer;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          transition: all 0.2s ease;
-          color: rgba(255, 255, 255, 0.55);
-          flex-shrink: 0;
-        }
-
-        .contact-modal-close:hover {
-          background: rgba(0, 229, 255, 0.15);
-          border-color: #00e5ff;
-          color: #00e5ff;
         }
 
         .contact-modal-body {
@@ -313,29 +269,8 @@ export default function ContactModal({ onClose }: ContactModalProps) {
           -webkit-overflow-scrolling: touch;
           scrollbar-gutter: stable;
           flex: 1;
-        }
-
-        .contact-modal-body::-webkit-scrollbar {
-          width: 5px;
-        }
-
-        .contact-modal-body::-webkit-scrollbar-track {
-          background: transparent;
-          margin: 4px 0;
-        }
-
-        .contact-modal-body::-webkit-scrollbar-thumb {
-          background: rgba(0, 229, 255, 0.3);
-          border-radius: 10px;
-        }
-
-        .contact-modal-body::-webkit-scrollbar-thumb:hover {
-          background: rgba(0, 229, 255, 0.5);
-        }
-
-        .contact-modal-body {
           scrollbar-width: thin;
-          scrollbar-color: rgba(0, 229, 255, 0.3) transparent;
+          scrollbar-color: var(--line-2) transparent;
         }
 
         .contact-modal-items {
@@ -350,26 +285,22 @@ export default function ContactModal({ onClose }: ContactModalProps) {
           align-items: center;
           gap: 12px;
           padding: 11px 12px;
-          border-radius: 12px;
-          background: rgba(255, 255, 255, 0.025);
-          border: 1px solid rgba(255, 255, 255, 0.06);
-          transition: background 0.2s ease, border-color 0.2s ease;
+          border: 1px solid var(--line);
+          transition: border-color 0.2s ease;
         }
 
         .contact-modal-item:hover {
-          background: rgba(255, 255, 255, 0.04);
-          border-color: color-mix(in srgb, var(--item-color) 35%, transparent);
+          border-color: var(--line-2);
         }
 
         .contact-modal-item-icon {
           width: 34px;
           height: 34px;
-          border-radius: 9px;
           display: flex;
           align-items: center;
           justify-content: center;
-          background: color-mix(in srgb, var(--item-color) 14%, transparent);
-          color: var(--item-color);
+          background: color-mix(in srgb, var(--brand-blue) 12%, transparent);
+          color: var(--brand-blue);
           flex-shrink: 0;
         }
 
@@ -382,19 +313,19 @@ export default function ContactModal({ onClose }: ContactModalProps) {
         }
 
         .contact-modal-item-label {
-          font-family: 'Inter', system-ui, sans-serif;
+          font-family: var(--ff-mono);
           font-size: 10.5px;
           font-weight: 600;
           letter-spacing: 0.06em;
           text-transform: uppercase;
-          color: rgba(255, 255, 255, 0.35);
+          color: var(--subtle);
         }
 
         .contact-modal-item-value {
-          font-family: 'Inter', system-ui, sans-serif;
+          font-family: var(--ff-text);
           font-size: 13.5px;
           font-weight: 500;
-          color: rgba(255, 255, 255, 0.9);
+          color: var(--text);
           overflow-wrap: break-word;
           word-break: break-word;
         }
@@ -402,10 +333,9 @@ export default function ContactModal({ onClose }: ContactModalProps) {
         .contact-modal-copy-btn {
           width: 30px;
           height: 30px;
-          border-radius: 8px;
-          background: rgba(255, 255, 255, 0.04);
-          border: 1px solid rgba(255, 255, 255, 0.08);
-          color: rgba(255, 255, 255, 0.5);
+          background: transparent;
+          border: 1px solid var(--line);
+          color: var(--muted);
           display: flex;
           align-items: center;
           justify-content: center;
@@ -415,30 +345,29 @@ export default function ContactModal({ onClose }: ContactModalProps) {
         }
 
         .contact-modal-copy-btn:hover {
-          border-color: #00e5ff;
-          color: #00e5ff;
+          border-color: var(--brand-blue);
+          color: var(--brand-blue);
         }
 
         .contact-modal-copy-btn.is-copied {
-          background: rgba(0, 229, 255, 0.15);
-          border-color: #00e5ff;
-          color: #00e5ff;
+          border-color: var(--brand-blue);
+          color: var(--brand-blue);
         }
 
         .contact-modal-label {
-          font-family: 'Inter', system-ui, sans-serif;
+          font-family: var(--ff-mono);
           font-size: 10.5px;
           font-weight: 600;
           letter-spacing: 0.1em;
           text-transform: uppercase;
-          color: rgba(255, 255, 255, 0.35);
+          color: var(--subtle);
           margin: 0 0 10px 0;
         }
 
         .contact-modal-social {
           padding-bottom: 20px;
           margin-bottom: 20px;
-          border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+          border-bottom: 1px solid var(--line);
         }
 
         .contact-modal-social-links {
@@ -452,109 +381,62 @@ export default function ContactModal({ onClose }: ContactModalProps) {
           align-items: center;
           gap: 7px;
           padding: 8px 12px;
-          border-radius: 20px;
-          background: rgba(255, 255, 255, 0.03);
-          color: rgba(255, 255, 255, 0.65);
-          transition: all 0.22s ease;
+          background: transparent;
+          color: var(--muted);
+          transition: all 0.2s ease;
           text-decoration: none;
-          border: 1px solid rgba(255, 255, 255, 0.07);
-          font-family: 'Inter', system-ui, sans-serif;
+          border: 1px solid var(--line);
+          font-family: var(--ff-text);
           font-size: 12px;
           font-weight: 500;
         }
 
         .contact-modal-social-link:hover {
-          background: #00e5ff;
-          color: #000000;
-          border-color: #00e5ff;
-          transform: translateY(-1px);
+          color: var(--on-brand);
+          background: var(--brand-blue);
+          border-color: var(--brand-blue);
         }
 
         .contact-modal-project {
           padding: 18px;
-          border-radius: 16px;
-          background: linear-gradient(160deg, rgba(0, 229, 255, 0.07), rgba(0, 229, 255, 0.015));
-          border: 1px solid rgba(0, 229, 255, 0.15);
+          background: color-mix(in srgb, var(--brand-blue) 6%, transparent);
+          border: 1px solid var(--line-2);
         }
 
         .contact-modal-project-badge {
           display: inline-block;
-          font-family: 'Inter', system-ui, sans-serif;
+          font-family: var(--ff-mono);
           font-size: 10.5px;
           font-weight: 700;
           letter-spacing: 0.06em;
           text-transform: uppercase;
-          color: #00e5ff;
-          background: rgba(0, 229, 255, 0.12);
-          border: 1px solid rgba(0, 229, 255, 0.25);
-          padding: 4px 10px;
-          border-radius: 20px;
+          color: var(--brand-blue);
           margin-bottom: 10px;
         }
 
         .contact-modal-project-headline {
-          font-family: 'Inter', system-ui, sans-serif;
+          font-family: var(--ff-text);
           font-size: 16px;
           font-weight: 700;
-          color: #ffffff;
+          color: var(--text);
           margin: 0 0 8px 0;
           letter-spacing: -0.2px;
           line-height: 1.3;
         }
 
         .contact-modal-project-desc {
-          font-family: 'Inter', system-ui, sans-serif;
+          font-family: var(--ff-text);
           font-size: 12.5px;
-          color: rgba(255, 255, 255, 0.55);
+          color: var(--muted);
           line-height: 1.55;
           margin: 0 0 16px 0;
         }
 
-        .contact-modal-whatsapp-wrapper {
-          display: flex;
-          justify-content: center;
-          width: 100%;
-        }
-
-        .contact-modal-cta {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          gap: 10px;
-          font-family: 'Inter', system-ui, sans-serif;
-          font-size: 13.5px;
-          font-weight: 600;
-          color: #000000;
-          text-decoration: none;
-          padding: 13px 20px;
-          background: #00e5ff;
-          border-radius: 12px;
-          transition: all 0.25s ease;
-          box-shadow: 0 4px 14px rgba(0, 229, 255, 0.25);
-          width: 100%;
-          max-width: 100%;
-          box-sizing: border-box;
-          border: none;
-          cursor: pointer;
-        }
-
-        .contact-modal-cta:hover {
-          background: #00ccee;
-          transform: translateY(-1px);
-          box-shadow: 0 8px 22px rgba(0, 229, 255, 0.35);
-        }
-
-        .contact-modal-cta:active {
-          transform: translateY(0);
-        }
-
-        /* ---------- RESPONSIVE: CENTRADO EN TODOS LOS DISPOSITIVOS ---------- */
         @media (max-width: 768px) {
           .contact-modal-container {
             width: 94%;
             max-width: 420px;
             max-height: 88vh;
-            border-radius: 20px;
           }
 
           .contact-modal-header {
@@ -571,11 +453,6 @@ export default function ContactModal({ onClose }: ContactModalProps) {
             width: 95%;
             max-width: 400px;
             max-height: 90vh;
-            border-radius: 18px;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
           }
 
           .contact-modal-header {
@@ -645,11 +522,6 @@ export default function ContactModal({ onClose }: ContactModalProps) {
           .contact-modal-project-desc {
             font-size: 12px;
           }
-
-          .contact-modal-cta {
-            padding: 13px 18px;
-            font-size: 13px;
-          }
         }
 
         @media (max-width: 480px) {
@@ -657,7 +529,6 @@ export default function ContactModal({ onClose }: ContactModalProps) {
             width: 96%;
             max-width: 380px;
             max-height: 92vh;
-            border-radius: 16px;
           }
 
           .contact-modal-header {
@@ -705,27 +576,12 @@ export default function ContactModal({ onClose }: ContactModalProps) {
             font-size: 12px;
           }
 
-          .contact-modal-close {
-            width: 30px;
-            height: 30px;
-          }
-
-          .contact-modal-close svg {
-            width: 16px;
-            height: 16px;
-          }
-
           .contact-modal-project-headline {
             font-size: 14px;
           }
 
           .contact-modal-project-desc {
             font-size: 11.5px;
-          }
-
-          .contact-modal-cta {
-            padding: 12px 16px;
-            font-size: 12.5px;
           }
 
           .contact-modal-social-link {
@@ -746,11 +602,6 @@ export default function ContactModal({ onClose }: ContactModalProps) {
 
           .contact-modal-project-headline {
             font-size: 13px;
-          }
-
-          .contact-modal-cta {
-            font-size: 12px;
-            padding: 10px 14px;
           }
         }
       `}</style>

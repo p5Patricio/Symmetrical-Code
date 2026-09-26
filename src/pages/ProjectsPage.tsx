@@ -1,9 +1,13 @@
 import { useState, useEffect, useMemo } from 'react';
+import { createPortal } from 'react-dom';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { projects, techIconMap } from '../data/projects';
 import GalleryNavbar from '../components/layout/GalleryNavbar';
-import ChatWidget from '../components/chat/ChatWidget';
+import CountUp from '../components/ui/CountUp';
+import Button from '../components/ui/Button';
+import CutCard from '../components/ui/CutCard';
+import '../components/ui/SectionHeading.css';
 
 // --- Types ---
 interface ProjectView {
@@ -37,12 +41,12 @@ const GridIcon = () => (
   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><rect x="3" y="3" width="7" height="7" /><rect x="14" y="3" width="7" height="7" /><rect x="14" y="14" width="7" height="7" /><rect x="3" y="14" width="7" height="7" /></svg>
 );
 
-const ChevronLeft = () => (
-  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+const ChevronLeft = ({ className = "w-4 h-4" }: { className?: string }) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className={className}><polyline points="15 18 9 12 15 6"/></svg>
 );
 
-const ChevronRight = () => (
-  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+const ChevronRight = ({ className = "w-4 h-4" }: { className?: string }) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className={className}><polyline points="9 18 15 12 9 6"/></svg>
 );
 
 const CloseIcon = () => (
@@ -50,18 +54,25 @@ const CloseIcon = () => (
 );
 
 // --- Subcomponents ---
-const ImageWithFallback = ({ src, alt, fallback }: { src?: string; alt: string; fallback: React.ReactNode }) => {
+const ImageWithFallback = ({ src, alt, fallback, className }: { src?: string; alt: string; fallback: React.ReactNode; className?: string }) => {
   const [error, setError] = useState(false);
   if (!src || error) return <>{fallback}</>;
-  return <img src={src} alt={alt} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" onError={() => setError(true)} />;
+  return (
+    <img 
+      src={src} 
+      alt={alt} 
+      className={className || "w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"} 
+      onError={() => setError(true)} 
+    />
+  );
 };
 
 const ProjectImage = ({ index, title }: { index: number; title: string }) => {
-  const colors = ['bg-[#00e5ff]/10', 'bg-[#1565ff]/10', 'bg-[#7c3aed]/10'];
+  const colors = ['bg-[#195fc1]/15', 'bg-[#1565ff]/10', 'bg-[#7c3aed]/10'];
   return (
     <div className={`w-full h-full ${colors[index % 3]} flex flex-col items-center justify-center p-4 sm:p-6 gap-2 sm:gap-3 text-center`}>
-      <span className="font-syne font-black text-base sm:text-xl text-white/10 select-none uppercase tracking-tighter leading-none">{title}</span>
-      <div className="w-8 h-px bg-white/5" />
+      <span className="font-syne font-black text-base sm:text-xl text-slate-700/40 dark:text-white/10 select-none uppercase tracking-tighter leading-none">{title}</span>
+      <div className="w-8 h-px bg-slate-300/60 dark:bg-white/5" />
     </div>
   );
 };
@@ -80,11 +91,11 @@ const GalleryModal = ({ title, images, onClose }: { title: string; images: strin
     return () => window.removeEventListener('keydown', handleKey);
   }, [images.length, onClose]);
 
-  return (
-    <div className="fixed inset-0 z-[500] bg-[#020408]/98 backdrop-blur-xl flex flex-col" onClick={onClose}>
+  const modalContent = (
+    <div className="fixed inset-0 z-[500] bg-slate-950/80 dark:bg-[#020408]/98 backdrop-blur-xl flex flex-col" onClick={onClose}>
       <div className="flex items-center justify-between p-4 sm:p-6">
-        <h3 className="font-syne font-black text-white text-lg sm:text-xl uppercase tracking-tighter truncate max-w-[200px] sm:max-w-md">{title}</h3>
-        <button onClick={onClose} className="p-2 text-white/40 hover:text-white transition-colors"><CloseIcon /></button>
+        <h3 className="font-sans font-semibold text-white text-lg sm:text-xl tracking-tight truncate max-w-[200px] sm:max-w-md">{title}</h3>
+        <button onClick={onClose} className="p-2 text-white/60 hover:text-white transition-colors cursor-pointer"><CloseIcon /></button>
       </div>
       
       {/* Contenedor principal - Centrado con espacio para botones */}
@@ -95,9 +106,9 @@ const GalleryModal = ({ title, images, onClose }: { title: string; images: strin
             e.stopPropagation(); 
             setCurrent(prev => (prev - 1 + images.length) % images.length); 
           }} 
-          className="absolute left-3 sm:left-6 z-10 p-2 sm:p-3 rounded-full bg-white/5 text-white/40 hover:text-white hover:bg-white/10 transition-all"
+          className="absolute left-3 sm:left-6 z-10 p-2 sm:p-3 rounded-full bg-white/10 text-white/70 hover:text-white hover:bg-white/20 transition-all cursor-pointer"
         >
-          <ChevronLeft />
+          <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6" />
         </button>
         
         {/* Contenedor de imagen - Tamaño reducido y centrado */}
@@ -119,18 +130,20 @@ const GalleryModal = ({ title, images, onClose }: { title: string; images: strin
             e.stopPropagation(); 
             setCurrent(prev => (prev + 1) % images.length); 
           }} 
-          className="absolute right-3 sm:right-6 z-10 p-2 sm:p-3 rounded-full bg-white/5 text-white/40 hover:text-white hover:bg-white/10 transition-all"
+          className="absolute right-3 sm:right-6 z-10 p-2 sm:p-3 rounded-full bg-white/10 text-white/70 hover:text-white hover:bg-white/20 transition-all cursor-pointer"
         >
-          <ChevronRight />
+          <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6" />
         </button>
       </div>
       
       {/* Contador */}
       <div className="text-center pb-4 sm:pb-6">
-        <span className="font-mono text-[10px] text-white/30">{current + 1} / {images.length}</span>
+        <span className="font-mono text-[10px] text-white/50">{current + 1} / {images.length}</span>
       </div>
     </div>
   );
+
+  return typeof document !== 'undefined' ? createPortal(modalContent, document.body) : modalContent;
 };
 
 const DetailModal = ({ project, index, totalProjects, onNext, onPrev, onClose }: { project: ProjectView; index: number; totalProjects: number; onNext: () => void; onPrev: () => void; onClose: () => void }) => {
@@ -148,100 +161,171 @@ const DetailModal = ({ project, index, totalProjects, onNext, onPrev, onClose }:
     return () => window.removeEventListener('keydown', handleKey);
   }, [galleryOpen, onClose, onNext, onPrev]);
 
-  return (
+  const modalContent = (
     <>
-      <div className="fixed inset-0 z-[400] bg-[#020408]/95 backdrop-blur-2xl flex flex-col items-center justify-center p-3 sm:p-4 overflow-y-auto" onClick={onClose}>
-        {/* Fixed height container with consistent sizing */}
-        <div className="w-full max-w-4xl h-[85vh] max-h-[700px] bg-gradient-to-br from-[#070d14] to-[#03060a] border border-white/10 rounded-xl sm:rounded-2xl relative shadow-2xl mb-8 shrink-0 overflow-hidden" onClick={e => e.stopPropagation()}>
-          <button onClick={onClose} className="absolute top-4 right-4 sm:top-6 sm:right-6 p-2 text-white/30 hover:text-white transition-colors z-20"><CloseIcon /></button>
-          <div className="flex flex-col md:grid md:grid-cols-2 h-full">
-            {/* Left column - Image */}
-            <div className="relative h-48 sm:h-56 md:h-full bg-[#03060a] overflow-hidden">
-              <div className="w-full h-full">
-                <ImageWithFallback 
-                  src={project.ogImageUrl} 
-                  alt={project.title} 
-                  fallback={<ProjectImage index={index} title={project.title} />} 
-                />
-              </div>
-              <div className="absolute inset-0 bg-gradient-to-t from-[#020408] via-transparent to-transparent md:bg-gradient-to-r md:from-transparent md:to-[#070d14]" />
+      <div className="fixed inset-0 z-[400] bg-slate-900/40 dark:bg-[#020408]/95 backdrop-blur-md dark:backdrop-blur-2xl flex flex-col items-center justify-center p-3 sm:p-4 overflow-y-auto" onClick={onClose}>
+        {/* Modal Card Container */}
+        <div 
+          className="detail-modal-card w-full max-w-4xl lg:max-w-5xl h-[88vh] sm:h-[85vh] max-h-[740px] md:max-h-[640px] bg-white dark:bg-gradient-to-br dark:from-[#070d14] dark:to-[#03060a] border border-slate-200/90 dark:border-white/10 rounded-xl sm:rounded-2xl relative shadow-2xl shadow-blue-500/10 dark:shadow-2xl mb-4 sm:mb-6 shrink-0 overflow-hidden flex flex-col md:flex-row" 
+          onClick={e => e.stopPropagation()}
+        >
+          {/* Close Button */}
+          <button 
+            onClick={onClose} 
+            className="absolute top-3.5 right-3.5 sm:top-5 sm:right-5 p-2 rounded-full text-slate-600 hover:text-slate-900 bg-white/80 hover:bg-white dark:bg-black/60 dark:text-white/70 dark:hover:text-white dark:hover:bg-black/80 backdrop-blur-md transition-all z-30 shadow-md cursor-pointer"
+            aria-label="Cerrar modal"
+          >
+            <CloseIcon />
+          </button>
+
+          {/* ─── Image Section ─── */}
+          {/* Mobile: top (order-1), Desktop: right (md:order-2) full width without right crop */}
+          <div className="order-1 md:order-2 w-full md:w-[55%] lg:w-[58%] h-48 sm:h-56 md:h-full relative bg-[#03060a] flex items-center justify-center overflow-hidden shrink-0 group/img">
+            {project.ogImageUrl && (
+              <img 
+                src={project.ogImageUrl} 
+                alt="" 
+                aria-hidden="true" 
+                className="absolute inset-0 w-full h-full object-cover blur-2xl opacity-40 dark:opacity-25 pointer-events-none scale-110" 
+              />
+            )}
+            <div className="relative z-10 w-full h-full flex items-center justify-center p-0 md:p-3">
+              <ImageWithFallback 
+                src={project.ogImageUrl} 
+                alt={project.title} 
+                fallback={<ProjectImage index={index} title={project.title} />} 
+                className="w-full h-full object-cover md:object-contain object-center transition-transform duration-500 group-hover/img:scale-[1.01]"
+              />
             </div>
-            {/* Right column - Content */}
-            <div className="p-4 sm:p-5 md:p-6 lg:p-8 flex flex-col gap-3 sm:gap-4 md:gap-5 overflow-y-auto" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
-              <style>{`
-                .detail-content::-webkit-scrollbar {
-                  display: none;
-                  width: 0;
-                  height: 0;
-                }
-              `}</style>
-              <div className="flex-shrink-0">
-                <span className="font-mono text-[8px] sm:text-[9px] text-[#00e5ff]/40 tracking-widest uppercase mb-1.5 block">{t('projects.case_label', { defaultValue: 'CASO DE PROYECTO' })}</span>
-                <h3 className="font-syne font-black text-xl sm:text-2xl md:text-3xl text-white tracking-tight">{project.title}</h3>
-                <div className="w-8 sm:w-10 h-0.5 sm:h-1 bg-[#00e5ff] mt-2 sm:mt-3" />
-              </div>
-              
-              {/* Description with hidden scrollbar */}
-              <div className="flex-1 min-h-0 overflow-y-auto detail-content" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
-                <p className="text-white/50 leading-relaxed text-xs sm:text-sm text-justify">{project.description}</p>
-              </div>
-              
+          </div>
+
+          {/* ─── Description / Content Section ─── */}
+          {/* Mobile: bottom (order-2), Desktop: left (md:order-1) */}
+          <div 
+            className="order-2 md:order-1 w-full md:w-[45%] lg:w-[42%] p-4 sm:p-6 md:p-7 lg:p-8 flex flex-col flex-1 min-h-0 overflow-y-auto detail-content"
+            style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+          >
+            <style>{`
+              .detail-content::-webkit-scrollbar {
+                display: none;
+                width: 0;
+                height: 0;
+              }
+            `}</style>
+            
+            {/* Header */}
+            <div className="flex-shrink-0">
+              <span className="font-mono text-[8px] sm:text-[9px] text-[#195fc1] tracking-widest uppercase mb-1.5 block font-bold">
+                {t('projects.case_label', { defaultValue: 'CASO DE PROYECTO' })}
+              </span>
+              <h3 className="font-sans font-semibold text-xl sm:text-2xl text-slate-900 dark:text-white tracking-tight">
+                {project.title}
+              </h3>
+              <div className="w-8 sm:w-10 h-0.5 sm:h-1 bg-[#195fc1] mt-2 sm:mt-3" />
+            </div>
+
+            {/* Description paragraph */}
+            <div className="flex-1 min-h-0 overflow-y-auto detail-content my-3 sm:my-4" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+              <p className="text-slate-600 dark:text-white/50 leading-relaxed text-xs sm:text-sm text-justify">
+                {project.description}
+              </p>
+            </div>
+
+            {/* Bottom section: tech tags & action buttons anchored at bottom */}
+            <div className="mt-auto shrink-0 flex flex-col gap-3 pt-2">
               {/* Tags */}
-              <div className="flex flex-wrap gap-1.5 sm:gap-2 flex-shrink-0">
+              <div className="flex flex-wrap gap-1.5 sm:gap-2">
                 {project.tags.slice(0, 6).map(tag => (
-                  <div key={tag} className="flex items-center gap-1 px-2 py-0.5 sm:py-1 rounded-md border border-white/5 bg-white/5 group/tag">
-                    {techIconMap[tag] && <img src={techIconMap[tag]} alt={tag} className="w-2.5 h-2.5 sm:w-3 sm:h-3 opacity-50 group-hover/tag:opacity-100 transition-opacity" />}
-                    <span className="text-white/40 group-hover/tag:text-white transition-colors text-[8px] sm:text-[9px] font-mono uppercase tracking-wider">{tag}</span>
+                  <div key={tag} className="flex items-center gap-1 px-2 py-0.5 sm:py-1 rounded-md border border-slate-200/90 bg-slate-100/80 text-slate-700 dark:border-white/5 dark:bg-white/5 dark:text-white/40 group/tag">
+                    {techIconMap[tag] && (
+                      <img 
+                        src={techIconMap[tag]} 
+                        alt={tag} 
+                        className="w-2.5 h-2.5 sm:w-3 sm:h-3 opacity-70 group-hover/tag:opacity-100 dark:opacity-50 dark:group-hover/tag:opacity-100 transition-opacity" 
+                        onError={(e) => (e.currentTarget.style.display = 'none')}
+                      />
+                    )}
+                    <span className="text-slate-700 group-hover/tag:text-slate-900 dark:text-white/40 dark:group-hover/tag:text-white transition-colors text-[8px] sm:text-[9px] font-mono uppercase tracking-wider font-medium">{tag}</span>
                   </div>
                 ))}
               </div>
 
-              {/* Buttons */}
-              <div className="flex flex-wrap gap-1.5 sm:gap-2 flex-shrink-0 pt-3 sm:pt-4 border-t border-white/5">
+              {/* Action buttons */}
+              <div className="flex flex-wrap gap-2 pt-3 border-t border-slate-200/80 dark:border-white/5">
                 {project.demoUrl && (
-                  <a href={project.demoUrl} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-1.5 font-mono text-[9px] sm:text-[10px] tracking-wider uppercase px-3 sm:px-5 py-1.5 sm:py-2 bg-[#00e5ff] text-[#020408] font-bold rounded-md transition-all hover:scale-105 hover:shadow-[0_0_25px_rgba(0,229,255,0.4)]">
-                    <ExternalLinkIcon />{t('projects.view_demo')}
-                  </a>
+                  <Button
+                    variant="primary"
+                    size="sm"
+                    href={project.demoUrl}
+                    external
+                    leadingIcon={<ExternalLinkIcon />}
+                  >
+                    <span className="font-mono text-[9px] sm:text-[10px] tracking-wider uppercase">
+                      {t('projects.view_demo', { defaultValue: 'Ver Demo' })}
+                    </span>
+                  </Button>
                 )}
-                {project.githubUrl && (
-                  <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-1.5 font-mono text-[9px] sm:text-[10px] tracking-wider uppercase px-3 sm:px-4 py-1.5 sm:py-2 bg-white/5 border border-white/10 text-white/70 rounded-md transition-all hover:bg-white/10">
-                    <GithubIcon />Source
-                  </a>
+                {project.githubUrl && project.githubUrl.trim() !== '' && (
+                  <Button
+                    variant="secondary"
+                    size="sm"
+                    href={project.githubUrl}
+                    external
+                    leadingIcon={<GithubIcon />}
+                  >
+                    <span className="font-mono text-[9px] sm:text-[10px] tracking-wider uppercase">{t('projects.source')}</span>
+                  </Button>
                 )}
-                <button onClick={() => setGalleryOpen(true)} className="flex items-center justify-center gap-1.5 font-mono text-[9px] sm:text-[10px] tracking-wider uppercase px-3 sm:px-4 py-1.5 sm:py-2 bg-white/5 border border-white/10 text-white/70 rounded-md transition-all hover:bg-white/10">
-                  <ImagesIcon />{t('projects.gallery')}
-                </button>
+                <Button variant="secondary" size="sm" onClick={() => setGalleryOpen(true)} leadingIcon={<ImagesIcon />}>
+                  <span className="font-mono text-[9px] sm:text-[10px] tracking-wider uppercase">
+                    {t('projects.gallery', { defaultValue: 'Galería' })}
+                  </span>
+                </Button>
               </div>
             </div>
           </div>
         </div>
 
-        <div className="flex flex-col items-center gap-4 sm:gap-6 shrink-0" onClick={e => e.stopPropagation()}>
-           <div className="flex items-center gap-3 sm:gap-6">
-              <button onClick={onPrev} className="group flex items-center gap-1.5 sm:gap-2 text-white/40 hover:text-[#00e5ff] transition-all">
-                <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full border border-white/10 flex items-center justify-center group-hover:border-[#00e5ff]/40 group-hover:bg-[#00e5ff]/5">
-                  <ChevronLeft />
-                </div>
-                <span className="hidden sm:inline font-mono text-[10px] uppercase tracking-[.2em] font-bold">{t('projects.prev_project', { defaultValue: 'VER ANTERIOR PROYECTO' })}</span>
-              </button>
+        {/* ─── Bottom Navigation Controls Pinned to Edges ─── */}
+        <div 
+          className="w-full max-w-4xl lg:max-w-5xl px-2 sm:px-4 flex items-center justify-between shrink-0 mb-1 sm:mb-2" 
+          onClick={e => e.stopPropagation()}
+        >
+          {/* Anterior Button (pinned left) */}
+          <button 
+            onClick={onPrev} 
+            className="group flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 rounded-full bg-white/90 hover:bg-white text-slate-700 hover:text-[#195fc1] border border-slate-200/90 shadow-sm backdrop-blur-md dark:bg-slate-900/80 dark:hover:bg-slate-900 dark:text-white/70 dark:hover:text-white dark:border-white/10 hover:border-[#195fc1]/50 dark:hover:border-[#195fc1]/50 transition-all cursor-pointer select-none"
+          >
+            <ChevronLeft className="w-3.5 h-3.5 sm:w-4 sm:h-4 transition-transform group-hover:-translate-x-0.5" />
+            <span className="font-mono text-[9px] sm:text-[11px] uppercase tracking-wider sm:tracking-[0.15em] font-bold">
+              {t('projects.prev_short', { defaultValue: 'Anterior' })}
+            </span>
+          </button>
 
-              <div className="h-6 w-px bg-white/10 hidden sm:block" />
-
-              <button onClick={onNext} className="group flex items-center gap-1.5 sm:gap-2 text-white/40 hover:text-[#00e5ff] transition-all text-right">
-                <span className="hidden sm:inline font-mono text-[10px] uppercase tracking-[.2em] font-bold">{t('projects.next_project', { defaultValue: 'VER SIGUIENTE PROYECTO' })}</span>
-                <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full border border-white/10 flex items-center justify-center group-hover:border-[#00e5ff]/40 group-hover:bg-[#00e5ff]/5">
-                  <ChevronRight />
-                </div>
-              </button>
-           </div>
-           <div className="font-mono text-[9px] text-white/20 tracking-[.3em] uppercase">
+          {/* Project Indicator (in the middle) */}
+          <div className="flex items-center justify-center px-3 sm:px-4 py-1.5 rounded-full bg-white/90 border border-slate-200/90 shadow-sm backdrop-blur-md dark:bg-slate-900/80 dark:border-white/10">
+            <span className="font-mono text-[10px] sm:text-xs text-slate-800 dark:text-white/80 font-bold tracking-[0.2em] uppercase">
               {String(index + 1).padStart(2, '0')} / {String(totalProjects).padStart(2, '0')}
-           </div>
+            </span>
+          </div>
+
+          {/* Siguiente Button (pinned right) */}
+          <button 
+            onClick={onNext} 
+            className="group flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 rounded-full bg-white/90 hover:bg-white text-slate-700 hover:text-[#195fc1] border border-slate-200/90 shadow-sm backdrop-blur-md dark:bg-slate-900/80 dark:hover:bg-slate-900 dark:text-white/70 dark:hover:text-white dark:border-white/10 hover:border-[#195fc1]/50 dark:hover:border-[#195fc1]/50 transition-all cursor-pointer select-none text-right"
+          >
+            <span className="font-mono text-[9px] sm:text-[11px] uppercase tracking-wider sm:tracking-[0.15em] font-bold">
+              {t('projects.next_short', { defaultValue: 'Siguiente' })}
+            </span>
+            <ChevronRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 transition-transform group-hover:translate-x-0.5" />
+          </button>
         </div>
       </div>
       {galleryOpen && <GalleryModal title={project.title} images={images} onClose={() => setGalleryOpen(false)} />}
     </>
   );
+
+  return typeof document !== 'undefined' ? createPortal(modalContent, document.body) : modalContent;
 };
 
 // --- Main Export ---
@@ -312,18 +396,20 @@ export default function Projects({ isFullPage = false }: { isFullPage?: boolean 
   if (isFullPage) {
     return (
       <>
-        <div className="fixed inset-0 z-[150] flex flex-col bg-[#020408]">
+        <div className="fixed inset-0 z-[150] flex flex-col bg-[#F5F7FB] dark:bg-[#020408]">
           <GalleryNavbar scrolled={galleryScrolled} onClose={() => navigate('/')} onNavigate={handleNavigation} activeSection="projects" />
           <div id="gallery-scroll" className="flex-1 overflow-y-auto pt-16 sm:pt-20">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-6 sm:pt-8 md:pt-12 pb-2 sm:pb-4 text-center">
               <div className="flex items-center justify-center gap-3 mb-3 sm:mb-4">
-                <div className="h-px w-8 sm:w-12 bg-white/10" />
+                <div className="h-px w-8 sm:w-12 bg-slate-300 dark:bg-white/10" />
                 <span className="section-label text-xs sm:text-sm">{t('projects.gallery_label')}</span>
-                <div className="h-px w-8 sm:w-12 bg-white/10" />
+                <div className="h-px w-8 sm:w-12 bg-slate-300 dark:bg-white/10" />
               </div>
-              <h3 className="font-syne font-black text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-white uppercase tracking-tighter">
-                {t('projects.gallery_title')}
-              </h3>
+              <div className="sh-wrap">
+                <h3 className="sh-title sh-title--xl text-balance text-slate-900 dark:text-white">
+                  {t('projects.gallery_title')}
+                </h3>
+              </div>
             </div>
             <div className="max-w-7xl mx-auto px-4 sm:px-6 pb-3 sm:pb-4 md:pb-6 flex justify-center flex-wrap gap-1 sm:gap-2">
               {categories.filter(Boolean).map(cat => (
@@ -331,7 +417,7 @@ export default function Projects({ isFullPage = false }: { isFullPage?: boolean 
                   key={cat}
                   onClick={() => setActiveFilter(cat)}
                   className={`font-mono text-[9px] sm:text-[10px] tracking-widest uppercase px-2 sm:px-4 py-1.5 sm:py-2 transition-all ${
-                    activeFilter === cat ? 'text-[#00e5ff] border-b border-[#00e5ff]' : 'text-white/40 hover:text-white'
+                    activeFilter === cat ? 'text-[#195fc1] border-b border-[#195fc1]' : 'text-slate-600 hover:text-slate-900 dark:text-white/40 dark:hover:text-white'
                   }`}
                 >
                   {cat === 'all' ? t('projects.filter_all') : cat}
@@ -351,36 +437,37 @@ export default function Projects({ isFullPage = false }: { isFullPage?: boolean 
                 });
 
                 return (
-                  <article
+                  <CutCard
+                    as="article"
                     key={i}
                     onClick={() => setSelectedProject({ project, index: globalIndex })}
-                    className="group cursor-pointer overflow-hidden transition-all duration-300 bg-white/[0.02] border border-white/5 rounded-lg hover:scale-[1.02] hover:border-white/20 flex flex-col min-h-[480px] sm:min-h-[500px]"
+                    className="group cursor-pointer transition-all duration-300 hover:scale-[1.02] hover:shadow-xl hover:shadow-[#195fc1]/10 flex flex-col min-h-[480px] sm:min-h-[500px]"
                   >
                     <div className="w-full h-36 sm:h-40 relative overflow-hidden shrink-0">
                       <ImageWithFallback src={project.ogImageUrl} alt={project.title} fallback={<ProjectImage index={globalIndex} title={project.title} />} />
                       <div className="absolute inset-0 flex items-center justify-center bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity">
-                        <span className="font-mono text-[9px] sm:text-[10px] tracking-wider text-[#00e5ff] uppercase">{t('projects.view_detail')} →</span>
+                        <span className="font-mono text-[9px] sm:text-[10px] tracking-wider text-[#195fc1] uppercase">{t('projects.view_detail')} →</span>
                       </div>
                     </div>
                     <div className="p-4 sm:p-5 flex flex-col flex-1">
                       <div className="flex items-center justify-between mb-2 sm:mb-3">
-                        <span className="font-mono text-[9px] sm:text-[10px] text-[#00e5ff]/30 tracking-wider">_{String(globalIndex + 1).padStart(2, '0')}</span>
+                        <span className="font-mono text-[9px] sm:text-[10px] text-[#195fc1]/50 dark:text-[#195fc1]/30 tracking-wider">_{String(globalIndex + 1).padStart(2, '0')}</span>
                       </div>
                       <div className="min-h-[3rem] sm:min-h-[3.5rem] flex flex-col justify-start">
-                        <h4 className="font-syne font-bold text-sm sm:text-base text-white group-hover:text-[#00e5ff] transition-colors leading-tight">{project.title}</h4>
+                        <h4 className="font-syne font-bold text-sm sm:text-base text-slate-900 dark:text-white group-hover:text-[#195fc1] transition-colors leading-tight">{project.title}</h4>
                       </div>
                       <div className="min-h-[4rem] sm:min-h-[5rem] mt-2">
-                        <p className="text-white/40 text-xs sm:text-sm leading-relaxed text-justify line-clamp-3">{project.description}</p>
+                        <p className="text-slate-600 dark:text-white/40 text-xs sm:text-sm leading-relaxed text-justify line-clamp-3">{project.description}</p>
                       </div>
                       
                       <div className="flex items-center gap-1.5 sm:gap-2 mt-1.5">
                         {uniqueTechTags.slice(0, 5).map(tag => (
                           techIconMap[tag] && (
-                            <div key={tag} className="w-6 h-6 sm:w-7 sm:h-7 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center p-1 sm:p-1.5 shrink-0" title={tag}>
+                            <div key={tag} className="w-6 h-6 sm:w-7 sm:h-7 rounded-lg bg-slate-100 dark:bg-white/5 border border-slate-200/80 dark:border-white/10 flex items-center justify-center p-1 sm:p-1.5 shrink-0" title={tag}>
                               <img 
                                 src={techIconMap[tag]} 
                                 alt={tag} 
-                                className="w-full h-full object-contain opacity-60 group-hover:opacity-100 transition-opacity" 
+                                className="w-full h-full object-contain opacity-70 group-hover:opacity-100 dark:opacity-60 dark:group-hover:opacity-100 transition-opacity" 
                                 onError={(e) => (e.currentTarget.style.display = 'none')}
                               />
                             </div>
@@ -388,38 +475,42 @@ export default function Projects({ isFullPage = false }: { isFullPage?: boolean 
                         ))}
                       </div>
 
-                      <div className="mt-auto pt-4 flex flex-wrap gap-1.5 border-t border-white/5">
+                      <div className="mt-auto pt-4 flex flex-wrap gap-1.5 border-t border-slate-200/80 dark:border-white/5">
                         {project.tags.slice(0, 3).map(tag => (
-                          <span key={tag} className="text-[8px] sm:text-[9px] font-mono text-white/10 uppercase tracking-tighter">#{tag}</span>
+                          <span key={tag} className="text-[8px] sm:text-[9px] font-mono text-slate-400 dark:text-white/10 uppercase tracking-tighter">#{tag}</span>
                         ))}
                       </div>
                     </div>
-                  </article>
+                  </CutCard>
                 );
               })}
             </div>
           </div>
           {selectedProject && <DetailModal project={selectedProject.project} index={selectedProject.index} totalProjects={filtered.length} onNext={() => navigateProject('next')} onPrev={() => navigateProject('prev')} onClose={() => setSelectedProject(null)} />}
         </div>
-        <ChatWidget forceVisible={true} />
       </>
     );
   }
 
   return (
     <>
-      <section id="projects" className="relative py-20 sm:py-24 md:py-32 overflow-hidden bg-[#020408]">
+      <section id="projects" className="relative py-20 sm:py-24 md:py-32 overflow-hidden bg-transparent">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="mb-12 sm:mb-16 md:mb-20">
             <div className="flex items-center gap-3 mb-4 sm:mb-6">
               <span className="section-label text-xs sm:text-sm">{t('projects.label')}</span>
-              <div className="h-px flex-1 bg-gradient-to-r from-[#00e5ff]/20 to-transparent" />
+              <div className="h-px flex-1 bg-gradient-to-r from-[#195fc1]/30 to-transparent" />
             </div>
-            <div className="flex flex-col md:flex-row md:items-end gap-6 md:gap-8 justify-between">
-              <h2 className="font-syne font-black text-3xl sm:text-5xl md:text-6xl lg:text-7xl text-white leading-[1.1]">
-                {t('projects.title')}
-              </h2>
-              <p className="text-white/40 text-base sm:text-lg max-w-xs leading-relaxed md:text-right">
+            <div className="flex flex-col lg:flex-row lg:items-end gap-6 lg:gap-8 justify-between">
+              <div className="sh-wrap">
+                <h2 className="sh-title sh-title--xl text-text text-balance flex flex-col items-start gap-1 sm:gap-2">
+                  <span className="font-mono text-sm sm:text-base text-accent-cyan count-highlight select-none tracking-[0.05em]">
+                    <CountUp to={projects.length} duration={2} />
+                  </span>
+                  <span>{t('projects.title')}</span>
+                </h2>
+              </div>
+              <p className="text-white/40 text-base sm:text-lg max-w-xs leading-relaxed lg:text-right">
                 {t('projects.subtitle')}
               </p>
             </div>
@@ -438,10 +529,11 @@ export default function Projects({ isFullPage = false }: { isFullPage?: boolean 
                });
 
                return (
-                <article
+                <CutCard
+                  as="article"
                   key={i}
                   onClick={() => setSelectedProject({ project, index: globalIndex })}
-                  className="glass-card-enhanced group cursor-pointer overflow-hidden border border-white/10 rounded-xl sm:rounded-2xl transition-all duration-500 hover:border-white/20 hover:scale-[1.02] flex flex-col min-h-[500px]"
+                  className="token-card group cursor-pointer transition-colors duration-200 flex flex-col min-h-[500px]"
                 >
                   <div className="h-44 sm:h-48 overflow-hidden relative shrink-0">
                     <ImageWithFallback src={project.ogImageUrl} alt={project.title} fallback={<ProjectImage index={i} title={project.title} />} />
@@ -449,7 +541,7 @@ export default function Projects({ isFullPage = false }: { isFullPage?: boolean 
                   </div>
                   <div className="p-5 sm:p-6 md:p-8 flex flex-col flex-1">
                     <div className="min-h-[3rem] sm:min-h-[4rem] flex flex-col justify-start mb-3 sm:mb-4">
-                      <h3 className="font-syne font-black text-xl sm:text-2xl text-white group-hover:text-[#00e5ff] transition-colors leading-tight">{project.title}</h3>
+                      <h3 className="font-sans font-semibold text-xl sm:text-2xl text-white group-hover:text-[#195fc1] transition-colors leading-tight">{project.title}</h3>
                     </div>
                     <div className="min-h-[4rem] sm:min-h-[6rem] mb-4 sm:mb-6">
                       <p className="text-white/40 text-xs sm:text-sm leading-relaxed text-justify line-clamp-3">{project.description}</p>
@@ -457,7 +549,7 @@ export default function Projects({ isFullPage = false }: { isFullPage?: boolean 
                     <div className="flex items-center gap-2 sm:gap-3 -mt-2.5">
                       {uniqueTechTags.slice(0, 5).map(tag => (
                         techIconMap[tag] && (
-                          <div key={tag} className="w-7 h-7 sm:w-9 sm:h-9 rounded-lg sm:rounded-xl bg-white/5 border border-white/10 flex items-center justify-center p-1.5 sm:p-2 group-hover:border-[#00e5ff]/20 transition-all shrink-0" title={tag}>
+                          <div key={tag} className="w-7 h-7 sm:w-9 sm:h-9 rounded-lg sm:rounded-xl bg-white/5 border border-white/10 flex items-center justify-center p-1.5 sm:p-2 group-hover:border-[#195fc1]/40 transition-all shrink-0" title={tag}>
                             <img 
                               src={techIconMap[tag]} 
                               alt={tag} 
@@ -470,27 +562,23 @@ export default function Projects({ isFullPage = false }: { isFullPage?: boolean 
                     </div>
                     <div className="mt-auto pt-5 sm:pt-6 border-t border-white/5 flex items-center justify-between">
                       <span className="font-mono text-[9px] sm:text-[10px] text-white/20 uppercase tracking-widest">{project.category}</span>
-                      <span className="text-[#00e5ff] text-[10px] sm:text-xs font-bold uppercase tracking-tighter flex items-center gap-1.5 sm:gap-2 group-hover:gap-3 transition-all">Explore <ExternalLinkIcon /></span>
+                      <span className="text-[#195fc1] text-[10px] sm:text-xs font-bold uppercase tracking-tighter flex items-center gap-1.5 sm:gap-2 group-hover:gap-3 transition-all">Explore <ExternalLinkIcon /></span>
                     </div>
                   </div>
-                </article>
+                </CutCard>
                );
             })}
           </div>
 
           <div className="mt-12 sm:mt-16 md:mt-20 flex justify-center">
-            <button
-              onClick={() => navigate('/proyectos')}
-              className="group flex items-center gap-2 sm:gap-4 font-mono text-[10px] sm:text-xs tracking-[0.2em] sm:tracking-[.3em] uppercase px-6 sm:px-10 py-3 sm:py-5 bg-white/5 border border-white/10 hover:border-[#00e5ff]/40 hover:bg-white/[0.08] transition-all duration-300 rounded-full"
-            >
-              <GridIcon /> {t('projects.view_all')}
-            </button>
+            <Button variant="secondary" size="lg" onClick={() => navigate('/proyectos')} leadingIcon={<GridIcon />}>
+              <span className="font-mono text-xs tracking-[0.2em] uppercase">{t('projects.view_all')}</span>
+            </Button>
           </div>
         </div>
 
         {selectedProject && <DetailModal project={selectedProject.project} index={selectedProject.index} totalProjects={items.length} onNext={() => navigateProject('next')} onPrev={() => navigateProject('prev')} onClose={() => setSelectedProject(null)} />}
       </section>
-      <ChatWidget />
     </>
   );
 }

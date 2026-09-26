@@ -1,5 +1,6 @@
 import { describe, it, expect, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
+import { MemoryRouter } from 'react-router-dom';
 import ServicesSection from '../components/sections/ServicesSection';
 
 // Mock de i18next
@@ -17,26 +18,30 @@ vi.mock('react-i18next', () => ({
   }),
 }));
 
+const renderWithRouter = (ui: React.ReactElement) => {
+  return render(<MemoryRouter>{ui}</MemoryRouter>);
+};
+
 describe('ServicesSection', () => {
   it('debe renderizar el título de la sección', () => {
-    render(<ServicesSection />);
+    renderWithRouter(<ServicesSection />);
     expect(screen.getByText('services.title')).toBeInTheDocument();
   });
 
   it('debe renderizar la lista de servicios mockeados', () => {
-    render(<ServicesSection />);
+    renderWithRouter(<ServicesSection />);
     expect(screen.getByText('Service 1')).toBeInTheDocument();
     expect(screen.getByText('Service 2')).toBeInTheDocument();
   });
 
   it('debe mostrar la descripción de cada servicio', () => {
-    render(<ServicesSection />);
+    renderWithRouter(<ServicesSection />);
     expect(screen.getByText('Desc 1')).toBeInTheDocument();
     expect(screen.getByText('Desc 2')).toBeInTheDocument();
   });
 
   it('las tarjetas ya no muestran un link de contacto propio', () => {
-    render(<ServicesSection />);
+    renderWithRouter(<ServicesSection />);
     expect(screen.queryByRole('link', { name: /contact\.label/i })).not.toBeInTheDocument();
   });
 });

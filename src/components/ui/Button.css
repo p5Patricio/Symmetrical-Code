@@ -1,0 +1,208 @@
+/* Symmetrical Code — Button system, family B "symmetric cut".
+   Two opposite corners (top-left, bottom-right) are cut at 45° so the shape
+   echoes the rotational symmetry of the logo. See design-spec.md. */
+
+.sc-btn {
+  --cut: 9px;
+  --bw: 1px;
+  --ring: transparent;
+  --h: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  height: var(--h);
+  padding-inline: 20px;
+  font: 500 15px/1 var(--ff-text);
+  letter-spacing: 0.005em;
+  text-decoration: none;
+  border: 0;
+  cursor: pointer;
+  position: relative;
+  isolation: isolate;
+  white-space: nowrap;
+  clip-path: polygon(
+    var(--cut) 0,
+    100% 0,
+    100% calc(100% - var(--cut)),
+    calc(100% - var(--cut)) 100%,
+    0 100%,
+    0 var(--cut)
+  );
+  transition: background-color 0.18s ease, color 0.18s ease, transform 0.12s ease;
+}
+
+.sc-btn:active {
+  transform: translateY(1px);
+}
+
+/* Ring drawn with an even-odd clip so the diagonal edges also get a border */
+.sc-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: var(--ring);
+  transition: background-color 0.18s ease;
+  clip-path: polygon(
+    evenodd,
+    var(--cut) 0,
+    100% 0,
+    100% calc(100% - var(--cut)),
+    calc(100% - var(--cut)) 100%,
+    0 100%,
+    0 var(--cut),
+    var(--cut) 0,
+    calc(var(--cut) + var(--bw) * 0.414) var(--bw),
+    calc(100% - var(--bw)) var(--bw),
+    calc(100% - var(--bw)) calc(100% - var(--cut) - var(--bw) * 0.414),
+    calc(100% - var(--cut) - var(--bw) * 0.414) calc(100% - var(--bw)),
+    var(--bw) calc(100% - var(--bw)),
+    var(--bw) calc(var(--cut) + var(--bw) * 0.414),
+    calc(var(--cut) + var(--bw) * 0.414) var(--bw)
+  );
+}
+
+.sc-btn:focus-visible {
+  outline: none;
+  --ring: var(--focus);
+  --bw: 2px;
+}
+
+.sc-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.sc-btn:disabled:hover {
+  background: inherit;
+}
+
+/* ─── Sizes ─── */
+.sc-btn--sm {
+  --h: 36px;
+  --cut: 7px;
+  padding-inline: 14px;
+  font-size: 14px;
+}
+
+.sc-btn--md {
+  --h: 44px;
+  --cut: 9px;
+  padding-inline: 20px;
+  font-size: 15px;
+}
+
+.sc-btn--lg {
+  --h: 52px;
+  --cut: 10px;
+  padding-inline: 24px;
+  font-size: 16px;
+}
+
+/* Square icon-only buttons: width matches height, no inline padding. */
+.sc-btn--icon-only {
+  width: var(--h);
+  padding-inline: 0;
+}
+
+/* ─── Variant: primary ─── */
+.sc-btn--primary {
+  background: var(--brand-blue);
+  color: var(--on-brand);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.18);
+}
+
+.sc-btn--primary:hover:not(:disabled) {
+  background: var(--brand-blue-hover);
+}
+
+.sc-btn--primary:active:not(:disabled) {
+  background: var(--brand-deep);
+}
+
+/* ─── Variant: secondary ─── */
+.sc-btn--secondary {
+  background: transparent;
+  color: var(--text);
+  --ring: var(--line-2);
+}
+
+.sc-btn--secondary:hover:not(:disabled) {
+  background: color-mix(in srgb, var(--text) 6%, transparent);
+  --ring: var(--muted);
+}
+
+.sc-btn--secondary:focus-visible {
+  --ring: var(--focus);
+  --bw: 2px;
+}
+
+/* ─── Variant: icon (dedicated small utility square, --cut fixed to 7px) ─── */
+.sc-btn--icon {
+  --cut: 7px;
+}
+
+/* ─── Arrow ─── */
+.sc-btn .sc-btn__arrow {
+  width: 14px;
+  height: 14px;
+  flex: none;
+  transition: transform 0.2s ease;
+}
+
+.sc-btn:hover .sc-btn__arrow,
+.sc-link:hover .sc-btn__arrow {
+  transform: translateX(3px);
+}
+
+.sc-btn__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+}
+
+/* ─── Variant: link (no clip-path, underline treatment) ─── */
+.sc-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font: 500 15px/1.2 var(--ff-text);
+  color: var(--text);
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  text-decoration: underline;
+  text-decoration-color: var(--line-2);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 7px;
+  transition: text-decoration-color 0.18s ease;
+}
+
+.sc-link:hover {
+  text-decoration-color: var(--brand-cyan);
+}
+
+.sc-link:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 3px;
+}
+
+.sc-link:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sc-btn,
+  .sc-btn::before,
+  .sc-btn__arrow,
+  .sc-link {
+    transition: none;
+  }
+  .sc-btn:active {
+    transform: none;
+  }
+}

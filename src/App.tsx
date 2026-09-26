@@ -1,4 +1,3 @@
-// src/App.tsx
 import { Helmet } from 'react-helmet-async';
 import { useTranslation } from 'react-i18next';
 import { Routes, Route } from 'react-router-dom';
@@ -8,34 +7,25 @@ import HeroSection from './components/sections/HeroSection';
 import ServicesSection from './components/sections/ServicesSection';
 import TeamSection from './components/sections/TeamSection';
 import ProjectsPage from './pages/ProjectsPage';
+import ServiceDetailPage from './pages/ServiceDetailPage';
+import LegalPage from './pages/LegalPage';
 import ChatWidget from './components/chat/ChatWidget';
-import Aurora from './components/Aurora';
+import ScrollToTop from './components/layout/ScrollToTop';
+import { ThemeProvider, useTheme } from './context/ThemeContext';
 
-function App() {
+function AppContent() {
   const { i18n } = useTranslation();
   const currentLang = i18n.language;
+  const { theme } = useTheme();
 
   return (
     <>
       <Helmet>
-        <html lang={currentLang} />
+        <html lang={currentLang} className={theme} />
       </Helmet>
 
-      {/* Efecto Aurora - Fondo fijo */}
-      <Aurora 
-        colorStops={['#0B1A33', '#2B4B7A', '#63B3ED']}
-        amplitude={1.0}
-        blend={0.5}
-        speed={0.8}
-      />
-
-      {/* Contenido - Todo sobre el efecto */}
-      <div style={{ 
-        position: 'relative', 
-        zIndex: 1,
-        minHeight: '100vh',
-        background: 'transparent'
-      }}>
+      <ScrollToTop />
+      <div className="relative z-10 min-h-screen bg-transparent">
         <Routes>
           <Route path="/" element={
             <>
@@ -44,20 +34,25 @@ function App() {
               <ServicesSection />
               <ProjectsPage />
               <TeamSection />
-              <ChatWidget />
               <Footer />
             </>
           } />
-          <Route path="/proyectos" element={
-            <>
-              <Navbar />
-              <ProjectsPage isFullPage={true} />
-              <Footer />
-            </>
-          } />
+          <Route path="/proyectos" element={<ProjectsPage isFullPage={true} />} />
+          <Route path="/servicios/:slug" element={<ServiceDetailPage />} />
+          <Route path="/privacidad" element={<LegalPage doc="privacy" />} />
+          <Route path="/terminos" element={<LegalPage doc="terms" />} />
         </Routes>
+        <ChatWidget />
       </div>
     </>
+  );
+}
+
+function App() {
+  return (
+    <ThemeProvider>
+      <AppContent />
+    </ThemeProvider>
   );
 }
 
