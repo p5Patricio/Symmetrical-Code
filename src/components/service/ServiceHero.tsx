@@ -1,3 +1,4 @@
+import type { CSSProperties } from 'react';
 import { useTranslation } from 'react-i18next';
 import Button from '../ui/Button';
 import SymmetryBackdrop from '../ui/SymmetryBackdrop';
@@ -20,7 +21,7 @@ export default function ServiceHero({ heroBadge, title, tagline, whatsappUrl, he
   // in Syne 800) with margin. Long words wrap only as a last resort.
   const textBlock = (
     <div className="min-w-0 [container-type:inline-size]">
-      <span className="block font-mono text-[11px] sm:text-xs uppercase tracking-[0.14em] text-accent-cyan mb-4">
+      <span className="block font-mono text-[11px] sm:text-xs uppercase tracking-[0.14em] text-[var(--svc-accent)] mb-4">
         {heroBadge}
       </span>
       <h1 className="font-syne font-extrabold text-text leading-[1.02] tracking-[-0.02em] text-balance [font-size:clamp(22px,calc(100cqi/13.4),64px)] [overflow-wrap:break-word] hyphens-auto mb-5">
@@ -59,7 +60,10 @@ export default function ServiceHero({ heroBadge, title, tagline, whatsappUrl, he
   }
 
   return (
-    <div className="relative isolate overflow-hidden max-w-[820px] py-10 sm:py-14">
+    <div
+      className="relative isolate overflow-hidden max-w-[820px] py-10 sm:py-14"
+      style={{ '--glow': 'var(--svc-glow-tint)', '--glow-2': 'var(--svc-glow-2-tint)' } as CSSProperties}
+    >
       <SymmetryBackdrop />
       <div className="relative z-10">{textBlock}</div>
     </div>

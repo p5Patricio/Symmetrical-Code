@@ -330,18 +330,18 @@ html.light .text-white\/5 {
   color: #94A3B8 !important;
 }
 
-/* Light Surface Cards (orbit-card is owned by ServicesSection.tsx) */
+/* Light Surface Cards (orbit-card is owned by ServicesSection.tsx). No
+   border override here anymore: the card's ring is the cut-corner CutCard
+   treatment (CutCard.css), driven by --line-2 / the per-service accent. */
 html.light .orbit-card {
   background: linear-gradient(135deg, rgba(255, 255, 255, 0.92) 0%, rgba(240, 245, 255, 0.78) 100%) !important;
   backdrop-filter: blur(20px) saturate(180%) !important;
   -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
-  border: 1px solid rgba(25, 95, 193, 0.18) !important;
   box-shadow: 0 16px 40px -12px rgba(25, 95, 193, 0.12), inset 0 1.5px 0 0 rgba(255, 255, 255, 1), inset 0 -1px 0 0 rgba(25, 95, 193, 0.08) !important;
   transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }
 
 html.light .orbit-card:hover {
-  border-color: #195fc1 !important;
   box-shadow: 0 20px 48px -10px rgba(25, 95, 193, 0.22), inset 0 1.5px 0 0 rgba(255, 255, 255, 1), inset 0 0 15px rgba(25, 95, 193, 0.08) !important;
 }
 
@@ -354,15 +354,13 @@ html.light .group:hover [class*="group-hover:text-[#195fc1]"] {
   color: #195fc1 !important;
 }
 
+/* Both card grids now use the CutCard ring (see CutCard.css) instead of a
+   Tailwind border, so only the depth shadow is themed here. */
 html.light article.group:not(.token-card):hover {
-  border-color: #195fc1 !important;
   box-shadow: 0 16px 36px rgba(25, 95, 193, 0.16) !important;
 }
 
-/* Token-styled cards (see ProjectsPage.tsx) opt out of the legacy hardcoded
-   hover treatment above; they use --line-2 only, no shadow. */
 html.light article.token-card:hover {
-  border-color: var(--line-2) !important;
   box-shadow: none !important;
 }
 

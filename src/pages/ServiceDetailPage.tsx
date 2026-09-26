@@ -1,8 +1,10 @@
-import { useCallback, useEffect, useMemo } from 'react';
+import { useCallback, useMemo } from 'react';
+import type { CSSProperties } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Helmet } from 'react-helmet-async';
 import { servicesData } from '../data/services';
+import { useTheme } from '../context/ThemeContext';
 import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
 import Button from '../components/ui/Button';
@@ -25,11 +27,8 @@ export default function ServiceDetailPage() {
   const { slug } = useParams<{ slug: string }>();
   const { t, i18n } = useTranslation();
   const navigate = useNavigate();
+  const { theme } = useTheme();
   const isEs = (i18n?.resolvedLanguage || i18n?.language || 'es').startsWith('es');
-
-  useEffect(() => {
-    window.scrollTo({ top: 0, behavior: 'instant' });
-  }, [slug]);
 
   const service = useMemo(() => servicesData.find((s) => s.slug === slug), [slug]);
 
@@ -70,7 +69,21 @@ export default function ServiceDetailPage() {
       slug: s.slug,
       title: isEs ? s.titleEs : s.titleEn,
       shortDesc: isEs ? s.shortDescEs : s.shortDescEn,
+      accentColor: theme === 'light' ? s.accentColorLight : s.accentColor,
     }));
+
+  // Single source of truth for this page's small accent details (hero badge,
+  // eyebrows, deliverable checks, dash markers, process labels, FAQ icon,
+  // breadcrumb current item) — see src/data/services.ts.
+  const svcAccent = theme === 'light' ? service.accentColorLight : service.accentColor;
+  const rootStyle = {
+    '--svc-accent': svcAccent,
+    // Tinted glow for this page's hero backdrop: mixed here (reading the
+    // ambient --glow/--glow-2 before any override) so ServiceHero can safely
+    // reassign --glow/--glow-2 further down without a custom-property cycle.
+    '--svc-glow-tint': 'color-mix(in srgb, var(--svc-accent) 35%, var(--glow) 65%)',
+    '--svc-glow-2-tint': 'color-mix(in srgb, var(--svc-accent) 30%, var(--glow-2) 70%)',
+  } as CSSProperties;
 
   const faqs = service.faqs.map((faq) => ({
     question: isEs ? faq.questionEs : faq.questionEn,
@@ -82,7 +95,7 @@ export default function ServiceDetailPage() {
   )}`;
 
   return (
-    <div className="min-h-screen bg-ink text-text">
+    <div className="min-h-screen bg-ink text-text" style={rootStyle}>
       <Helmet>
         <title>{`${title} — Symmetrical Code`}</title>
         <meta name="description" content={isEs ? service.shortDescEs : service.shortDescEn} />
@@ -123,15 +136,22 @@ export default function ServiceDetailPage() {
               title={t('serviceDetail.solutions_title')}
               solutions={service.practicalSolutions}
               isEs={isEs}
+              eyebrowColor={svcAccent}
             />
           </section>
 
           <section className={SECTION_CLASS}>
-            <WhoIsItFor eyebrow={t('serviceDetail.who_eyebrow')} title={t('serviceDetail.who_title')} items={whoIsItFor} />
+            <WhoIsItFor
+              eyebrow={t('serviceDetail.who_eyebrow')}
+              title={t('serviceDetail.who_title')}
+              items={whoIsItFor}
+              eyebrowColor={svcAccent}
+              markerColor={svcAccent}
+            />
           </section>
 
           <section className={SECTION_CLASS}>
-            <ProcessStrip onSeeFullProcess={() => goToHomeSection('project-workflow')} />
+            <ProcessStrip onSeeFullProcess={() => goToHomeSection('project-workflow')} accentColor={svcAccent} />
           </section>
 
           <section id="deliverables" className={`${SECTION_CLASS} scroll-mt-20`}>
@@ -139,6 +159,8 @@ export default function ServiceDetailPage() {
               eyebrow={t('serviceDetail.deliverables_eyebrow')}
               title={t('serviceDetail.deliverables_title')}
               items={deliverables}
+              eyebrowColor={svcAccent}
+              iconColor={svcAccent}
             />
           </section>
 
@@ -148,12 +170,19 @@ export default function ServiceDetailPage() {
               title={t('serviceDetail.stack_title')}
               description={t('serviceDetail.stack_description')}
               items={service.techStack}
+              eyebrowColor={svcAccent}
             />
           </section>
 
           {faqs.length > 0 && (
             <section className={SECTION_CLASS}>
-              <FaqAccordion eyebrow={t('serviceDetail.faq_eyebrow')} title={t('serviceDetail.faq_title')} items={faqs} />
+              <FaqAccordion
+                eyebrow={t('serviceDetail.faq_eyebrow')}
+                title={t('serviceDetail.faq_title')}
+                items={faqs}
+                eyebrowColor={svcAccent}
+                accentColor={svcAccent}
+              />
             </section>
           )}
 
@@ -166,6 +195,7 @@ export default function ServiceDetailPage() {
               whatsappUrl={whatsappQuoteUrl}
               secondaryLabel={t('serviceDetail.closing_secondary_cta')}
               onSecondaryClick={() => goToHomeSection('services')}
+              eyebrowColor={svcAccent}
             />
           </section>
 

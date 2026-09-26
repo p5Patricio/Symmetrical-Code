@@ -6,6 +6,8 @@ import { projects, techIconMap } from '../data/projects';
 import GalleryNavbar from '../components/layout/GalleryNavbar';
 import CountUp from '../components/ui/CountUp';
 import Button from '../components/ui/Button';
+import CutCard from '../components/ui/CutCard';
+import '../components/ui/SectionHeading.css';
 
 // --- Types ---
 interface ProjectView {
@@ -403,9 +405,11 @@ export default function Projects({ isFullPage = false }: { isFullPage?: boolean 
                 <span className="section-label text-xs sm:text-sm">{t('projects.gallery_label')}</span>
                 <div className="h-px w-8 sm:w-12 bg-slate-300 dark:bg-white/10" />
               </div>
-              <h3 className="font-syne font-bold text-slate-900 dark:text-white leading-[1.08] tracking-[-0.015em] text-balance text-[clamp(28px,4vw,44px)]">
-                {t('projects.gallery_title')}
-              </h3>
+              <div className="sh-wrap">
+                <h3 className="sh-title sh-title--xl text-balance text-slate-900 dark:text-white">
+                  {t('projects.gallery_title')}
+                </h3>
+              </div>
             </div>
             <div className="max-w-7xl mx-auto px-4 sm:px-6 pb-3 sm:pb-4 md:pb-6 flex justify-center flex-wrap gap-1 sm:gap-2">
               {categories.filter(Boolean).map(cat => (
@@ -433,10 +437,11 @@ export default function Projects({ isFullPage = false }: { isFullPage?: boolean 
                 });
 
                 return (
-                  <article
+                  <CutCard
+                    as="article"
                     key={i}
                     onClick={() => setSelectedProject({ project, index: globalIndex })}
-                    className="group cursor-pointer overflow-hidden transition-all duration-300 bg-white dark:bg-white/[0.02] border border-slate-200/80 dark:border-white/5 rounded-lg hover:scale-[1.02] hover:border-[#195fc1]/50 hover:shadow-xl hover:shadow-[#195fc1]/10 flex flex-col min-h-[480px] sm:min-h-[500px]"
+                    className="group cursor-pointer transition-all duration-300 hover:scale-[1.02] hover:shadow-xl hover:shadow-[#195fc1]/10 flex flex-col min-h-[480px] sm:min-h-[500px]"
                   >
                     <div className="w-full h-36 sm:h-40 relative overflow-hidden shrink-0">
                       <ImageWithFallback src={project.ogImageUrl} alt={project.title} fallback={<ProjectImage index={globalIndex} title={project.title} />} />
@@ -476,7 +481,7 @@ export default function Projects({ isFullPage = false }: { isFullPage?: boolean 
                         ))}
                       </div>
                     </div>
-                  </article>
+                  </CutCard>
                 );
               })}
             </div>
@@ -497,12 +502,14 @@ export default function Projects({ isFullPage = false }: { isFullPage?: boolean 
               <div className="h-px flex-1 bg-gradient-to-r from-[#195fc1]/30 to-transparent" />
             </div>
             <div className="flex flex-col lg:flex-row lg:items-end gap-6 lg:gap-8 justify-between">
-              <h2 className="font-syne font-bold text-text leading-[1.08] tracking-[-0.015em] text-balance text-[clamp(28px,4vw,44px)] flex flex-col items-start gap-1 sm:gap-2">
-                <span className="font-mono text-sm sm:text-base text-accent-cyan count-highlight select-none tracking-[0.05em]">
-                  <CountUp to={projects.length} duration={2} />
-                </span>
-                <span>{t('projects.title')}</span>
-              </h2>
+              <div className="sh-wrap">
+                <h2 className="sh-title sh-title--xl text-text text-balance flex flex-col items-start gap-1 sm:gap-2">
+                  <span className="font-mono text-sm sm:text-base text-accent-cyan count-highlight select-none tracking-[0.05em]">
+                    <CountUp to={projects.length} duration={2} />
+                  </span>
+                  <span>{t('projects.title')}</span>
+                </h2>
+              </div>
               <p className="text-white/40 text-base sm:text-lg max-w-xs leading-relaxed lg:text-right">
                 {t('projects.subtitle')}
               </p>
@@ -522,11 +529,11 @@ export default function Projects({ isFullPage = false }: { isFullPage?: boolean 
                });
 
                return (
-                <article
+                <CutCard
+                  as="article"
                   key={i}
                   onClick={() => setSelectedProject({ project, index: globalIndex })}
-                  className="token-card group cursor-pointer overflow-hidden border border-line rounded-xl transition-colors duration-200 hover:border-line-2 flex flex-col min-h-[500px]"
-                  style={{ background: 'var(--surface)' }}
+                  className="token-card group cursor-pointer transition-colors duration-200 flex flex-col min-h-[500px]"
                 >
                   <div className="h-44 sm:h-48 overflow-hidden relative shrink-0">
                     <ImageWithFallback src={project.ogImageUrl} alt={project.title} fallback={<ProjectImage index={i} title={project.title} />} />
@@ -558,7 +565,7 @@ export default function Projects({ isFullPage = false }: { isFullPage?: boolean 
                       <span className="text-[#195fc1] text-[10px] sm:text-xs font-bold uppercase tracking-tighter flex items-center gap-1.5 sm:gap-2 group-hover:gap-3 transition-all">Explore <ExternalLinkIcon /></span>
                     </div>
                   </div>
-                </article>
+                </CutCard>
                );
             })}
           </div>

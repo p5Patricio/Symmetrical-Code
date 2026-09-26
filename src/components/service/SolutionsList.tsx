@@ -6,15 +6,16 @@ interface SolutionsListProps {
   title: string;
   solutions: PracticalSolution[];
   isEs: boolean;
+  eyebrowColor?: string;
 }
 
 /** "Qué resolvemos" — sticky eyebrow/title column + hairline rows, one per
  * practical solution. No icons, no tags: title and description only. */
-export default function SolutionsList({ eyebrow, title, solutions, isEs }: SolutionsListProps) {
+export default function SolutionsList({ eyebrow, title, solutions, isEs, eyebrowColor }: SolutionsListProps) {
   return (
     <div className="lg:grid lg:grid-cols-[minmax(0,.9fr)_minmax(0,2.1fr)] lg:gap-x-14">
       <div className="mb-8 lg:mb-0 lg:sticky lg:top-24 lg:self-start">
-        <SectionHeading eyebrow={eyebrow} title={title} />
+        <SectionHeading eyebrow={eyebrow} title={title} eyebrowColor={eyebrowColor} />
       </div>
 
       <div>

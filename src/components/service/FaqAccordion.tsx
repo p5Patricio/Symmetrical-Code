@@ -10,11 +10,14 @@ interface FaqAccordionProps {
   eyebrow: string;
   title: string;
   items: FaqAccordionItem[];
+  eyebrowColor?: string;
+  /** Icon color when a panel is open (e.g. a service page's `var(--svc-accent)`); closed icons stay `--muted`. */
+  accentColor?: string;
 }
 
-function FaqIcon({ open }: { open: boolean }) {
+function FaqIcon({ open, accentColor }: { open: boolean; accentColor?: string }) {
   return (
-    <span className="faq-icon" aria-hidden="true">
+    <span className="faq-icon" aria-hidden="true" style={open && accentColor ? { color: accentColor } : undefined}>
       <span className="faq-icon__bar faq-icon__bar--h" />
       <span className={`faq-icon__bar faq-icon__bar--v ${open ? 'faq-icon__bar--v-open' : ''}`} />
     </span>
@@ -24,7 +27,7 @@ function FaqIcon({ open }: { open: boolean }) {
 /** Accessible FAQ accordion. Multiple items may be open at once; the panel
  * animates open with a `grid-template-rows` trick (0fr -> 1fr) and honors
  * `prefers-reduced-motion`. */
-export default function FaqAccordion({ eyebrow, title, items }: FaqAccordionProps) {
+export default function FaqAccordion({ eyebrow, title, items, eyebrowColor, accentColor }: FaqAccordionProps) {
   const [openIndexes, setOpenIndexes] = useState<ReadonlySet<number>>(new Set([0]));
 
   const toggle = (idx: number) => {
@@ -41,7 +44,7 @@ export default function FaqAccordion({ eyebrow, title, items }: FaqAccordionProp
 
   return (
     <div>
-      <SectionHeading eyebrow={eyebrow} title={title} className="mb-10" />
+      <SectionHeading eyebrow={eyebrow} title={title} eyebrowColor={eyebrowColor} className="mb-10" />
 
       <div>
         {items.map((item, idx) => {
@@ -60,7 +63,7 @@ export default function FaqAccordion({ eyebrow, title, items }: FaqAccordionProp
                 className="w-full flex items-center justify-between gap-4 py-5 text-left font-sans font-medium text-text text-[17px] cursor-pointer bg-transparent border-0"
               >
                 <span>{item.question}</span>
-                <FaqIcon open={isOpen} />
+                <FaqIcon open={isOpen} accentColor={accentColor} />
               </button>
 
               <div id={panelId} role="region" aria-labelledby={buttonId} className={`faq-panel ${isOpen ? 'faq-panel--open' : ''}`}>

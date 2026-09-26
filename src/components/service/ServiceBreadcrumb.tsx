@@ -18,7 +18,7 @@ export default function ServiceBreadcrumb({ ariaLabel, homeLabel, title, onNavig
         {homeLabel}
       </button>
       <span aria-hidden="true">/</span>
-      <span aria-current="page" className="truncate text-subtle">
+      <span aria-current="page" className="truncate text-[var(--svc-accent,var(--subtle))]">
         {title}
       </span>
     </nav>

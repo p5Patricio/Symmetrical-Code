@@ -6,6 +6,7 @@ interface TechStackListProps {
   title: string;
   description: string;
   items: TechItem[];
+  eyebrowColor?: string;
 }
 
 interface TechGroup {
@@ -31,12 +32,18 @@ function groupByCategory(items: TechItem[]): TechGroup[] {
 
 /** Tech stack grouped by category — one hairline row per category, items
  * listed inline with their highlight text. No icons, no cards. */
-export default function TechStackList({ eyebrow, title, description, items }: TechStackListProps) {
+export default function TechStackList({ eyebrow, title, description, items, eyebrowColor }: TechStackListProps) {
   const groups = groupByCategory(items);
 
   return (
     <div>
-      <SectionHeading eyebrow={eyebrow} title={title} description={description} className="mb-10 max-w-2xl" />
+      <SectionHeading
+        eyebrow={eyebrow}
+        title={title}
+        description={description}
+        eyebrowColor={eyebrowColor}
+        className="mb-10 max-w-2xl"
+      />
 
       <div>
         {groups.map(({ category, items: groupItems }) => (

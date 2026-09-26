@@ -194,6 +194,7 @@ export default function ProjectWorkflow() {
       {/* ─── Header ─── */}
       <SectionHeading
         as="h3"
+        size="xl"
         eyebrow={t('team.workflow_label')}
         title={t('team.workflow_title')}
         description={t('team.workflow_subtitle')}

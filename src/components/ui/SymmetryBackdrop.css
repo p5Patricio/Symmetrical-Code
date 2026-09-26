@@ -20,15 +20,6 @@
   -webkit-mask-image: radial-gradient(ellipse 70% 70% at 50% 40%, #000 25%, transparent 100%);
 }
 
-.symmetry-backdrop__axis {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 50%;
-  width: 1px;
-  background: linear-gradient(to bottom, transparent, var(--line-2) 18%, var(--line-2) 82%, transparent);
-}
-
 .symmetry-backdrop__glow {
   position: absolute;
   top: 6%;

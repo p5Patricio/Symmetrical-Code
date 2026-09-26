@@ -9,12 +9,14 @@ interface WorkflowStepData {
 
 interface ProcessStripProps {
   onSeeFullProcess: () => void;
+  /** Eyebrow + phase-label color (e.g. a service page's `var(--svc-accent)`); defaults to `--accent-cyan`. */
+  accentColor?: string;
 }
 
 /** "Cómo lo trabajamos" — a 4-column strip built from the same
  * `team.workflow_steps` i18n data as the home page's methodology block,
  * summarized to title + touchpoint. Links back to the full process. */
-export default function ProcessStrip({ onSeeFullProcess }: ProcessStripProps) {
+export default function ProcessStrip({ onSeeFullProcess, accentColor }: ProcessStripProps) {
   const { t } = useTranslation();
 
   const rawSteps = t('team.workflow_steps', { returnObjects: true });
@@ -25,13 +27,17 @@ export default function ProcessStrip({ onSeeFullProcess }: ProcessStripProps) {
       <SectionHeading
         eyebrow={t('serviceDetail.process_eyebrow')}
         title={t('serviceDetail.process_title')}
+        eyebrowColor={accentColor}
         className="mb-10"
       />
 
       <div className="ps-strip">
         {steps.map((step, idx) => (
           <div key={idx} className="ps-col">
-            <span className="block font-mono text-[11px] uppercase tracking-[0.14em] text-accent-cyan mb-3">
+            <span
+              className={accentColor ? 'block font-mono text-[11px] uppercase tracking-[0.14em] mb-3' : 'block font-mono text-[11px] uppercase tracking-[0.14em] text-accent-cyan mb-3'}
+              style={accentColor ? { color: accentColor } : undefined}
+            >
               {t('team.workflow_phase_label')} {String(idx + 1).padStart(2, '0')}
             </span>
             <h3 className="font-sans font-semibold text-text text-[18px] mb-3">{step.title}</h3>

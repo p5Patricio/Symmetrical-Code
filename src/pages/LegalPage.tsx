@@ -72,11 +72,11 @@ export default function LegalPage({ doc }: LegalPageProps) {
 
       <main className="pt-24 sm:pt-28 pb-20 sm:pb-28">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-[70ch] mb-14 sm:mb-16">
+          <div className="max-w-[70ch] mb-14 sm:mb-16 [container-type:inline-size]">
             <span className="block font-mono text-[11px] sm:text-xs uppercase tracking-[0.14em] text-accent-cyan mb-4">
               {t('legal.eyebrow')}
             </span>
-            <h1 className="font-syne font-extrabold text-text leading-[1.05] tracking-[-0.02em] text-balance text-[clamp(28px,7vw,48px)] mb-4">
+            <h1 className="font-syne font-extrabold text-text leading-[1.08] tracking-[-0.03em] text-balance [font-size:min(clamp(28px,7vw,52px),calc(100cqi/13))] [overflow-wrap:break-word] hyphens-auto mb-4">
               {title}
             </h1>
             <p className="font-mono text-[11px] text-subtle mb-6">{lastUpdated}</p>

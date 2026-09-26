@@ -1,9 +1,12 @@
+import type { CSSProperties } from 'react';
 import { Link } from 'react-router-dom';
 
 export interface OtherServiceEntry {
   slug: string;
   title: string;
   shortDesc: string;
+  /** That service's own accent color (theme-resolved) — used for this row's hover/focus underline. */
+  accentColor?: string;
 }
 
 interface OtherServicesIndexProps {
@@ -28,7 +31,12 @@ export default function OtherServicesIndex({ eyebrow, services }: OtherServicesI
 
       <div>
         {services.map((svc) => (
-          <Link key={svc.slug} to={`/servicios/${svc.slug}`} className="osi-row border-t border-line">
+          <Link
+            key={svc.slug}
+            to={`/servicios/${svc.slug}`}
+            className="osi-row border-t border-line"
+            style={svc.accentColor ? ({ '--osi-accent': svc.accentColor } as CSSProperties) : undefined}
+          >
             <span className="osi-row__title">{svc.title}</span>
             <span className="osi-row__desc">{svc.shortDesc}</span>
             <ArrowIcon />
@@ -72,7 +80,7 @@ export default function OtherServicesIndex({ eyebrow, services }: OtherServicesI
         }
         .osi-row:hover .osi-row__title,
         .osi-row:focus-visible .osi-row__title {
-          text-decoration-color: var(--brand-cyan);
+          text-decoration-color: var(--osi-accent, var(--brand-cyan));
         }
         .osi-row__desc {
           color: var(--muted);
@@ -86,7 +94,7 @@ export default function OtherServicesIndex({ eyebrow, services }: OtherServicesI
         .osi-row:hover .osi-row__arrow,
         .osi-row:focus-visible .osi-row__arrow {
           transform: translate(3px, -3px);
-          color: var(--brand-cyan);
+          color: var(--osi-accent, var(--brand-cyan));
         }
         .osi-row:focus-visible {
           outline: 2px solid var(--focus);

@@ -274,7 +274,9 @@ export const servicesData: ServiceDetail[] = [
     longDescEn: 'We build modern digital experiences, ranging from high-conversion landing pages to complete online stores, full SaaS platforms, and mobile apps on iOS and Android with single-codebase efficiency.',
     colorVar: '--svc-web',
     accentColor: '#00e5ff',
-    accentColorLight: '#0284c7',
+    // #0284c7 (sky-600) measured 3.82:1 on --bg light (#F5F7FA) — below the
+    // 4.5:1 floor for small text. #0369a1 (sky-700) gives 5.53:1.
+    accentColorLight: '#0369a1',
     glowColor: 'rgba(0, 229, 255, 0.25)',
     practicalSolutions: [
       {
@@ -593,9 +595,9 @@ export const servicesData: ServiceDetail[] = [
     longDescEs: 'Hacemos que los sistemas de tu empresa se comuniquen automáticamente entre sí, incluso cuando son de proveedores distintos y nunca fueron pensados para conectarse. Conectamos tu web con WhatsApp, pasarelas de pago, facturación e inventario para que las ventas se procesen solas, y construimos tableros interactivos para que tomes decisiones con datos precisos.',
     longDescEn: 'We make your business systems talk to each other automatically, even when they come from different vendors and were never designed to connect. We connect your store with WhatsApp, payment gateways, electronic invoicing, and inventory so sales process automatically, and we build interactive dashboards for precise decision-making.',
     colorVar: '--svc-analytics',
-    accentColor: '#f472b6',
-    accentColorLight: '#be185d',
-    glowColor: 'rgba(244, 114, 182, 0.25)',
+    accentColor: '#f97316',
+    accentColorLight: '#c2410c',
+    glowColor: 'rgba(249, 115, 22, 0.25)',
     practicalSolutions: [
       {
         titleEs: 'Automatización de WhatsApp y Notificaciones',

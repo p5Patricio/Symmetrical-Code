@@ -1,0 +1,107 @@
+/* Cut-corner card treatment — rotational symmetry echoing the S logo and the
+   button system ("family B"), adapted for cards. Two opposite corners
+   (top-left, bottom-right) are cut at 45°, no border-radius. The 1px ring is
+   drawn with an even-odd clip-path (same technique as Button.css) so the
+   diagonal edges also get a border. On hover/focus-within the ring switches
+   to the card's accent color and lifts 2px; a short accent-colored diagonal
+   stroke on each cut corner reads as an intentional design detail rather
+   than a leftover bevel. See design-spec.md + design refinement pass. */
+
+.cc-card {
+  --cut: 16px;
+  --bw: 1px;
+  --cc-accent: var(--brand-blue);
+  --cc-ring: var(--line-2);
+  position: relative;
+  isolation: isolate;
+  background: var(--surface);
+  clip-path: polygon(
+    var(--cut) 0,
+    100% 0,
+    100% calc(100% - var(--cut)),
+    calc(100% - var(--cut)) 100%,
+    0 100%,
+    0 var(--cut)
+  );
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+@media (min-width: 1024px) {
+  .cc-card {
+    --cut: 20px;
+  }
+}
+
+/* Ring drawn with an even-odd clip so the diagonal edges also get a border. */
+.cc-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background: var(--cc-ring);
+  transition: background-color 0.18s ease;
+  clip-path: polygon(
+    evenodd,
+    var(--cut) 0,
+    100% 0,
+    100% calc(100% - var(--cut)),
+    calc(100% - var(--cut)) 100%,
+    0 100%,
+    0 var(--cut),
+    var(--cut) 0,
+    calc(var(--cut) + var(--bw) * 0.414) var(--bw),
+    calc(100% - var(--bw)) var(--bw),
+    calc(100% - var(--bw)) calc(100% - var(--cut) - var(--bw) * 0.414),
+    calc(100% - var(--cut) - var(--bw) * 0.414) calc(100% - var(--bw)),
+    var(--bw) calc(100% - var(--bw)),
+    var(--bw) calc(var(--cut) + var(--bw) * 0.414),
+    calc(var(--cut) + var(--bw) * 0.414) var(--bw)
+  );
+}
+
+.cc-card:hover,
+.cc-card:focus-within {
+  --cc-ring: var(--cc-accent);
+  transform: translateY(-2px);
+}
+
+/* Small refined detail: a thin accent-colored diagonal stroke riding the cut
+   edge, ~40% opacity at rest, full strength on hover/focus. */
+.cc-card__corner {
+  position: absolute;
+  z-index: 3;
+  width: var(--cut);
+  height: var(--cut);
+  pointer-events: none;
+  background: linear-gradient(135deg, transparent 46%, var(--cc-accent) 50%, transparent 54%);
+  opacity: 0.4;
+  transition: opacity 0.2s ease;
+}
+
+.cc-card__corner--tl {
+  top: 0;
+  left: 0;
+}
+
+.cc-card__corner--br {
+  bottom: 0;
+  right: 0;
+}
+
+.cc-card:hover .cc-card__corner,
+.cc-card:focus-within .cc-card__corner {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cc-card,
+  .cc-card::before,
+  .cc-card__corner {
+    transition: none;
+  }
+  .cc-card:hover,
+  .cc-card:focus-within {
+    transform: none;
+  }
+}

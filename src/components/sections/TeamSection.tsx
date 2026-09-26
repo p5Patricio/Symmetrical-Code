@@ -88,9 +88,9 @@ export default function Team() {
             </span>
             <div className="h-px flex-1 bg-line" />
           </div>
-          <div className="flex flex-col md:flex-row md:items-end gap-6 md:gap-8 justify-between">
-            <SectionHeading title={t('team.title')} className="max-w-3xl" />
-            <p className="text-muted text-base sm:text-lg max-w-md leading-relaxed md:text-right">
+          <div className="flex flex-col lg:flex-row lg:items-end gap-6 lg:gap-8 justify-between">
+            <SectionHeading title={t('team.title')} size="xl" className="max-w-3xl" />
+            <p className="text-muted text-base sm:text-lg max-w-sm leading-relaxed lg:text-right">
               {t('team.subtitle')}
             </p>
           </div>

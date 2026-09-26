@@ -1,5 +1,6 @@
 import React, { useRef, useState, useCallback } from 'react';
 import { useTheme } from '../../context/ThemeContext';
+import './CutCard.css';
 
 interface SpotlightCardProps extends React.HTMLAttributes<HTMLDivElement> {
   children: React.ReactNode;
@@ -48,14 +49,6 @@ export const SpotlightCard: React.FC<SpotlightCardProps> = ({
       ? 'linear-gradient(145deg, rgba(255, 255, 255, 0.04) 0%, rgba(255, 255, 255, 0.01) 50%, rgba(3, 7, 18, 0.7) 100%)'
       : 'linear-gradient(145deg, rgba(255, 255, 255, 0.025) 0%, rgba(255, 255, 255, 0.006) 50%, rgba(3, 7, 18, 0.6) 100%)';
 
-  const borderColor = isLight
-    ? isHovered
-      ? accentColor ? `${accentColor}55` : 'rgba(25, 95, 193, 0.35)'
-      : 'rgba(0, 0, 0, 0.09)'
-    : isHovered
-      ? 'rgba(255, 255, 255, 0.2)'
-      : 'rgba(255, 255, 255, 0.07)';
-
   const boxShadow = isLight
     ? isHovered
       ? '0 16px 36px -10px rgba(25, 95, 193, 0.14), inset 0 1px 0 rgba(255, 255, 255, 1)'
@@ -74,14 +67,13 @@ export const SpotlightCard: React.FC<SpotlightCardProps> = ({
       onMouseMove={handleMouseMove}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      className={`spotlight-card group relative overflow-hidden rounded-2xl border transition-all duration-500 ease-out ${className}`}
+      className={`spotlight-card cc-card group relative transition-all duration-500 ease-out ${className}`}
       style={{
         background,
         backdropFilter: 'blur(24px) saturate(180%)',
         WebkitBackdropFilter: 'blur(24px) saturate(180%)',
-        borderColor,
         boxShadow,
-        transform: isHovered ? 'translateY(-2px)' : 'translateY(0)',
+        ...(accentColor ? ({ '--cc-accent': accentColor } as React.CSSProperties) : {}),
         ...style,
       }}
       {...props}
@@ -108,6 +100,10 @@ export const SpotlightCard: React.FC<SpotlightCardProps> = ({
 
       {/* ─── Card Content ─── */}
       <div className="relative z-10 h-full">{children}</div>
+
+      {/* ─── Cut-corner accent detail ─── */}
+      <span className="cc-card__corner cc-card__corner--tl" aria-hidden="true" />
+      <span className="cc-card__corner cc-card__corner--br" aria-hidden="true" />
     </div>
   );
 };

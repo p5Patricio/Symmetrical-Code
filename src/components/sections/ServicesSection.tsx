@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 import DeviceShowcase from './DeviceShowcase';
 import SpotlightCard from '../ui/SpotlightCard';
 import ReiconIcon from '../ui/ReiconIcon';
+import { servicesData } from '../../data/services';
+import '../ui/SectionHeading.css';
 
 const SERVICE_REICONS = [
   'database',
@@ -23,14 +25,11 @@ const SERVICE_SLUGS = [
   'automatizacion-analitica',
 ];
 
-const SERVICE_COLORS = [
-  '#4ade80', // 01 systems / software empresarial (emerald)
-  '#a855f7', // 02 IA (electric purple)
-  '#00e5ff', // 03 web & móvil (vibrant electric cyan)
-  '#facc15', // 04 security (cyber gold)
-  '#f43f5e', // 05 uiux (vibrant coral rose)
-  '#f97316', // 06 analytics & automatización (vibrant cyber orange)
-];
+// Single source of truth for per-service accent colors is `src/data/services.ts`
+// (`accentColor`). No more duplicated palette here — see design refinement pass.
+const SERVICE_COLOR_BY_SLUG: Record<string, string> = Object.fromEntries(
+  servicesData.map((s) => [s.slug, s.accentColor])
+);
 
 type ServiceItem = {
   slug?: string;
@@ -52,8 +51,8 @@ function OrbitCard({
   isEs: boolean;
   style?: React.CSSProperties;
 }) {
-  const accent = SERVICE_COLORS[index] || '#195fc1';
   const slug = service.slug || SERVICE_SLUGS[index] || 'software-empresarial';
+  const accent = SERVICE_COLOR_BY_SLUG[slug] || '#195fc1';
   const iconName = SERVICE_REICONS[index] || 'database';
 
   return (
@@ -134,9 +133,9 @@ export default function Services() {
             <div className="h-px flex-1 bg-gradient-to-r from-[#195fc1]/40 to-transparent" />
           </div>
           <div className="flex flex-col lg:flex-row lg:items-end gap-6 lg:gap-8 justify-between">
-            <h2 className="font-syne font-bold text-text leading-[1.08] tracking-[-0.015em] text-balance text-[clamp(28px,4vw,44px)] max-w-3xl">
-              {t('services.title')}
-            </h2>
+            <div className="sh-wrap max-w-3xl">
+              <h2 className="sh-title sh-title--xl text-text text-balance">{t('services.title')}</h2>
+            </div>
             <p className="text-white/60 text-base sm:text-lg max-w-md leading-relaxed lg:text-right font-normal">
               {t('services.subtitle')}
             </p>

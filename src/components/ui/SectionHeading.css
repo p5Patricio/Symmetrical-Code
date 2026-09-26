@@ -1,0 +1,43 @@
+/* Section title treatment — Syne ExtraBold (800, Syne's max), tight tracking
+   and leading, no uppercase. Two sizes: `xl` for home sections (Services,
+   Projects, Why, Workflow), `lg` (default) for inner pages (service detail
+   sections, legal). See design-spec.md + client feedback in the design
+   refinement pass.
+
+   The wrapper is a container so long words can never overflow a narrow
+   column (service pages use narrow sticky columns): font-size is capped by
+   container inline-size units on top of the viewport clamp, with
+   overflow-wrap as a last-resort fallback. */
+
+.sh-wrap {
+  /* `container-type: inline-size` establishes size containment on the
+     inline axis, so this element can no longer size itself from its own
+     content (that's the whole point — the title's font-size must not feed
+     back into the container's width). Without an explicit width it would
+     collapse to 0 in a flex/grid context, which zeroed both the container's
+     query length and (via `min()`) the title's font-size. `width: 100%`
+     makes it fill whatever track/column its parent already gives it. */
+  container-type: inline-size;
+  width: 100%;
+}
+
+.sh-title {
+  font-family: var(--ff-display, 'Syne Variable', 'Syne', 'Geist Variable', ui-sans-serif, system-ui, sans-serif);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.08;
+  overflow-wrap: break-word;
+}
+
+/* 10.6em = widest word across the home section titles ("Development",
+   10.55em in Syne 800 at -0.03em), so the cap only kicks in when that word
+   would actually overflow and every home title reaches 72px on desktop. */
+.sh-title--xl {
+  font-size: clamp(36px, 6vw, 72px);
+  font-size: min(clamp(36px, 6vw, 72px), calc(100cqi / 10.6));
+}
+
+.sh-title--lg {
+  font-size: clamp(28px, 4.5vw, 52px);
+  font-size: min(clamp(28px, 4.5vw, 52px), calc(100cqi / 11));
+}
