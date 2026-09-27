@@ -76,7 +76,7 @@ export default function LegalPage({ doc }: LegalPageProps) {
             <span className="block font-mono text-[11px] sm:text-xs uppercase tracking-[0.14em] text-accent-cyan mb-4">
               {t('legal.eyebrow')}
             </span>
-            <h1 className="font-syne font-extrabold text-text leading-[1.08] tracking-[-0.03em] text-balance [font-size:min(clamp(28px,7vw,52px),calc(100cqi/13))] [overflow-wrap:break-word] hyphens-auto mb-4">
+            <h1 className="font-syne font-extrabold text-text leading-[1.08] tracking-[-0.03em] text-balance [font-size:min(clamp(28px,7vw,52px),calc(100cqi/13))] [hyphens:manual] mb-4">
               {title}
             </h1>
             <p className="font-mono text-[11px] text-subtle mb-6">{lastUpdated}</p>

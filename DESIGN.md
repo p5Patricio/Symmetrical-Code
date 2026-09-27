@@ -122,6 +122,8 @@ Section titles use `container-type: inline-size` on the wrapper (`.sh-wrap`) so 
 
 Why the cap: the divisor (10.6/11 em) is the widest word across that tier's real titles ("Development" ≈ 10.55em in Syne 800 at ‑0.03em) — the cap only engages when that word would actually overflow its column, so every title still reaches its full clamp size on desktop.
 
+**Never split words.** Titles and text never use `hyphens: auto` (combined with `text-wrap: balance` it breaks words that would fit, e.g. "Implemen-tación"). Instead, size titles so their widest word fits the column: the service page H1 uses `clamp(22px, calc(100cqi / 13.4), 64px)` because its widest word is "Implementación" (12.94em). When adding a title with a longer word, measure it and adjust the divisor.
+
 The hero H1 (`HeroSection.tsx`/`.css`) has its own tuned clamp (not `SectionHeading`) specifically to avoid "Symmetrical" overflowing `overflow-hidden` sections below ~442px viewports — exact clamp values live in `HeroSection.css` (read that file directly before changing hero type size).
 
 ## 5. Layout & spacing

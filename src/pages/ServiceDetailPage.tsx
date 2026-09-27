@@ -120,7 +120,6 @@ export default function ServiceDetailPage() {
               title={title}
               tagline={tagline}
               whatsappUrl={whatsappQuoteUrl}
-              heroImageUrl={service.heroImageUrl}
             />
           </div>
 
