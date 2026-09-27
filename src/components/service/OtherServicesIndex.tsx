@@ -4,8 +4,8 @@ import { Link } from 'react-router-dom';
 export interface OtherServiceEntry {
   slug: string;
   title: string;
-  shortDesc: string;
-  /** That service's own accent color (theme-resolved) — used for this row's hover/focus underline. */
+  /** That service's own accent color (theme-resolved) — used for this
+   * chip's dot, underline and arrow. */
   accentColor?: string;
 }
 
@@ -16,56 +16,54 @@ interface OtherServicesIndexProps {
 
 function ArrowIcon() {
   return (
-    <svg className="osi-row__arrow" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+    <svg className="osi-chip__arrow" width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true">
       <path d="M4 12 12 4M6 4h6v6" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   );
 }
 
-/** "Otros servicios" — the remaining services as a plain hairline-row index,
- * replacing the previous prev/next swap pill and card grid. */
+/** "Otros servicios" — the remaining service titles only, as a compact wrap
+ * of chips with an accent dot, an underline-on-hover title, and a small
+ * arrow. Replaces the previous description-row index and card grid. */
 export default function OtherServicesIndex({ eyebrow, services }: OtherServicesIndexProps) {
   return (
     <div>
-      <span className="block font-mono text-[11px] uppercase tracking-[0.14em] text-muted mb-6">{eyebrow}</span>
+      <span className="block font-mono text-[11px] uppercase tracking-[0.14em] text-muted mb-8">{eyebrow}</span>
 
-      <div>
+      <div className="flex flex-wrap gap-x-8 gap-y-5">
         {services.map((svc) => (
           <Link
             key={svc.slug}
             to={`/servicios/${svc.slug}`}
-            className="osi-row border-t border-line"
+            className="osi-chip"
             style={svc.accentColor ? ({ '--osi-accent': svc.accentColor } as CSSProperties) : undefined}
           >
-            <span className="osi-row__title">{svc.title}</span>
-            <span className="osi-row__desc">{svc.shortDesc}</span>
+            <span className="osi-chip__dot" aria-hidden="true" />
+            <span className="osi-chip__title">{svc.title}</span>
             <ArrowIcon />
           </Link>
         ))}
       </div>
 
       <style>{`
-        .osi-row {
-          display: grid;
-          grid-template-columns: minmax(0, 1fr) minmax(0, 1.6fr) 20px;
+        .osi-chip {
+          display: inline-flex;
           align-items: center;
-          gap: 16px;
-          padding-block: 20px;
+          gap: 8px;
           text-decoration: none;
+          padding-block: 4px;
         }
-        @media (max-width: 639.98px) {
-          .osi-row {
-            grid-template-columns: 1fr 20px;
-            row-gap: 4px;
-          }
-          .osi-row__desc {
-            grid-column: 1 / -1;
-          }
+        .osi-chip__dot {
+          width: 6px;
+          height: 6px;
+          border-radius: 50%;
+          background: var(--osi-accent, var(--brand-cyan));
+          flex-shrink: 0;
         }
-        .osi-row__title {
+        .osi-chip__title {
           font-family: var(--ff-text);
           font-weight: 600;
-          font-size: 18px;
+          font-size: 16px;
           color: var(--text);
           text-decoration-line: underline;
           text-decoration-color: transparent;
@@ -74,35 +72,30 @@ export default function OtherServicesIndex({ eyebrow, services }: OtherServicesI
           transition: text-decoration-color 0.18s ease;
         }
         @media (min-width: 640px) {
-          .osi-row__title {
-            font-size: 20px;
+          .osi-chip__title {
+            font-size: 17px;
           }
         }
-        .osi-row:hover .osi-row__title,
-        .osi-row:focus-visible .osi-row__title {
+        .osi-chip:hover .osi-chip__title,
+        .osi-chip:focus-visible .osi-chip__title {
           text-decoration-color: var(--osi-accent, var(--brand-cyan));
         }
-        .osi-row__desc {
-          color: var(--muted);
-          font-size: 14px;
-          line-height: 1.5;
-        }
-        .osi-row__arrow {
+        .osi-chip__arrow {
           color: var(--muted);
           transition: transform 0.18s ease, color 0.18s ease;
         }
-        .osi-row:hover .osi-row__arrow,
-        .osi-row:focus-visible .osi-row__arrow {
-          transform: translate(3px, -3px);
+        .osi-chip:hover .osi-chip__arrow,
+        .osi-chip:focus-visible .osi-chip__arrow {
+          transform: translate(2px, -2px);
           color: var(--osi-accent, var(--brand-cyan));
         }
-        .osi-row:focus-visible {
+        .osi-chip:focus-visible {
           outline: 2px solid var(--focus);
           outline-offset: 4px;
         }
         @media (prefers-reduced-motion: reduce) {
-          .osi-row__title,
-          .osi-row__arrow {
+          .osi-chip__title,
+          .osi-chip__arrow {
             transition: none;
           }
         }

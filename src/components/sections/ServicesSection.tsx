@@ -3,18 +3,16 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import DeviceShowcase from './DeviceShowcase';
 import SpotlightCard from '../ui/SpotlightCard';
-import ReiconIcon from '../ui/ReiconIcon';
+import IconDatabase from '~icons/lucide/database';
+import IconCpu from '~icons/lucide/cpu';
+import IconCode from '~icons/lucide/code';
+import IconShieldCheck from '~icons/lucide/shield-check';
+import IconPalette from '~icons/lucide/palette';
+import IconChart from '~icons/lucide/bar-chart-3';
+
+const SERVICE_ICONS = [IconDatabase, IconCpu, IconCode, IconShieldCheck, IconPalette, IconChart];
 import { servicesData } from '../../data/services';
 import '../ui/SectionHeading.css';
-
-const SERVICE_REICONS = [
-  'database',
-  'cpu',
-  'code',
-  'shield',
-  'palette',
-  'chart',
-];
 
 const SERVICE_SLUGS = [
   'software-empresarial',
@@ -53,7 +51,7 @@ function OrbitCard({
 }) {
   const slug = service.slug || SERVICE_SLUGS[index] || 'software-empresarial';
   const accent = SERVICE_COLOR_BY_SLUG[slug] || '#195fc1';
-  const iconName = SERVICE_REICONS[index] || 'database';
+  const Icon = SERVICE_ICONS[index] || IconDatabase;
 
   return (
     <Link
@@ -75,7 +73,7 @@ function OrbitCard({
                 color: accent,
               }}
             >
-              <ReiconIcon name={iconName} size={20} color={accent} />
+              <Icon width={20} height={20} strokeWidth={1.75} color={accent} />
             </div>
             <span
               className="font-mono text-xs font-semibold tracking-wider"

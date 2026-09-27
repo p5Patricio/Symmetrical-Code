@@ -457,3 +457,12 @@ html.light #projects .group:hover h4,
 html.light #gallery-scroll article:hover h4 {
   color: #195fc1 !important;
 }
+
+/* Self-hosted tech-logo marks (src/data/techLogos.tsx) that render as pure
+   black/near-black SVGs with no built-in light variant (Vercel, Next.js,
+   GitHub, OpenAI, Express, Three.js) — invert them in dark mode so they stay
+   visible against the dark background. Untouched in light mode, where black
+   already reads fine. */
+html.dark .logo--mono {
+  filter: invert(1);
+}

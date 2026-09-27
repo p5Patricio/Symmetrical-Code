@@ -69,7 +69,7 @@
         "description": "Sitios web de carga instantánea que generan ventas, pasarelas de pago y aplicaciones móviles en iOS y Android.",
         "longDescription": "Construimos experiencias digitales modernas, desde landing pages que convierten visitantes en clientes hasta plataformas web complejas (SaaS) y aplicaciones móviles en iOS y Android con una sola base de código optimizada.",
         "highlights": [
-          "Carga ultrarrápida en menos de 1 segundo",
+          "Carga rápida optimizada para cualquier pantalla",
           "Apps móviles para iOS y Android en Flutter y React",
           "Integración de pagos (Mercado Pago, Stripe, transferencias)",
           "Arquitectura optimizada para posicionar en Google (SEO)"
@@ -285,26 +285,17 @@
     "not_found_cta": "Volver a servicios",
     "cta_whatsapp": "Cotizar por WhatsApp",
     "cta_deliverables": "Qué incluye",
+    "next_service": "Siguiente servicio",
+    "next_service_aria": "Siguiente servicio: {{name}}",
     "hero_image_alt": "Vista previa de {{title}}",
     "whatsapp_quote_message": "Hola, me interesa cotizar el servicio de {{title}}.",
-    "solutions_eyebrow": "Qué Resolvemos",
-    "solutions_title": "Qué resolvemos para tu negocio",
-    "who_eyebrow": "Para Quién Es",
-    "who_title": "¿Es este el servicio adecuado para ti?",
-    "process_eyebrow": "Cómo Lo Trabajamos",
-    "process_title": "Nuestro proceso de trabajo",
-    "process_cta": "Ver el proceso completo",
+    "solutions_eyebrow": "En Lo Que Nos Enfocamos",
+    "solutions_title": "En lo que nos enfocamos para tu negocio",
     "deliverables_eyebrow": "Qué Recibes",
     "deliverables_title": "Lo que recibes al trabajar con nosotros",
     "stack_eyebrow": "Stack Tecnológico",
     "stack_title": "Tecnología y herramientas",
     "stack_description": "Trabajamos con tecnología de nivel productivo, con alta escalabilidad y soporte a largo plazo.",
-    "faq_eyebrow": "Preguntas Frecuentes",
-    "faq_title": "Lo que usualmente nos preguntan",
-    "closing_eyebrow": "Comencemos",
-    "closing_title": "¿Hablamos sobre tu proyecto?",
-    "closing_desc": "Cuéntanos qué necesidad o reto quieres resolver. Te damos un diagnóstico claro en menos de 24 horas.",
-    "closing_secondary_cta": "Ver todos los servicios",
     "other_services_eyebrow": "Otros Servicios"
   },
   "legal": {
@@ -364,7 +355,7 @@
               "almacenamiento de sesión (sessionStorage) para no repetir el aviso de WhatsApp durante tu visita;",
               "Vercel Web Analytics y Speed Insights, que miden visitas y rendimiento de forma agregada y sin cookies: identifican la visita con un valor calculado a partir de la solicitud, que se descarta a las 24 horas y no permite identificarte."
             ] },
-            { "type": "p", "text": "El sitio está alojado en Vercel, que procesa datos técnicos de conexión, como la dirección IP, para entregar el sitio y protegerlo. Los íconos de tecnologías de la sección de proyectos se cargan desde jsDelivr y Simple Icons, que también reciben esos datos técnicos al mostrarlos. Puedes borrar el almacenamiento local desde la configuración de tu navegador." }
+            { "type": "p", "text": "El sitio está alojado en Vercel, que procesa datos técnicos de conexión, como la dirección IP, para entregar el sitio y protegerlo. Puedes borrar el almacenamiento local desde la configuración de tu navegador." }
           ]
         },
         {

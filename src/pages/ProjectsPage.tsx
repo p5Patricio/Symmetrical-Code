@@ -2,12 +2,25 @@ import { useState, useEffect, useMemo } from 'react';
 import { createPortal } from 'react-dom';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import { projects, techIconMap } from '../data/projects';
+import { projects } from '../data/projects';
+import { techLogoMap, isMonoDarkLogo, type LogoComponent } from '../data/techLogos';
 import GalleryNavbar from '../components/layout/GalleryNavbar';
 import CountUp from '../components/ui/CountUp';
 import Button from '../components/ui/Button';
 import CutCard from '../components/ui/CutCard';
 import '../components/ui/SectionHeading.css';
+
+// --- Tech logo (self-hosted, compiled into the bundle — see src/data/techLogos.tsx) ---
+function TechLogo({ tag, className }: { tag: string; className?: string }) {
+  const Logo = techLogoMap[tag];
+  if (!Logo) return null;
+  return (
+    <Logo
+      aria-hidden="true"
+      className={[className, isMonoDarkLogo(Logo) ? 'logo--mono' : ''].filter(Boolean).join(' ')}
+    />
+  );
+}
 
 // --- Types ---
 interface ProjectView {
@@ -237,14 +250,10 @@ const DetailModal = ({ project, index, totalProjects, onNext, onPrev, onClose }:
               <div className="flex flex-wrap gap-1.5 sm:gap-2">
                 {project.tags.slice(0, 6).map(tag => (
                   <div key={tag} className="flex items-center gap-1 px-2 py-0.5 sm:py-1 rounded-md border border-slate-200/90 bg-slate-100/80 text-slate-700 dark:border-white/5 dark:bg-white/5 dark:text-white/40 group/tag">
-                    {techIconMap[tag] && (
-                      <img 
-                        src={techIconMap[tag]} 
-                        alt={tag} 
-                        className="w-2.5 h-2.5 sm:w-3 sm:h-3 opacity-70 group-hover/tag:opacity-100 dark:opacity-50 dark:group-hover/tag:opacity-100 transition-opacity" 
-                        onError={(e) => (e.currentTarget.style.display = 'none')}
-                      />
-                    )}
+                    <TechLogo
+                      tag={tag}
+                      className="w-2.5 h-2.5 sm:w-3 sm:h-3 opacity-70 group-hover/tag:opacity-100 dark:opacity-50 dark:group-hover/tag:opacity-100 transition-opacity"
+                    />
                     <span className="text-slate-700 group-hover/tag:text-slate-900 dark:text-white/40 dark:group-hover/tag:text-white transition-colors text-[8px] sm:text-[9px] font-mono uppercase tracking-wider font-medium">{tag}</span>
                   </div>
                 ))}
@@ -428,11 +437,11 @@ export default function Projects({ isFullPage = false }: { isFullPage?: boolean 
               {filtered.map((project, i) => {
                 const globalIndex = allItems.findIndex(p => p.title === project.title);
                 
-                const seenIcons = new Set<string>();
+                const seenLogos = new Set<LogoComponent>();
                 const uniqueTechTags = project.tags.filter(tag => {
-                  const icon = techIconMap[tag];
-                  if (!icon || seenIcons.has(icon)) return false;
-                  seenIcons.add(icon);
+                  const logo = techLogoMap[tag];
+                  if (!logo || seenLogos.has(logo)) return false;
+                  seenLogos.add(logo);
                   return true;
                 });
 
@@ -462,16 +471,12 @@ export default function Projects({ isFullPage = false }: { isFullPage?: boolean 
                       
                       <div className="flex items-center gap-1.5 sm:gap-2 mt-1.5">
                         {uniqueTechTags.slice(0, 5).map(tag => (
-                          techIconMap[tag] && (
-                            <div key={tag} className="w-6 h-6 sm:w-7 sm:h-7 rounded-lg bg-slate-100 dark:bg-white/5 border border-slate-200/80 dark:border-white/10 flex items-center justify-center p-1 sm:p-1.5 shrink-0" title={tag}>
-                              <img 
-                                src={techIconMap[tag]} 
-                                alt={tag} 
-                                className="w-full h-full object-contain opacity-70 group-hover:opacity-100 dark:opacity-60 dark:group-hover:opacity-100 transition-opacity" 
-                                onError={(e) => (e.currentTarget.style.display = 'none')}
-                              />
-                            </div>
-                          )
+                          <div key={tag} className="w-6 h-6 sm:w-7 sm:h-7 rounded-lg bg-slate-100 dark:bg-white/5 border border-slate-200/80 dark:border-white/10 flex items-center justify-center p-1 sm:p-1.5 shrink-0" title={tag}>
+                            <TechLogo
+                              tag={tag}
+                              className="w-full h-full opacity-70 group-hover:opacity-100 dark:opacity-60 dark:group-hover:opacity-100 transition-opacity"
+                            />
+                          </div>
                         ))}
                       </div>
 
@@ -520,11 +525,11 @@ export default function Projects({ isFullPage = false }: { isFullPage?: boolean 
             {items.map((project, i) => {
                const globalIndex = allItems.findIndex(p => p.title === project.title);
                
-               const seenIcons = new Set<string>();
+               const seenLogos = new Set<LogoComponent>();
                const uniqueTechTags = project.tags.filter(tag => {
-                 const icon = techIconMap[tag];
-                 if (!icon || seenIcons.has(icon)) return false;
-                 seenIcons.add(icon);
+                 const logo = techLogoMap[tag];
+                 if (!logo || seenLogos.has(logo)) return false;
+                 seenLogos.add(logo);
                  return true;
                });
 
@@ -548,16 +553,12 @@ export default function Projects({ isFullPage = false }: { isFullPage?: boolean 
                     </div>
                     <div className="flex items-center gap-2 sm:gap-3 -mt-2.5">
                       {uniqueTechTags.slice(0, 5).map(tag => (
-                        techIconMap[tag] && (
-                          <div key={tag} className="w-7 h-7 sm:w-9 sm:h-9 rounded-lg sm:rounded-xl bg-white/5 border border-white/10 flex items-center justify-center p-1.5 sm:p-2 group-hover:border-[#195fc1]/40 transition-all shrink-0" title={tag}>
-                            <img 
-                              src={techIconMap[tag]} 
-                              alt={tag} 
-                              className="w-full h-full object-contain opacity-50 group-hover:opacity-100 transition-opacity" 
-                              onError={(e) => (e.currentTarget.style.display = 'none')}
-                            />
-                          </div>
-                        )
+                        <div key={tag} className="w-7 h-7 sm:w-9 sm:h-9 rounded-lg sm:rounded-xl bg-white/5 border border-white/10 flex items-center justify-center p-1.5 sm:p-2 group-hover:border-[#195fc1]/40 transition-all shrink-0" title={tag}>
+                          <TechLogo
+                            tag={tag}
+                            className="w-full h-full opacity-50 group-hover:opacity-100 transition-opacity"
+                          />
+                        </div>
                       ))}
                     </div>
                     <div className="mt-auto pt-5 sm:pt-6 border-t border-white/5 flex items-center justify-between">

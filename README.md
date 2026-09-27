@@ -3,6 +3,7 @@
 Sitio web oficial de **Symmetrical Code**, un Software Studio en etapa inicial. La página comunica una propuesta honesta: construir productos digitales con claridad, equilibrio entre diseño y código, y una base preparada para crecer.
 
 > **Rama activa:** `patodev`  
+> **Sistema de diseño e identidad de marca:** [`DESIGN.md`](./DESIGN.md)  
 > **Package manager obligatorio:** `pnpm`  
 > **No usar:** `npm install`, `npm run`, `package-lock.json` ni `yarn.lock` en este frontend.
 
