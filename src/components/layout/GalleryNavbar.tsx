@@ -1,6 +1,10 @@
 import { useState, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
-import { FiSun, FiMoon, FiMenu, FiX, FiArrowLeft } from 'react-icons/fi';
+import IconSun from '~icons/lucide/sun';
+import IconMoon from '~icons/lucide/moon';
+import IconMenu from '~icons/lucide/menu';
+import IconX from '~icons/lucide/x';
+import IconArrowLeft from '~icons/lucide/arrow-left';
 import { useTheme } from '../../context/ThemeContext';
 import Button from '../ui/Button';
 
@@ -99,7 +103,7 @@ export default function GalleryNavbar({
       >
         <nav className="w-full max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between gap-4">
           {/* Left: back to projects */}
-          <Button variant="secondary" size="sm" leadingIcon={<FiArrowLeft size={13} />} onClick={handleClose}>
+          <Button variant="secondary" size="sm" leadingIcon={<IconArrowLeft width={13} height={13} />} onClick={handleClose}>
             <span className="font-mono text-[11px] tracking-widest uppercase">{t('projects.back')}</span>
           </Button>
 
@@ -137,7 +141,7 @@ export default function GalleryNavbar({
               aria-label={theme === 'dark' ? t('nav.theme_to_light') : t('nav.theme_to_dark')}
               title={theme === 'dark' ? t('nav.theme_to_light') : t('nav.theme_to_dark')}
             >
-              {theme === 'dark' ? <FiSun size={14} /> : <FiMoon size={14} />}
+              {theme === 'dark' ? <IconSun width={14} height={14} /> : <IconMoon width={14} height={14} />}
             </Button>
 
             <Button
@@ -164,7 +168,7 @@ export default function GalleryNavbar({
                 aria-expanded={menuOpen}
                 aria-controls="gallery-mobile-sheet"
               >
-                {menuOpen ? <FiX size={15} /> : <FiMenu size={15} />}
+                {menuOpen ? <IconX width={15} height={15} /> : <IconMenu width={15} height={15} />}
               </Button>
             </div>
           </div>
@@ -210,7 +214,7 @@ export default function GalleryNavbar({
             <Button
               variant="secondary"
               size="sm"
-              leadingIcon={theme === 'dark' ? <FiSun size={13} /> : <FiMoon size={13} />}
+              leadingIcon={theme === 'dark' ? <IconSun width={13} height={13} /> : <IconMoon width={13} height={13} />}
               onClick={toggleTheme}
             >
               {theme === 'dark' ? t('nav.theme_to_light') : t('nav.theme_to_dark')}

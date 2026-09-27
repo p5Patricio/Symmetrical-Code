@@ -69,7 +69,7 @@
         "description": "Sub-second load websites that convert visitors, payment gateways, and mobile apps for iOS and Android.",
         "longDescription": "We build modern digital experiences, ranging from high-conversion landing pages to full SaaS platforms and mobile apps on iOS and Android with single-codebase efficiency.",
         "highlights": [
-          "Sub-second load speed across all screen viewports",
+          "Fast loading optimized for every screen",
           "iOS and Android mobile apps in Flutter and React",
           "Payment checkout integration (Stripe, cards, bank transfers)",
           "Engineered for high search engine visibility (SEO)"
@@ -285,26 +285,17 @@
     "not_found_cta": "Back to services",
     "cta_whatsapp": "Quote via WhatsApp",
     "cta_deliverables": "What's included",
+    "next_service": "Next service",
+    "next_service_aria": "Next service: {{name}}",
     "hero_image_alt": "Preview of {{title}}",
     "whatsapp_quote_message": "Hello, I would like to request a quote for {{title}}.",
-    "solutions_eyebrow": "What We Solve",
-    "solutions_title": "What we solve for your business",
-    "who_eyebrow": "Who It's For",
-    "who_title": "Is this the right service for you?",
-    "process_eyebrow": "How We Work",
-    "process_title": "Our way of working",
-    "process_cta": "See the full process",
+    "solutions_eyebrow": "What We Focus On",
+    "solutions_title": "What we focus on for your business",
     "deliverables_eyebrow": "What You Get",
     "deliverables_title": "What you receive when working with us",
     "stack_eyebrow": "Tech Stack",
     "stack_title": "Technology & tools",
     "stack_description": "We work with production-grade technology built for high scalability and long-term support.",
-    "faq_eyebrow": "FAQ",
-    "faq_title": "Frequently asked questions",
-    "closing_eyebrow": "Get in touch",
-    "closing_title": "Ready to discuss your project?",
-    "closing_desc": "Tell us about your requirements. We provide a clear diagnosis within 24 hours.",
-    "closing_secondary_cta": "View all services",
     "other_services_eyebrow": "Other Services"
   },
   "legal": {
@@ -364,7 +355,7 @@
               "session storage (sessionStorage) so the WhatsApp notice does not repeat during your visit;",
               "Vercel Web Analytics and Speed Insights, which measure visits and performance in an aggregated, cookieless way: they identify the visit with a value calculated from the request, which is discarded after 24 hours and cannot identify you."
             ] },
-            { "type": "p", "text": "The site is hosted on Vercel, which processes technical connection data, such as the IP address, to deliver and protect the site. Technology icons in the projects section are loaded from jsDelivr and Simple Icons, which also receive that technical data when displaying them. You can clear local storage from your browser settings." }
+            { "type": "p", "text": "The site is hosted on Vercel, which processes technical connection data, such as the IP address, to deliver and protect the site. You can clear local storage from your browser settings." }
           ]
         },
         {

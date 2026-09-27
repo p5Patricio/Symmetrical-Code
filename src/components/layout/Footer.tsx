@@ -1,7 +1,14 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { FaFacebookF, FaInstagram, FaLinkedinIn, FaWhatsapp } from 'react-icons/fa';
-import { FiMapPin, FiMail, FiClock, FiCopy, FiCheck } from 'react-icons/fi';
+import IconFacebook from '~icons/lucide/facebook';
+import IconInstagram from '~icons/lucide/instagram';
+import IconLinkedin from '~icons/lucide/linkedin';
+import IconWhatsapp from '~icons/logos/whatsapp-icon';
+import IconMapPin from '~icons/lucide/map-pin';
+import IconMail from '~icons/lucide/mail';
+import IconClock from '~icons/lucide/clock';
+import IconCopy from '~icons/lucide/copy';
+import IconCheck from '~icons/lucide/check';
 import Button from '../ui/Button';
 
 export default function Footer() {
@@ -9,15 +16,15 @@ export default function Footer() {
   const [copiedEmail, setCopiedEmail] = useState(false);
 
   const socialLinks = [
-    { label: 'Facebook', href: 'https://www.facebook.com/profile.php?id=61591503452553', icon: FaFacebookF },
-    { label: 'Instagram', href: 'https://www.instagram.com/symmetrical.code', icon: FaInstagram },
-    { label: 'LinkedIn', href: 'https://www.linkedin.com/company/symmetrical-code', icon: FaLinkedinIn },
+    { label: 'Facebook', href: 'https://www.facebook.com/profile.php?id=61591503452553', icon: IconFacebook },
+    { label: 'Instagram', href: 'https://www.instagram.com/symmetrical.code', icon: IconInstagram },
+    { label: 'LinkedIn', href: 'https://www.linkedin.com/company/symmetrical-code', icon: IconLinkedin },
   ];
 
   const contactItems = [
-    { icon: FiMail, text: 'contacto@symmetricalcode.com' },
-    { icon: FiClock, text: t('footer.schedule') },
-    { icon: FiMapPin, text: t('footer.location') },
+    { icon: IconMail, text: 'contacto@symmetricalcode.com' },
+    { icon: IconClock, text: t('footer.schedule') },
+    { icon: IconMapPin, text: t('footer.location') },
   ];
 
   const whatsappUrl = 'https://wa.me/524737374224';
@@ -64,7 +71,7 @@ export default function Footer() {
                       aria-label={social.label}
                       className="footer-social-link flex items-center justify-center w-9 h-9 border border-line text-muted transition-all duration-200 hover:text-on-brand hover:bg-accent-blue hover:border-accent-blue"
                     >
-                      <Icon size={14} />
+                      <Icon width={14} height={14} />
                     </a>
                   );
                 })}
@@ -82,7 +89,7 @@ export default function Footer() {
                 const Icon = item.icon;
                 return (
                   <div key={idx} className="flex items-center gap-3 py-1.5">
-                    <Icon size={16} className="text-accent-blue shrink-0" />
+                    <Icon width={16} height={16} className="text-accent-blue shrink-0" />
                     <div className="footer-contact-text text-[13px] font-medium text-text">
                       {item.text}
                     </div>
@@ -96,7 +103,7 @@ export default function Footer() {
                             : 'text-muted border-line hover:text-text hover:border-line-2'
                         }`}
                       >
-                        {copiedEmail ? <FiCheck size={11} /> : <FiCopy size={11} />}
+                        {copiedEmail ? <IconCheck width={11} height={11} /> : <IconCopy width={11} height={11} />}
                       </button>
                     )}
                   </div>
@@ -126,7 +133,7 @@ export default function Footer() {
                 size="md"
                 href={whatsappUrl}
                 external
-                leadingIcon={<FaWhatsapp size={16} />}
+                leadingIcon={<IconWhatsapp width={16} height={16} />}
                 className="w-full mt-auto"
               >
                 {t('footer.cta')}

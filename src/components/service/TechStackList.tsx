@@ -1,4 +1,5 @@
 import type { TechItem } from '../../data/services';
+import { getServiceTechLogo, isMonoDarkLogo } from '../../data/techLogos';
 import SectionHeading from '../ui/SectionHeading';
 
 interface TechStackListProps {
@@ -31,7 +32,8 @@ function groupByCategory(items: TechItem[]): TechGroup[] {
 }
 
 /** Tech stack grouped by category — one hairline row per category, items
- * listed inline with their highlight text. No icons, no cards. */
+ * listed inline with a small self-hosted logo mark, name, and highlight
+ * text (see src/data/techLogos.tsx; unmatched names render text-only). */
 export default function TechStackList({ eyebrow, title, description, items, eyebrowColor }: TechStackListProps) {
   const groups = groupByCategory(items);
 
@@ -52,13 +54,22 @@ export default function TechStackList({ eyebrow, title, description, items, eyeb
             className="grid grid-cols-1 sm:grid-cols-[180px_1fr] gap-3 sm:gap-6 py-5 border-t border-line"
           >
             <span className="font-mono text-[11px] uppercase tracking-[0.14em] text-muted">{category}</span>
-            <div className="flex flex-wrap gap-x-6 gap-y-2">
-              {groupItems.map((tech) => (
-                <span key={tech.name} className="inline-flex items-baseline gap-2">
-                  <span className="font-sans font-medium text-text text-[15px]">{tech.name}</span>
-                  {tech.highlight && <span className="text-muted text-[14px]">{tech.highlight}</span>}
-                </span>
-              ))}
+            <div className="flex flex-wrap gap-x-6 gap-y-3">
+              {groupItems.map((tech) => {
+                const Logo = getServiceTechLogo(tech.name);
+                return (
+                  <span key={tech.name} className="inline-flex items-baseline gap-2">
+                    {Logo && (
+                      <Logo
+                        aria-hidden="true"
+                        className={`w-[15px] h-[15px] shrink-0 self-center ${isMonoDarkLogo(Logo) ? 'logo--mono' : ''}`}
+                      />
+                    )}
+                    <span className="font-sans font-medium text-text text-[15px]">{tech.name}</span>
+                    {tech.highlight && <span className="text-muted text-[14px]">{tech.highlight}</span>}
+                  </span>
+                );
+              })}
             </div>
           </div>
         ))}

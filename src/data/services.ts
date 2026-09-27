@@ -32,7 +32,6 @@ export interface ServiceDetail {
   shortDescEn: string;
   longDescEs: string;
   longDescEn: string;
-  colorVar: string;
   accentColor: string;
   accentColorLight: string;
   /** Ilustración isométrica del hero (fondo transparente). Opcional mientras
@@ -61,7 +60,6 @@ export const servicesData: ServiceDetail[] = [
     shortDescEn: 'Custom operation digitization, ERPs and CRMs, plus legacy system modernization without losing your historical data.',
     longDescEs: 'Diseñamos plataformas que reemplazan hojas de Excel dispersas y centralizan tu operación en un solo lugar. Si ya tienes un sistema —incluso de un proveedor que ya no existe— lo auditamos, modernizamos o reemplazamos sin detener tu operación ni un solo día.',
     longDescEn: "We design platforms that replace scattered spreadsheets and centralize your operation in one place. If you already have a system — even one from a vendor that no longer exists — we audit, modernize, or replace it without stopping your operation for a single day.",
-    colorVar: '--svc-systems',
     accentColor: '#4ade80',
     accentColorLight: '#15803d',
     glowColor: 'rgba(74, 222, 128, 0.25)',
@@ -176,7 +174,6 @@ export const servicesData: ServiceDetail[] = [
     shortDescEn: 'Intelligent assistants, automated document reading, and custom AI automation grounded in your actual data.',
     longDescEs: 'Integramos modelos de lenguaje de última generación (OpenAI, Claude, DeepSeek) y modelos privados entrenados con los manuales, catálogos y políticas de tu empresa. Respuestas precisas basadas en tus documentos, extracción automática de datos de facturas o contratos, y visión por computadora.',
     longDescEn: 'We integrate cutting-edge language models (OpenAI, Claude, DeepSeek) and private models grounded on your company manuals, catalogs, and policies. Accurate answers grounded in your documents, automated data extraction, and computer vision.',
-    colorVar: '--svc-cloud',
     accentColor: '#a855f7',
     accentColorLight: '#7e22ce',
     glowColor: 'rgba(168, 85, 247, 0.25)',
@@ -272,7 +269,6 @@ export const servicesData: ServiceDetail[] = [
     shortDescEn: 'High-performance websites, online stores, SaaS platforms, and native or cross-platform mobile apps in Flutter and React.',
     longDescEs: 'Construimos experiencias digitales modernas, desde landing pages que convierten visitantes en clientes hasta tiendas en línea completas, plataformas web complejas (SaaS) y aplicaciones móviles en iOS y Android con una sola base de código optimizada.',
     longDescEn: 'We build modern digital experiences, ranging from high-conversion landing pages to complete online stores, full SaaS platforms, and mobile apps on iOS and Android with single-codebase efficiency.',
-    colorVar: '--svc-web',
     accentColor: '#00e5ff',
     // #0284c7 (sky-600) measured 3.82:1 on --bg light (#F5F7FA) — below the
     // 4.5:1 floor for small text. #0369a1 (sky-700) gives 5.53:1.
@@ -282,8 +278,8 @@ export const servicesData: ServiceDetail[] = [
       {
         titleEs: 'Páginas Web Rápidas y Vendedoras',
         titleEn: 'Fast, High-Converting Websites',
-        descriptionEs: 'Sitios corporativos que cargan en menos de 1 segundo en celulares y computadoras, con diseño profesional que genera confianza y optimizado para posicionar en Google (SEO).',
-        descriptionEn: 'Corporate websites loading in under 1 second across devices, crafted with modern aesthetics that build trust and rank high on Google (SEO).',
+        descriptionEs: 'Sitios corporativos optimizados para cargar rápido en celulares y computadoras, con diseño profesional que genera confianza y buenas prácticas de SEO para Google.',
+        descriptionEn: 'Corporate websites optimized to load fast on phones and desktops, with a professional design that builds trust and SEO best practices for Google.',
         iconType: 'code',
       },
       {
@@ -366,8 +362,8 @@ export const servicesData: ServiceDetail[] = [
       {
         questionEs: '¿La página web incluye optimización para Google (SEO)?',
         questionEn: 'Does the website include search engine optimization (SEO)?',
-        answerEs: 'Sí, todas nuestras webs se construyen con buenas prácticas de SEO técnico: metadatos OpenGraph, sitemaps XML, etiquetas estructuradas Schema.org, tiempos de carga inferiores a 1 segundo y accesibilidad.',
-        answerEn: 'Yes, every site includes technical SEO best practices: OpenGraph metadata, XML sitemaps, Schema.org structured data, sub-second load speeds, and WCAG accessibility.',
+        answerEs: 'Sí, todas nuestras webs se construyen con buenas prácticas de SEO técnico: metadatos OpenGraph, sitemaps XML, etiquetas estructuradas Schema.org, optimización de velocidad de carga y accesibilidad.',
+        answerEn: 'Yes, every site includes technical SEO best practices: OpenGraph metadata, XML sitemaps, Schema.org structured data, load-speed optimization, and WCAG accessibility.',
       },
       {
         questionEs: '¿Puedo vender en línea sin depender de un marketplace?',
@@ -389,7 +385,6 @@ export const servicesData: ServiceDetail[] = [
     shortDescEn: 'Hardening for existing software, vulnerability auditing, cloud infrastructure, and an ongoing support service that keeps evolving your system after launch.',
     longDescEs: 'La seguridad digital no es un lujo: es la garantía de que tu empresa no sufra hackeos, fugas de datos o multas por incumplimiento. Auditamos lo que ya tienes, blindamos tu infraestructura en la nube, y seguimos ahí después de la entrega con monitoreo con alertas automáticas y soporte continuo.',
     longDescEn: "Digital security isn't a luxury — it's the guarantee that your business won't suffer breaches, data leaks, or compliance fines. We audit what you already have, harden your cloud infrastructure, and stay on with automated-alert monitoring and ongoing support after delivery.",
-    colorVar: '--svc-security',
     accentColor: '#facc15',
     accentColorLight: '#b45309',
     glowColor: 'rgba(250, 204, 21, 0.25)',
@@ -506,7 +501,6 @@ export const servicesData: ServiceDetail[] = [
     shortDescEn: 'Intuitive design, clickable interactive prototypes before coding, and modern visual systems optimized for mobile.',
     longDescEs: 'El buen diseño hace que un producto complejo se sienta simple. Prototipamos cada pantalla en Figma y la probamos con usuarios reales antes de escribir una sola línea de código.',
     longDescEn: 'Great design makes complex software feel effortless. We prototype every screen in Figma and test it with real users before a single line of code gets written.',
-    colorVar: '--svc-uiux',
     accentColor: '#f43f5e',
     accentColorLight: '#be123c',
     glowColor: 'rgba(244, 63, 94, 0.25)',
@@ -594,7 +588,6 @@ export const servicesData: ServiceDetail[] = [
     shortDescEn: 'WhatsApp automation, integration between systems that do not talk to each other today, manual task elimination, and live executive dashboards.',
     longDescEs: 'Hacemos que los sistemas de tu empresa se comuniquen automáticamente entre sí, incluso cuando son de proveedores distintos y nunca fueron pensados para conectarse. Conectamos tu web con WhatsApp, pasarelas de pago, facturación e inventario para que las ventas se procesen solas, y construimos tableros interactivos para que tomes decisiones con datos precisos.',
     longDescEn: 'We make your business systems talk to each other automatically, even when they come from different vendors and were never designed to connect. We connect your store with WhatsApp, payment gateways, electronic invoicing, and inventory so sales process automatically, and we build interactive dashboards for precise decision-making.',
-    colorVar: '--svc-analytics',
     accentColor: '#f97316',
     accentColorLight: '#c2410c',
     glowColor: 'rgba(249, 115, 22, 0.25)',

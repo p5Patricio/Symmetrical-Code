@@ -1,7 +1,10 @@
 import { useState, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { FiSun, FiMoon, FiMenu, FiX } from 'react-icons/fi';
+import IconSun from '~icons/lucide/sun';
+import IconMoon from '~icons/lucide/moon';
+import IconMenu from '~icons/lucide/menu';
+import IconX from '~icons/lucide/x';
 import { useTheme } from '../../context/ThemeContext';
 import Button from '../ui/Button';
 
@@ -195,7 +198,7 @@ export default function Navbar() {
               aria-label={theme === 'dark' ? t('nav.theme_to_light') : t('nav.theme_to_dark')}
               title={theme === 'dark' ? t('nav.theme_to_light') : t('nav.theme_to_dark')}
             >
-              {theme === 'dark' ? <FiSun size={15} /> : <FiMoon size={15} />}
+              {theme === 'dark' ? <IconSun width={15} height={15} /> : <IconMoon width={15} height={15} />}
             </Button>
 
             <Button
@@ -229,7 +232,7 @@ export default function Navbar() {
                 aria-expanded={menuOpen}
                 aria-controls="nav-mobile-sheet"
               >
-                {menuOpen ? <FiX size={16} /> : <FiMenu size={16} />}
+                {menuOpen ? <IconX width={16} height={16} /> : <IconMenu width={16} height={16} />}
               </Button>
             </div>
           </div>

@@ -45,7 +45,8 @@ export default function HeroSection() {
           <img
             src="/favicon.svg"
             alt="Symmetrical Code"
-            className="w-16 h-16 sm:w-[76px] sm:h-[76px] object-contain cursor-pointer"
+            className="object-contain cursor-pointer"
+            style={{ width: 'clamp(96px, 12vw, 148px)', height: 'clamp(96px, 12vw, 148px)' }}
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
           />
         </div>

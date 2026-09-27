@@ -1,8 +1,16 @@
 import { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { useTranslation } from 'react-i18next';
-import { FaFacebookF, FaInstagram, FaLinkedinIn, FaWhatsapp } from 'react-icons/fa';
-import { FiMapPin, FiMail, FiClock, FiX, FiCopy, FiCheck } from 'react-icons/fi';
+import IconFacebook from '~icons/lucide/facebook';
+import IconInstagram from '~icons/lucide/instagram';
+import IconLinkedin from '~icons/lucide/linkedin';
+import IconWhatsapp from '~icons/logos/whatsapp-icon';
+import IconMapPin from '~icons/lucide/map-pin';
+import IconMail from '~icons/lucide/mail';
+import IconClock from '~icons/lucide/clock';
+import IconX from '~icons/lucide/x';
+import IconCopy from '~icons/lucide/copy';
+import IconCheck from '~icons/lucide/check';
 import Button from '../ui/Button';
 
 interface ContactModalProps {
@@ -36,26 +44,26 @@ export default function ContactModal({ onClose }: ContactModalProps) {
   const email = 'contacto@symmetricalcode.com';
 
   const socialLinks = [
-    { label: 'Facebook', href: 'https://www.facebook.com/profile.php?id=61591503452553', icon: FaFacebookF },
-    { label: 'Instagram', href: 'https://www.instagram.com/symmetrical.code', icon: FaInstagram },
-    { label: 'LinkedIn', href: 'https://www.linkedin.com/company/symmetrical-code', icon: FaLinkedinIn },
+    { label: 'Facebook', href: 'https://www.facebook.com/profile.php?id=61591503452553', icon: IconFacebook },
+    { label: 'Instagram', href: 'https://www.instagram.com/symmetrical.code', icon: IconInstagram },
+    { label: 'LinkedIn', href: 'https://www.linkedin.com/company/symmetrical-code', icon: IconLinkedin },
   ];
 
   const contactItems = [
     {
-      icon: FiMail,
+      icon: IconMail,
       label: t('footer.contact_email_label'),
       text: email,
       copyable: true,
     },
     {
-      icon: FiClock,
+      icon: IconClock,
       label: t('footer.contact_schedule_label'),
       text: t('footer.schedule'),
       copyable: false,
     },
     {
-      icon: FiMapPin,
+      icon: IconMapPin,
       label: t('footer.contact_location_label'),
       text: t('footer.location'),
       copyable: false,
@@ -90,7 +98,7 @@ export default function ContactModal({ onClose }: ContactModalProps) {
             <p>{t('footer.contact_subtitle')}</p>
           </div>
           <Button variant="icon" size="sm" onClick={onClose} aria-label={t('footer.modal_understood')}>
-            <FiX size={16} />
+            <IconX width={16} height={16} />
           </Button>
         </div>
 
@@ -101,7 +109,7 @@ export default function ContactModal({ onClose }: ContactModalProps) {
               return (
                 <div className="contact-modal-item" key={idx}>
                   <div className="contact-modal-item-icon">
-                    <Icon size={16} />
+                    <Icon width={16} height={16} />
                   </div>
                   <div className="contact-modal-item-text">
                     <span className="contact-modal-item-label">{item.label}</span>
@@ -114,7 +122,7 @@ export default function ContactModal({ onClose }: ContactModalProps) {
                       aria-label={t('footer.contact_copy_email')}
                       type="button"
                     >
-                      {copied ? <FiCheck size={14} /> : <FiCopy size={14} />}
+                      {copied ? <IconCheck width={14} height={14} /> : <IconCopy width={14} height={14} />}
                     </button>
                   )}
                 </div>
@@ -136,7 +144,7 @@ export default function ContactModal({ onClose }: ContactModalProps) {
                     aria-label={social.label}
                     className="contact-modal-social-link"
                   >
-                    <Icon size={14} />
+                    <Icon width={14} height={14} />
                     <span>{social.label}</span>
                   </a>
                 );
@@ -156,7 +164,7 @@ export default function ContactModal({ onClose }: ContactModalProps) {
               size="md"
               href={whatsappUrl}
               external
-              leadingIcon={<FaWhatsapp size={16} />}
+              leadingIcon={<IconWhatsapp width={16} height={16} />}
               className="w-full"
             >
               {t('footer.cta')}
