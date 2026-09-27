@@ -36,7 +36,6 @@ export interface ServiceDetail {
   accentColorLight: string;
   /** Ilustración isométrica del hero (fondo transparente). Opcional mientras
    * se genera una por servicio — sin ella el hero cae a una sola columna. */
-  heroImageUrl?: string;
   glowColor: string;
   practicalSolutions: PracticalSolution[];
   whoIsItForEs: string[];
@@ -54,8 +53,8 @@ export const servicesData: ServiceDetail[] = [
     titleEn: 'Enterprise Software & Legacy Modernization',
     heroBadgeEs: 'Sistemas a Medida · ERPs · Modernización de Legado',
     heroBadgeEn: 'Custom Systems · ERPs · Legacy Modernization',
-    taglineEs: 'Digitaliza y centraliza la operación de tu empresa, o moderniza el sistema que ya tienes sin perder un solo registro.',
-    taglineEn: 'Digitize and centralize your operations, or modernize the system you already have without losing a single record.',
+    taglineEs: "Desarrollamos sistemas a la medida de tu operación: ERPs, control de inventarios, compras y paneles administrativos que reemplazan las hojas de Excel dispersas. Si ya tienes un sistema viejo o sin soporte, lo revisamos y lo modernizamos migrando tu información sin detener el trabajo diario. Tú decides qué ve y qué edita cada empleado, y entras desde cualquier dispositivo.",
+    taglineEn: "We build systems tailored to how your business runs: ERPs, inventory control, purchasing and admin panels that replace scattered spreadsheets. If you already have an old or unsupported system, we review and modernize it, migrating your data without stopping day-to-day work. You decide what each employee can see and edit, and you can sign in from any device.",
     shortDescEs: 'Digitalización de operaciones, ERPs y CRMs a medida, y modernización de sistemas viejos sin perder tus datos históricos.',
     shortDescEn: 'Custom operation digitization, ERPs and CRMs, plus legacy system modernization without losing your historical data.',
     longDescEs: 'Diseñamos plataformas que reemplazan hojas de Excel dispersas y centralizan tu operación en un solo lugar. Si ya tienes un sistema —incluso de un proveedor que ya no existe— lo auditamos, modernizamos o reemplazamos sin detener tu operación ni un solo día.',
@@ -63,7 +62,6 @@ export const servicesData: ServiceDetail[] = [
     accentColor: '#4ade80',
     accentColorLight: '#15803d',
     glowColor: 'rgba(74, 222, 128, 0.25)',
-    heroImageUrl: '/services/software-empresarial-hero.webp',
     practicalSolutions: [
       {
         titleEs: 'Migración de Excel a Sistema Propio',
@@ -168,8 +166,8 @@ export const servicesData: ServiceDetail[] = [
     titleEn: 'AI Implementation for Business',
     heroBadgeEs: 'Modelos de Lenguaje · RAG · Automatización Cognitiva',
     heroBadgeEn: 'LLMs · RAG · Cognitive Automation',
-    taglineEs: 'Pon la inteligencia artificial a trabajar en tu empresa para automatizar tareas complejas y atender clientes 24/7.',
-    taglineEn: 'Put artificial intelligence to work in your business to automate complex tasks and serve customers 24/7.',
+    taglineEs: "Integramos modelos de lenguaje como GPT y Claude en tus procesos para que trabajen con la información de tu empresa: asistentes que responden con base en tus propios documentos, lectura automática de facturas y contratos, transcripción y resumen de llamadas, y visión por computadora. Diseñamos cada solución para tu caso y definimos contigo qué datos usa la IA y dónde se procesan.",
+    taglineEn: "We integrate language models such as GPT and Claude into your processes so they work with your company's information: assistants that answer from your own documents, automatic reading of invoices and contracts, call transcription and summaries, and computer vision. We design each solution around your case and agree with you on which data the AI uses and where it is processed.",
     shortDescEs: 'Asistentes inteligentes, lectura automática de documentos y automatización con IA basada en tus datos reales.',
     shortDescEn: 'Intelligent assistants, automated document reading, and custom AI automation grounded in your actual data.',
     longDescEs: 'Integramos modelos de lenguaje de última generación (OpenAI, Claude, DeepSeek) y modelos privados entrenados con los manuales, catálogos y políticas de tu empresa. Respuestas precisas basadas en tus documentos, extracción automática de datos de facturas o contratos, y visión por computadora.',
@@ -263,8 +261,8 @@ export const servicesData: ServiceDetail[] = [
     titleEn: 'Web, Mobile Apps & Online Selling',
     heroBadgeEs: 'Tiendas en Línea · Apps iOS / Android · SaaS',
     heroBadgeEn: 'Online Stores · iOS / Android Apps · SaaS',
-    taglineEs: 'Aplicaciones móviles y plataformas web de carga ultrarrápida, con tienda en línea integrada para que cada visita se convierta en una venta.',
-    taglineEn: 'High-speed web platforms and mobile applications, with a built-in online store so every visit can become a sale.',
+    taglineEs: "Creamos sitios web, aplicaciones móviles para iOS y Android, tiendas en línea y plataformas con paneles para varios usuarios. Integramos cobros en línea con Stripe o Mercado Pago, optimizamos la velocidad de carga y aplicamos buenas prácticas de SEO para que tus clientes te encuentren y puedan comprarte desde cualquier dispositivo.",
+    taglineEn: "We build websites, iOS and Android apps, online stores and multi-user platforms with admin panels. We integrate online payments with Stripe or Mercado Pago, optimize load speed and apply SEO best practices so your customers can find you and buy from any device.",
     shortDescEs: 'Sitios web de alto rendimiento, tiendas en línea, plataformas SaaS y aplicaciones móviles nativas o cross-platform en Flutter y React.',
     shortDescEn: 'High-performance websites, online stores, SaaS platforms, and native or cross-platform mobile apps in Flutter and React.',
     longDescEs: 'Construimos experiencias digitales modernas, desde landing pages que convierten visitantes en clientes hasta tiendas en línea completas, plataformas web complejas (SaaS) y aplicaciones móviles en iOS y Android con una sola base de código optimizada.',
@@ -379,8 +377,8 @@ export const servicesData: ServiceDetail[] = [
     titleEn: 'Security, Infrastructure & Support',
     heroBadgeEs: 'Auditoría · Nube · Soporte',
     heroBadgeEn: 'Auditing · Cloud · Support',
-    taglineEs: 'Protege tu negocio con estándares de nivel bancario, sobre una infraestructura en la nube que no se cae, y alguien que responde cuando algo falla.',
-    taglineEn: 'Protect your business with bank-grade standards, on cloud infrastructure that stays up, and someone who answers when something breaks.',
+    taglineEs: "Revisamos y reforzamos la seguridad del software que ya tienes, protegemos los datos de tus clientes y configuramos tu infraestructura en la nube con respaldos, un plan de recuperación ante fallas y monitoreo con alertas automáticas. También te asesoramos antes de invertir en tecnología y damos soporte y mejoras continuas a tus sistemas.",
+    taglineEn: "We review and strengthen the security of the software you already have, protect your customers' data and set up your cloud infrastructure with backups, a recovery plan for failures and monitoring with automated alerts. We also advise you before you invest in technology and provide ongoing support and improvements for your systems.",
     shortDescEs: 'Blindaje de software existente, auditorías de vulnerabilidades, infraestructura en la nube y un servicio de soporte que evoluciona tu sistema después del lanzamiento.',
     shortDescEn: 'Hardening for existing software, vulnerability auditing, cloud infrastructure, and an ongoing support service that keeps evolving your system after launch.',
     longDescEs: 'La seguridad digital no es un lujo: es la garantía de que tu empresa no sufra hackeos, fugas de datos o multas por incumplimiento. Auditamos lo que ya tienes, blindamos tu infraestructura en la nube, y seguimos ahí después de la entrega con monitoreo con alertas automáticas y soporte continuo.',
@@ -495,8 +493,8 @@ export const servicesData: ServiceDetail[] = [
     titleEn: 'UI/UX Design & User Experience',
     heroBadgeEs: 'Figma · Prototipos Navegables · Design Systems',
     heroBadgeEn: 'Figma · Clickable Prototypes · Design Systems',
-    taglineEs: 'Creamos interfaces tan intuitivas y claras que tus usuarios navegan sin fricción y completan sus compras sin dudar.',
-    taglineEn: 'We create interfaces so intuitive and clear that users navigate effortlessly and convert without hesitation.',
+    taglineEs: "Diseñamos las pantallas de tu producto antes de programarlo: partimos de cómo lo usan tus clientes, creamos prototipos interactivos en Figma y los validamos contigo. El resultado son interfaces claras, accesibles y adaptadas al celular, respaldadas por un sistema de diseño reutilizable que mantiene tu producto consistente mientras crece.",
+    taglineEn: "We design your product's screens before a single line of code: we start from how your customers use it, build interactive prototypes in Figma and validate them with you. The result is clear, accessible, mobile-ready interfaces backed by a reusable design system that keeps your product consistent as it grows.",
     shortDescEs: 'Diseño intuitivo, prototipos interactivos antes de programar y sistemas visuales modernos optimizados para celulares.',
     shortDescEn: 'Intuitive design, clickable interactive prototypes before coding, and modern visual systems optimized for mobile.',
     longDescEs: 'El buen diseño hace que un producto complejo se sienta simple. Prototipamos cada pantalla en Figma y la probamos con usuarios reales antes de escribir una sola línea de código.',
@@ -582,8 +580,8 @@ export const servicesData: ServiceDetail[] = [
     titleEn: 'Automation, Integrations & Data',
     heroBadgeEs: 'WhatsApp API · Integración de Sistemas · Dashboards en Vivo',
     heroBadgeEn: 'WhatsApp API · System Integrations · Live Dashboards',
-    taglineEs: 'Conecta tus herramientas para que trabajen solas y mira las métricas de tu empresa en tiempo real desde tu celular.',
-    taglineEn: 'Connect your business tools to run on autopilot and track your live KPIs from your smartphone.',
+    taglineEs: "Conectamos las herramientas que ya usas para que la información fluya entre ellas sin pasos manuales: notificaciones y respuestas por WhatsApp, integraciones por APIs y webhooks, y la eliminación de tareas repetitivas. Además, construimos tableros con las métricas de tu negocio actualizadas para que tomes decisiones con datos.",
+    taglineEn: "We connect the tools you already use so information flows between them without manual steps: WhatsApp notifications and replies, integrations through APIs and webhooks, and the removal of repetitive tasks. We also build dashboards with your business metrics kept up to date so you can make decisions with data.",
     shortDescEs: 'Automatización de WhatsApp, integración entre sistemas que hoy no se hablan, eliminación de tareas manuales y dashboards ejecutivos en vivo.',
     shortDescEn: 'WhatsApp automation, integration between systems that do not talk to each other today, manual task elimination, and live executive dashboards.',
     longDescEs: 'Hacemos que los sistemas de tu empresa se comuniquen automáticamente entre sí, incluso cuando son de proveedores distintos y nunca fueron pensados para conectarse. Conectamos tu web con WhatsApp, pasarelas de pago, facturación e inventario para que las ventas se procesen solas, y construimos tableros interactivos para que tomes decisiones con datos precisos.',

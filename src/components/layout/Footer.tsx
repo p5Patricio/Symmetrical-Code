@@ -145,15 +145,18 @@ export default function Footer() {
         <div className="h-px bg-line my-10" />
 
         <div className="flex flex-col items-center justify-center gap-4">
-          <div className="flex gap-1 flex-wrap justify-center items-center">
+          <div className="flex gap-x-8 gap-y-3 flex-wrap justify-center items-center">
             {(
               [
                 { to: '/privacidad', label: t('footer.privacy') },
                 { to: '/terminos', label: t('footer.terms') },
               ] as { to: string; label: string }[]
             ).map(({ to, label }) => (
-              <Button key={to} variant="link" size="sm" to={to} className="px-2">
+              <Button key={to} variant="link" size="sm" to={to} className="footer-legal-link">
                 {label}
+                <svg className="footer-legal-arrow" width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                  <path d="M4 12 12 4M6 4h6v6" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
               </Button>
             ))}
           </div>
@@ -165,6 +168,21 @@ export default function Footer() {
       </div>
 
       <style>{`
+        /* Same diagonal arrow and hover as the team portfolio links. */
+        .footer-legal-arrow {
+          flex: none;
+          color: var(--muted);
+          transition: transform 0.18s ease, color 0.18s ease;
+        }
+        .footer-legal-link:hover .footer-legal-arrow,
+        .footer-legal-link:focus-visible .footer-legal-arrow {
+          transform: translate(2px, -2px);
+          color: var(--brand-cyan);
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .footer-legal-arrow { transition: none; }
+        }
+
         .footer-grid {
           display: grid;
           grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
