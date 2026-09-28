@@ -1,0 +1,16 @@
+# Symmetrical Code — Estudio de Desarrollo de Software
+
+> Symmetrical Code es un estudio de desarrollo de software especializado en soluciones digitales a medida con altos estándares de arquitectura limpia, diseño y rendimiento en México.
+
+## Servicios Principales
+- [Desarrollo Web Moderno](https://www.symmetricalcode.com/servicios/desarrollo-web-moderno): Aplicaciones web de alto impacto construidas con React, TypeScript y arquitecturas modulares.
+- [Desarrollo Móvil](https://www.symmetricalcode.com/servicios/desarrollo-movil): Aplicaciones móviles optimizadas con rendimiento nativo y diseño responsivo.
+- [Sistemas Cloud & Backend](https://www.symmetricalcode.com/servicios/sistemas-cloud-backend): Infraestructura escalable, APIs robustas y arquitecturas serverless.
+- [Integración de Inteligencia Artificial](https://www.symmetricalcode.com/servicios/inteligencia-artificial): Automatización agéntica, integración de modelos de lenguaje (LLMs) y flujos inteligentes.
+- [Diseño UI/UX de Alta Fidelidad](https://www.symmetricalcode.com/servicios/diseno-ui-ux): Sistemas de diseño, maquetación atómica y experiencias de usuario premium.
+- [Consultoría & Auditoría Técnica](https://www.symmetricalcode.com/servicios/consultoria-auditoria): Evaluación arquitectónica, seguridad y optimización de rendimiento.
+
+## Casos de Estudio y Enlaces
+- [Proyectos](https://www.symmetricalcode.com/proyectos): Galería de casos de éxito y soluciones digitales creadas por el equipo.
+- [Términos del Servicio](https://www.symmetricalcode.com/terminos): Condiciones de servicio y marcos contractuales.
+- [Aviso de Privacidad](https://www.symmetricalcode.com/privacidad): Política de tratamiento de datos personales y seguridad.

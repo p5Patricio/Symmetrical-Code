@@ -46,25 +46,99 @@
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "Organization",
-      "name": "Symmetrical Code",
-      "url": "https://www.symmetricalcode.com",
-      "logo": "https://www.symmetricalcode.com/logo.webp",
-      "description": "Estudio de desarrollo de software especializado en soluciones digitales a medida.",
-      "email": "contacto@symmetricalcode.com",
-      "sameAs": [
-        "https://www.facebook.com/profile.php?id=61591503452553",
-        "https://www.linkedin.com/company/symmetrical-code",
-        "https://www.instagram.com/symmetrical.code"
+      "@graph": [
+        {
+          "@type": ["Organization", "ProfessionalService"],
+          "@id": "https://www.symmetricalcode.com/#organization",
+          "name": "Symmetrical Code",
+          "url": "https://www.symmetricalcode.com/",
+          "logo": "https://www.symmetricalcode.com/logo.webp",
+          "image": "https://www.symmetricalcode.com/og-image.jpg",
+          "description": "Estudio de desarrollo de software especializado en soluciones digitales a medida con altos estándares de arquitectura y diseño.",
+          "email": "contacto@symmetricalcode.com",
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Guanajuato",
+            "addressRegion": "GTO",
+            "addressCountry": "MX"
+          },
+          "founder": {
+            "@type": "Person",
+            "@id": "https://patodev.com/#person",
+            "name": "Patricio García",
+            "url": "https://patodev.com/"
+          },
+          "sameAs": [
+            "https://www.facebook.com/profile.php?id=61591503452553",
+            "https://www.linkedin.com/company/symmetrical-code",
+            "https://www.instagram.com/symmetrical.code"
+          ],
+          "hasOfferCatalog": {
+            "@type": "OfferCatalog",
+            "name": "Servicios de Desarrollo de Software",
+            "itemListElement": [
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Software Empresarial",
+                  "url": "https://www.symmetricalcode.com/servicios/software-empresarial"
+                }
+              },
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Inteligencia Artificial",
+                  "url": "https://www.symmetricalcode.com/servicios/inteligencia-artificial"
+                }
+              },
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Desarrollo Web & Móvil",
+                  "url": "https://www.symmetricalcode.com/servicios/desarrollo-web-movil"
+                }
+              },
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Ciberseguridad",
+                  "url": "https://www.symmetricalcode.com/servicios/ciberseguridad"
+                }
+              },
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Diseño UI/UX",
+                  "url": "https://www.symmetricalcode.com/servicios/diseno-ui-ux"
+                }
+              },
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Automatización & Analítica",
+                  "url": "https://www.symmetricalcode.com/servicios/automatizacion-analitica"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://www.symmetricalcode.com/#website",
+          "name": "Symmetrical Code",
+          "url": "https://www.symmetricalcode.com/",
+          "publisher": {
+            "@id": "https://www.symmetricalcode.com/#organization"
+          },
+          "inLanguage": ["es-MX", "en-US"]
+        }
       ]
-    }
-    </script>
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "WebSite",
-      "name": "Symmetrical Code",
-      "url": "https://www.symmetricalcode.com"
     }
     </script>
   </head>
