@@ -39,6 +39,7 @@ export default function ChatWidget({ forceVisible = false }: ChatWidgetProps) {
   const [hovered, setHovered] = useState(false);
   const [dismissed, setDismissed] = useState(() => {
     try {
+      if (typeof window === 'undefined') return false;
       return sessionStorage.getItem('whatsapp_tooltip_dismissed') === 'true';
     } catch {
       return false;

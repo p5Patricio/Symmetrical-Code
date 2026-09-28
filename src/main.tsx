@@ -1,7 +1,7 @@
 import { StrictMode } from 'react';
-import { createRoot } from 'react-dom/client';
+import { createRoot, hydrateRoot } from 'react-dom/client';
 import { HelmetProvider } from 'react-helmet-async';
-import { BrowserRouter } from 'react-router-dom';  // ✅ MANTÉN ESTO
+import { BrowserRouter } from 'react-router-dom';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/react';
 import '@fontsource-variable/syne';
@@ -12,15 +12,22 @@ import './index.css';
 import App from './App.tsx';
 
 const helmetContext = {};
+const rootElement = document.getElementById('root')!;
 
-createRoot(document.getElementById('root')!).render(
+const app = (
   <StrictMode>
     <HelmetProvider context={helmetContext}>
-      <BrowserRouter>   {/* ✅ MANTÉN ESTO */}
+      <BrowserRouter>
         <App />
         <Analytics />
         <SpeedInsights />
       </BrowserRouter>
     </HelmetProvider>
-  </StrictMode>,
+  </StrictMode>
 );
+
+if (rootElement.dataset.prerendered === 'true') {
+  hydrateRoot(rootElement, app);
+} else {
+  createRoot(rootElement).render(app);
+}

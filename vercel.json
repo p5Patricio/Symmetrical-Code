@@ -1,5 +1,9 @@
 {
   "rewrites": [
+    { "source": "/proyectos", "destination": "/proyectos/index.html" },
+    { "source": "/servicios/:slug", "destination": "/servicios/:slug/index.html" },
+    { "source": "/privacidad", "destination": "/privacidad/index.html" },
+    { "source": "/terminos", "destination": "/terminos/index.html" },
     { "source": "/(.*)", "destination": "/index.html" }
   ],
   "headers": [
