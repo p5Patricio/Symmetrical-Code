@@ -25,3 +25,6 @@ dist-ssr
 .env
 .env.*
 .vercel
+
+# Marketing renders (regenerate with marketing/tools/export-video.mjs)
+marketing/out

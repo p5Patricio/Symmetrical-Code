@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 440 540" width="440" height="540" role="img" aria-labelledby="t">
+  <title id="t">Symmetrical Code</title>
+  <!-- Symmetrical Code mark. Two identical arms, one rotated 180° around the center (220, 270).
+       Vectorized from public/logo.webp; colors sampled from that file. -->
+  <defs>
+    <linearGradient id="sc-cyan" gradientUnits="userSpaceOnUse" x1="123" y1="76" x2="239" y2="308">
+      <stop offset="0" stop-color="#02E8F0"/>
+      <stop offset=".38" stop-color="#00D9EF"/>
+      <stop offset=".7" stop-color="#00BDE4"/>
+      <stop offset="1" stop-color="#00A0D6"/>
+    </linearGradient>
+    <linearGradient id="sc-blue" gradientUnits="userSpaceOnUse" x1="0" y1="168" x2="0" y2="532">
+      <stop offset="0" stop-color="#008EFD"/>
+      <stop offset=".55" stop-color="#0070FB"/>
+      <stop offset="1" stop-color="#0056EE"/>
+    </linearGradient>
+    <linearGradient id="sc-cyan-fold" gradientUnits="userSpaceOnUse" x1="255.73" y1="71.97" x2="296.39" y2="138.54">
+      <stop offset="0" stop-color="#0088C2" stop-opacity=".32"/>
+      <stop offset="1" stop-color="#0088C2" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="sc-blue-fold" gradientUnits="userSpaceOnUse" x1="184.27" y1="468.03" x2="143.61" y2="401.46">
+      <stop offset="0" stop-color="#003AAE" stop-opacity=".9"/>
+      <stop offset="1" stop-color="#003AAE" stop-opacity="0"/>
+    </linearGradient>
+    <clipPath id="sc-clip-cyan"><path d="M434.5 144.79A13 13 0 0 0 428.28 133.7L228.34 11.59A16 16 0 0 0 211.66 11.59L33.75 120.25A59 59 0 0 0 5.5 170.6L5.5 229.74A37 37 0 0 0 23.22 261.32L200.22 369.42A13 13 0 0 0 220 358.33L220 304.28A16 16 0 0 0 212.34 290.62L81.92 210.97A4 4 0 0 1 80 207.55L80 190.52A20 20 0 0 1 89.58 173.45L217.92 95.07A4 4 0 0 1 222.08 95.07L414.72 212.72A13 13 0 0 0 434.5 201.62Z"/></clipPath>
+    <clipPath id="sc-clip-blue"><path d="M5.5 395.21A13 13 0 0 0 11.72 406.3L211.66 528.41A16 16 0 0 0 228.34 528.41L406.25 419.75A59 59 0 0 0 434.5 369.4L434.5 310.26A37 37 0 0 0 416.78 278.68L239.78 170.58A13 13 0 0 0 220 181.67L220 235.72A16 16 0 0 0 227.66 249.38L358.08 329.03A4 4 0 0 1 360 332.45L360 349.48A20 20 0 0 1 350.42 366.55L222.08 444.93A4 4 0 0 1 217.92 444.93L25.28 327.28A13 13 0 0 0 5.5 338.38Z"/></clipPath>
+  </defs>
+  <g id="arm-top">
+    <path d="M434.5 144.79A13 13 0 0 0 428.28 133.7L228.34 11.59A16 16 0 0 0 211.66 11.59L33.75 120.25A59 59 0 0 0 5.5 170.6L5.5 229.74A37 37 0 0 0 23.22 261.32L200.22 369.42A13 13 0 0 0 220 358.33L220 304.28A16 16 0 0 0 212.34 290.62L81.92 210.97A4 4 0 0 1 80 207.55L80 190.52A20 20 0 0 1 89.58 173.45L217.92 95.07A4 4 0 0 1 222.08 95.07L414.72 212.72A13 13 0 0 0 434.5 201.62Z" fill="url(#sc-cyan)"/>
+    <path d="M220 93.79L291.47 50.15L564.57 216.93L493.1 260.58Z" fill="url(#sc-cyan-fold)" clip-path="url(#sc-clip-cyan)"/>
+  </g>
+  <g id="arm-bottom">
+    <path d="M5.5 395.21A13 13 0 0 0 11.72 406.3L211.66 528.41A16 16 0 0 0 228.34 528.41L406.25 419.75A59 59 0 0 0 434.5 369.4L434.5 310.26A37 37 0 0 0 416.78 278.68L239.78 170.58A13 13 0 0 0 220 181.67L220 235.72A16 16 0 0 0 227.66 249.38L358.08 329.03A4 4 0 0 1 360 332.45L360 349.48A20 20 0 0 1 350.42 366.55L222.08 444.93A4 4 0 0 1 217.92 444.93L25.28 327.28A13 13 0 0 0 5.5 338.38Z" fill="url(#sc-blue)"/>
+    <path d="M220 446.21L148.53 489.85L-124.57 323.07L-53.1 279.42Z" fill="url(#sc-blue-fold)" clip-path="url(#sc-clip-blue)"/>
+  </g>
+</svg>
