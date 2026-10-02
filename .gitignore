@@ -28,3 +28,4 @@ dist-ssr
 
 # Marketing renders (regenerate with marketing/tools/export-video.mjs)
 marketing/out
+__pycache__/
