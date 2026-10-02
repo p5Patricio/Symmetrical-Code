@@ -161,13 +161,14 @@ export default function Footer() {
             ))}
           </div>
 
-          <span className="font-mono text-[11px] text-subtle">
+          {/* The prerendered year is the build year; don't fail hydration after New Year. */}
+          <span className="font-mono text-[11px] text-subtle" suppressHydrationWarning>
             © Symmetrical Code {new Date().getFullYear()}
           </span>
         </div>
       </div>
 
-      <style>{`
+      <style dangerouslySetInnerHTML={{ __html: `
         /* Same diagonal arrow and hover as the team portfolio links. */
         .footer-legal-arrow {
           flex: none;
@@ -206,7 +207,7 @@ export default function Footer() {
             min-width: 0;
           }
         }
-      `}</style>
+      ` }} />
     </footer>
   );
 }

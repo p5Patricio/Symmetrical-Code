@@ -45,7 +45,7 @@ export default function OtherServicesIndex({ eyebrow, services }: OtherServicesI
         ))}
       </div>
 
-      <style>{`
+      <style dangerouslySetInnerHTML={{ __html: `
         .osi-chip {
           display: inline-flex;
           align-items: center;
@@ -99,7 +99,7 @@ export default function OtherServicesIndex({ eyebrow, services }: OtherServicesI
             transition: none;
           }
         }
-      `}</style>
+      ` }} />
     </div>
   );
 }

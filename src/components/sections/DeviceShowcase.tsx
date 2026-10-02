@@ -496,7 +496,7 @@ export default function DeviceShowcase() {
         </div>
       </div>
 
-      <style>{`
+      <style dangerouslySetInnerHTML={{ __html: `
         .dv-root {
           position: relative;
           width: 100%;
@@ -1457,7 +1457,7 @@ export default function DeviceShowcase() {
           .dv-phone-radar-ring { animation: none; }
           .dv-phone-radar-glow { animation: none; }
         }
-      `}</style>
+      ` }} />
     </div>
   );
 }

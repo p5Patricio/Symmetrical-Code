@@ -186,7 +186,7 @@ export default function Team() {
         </div>
       </div>
 
-      <style>{`
+      <style dangerouslySetInnerHTML={{ __html: `
         .team-inst-plate {
           display: flex;
           align-items: center;
@@ -320,7 +320,7 @@ export default function Team() {
             transition: none;
           }
         }
-      `}</style>
+      ` }} />
     </section>
   );
 }

@@ -173,7 +173,7 @@ export default function ContactModal({ onClose }: ContactModalProps) {
         </div>
       </div>
 
-      <style>{`
+      <style dangerouslySetInnerHTML={{ __html: `
         @keyframes fadeIn {
           from { opacity: 0; }
           to { opacity: 1; }
@@ -612,7 +612,7 @@ export default function ContactModal({ onClose }: ContactModalProps) {
             font-size: 13px;
           }
         }
-      `}</style>
+      ` }} />
     </>,
     document.body
   );
