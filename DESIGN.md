@@ -21,7 +21,7 @@ This document lets a designer or developer recreate the brand and UI exactly as 
 
 Source: `public/logo.webp`, `public/favicon.svg`, `public/apple-touch-icon.png`, `public/android-chrome-*.png`, `public/og-image.jpg`.
 
-- **Mark**: the favicon SVG (`/favicon.svg`) is the mark used everywhere in the UI — Navbar (`Navbar.tsx`), Footer, HeroSection. It is never re-colored or re-drawn inline; it's always `<img>`.
+- **Mark**: the favicon SVG (`/favicon.svg`) is the mark used everywhere in the UI — Navbar (`Navbar.tsx`), Footer, HeroSection, ContactModal, DeviceShowcase. It is a true vector (~3.5 KB): two identical arms, one rotated 180° around the center, each with a linear gradient and a fold shadow where its two bands overlap. Its `viewBox` is square (`-50 0 540 540`) with the mark centered, so square and `h-* w-auto` `<img>` boxes keep their proportions. It is never re-colored or re-drawn inline; it's always `<img>`.
 - **Wordmark**: `Symmetrical` + `Code` set in Syne, weight 700–800, tracking tight (`tracking-tight` / `-0.02em`). The second word ("Code") is always colored `--accent-blue` / `var(--brand-blue)`, the first stays `--text`. Seen in `Navbar.tsx` and `Footer.tsx`:
   ```tsx
   <span className="font-syne font-bold ... text-text">
