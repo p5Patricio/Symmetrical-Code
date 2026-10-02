@@ -252,7 +252,7 @@ export default function ProjectWorkflow() {
         })}
       </ol>
 
-      <style>{`
+      <style dangerouslySetInnerHTML={{ __html: `
         .wf-list {
           position: relative;
           margin: 0;
@@ -402,7 +402,7 @@ export default function ProjectWorkflow() {
             transition: none;
           }
         }
-      `}</style>
+      ` }} />
     </div>
   );
 }

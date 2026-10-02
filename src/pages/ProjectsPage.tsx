@@ -218,13 +218,13 @@ const DetailModal = ({ project, index, totalProjects, onNext, onPrev, onClose }:
             className="order-2 md:order-1 w-full md:w-[45%] lg:w-[42%] p-4 sm:p-6 md:p-7 lg:p-8 flex flex-col flex-1 min-h-0 overflow-y-auto detail-content"
             style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
           >
-            <style>{`
+            <style dangerouslySetInnerHTML={{ __html: `
               .detail-content::-webkit-scrollbar {
                 display: none;
                 width: 0;
                 height: 0;
               }
-            `}</style>
+            ` }} />
             
             {/* Header */}
             <div className="flex-shrink-0">

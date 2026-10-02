@@ -176,7 +176,7 @@ export default function Services() {
         </div>
       </div>
 
-      <style>{`
+      <style dangerouslySetInnerHTML={{ __html: `
         .orbit-stage {
           position: relative;
           display: grid;
@@ -217,7 +217,7 @@ export default function Services() {
         @media (min-width: 1280px) {
           .orbit-card { height: 315px; }
         }
-      `}</style>
+      ` }} />
     </section>
   );
 }

@@ -1,6 +1,20 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
+import { useIsomorphicLayoutEffect } from '../hooks/useIsomorphicLayoutEffect';
 
 type Theme = 'dark' | 'light';
+
+const readSavedTheme = (): Theme | null => {
+  try {
+    const saved = localStorage.getItem('sc-theme');
+    return saved === 'dark' || saved === 'light' ? saved : null;
+  } catch {
+    return null;
+  }
+};
+
+// Prerendered pages were rendered in dark; hydration must start from the same theme.
+const isPrerendered = () =>
+  typeof document !== 'undefined' && document.getElementById('root')?.dataset.prerendered === 'true';
 
 interface ThemeContextType {
   theme: Theme;
@@ -12,14 +26,15 @@ const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [theme, setThemeState] = useState<Theme>(() => {
-    if (typeof window !== 'undefined') {
-      const saved = localStorage.getItem('sc-theme') as Theme | null;
-      if (saved === 'dark' || saved === 'light') {
-        return saved;
-      }
-    }
-    return 'dark';
+    if (typeof window === 'undefined' || isPrerendered()) return 'dark';
+    return readSavedTheme() ?? 'dark';
   });
+
+  // After hydration, apply the saved theme before the first paint.
+  useIsomorphicLayoutEffect(() => {
+    const saved = readSavedTheme();
+    if (saved && saved !== theme) setThemeState(saved);
+  }, []);
 
   const setTheme = (newTheme: Theme) => {
     setThemeState(newTheme);
