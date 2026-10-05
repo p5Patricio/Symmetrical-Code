@@ -1,0 +1,325 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Desarrollo web y apps — Symmetrical Code</title>
+<link rel="stylesheet" href="../engine/player.css">
+</head>
+<body>
+<script src="../engine/engine.js"></script>
+<script>
+(() => {
+const { ctx, W, H, U, LAND, BOX, C, TAU, clamp, lerp, prog, E, hash, bp, acc, cutPath, card, setFont, resetText, mono, REG, PAIN_T, visIn, panel, textBars, phoneFrame, laptopFrame, checkNode, spinner, fitRect, beatK, solOut } = SC;
+
+const copy = {
+  es: {
+    aria: 'Video: desarrollo web, apps móviles y venta en línea, Symmetrical Code',
+    tag: '// WEB Y APPS MÓVILES',
+    domain: 'tunegocio.com',
+    loading: 'Cargando…',
+    hook: 'Tu cliente te buscó en el celular… *y se fue.*',
+    pains: [
+      { tag: '01 — SITIO LENTO', text: 'Tu página tarda *y el cliente se va.*' },
+      { tag: '02 — NO SE ADAPTA AL CELULAR', text: 'En el celular *no se ve bien.*' },
+      { tag: '03 — NO GENERA CONTACTOS', text: 'Y no te genera *ni un mensaje.*' }
+    ],
+    inbox: 'FORMULARIO DE CONTACTO', newMsgs: 'mensajes nuevos', thisMonth: 'este mes',
+    turn: 'Hay una *mejor* forma.',
+    sol: ['Webs rápidas que se ven bien *en cualquier pantalla.*', 'Apps para *iOS y Android.*', 'Cobra en línea *desde tu sitio.*', 'Lista para que *Google te encuentre.*'],
+    heroLine: ['Tu negocio,', 'en línea.'], cta: 'Cotiza tu proyecto', btn: 'Contáctanos',
+    push: ['Tu pedido va en camino', 'Llega hoy entre 4 y 6 pm'],
+    checkout: 'RESUMEN DE COMPRA', total: 'Total', amount: '$1,250.00', pay: 'Pagar', paid: 'Pago recibido',
+    query: 'taller mecánico en León', resultTitle: 'Tu Negocio · Servicio y refacciones', resultUrl: 'tunegocio.com',
+    promiseTag: 'NUESTRO COMPROMISO',
+    promises: ['Diseño adaptado a *cualquier pantalla.*', 'SEO técnico *desde el primer día.*', 'Analítica de conversiones *configurada.*', 'El código es *100% tuyo.*'],
+    endSub: 'Desarrollo web y apps móviles',
+    url: 'symmetricalcode.com'
+  },
+  en: {
+    aria: 'Video: web development, mobile apps and online sales, Symmetrical Code',
+    tag: '// WEB AND MOBILE APPS',
+    domain: 'yourbusiness.com',
+    loading: 'Loading…',
+    hook: 'Your customer found you on their phone… *and left.*',
+    pains: [
+      { tag: '01 — SLOW SITE', text: 'Your page is slow *and customers leave.*' },
+      { tag: "02 — DOESN'T FIT MOBILE", text: "On a phone it *doesn't look right.*" },
+      { tag: '03 — NO LEADS', text: "And it doesn't bring you *a single message.*" }
+    ],
+    inbox: 'CONTACT FORM', newMsgs: 'new messages', thisMonth: 'this month',
+    turn: 'There is a *better* way.',
+    sol: ['Fast websites that look great *on any screen.*', 'Apps for *iOS and Android.*', 'Get paid online *from your site.*', 'Ready for *Google to find you.*'],
+    heroLine: ['Your business,', 'online.'], cta: 'Get a quote', btn: 'Contact us',
+    push: ['Your order is on its way', 'Arriving today between 4 and 6 pm'],
+    checkout: 'ORDER SUMMARY', total: 'Total', amount: '$1,250.00', pay: 'Pay', paid: 'Payment received',
+    query: 'auto repair shop near me', resultTitle: 'Your Business · Service and parts', resultUrl: 'yourbusiness.com',
+    promiseTag: 'OUR COMMITMENT',
+    promises: ['Design that fits *any screen.*', 'Technical SEO *from day one.*', 'Conversion analytics *set up.*', 'The code is *100% yours.*'],
+    endSub: 'Web development and mobile apps',
+    url: 'symmetricalcode.com'
+  }
+};
+const COPY = copy[SC.LANG];
+
+/* Browser chrome inside a screen rect; returns the page rect below the address bar. */
+function browserBar(s, domain) {
+  const bh = Math.max(34 * U, s.h * 0.075);
+  ctx.fillStyle = C.raised; ctx.fillRect(s.x, s.y, s.w, bh);
+  ctx.fillStyle = 'rgba(214,226,245,0.08)'; ctx.fillRect(s.x + 10 * U, s.y + bh * 0.2, s.w - 20 * U, bh * 0.6);
+  mono(domain, s.x + 22 * U, s.y + bh / 2, Math.min(16 * U, bh * 0.38), C.muted, 'left', 500, 0.02);
+  return { x: s.x, y: s.y + bh, w: s.w, h: s.h - bh };
+}
+/* Skeleton page: grey blocks that pulse. */
+function skeleton(p, t, n = 5) {
+  const a = 0.08 + 0.05 * Math.sin(t * 6);
+  ctx.fillStyle = `rgba(214,226,245,${a})`;
+  ctx.fillRect(p.x + p.w * 0.06, p.y + p.h * 0.05, p.w * 0.88, p.h * 0.22);
+  for (let i = 0; i < n; i++) ctx.fillRect(p.x + p.w * 0.06, p.y + p.h * (0.33 + i * 0.1), p.w * (0.5 + 0.35 * hash(i, 3)), p.h * 0.045);
+}
+/* The finished site, laid out for the width it gets (stacked on a phone, columns on a laptop). */
+function site(p, t, k, wide) {
+  ctx.save(); ctx.globalAlpha *= k;
+  ctx.fillStyle = C.bg; ctx.fillRect(p.x, p.y, p.w, p.h);
+  const pad = p.w * 0.07, hs = Math.min(p.w * (wide ? 0.07 : 0.11), 54 * U);
+  // nav
+  ctx.fillStyle = C.accent; ctx.fillRect(p.x + pad, p.y + pad * 0.6, hs * 0.5, hs * 0.5);
+  if (wide) for (let i = 0; i < 3; i++) { ctx.fillStyle = 'rgba(214,226,245,0.3)'; ctx.fillRect(p.x + p.w * 0.55 + i * p.w * 0.11, p.y + pad * 0.6 + hs * 0.18, p.w * 0.07, hs * 0.14); }
+  // hero
+  setFont('display', hs, 800, -0.03); ctx.fillStyle = C.text; ctx.textBaseline = 'top';
+  COPY.heroLine.forEach((l, i) => ctx.fillText(l, p.x + pad, p.y + pad * 1.6 + i * hs * 1.05));
+  resetText();
+  const by = p.y + pad * 1.6 + hs * 2.4, bw = Math.min(p.w * (wide ? 0.26 : 0.55), 260 * U), bh = Math.max(hs * 0.7, 24 * U);
+  cutPath(p.x + pad, by, bw, bh, bh * 0.25); ctx.fillStyle = C.accent; ctx.fill();
+  setFont('text', bh * 0.42, 600); ctx.fillStyle = C.bg; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText(COPY.btn, p.x + pad + bw / 2, by + bh / 2); resetText();
+  // cards: 3 columns wide, stacked narrow
+  const cy = by + bh + pad, cols = wide ? 3 : 1, gap = pad * 0.5;
+  const cw = (p.w - pad * 2 - gap * (cols - 1)) / cols, ch = wide ? (p.y + p.h - pad - cy) : (p.y + p.h - pad - cy - gap) / 2;
+  for (let i = 0; i < (wide ? 3 : 2); i++) {
+    const x = p.x + pad + (wide ? i * (cw + gap) : 0), y = cy + (wide ? 0 : i * (ch + gap));
+    if (ch < 10 * U) break;
+    card(x, y, cw, ch, 8 * U, C.surface, C.line);
+    ctx.fillStyle = acc(0.5); ctx.fillRect(x + cw * 0.1, y + ch * 0.18, cw * 0.18, Math.min(ch * 0.2, cw * 0.18));
+    textBars(x + cw * 0.1, y + ch * 0.52, cw * 0.8, 2, Math.max(ch * 0.16, 8 * U), 20 + i, 0.2, Math.max(4 * U, ch * 0.06));
+  }
+  ctx.restore();
+}
+
+/* ================================================================ HOOK — a page that never finishes loading */
+function hook(t) {
+  const out = E.inExpo(prog(t, 3.55, 4.0));
+  const k = E.outExpo(prog(t, 0.05, 0.6));
+  if (k <= 0) return;
+  const ph = Math.min(BOX.h * (LAND ? 0.98 : 0.8), 900 * U), pw = ph * 0.5;
+  const x = BOX.cx - pw / 2, y = BOX.cy - ph / 2 + (1 - k) * 80 * U;
+  ctx.save();
+  ctx.globalAlpha = k * (1 - out) * (1 - 0.6 * E.outCubic(prog(t, 1.7, 2.2)));
+  // the visitor gives up: the phone slides away
+  const leave = E.inOutCubic(prog(t, 2.9, 3.6));
+  ctx.translate(-leave * 140 * U, leave * 60 * U); ctx.rotate(-leave * 0.08);
+  const s = phoneFrame(x, y, pw, ph);
+  const pg = browserBar(s, COPY.domain);
+  const prog1 = 0.08 + 0.27 * E.outCubic(prog(t, 0.2, 3.4));
+  ctx.fillStyle = C.accent; ctx.fillRect(pg.x, pg.y, pg.w * prog1, 4 * U);
+  skeleton(pg, t);
+  spinner(pg.x + pg.w / 2, pg.y + pg.h * 0.62, 30 * U, t, C.text);
+  mono(COPY.loading, pg.x + pg.w / 2, pg.y + pg.h * 0.62 + 64 * U, 18 * U, C.muted, 'center', 500, 0.08);
+  ctx.restore();
+}
+
+/* ================================================================ PAIN A — slow page, tab closed */
+function painA(t) {
+  const [a, b] = PAIN_T[0], R = REG.vis, k = visIn(t, a, b);
+  if (k <= 0) return;
+  const w = Math.min(R.w * 0.95, 680 * U), h = Math.min(R.h * 0.85, w * 0.72);
+  const close = E.inExpo(prog(t, a + 1.45, a + 1.8));
+  const x = R.x + (R.w - w) / 2, y = R.y + (R.h - h) / 2 + (1 - k) * 60 * U;
+  ctx.save(); ctx.globalAlpha = k * (1 - close);
+  ctx.translate(x + w / 2, y + h / 2); ctx.scale(1 - close * 0.3, 1 - close * 0.3); ctx.translate(-x - w / 2, -y - h / 2);
+  card(x, y, w, h, 14 * U);
+  const pg = browserBar({ x: x + 2 * U, y: y + 2 * U, w: w - 4 * U, h: h - 4 * U }, COPY.domain);
+  const p = 0.05 + 0.25 * E.outCubic(prog(t, a + 0.2, a + 1.45));
+  ctx.fillStyle = C.accent; ctx.fillRect(pg.x, pg.y, pg.w * p, 4 * U);
+  skeleton(pg, t, 3);
+  spinner(pg.x + pg.w * 0.5, pg.y + pg.h * 0.66, 26 * U, t, C.text);
+  // elapsed time
+  const secs = (prog(t, a + 0.2, a + 1.45) * 7.4).toFixed(1);
+  setFont('display', 54 * U, 800, -0.02); ctx.fillStyle = C.text; ctx.textAlign = 'right'; ctx.textBaseline = 'middle';
+  ctx.fillText(secs + ' s', x + w - 30 * U, y + h - 50 * U); resetText();
+  // the close button gets hit
+  const hit = E.outBack(prog(t, a + 1.25, a + 1.45));
+  if (hit > 0) {
+    const cx = x + w - 24 * U, cy = y + 20 * U, r = 18 * U * hit;
+    ctx.fillStyle = C.err; ctx.beginPath(); ctx.arc(cx, cy, r, 0, TAU); ctx.fill();
+    ctx.strokeStyle = '#fff'; ctx.lineWidth = 3 * U; ctx.beginPath();
+    ctx.moveTo(cx - r * 0.4, cy - r * 0.4); ctx.lineTo(cx + r * 0.4, cy + r * 0.4); ctx.moveTo(cx + r * 0.4, cy - r * 0.4); ctx.lineTo(cx - r * 0.4, cy + r * 0.4); ctx.stroke();
+  }
+  ctx.restore();
+}
+
+/* ================================================================ PAIN B — the desktop layout crammed into a phone */
+function painB(t) {
+  const [a, b] = PAIN_T[1], R = REG.vis, k = visIn(t, a, b);
+  if (k <= 0) return;
+  const ph = Math.min(R.h * 0.98, 640 * U), pw = ph * 0.5;
+  const x = R.x + (R.w - pw) / 2, y = R.y + (R.h - ph) / 2 + (1 - k) * 60 * U;
+  ctx.save(); ctx.globalAlpha = k;
+  const s = phoneFrame(x, y, pw, ph);
+  const pg = browserBar(s, COPY.domain);
+  // a page built for 1280px, drawn at its own width and clipped by the phone
+  const pan = Math.sin(prog(t, a + 0.6, a + 1.9) * Math.PI) * pg.w * 0.35;
+  ctx.save(); ctx.beginPath(); ctx.rect(pg.x, pg.y, pg.w, pg.h); ctx.clip();
+  site({ x: pg.x - pan, y: pg.y, w: pg.w * 2.1, h: pg.h * 0.62 }, t, 1, true);
+  ctx.restore();
+  // overflow marker on the right edge and a horizontal scrollbar
+  const ok = prog(t, a + 0.5, a + 0.8);
+  ctx.save(); ctx.globalAlpha *= ok;
+  ctx.setLineDash([8 * U, 6 * U]); ctx.strokeStyle = C.err; ctx.lineWidth = 3 * U;
+  ctx.strokeRect(pg.x + pg.w - 6 * U, pg.y + 6 * U, pw * 0.5, pg.h * 0.6); ctx.setLineDash([]);
+  ctx.fillStyle = 'rgba(214,226,245,0.15)'; ctx.fillRect(pg.x + 10 * U, pg.y + pg.h - 18 * U, pg.w - 20 * U, 6 * U);
+  ctx.fillStyle = C.muted; ctx.fillRect(pg.x + 10 * U + pan / (pg.w * 1.1) * (pg.w - 20 * U) * 0.5, pg.y + pg.h - 18 * U, (pg.w - 20 * U) * 0.48, 6 * U);
+  ctx.restore();
+  ctx.restore();
+}
+
+/* ================================================================ PAIN C — an inbox that stays at zero */
+function painC(t) {
+  const [a] = PAIN_T[2], R = REG.vis;
+  const k = E.outExpo(prog(t, a + 0.1, a + 0.6));
+  if (k <= 0) return;
+  const w = Math.min(R.w * 0.9, 600 * U), h = Math.min(R.h * 0.9, 440 * U);
+  const x = R.x + (R.w - w) / 2, y = R.y + (R.h - h) / 2 + (1 - k) * 60 * U;
+  ctx.save(); ctx.globalAlpha = k;
+  const c = panel(x, y, w, h, COPY.inbox);
+  // envelope
+  const ex = c.x + 10 * U, ey = c.y + 20 * U, ew = 90 * U, eh = 64 * U;
+  ctx.strokeStyle = C.muted; ctx.lineWidth = 3 * U; ctx.strokeRect(ex, ey, ew, eh);
+  ctx.beginPath(); ctx.moveTo(ex, ey); ctx.lineTo(ex + ew / 2, ey + eh * 0.55); ctx.lineTo(ex + ew, ey); ctx.stroke();
+  setFont('display', 120 * U, 800, -0.03); ctx.fillStyle = C.text; ctx.textBaseline = 'middle';
+  ctx.fillText('0', ex + ew + 36 * U, ey + eh / 2 + 6 * U);
+  const zw = ctx.measureText('0').width; resetText();
+  mono(COPY.newMsgs, ex + ew + 60 * U + zw, ey + eh / 2 - 12 * U, 20 * U, C.muted, 'left', 500, 0.06);
+  mono(COPY.thisMonth, ex + ew + 60 * U + zw, ey + eh / 2 + 16 * U, 20 * U, C.subtle, 'left', 500, 0.06);
+  for (let i = 0; i < 3; i++) {
+    const ry = ey + eh + 50 * U + i * 56 * U;
+    if (ry + 40 * U > y + h) break;
+    ctx.strokeStyle = 'rgba(214,226,245,0.08)'; ctx.lineWidth = 1.5 * U; ctx.setLineDash([6 * U, 6 * U]);
+    ctx.strokeRect(c.x, ry, c.w, 42 * U); ctx.setLineDash([]);
+  }
+  spinner(x + w - 40 * U, y + 23 * U, 10 * U, t * (1 + prog(t, a + 1, a + 2)), C.muted);
+  ctx.restore();
+}
+
+/* ================================================================ SOLUTION — laptop + phone, then app, checkout, search */
+function solution(t, D0) {
+  const out = solOut(t);
+  const S = fitRect(D0, LAND ? 1.45 : 1.25);
+  const fk = E.outExpo(prog(t, 12.2, 12.7));
+  if (fk <= 0) return;
+  ctx.save(); ctx.globalAlpha = fk * (1 - out); ctx.translate(0, out * 80 * U + (1 - fk) * 40 * U);
+  // laptop behind, phone in front
+  const lw = S.w * 0.82, lh = lw * 0.64, lx = S.x, ly = S.y + (S.h - lh) * 0.35;
+  const ls = laptopFrame(lx, ly, lw, lh);
+  const lp = browserBar(ls, COPY.domain);
+  const loaded = E.outExpo(prog(t, 12.55, 12.85));
+  skeleton(lp, t, 4);
+  site(lp, t, loaded, true);
+  const ph = S.h * 0.86, pw = ph * 0.5, px = S.x + S.w - pw, py = S.y + S.h - ph;
+  const ps = phoneFrame(px, py, pw, ph);
+  const appK = E.inOutCubic(prog(t, 14.55, 14.95));
+  if (appK < 1) {
+    ctx.save(); ctx.globalAlpha *= 1 - appK;
+    const pp = browserBar(ps, COPY.domain); skeleton(pp, t, 4); site(pp, t, E.outExpo(prog(t, 12.7, 13.0)), false);
+    ctx.restore();
+  }
+  if (appK > 0) {
+    // the app: header, a hero number, a list and a tab bar
+    ctx.save(); ctx.globalAlpha *= appK;
+    ctx.fillStyle = C.bg; ctx.fillRect(ps.x, ps.y, ps.w, ps.h);
+    mono(COPY.heroLine[0].replace(',', ''), ps.x + 16 * U, ps.y + 34 * U, 14 * U, C.muted, 'left', 600, 0.1);
+    for (let i = 0; i < 4; i++) {
+      const ry = ps.y + 70 * U + i * (ps.h * 0.15);
+      card(ps.x + 14 * U, ry, ps.w - 28 * U, ps.h * 0.12, 8 * U, C.surface, C.line);
+      ctx.fillStyle = acc(0.6); ctx.fillRect(ps.x + 26 * U, ry + ps.h * 0.03, ps.h * 0.06, ps.h * 0.06);
+      textBars(ps.x + 30 * U + ps.h * 0.07, ry + ps.h * 0.035, ps.w * 0.45, 2, ps.h * 0.035, 30 + i, 0.2, 6 * U);
+    }
+    ctx.fillStyle = C.raised; ctx.fillRect(ps.x, ps.y + ps.h - 50 * U, ps.w, 50 * U);
+    for (let i = 0; i < 4; i++) { ctx.fillStyle = i === 0 ? C.accent : 'rgba(214,226,245,0.25)'; ctx.fillRect(ps.x + ps.w * (0.12 + i * 0.22), ps.y + ps.h - 32 * U, 16 * U, 16 * U); }
+    // push notification
+    const nk = E.outBack(prog(t, 15.1, 15.45)) * beatK(t, 1);
+    if (nk > 0) {
+      const nw = ps.w - 20 * U, nh = 74 * U, nx = ps.x + 10 * U, ny = ps.y + 10 * U - (1 - nk) * 90 * U;
+      ctx.save(); ctx.shadowColor = 'rgba(0,0,0,0.5)'; ctx.shadowBlur = 20 * U;
+      ctx.beginPath(); ctx.roundRect(nx, ny, nw, nh, 14 * U); ctx.fillStyle = '#1b2333'; ctx.fill(); ctx.restore();
+      ctx.fillStyle = C.accent; ctx.beginPath(); ctx.roundRect(nx + 12 * U, ny + 17 * U, 40 * U, 40 * U, 9 * U); ctx.fill();
+      const fs = Math.min(17 * U, nw / 17);
+      setFont('text', fs, 600); ctx.fillStyle = C.text; ctx.textBaseline = 'middle'; ctx.fillText(COPY.push[0], nx + 62 * U, ny + 27 * U);
+      setFont('text', fs * 0.9, 400); ctx.fillStyle = C.muted; ctx.fillText(COPY.push[1], nx + 62 * U, ny + 50 * U); resetText();
+    }
+    ctx.restore();
+  }
+  ctx.restore();
+  // beat 3 — checkout over the laptop
+  const ck = beatK(t, 2);
+  if (ck > 0) {
+    const cw = Math.min(lw * 0.62, 460 * U), ch = 300 * U, cx = lx + lw * 0.12, cy = ly + lh * 0.12 + (1 - ck) * 40 * U;
+    ctx.save(); ctx.globalAlpha = ck * (1 - out); ctx.shadowColor = 'rgba(0,0,0,0.55)'; ctx.shadowBlur = 40 * U; ctx.shadowOffsetY = 14 * U;
+    card(cx, cy, cw, ch, 14 * U, C.raised, C.line2); ctx.shadowColor = 'transparent';
+    mono(COPY.checkout, cx + 24 * U, cy + 34 * U, 15 * U, C.muted, 'left', 600, 0.12);
+    textBars(cx + 24 * U, cy + 66 * U, cw * 0.6, 2, 26 * U, 44, 0.18);
+    ctx.fillStyle = C.line; ctx.fillRect(cx + 24 * U, cy + 130 * U, cw - 48 * U, 1);
+    setFont('text', 22 * U, 500); ctx.fillStyle = C.muted; ctx.textBaseline = 'middle'; ctx.fillText(COPY.total, cx + 24 * U, cy + 160 * U);
+    setFont('display', 32 * U, 800, -0.02); ctx.fillStyle = C.text; ctx.textAlign = 'right'; ctx.fillText(COPY.amount, cx + cw - 24 * U, cy + 162 * U); resetText();
+    const paid = prog(t, 17.55, 17.75), press = Math.sin(Math.PI * prog(t, 17.35, 17.55));
+    const bx = cx + 24 * U, by = cy + 206 * U, bw = cw - 48 * U, bh = 62 * U;
+    ctx.save(); ctx.translate(bx + bw / 2, by + bh / 2); ctx.scale(1 - press * 0.04, 1 - press * 0.04);
+    cutPath(-bw / 2, -bh / 2, bw, bh, 12 * U); ctx.fillStyle = C.accent; ctx.fill();
+    setFont('text', 24 * U, 700); ctx.fillStyle = C.bg; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    ctx.fillText(paid > 0.5 ? COPY.paid : COPY.pay, paid > 0.5 ? 18 * U : 0, 2 * U); resetText();
+    if (paid > 0.5) checkNode(-ctx.measureText(COPY.paid).width / 2 - 70 * U, 0, 32 * U, 1, prog(t, 17.65, 17.95), C.bg);
+    ctx.restore();
+    ctx.restore();
+  }
+  // beat 4 — first in the search results
+  const sk = beatK(t, 3);
+  if (sk > 0) {
+    const sw = Math.min(S.w * 0.92, 720 * U), sh = 250 * U, sx = S.x + (S.w - sw) / 2, sy = S.y + S.h * 0.2 + (1 - sk) * 40 * U;
+    ctx.save(); ctx.globalAlpha = sk * (1 - out); ctx.translate(0, out * 80 * U); ctx.shadowColor = 'rgba(0,0,0,0.6)'; ctx.shadowBlur = 50 * U; ctx.shadowOffsetY = 16 * U;
+    card(sx, sy, sw, sh, 14 * U, C.raised, C.line2); ctx.shadowColor = 'transparent';
+    ctx.strokeStyle = C.line2; ctx.lineWidth = 1.5 * U; ctx.beginPath(); ctx.roundRect(sx + 24 * U, sy + 22 * U, sw - 48 * U, 56 * U, 28 * U); ctx.stroke();
+    ctx.strokeStyle = C.muted; ctx.lineWidth = 3 * U; ctx.beginPath(); ctx.arc(sx + 54 * U, sy + 49 * U, 10 * U, 0, TAU); ctx.moveTo(sx + 61 * U, sy + 56 * U); ctx.lineTo(sx + 70 * U, sy + 65 * U); ctx.stroke();
+    const q = COPY.query.slice(0, Math.floor(prog(t, 18.75, 19.15) * COPY.query.length));
+    setFont('text', 22 * U, 500); ctx.fillStyle = C.text; ctx.textBaseline = 'middle'; ctx.fillText(q, sx + 84 * U, sy + 50 * U); resetText();
+    const rk = E.outExpo(prog(t, 19.15, 19.45));
+    if (rk > 0) {
+      ctx.globalAlpha *= rk;
+      ctx.fillStyle = C.accent; ctx.fillRect(sx + 24 * U, sy + 104 * U, 4 * U, 110 * U);
+      mono(COPY.resultUrl, sx + 44 * U, sy + 118 * U, 16 * U, C.muted, 'left', 500, 0.02);
+      setFont('text', Math.min(28 * U, sw / 24), 600); ctx.fillStyle = C.accent; ctx.textBaseline = 'middle'; ctx.fillText(COPY.resultTitle, sx + 44 * U, sy + 152 * U); resetText();
+      textBars(sx + 44 * U, sy + 182 * U, sw * 0.7, 2, 22 * U, 50, 0.18, 6 * U);
+    }
+    ctx.restore();
+  }
+}
+
+/* ================================================================ SOUND */
+function sfx(at, N) {
+  for (let t = 0.6; t < 3.4; t += 0.5) at(t, (V, w) => V.tick(w, 0.05));                      // loading ticks
+  at(2.9, (V, w) => V.whoosh(w, 0.6, 0.16));                                                   // phone slides away
+  for (let i = 0; i < 6; i++) at(4.3 + i * 0.2, (V, w) => V.tick(w, 0.045));                   // seconds counting
+  at(5.3, (V, w) => V.pluck(w, N.E5, 0.07)); at(5.5, (V, w) => V.thud(w, 0.5));                // tab closed
+  at(6.6, (V, w) => V.whoosh(w, 1.2, 0.1));                                                    // panning a page too wide
+  at(7.1, (V, w) => V.stab(w, [N.A3, N.B3, N.F4], 0.045));
+  at(8.6, (V, w) => V.thud(w, 0.55));                                                          // the "0"
+  at(12.55, (V, w) => V.pluck(w, N.C6, 0.07)); at(12.75, (V, w) => V.pluck(w, N.G5, 0.06));    // instant load
+  at(15.1, (V, w) => V.bell(w, N.E5, 0.07));                                                   // push notification
+  at(17.4, (V, w) => V.tick(w, 0.06)); at(17.6, (V, w) => V.bell(w, N.C6, 0.07));              // payment
+  for (let k = 0; k < 8; k++) at(18.75 + k * 0.05, (V, w) => V.key(w));                        // search typing
+  at(19.2, (V, w) => V.pluck(w, N.G5, 0.07));                                                  // first result
+}
+
+SC.run({ copy, accent: '#00e5ff', accentRgb: [0, 229, 255], hook, pains: [painA, painB, painC], solution, sfx });
+})();
+</script>
+</body>
+</html>

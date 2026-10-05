@@ -1,0 +1,320 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Diseño UI/UX — Symmetrical Code</title>
+<link rel="stylesheet" href="../engine/player.css">
+</head>
+<body>
+<script src="../engine/engine.js"></script>
+<script>
+(() => {
+const { ctx, U, LAND, BOX, C, TAU, clamp, lerp, prog, E, hash, bp, acc, cutPath, card, setFont, resetText, mono, REG, PAIN_T, visIn, panel, textBars, phoneFrame, toggle, fitRect, appWindow, beatK, solOut } = SC;
+
+const copy = {
+  es: {
+    aria: 'Video: diseño de interfaces y experiencia de usuario, Symmetrical Code',
+    tag: '// DISEÑO UI/UX',
+    hook: '¿Tus usuarios *se pierden en tu sistema?*',
+    pains: [
+      { tag: '01 — PANTALLAS CONFUSAS', text: 'Nadie encuentra *el botón correcto.*' },
+      { tag: '02 — FORMULARIOS ETERNOS', text: 'Formularios que *nadie termina.*' },
+      { tag: '03 — SIN CONSISTENCIA', text: 'Y cada pantalla parece *de otra empresa.*' }
+    ],
+    buttons: ['Guardar', 'Aceptar', 'Enviar', 'OK', 'Continuar', 'Siguiente', 'Procesar', 'Confirmar', 'Aplicar', 'Listo', 'Hecho', 'Ir'],
+    step: 'Paso 2 de 9', abandoned: 'ABANDONADO',
+    formFields: ['Nombre', 'Segundo nombre', 'Apellidos', 'RFC', 'CURP', 'Fecha de nacimiento', 'Teléfono', 'Teléfono alterno', 'Correo', 'Confirmar correo'],
+    screens: ['Ventas', 'Clientes', 'Reportes'],
+    turn: 'Hay una *mejor* forma.',
+    sol: ['Diseñamos tu producto *antes de programarlo.*', 'Pruébalo con *usuarios reales.*', 'Pensado para el celular, *a una mano.*', 'Un sistema de diseño *que crece contigo.*'],
+    app: 'diseño', live: 'PROTOTIPO',
+    frames: ['Inicio', 'Producto', 'Pago'],
+    lib: ['COLOR', 'TIPOGRAFÍA', 'COMPONENTES'], states: ['Normal', 'Hover', 'Activo', 'Desactivado'],
+    cta: 'Cotiza tu proyecto',
+    promiseTag: 'NUESTRO COMPROMISO',
+    promises: ['Archivo Figma editable *con todos los flujos.*', 'Un prototipo navegable *para pruebas.*', 'Componentes con *todos sus estados.*', 'Especificaciones listas *para desarrollo.*'],
+    endSub: 'Diseño de interfaces y experiencia de usuario',
+    url: 'symmetricalcode.com'
+  },
+  en: {
+    aria: 'Video: user interface and experience design, Symmetrical Code',
+    tag: '// UI/UX DESIGN',
+    hook: 'Do your users *get lost in your system?*',
+    pains: [
+      { tag: '01 — CONFUSING SCREENS', text: 'Nobody finds *the right button.*' },
+      { tag: '02 — ENDLESS FORMS', text: 'Forms that *nobody finishes.*' },
+      { tag: '03 — NO CONSISTENCY', text: 'And every screen looks like *another company.*' }
+    ],
+    buttons: ['Save', 'Accept', 'Send', 'OK', 'Continue', 'Next', 'Process', 'Confirm', 'Apply', 'Ready', 'Done', 'Go'],
+    step: 'Step 2 of 9', abandoned: 'ABANDONED',
+    formFields: ['First name', 'Middle name', 'Last name', 'Tax ID', 'National ID', 'Date of birth', 'Phone', 'Alternate phone', 'Email', 'Confirm email'],
+    screens: ['Sales', 'Clients', 'Reports'],
+    turn: 'There is a *better* way.',
+    sol: ['We design your product *before we code it.*', 'Test it with *real users.*', 'Built for phones, *one-handed.*', 'A design system *that grows with you.*'],
+    app: 'design', live: 'PROTOTYPE',
+    frames: ['Home', 'Product', 'Checkout'],
+    lib: ['COLOR', 'TYPE', 'COMPONENTS'], states: ['Default', 'Hover', 'Active', 'Disabled'],
+    cta: 'Get a quote',
+    promiseTag: 'OUR COMMITMENT',
+    promises: ['Editable Figma file *with every flow.*', 'A clickable prototype *for testing.*', 'Components with *every state.*', 'Specs ready *for development.*'],
+    endSub: 'User interface and experience design',
+    url: 'symmetricalcode.com'
+  }
+};
+const COPY = copy[SC.LANG];
+
+/* Arrow cursor at (x, y); r > 0 draws a click ripple. */
+function cursor(x, y, s = 1, ripple = 0) {
+  if (ripple > 0 && ripple < 1) {
+    ctx.strokeStyle = `rgba(230,236,245,${0.6 * (1 - ripple)})`; ctx.lineWidth = 3 * U;
+    ctx.beginPath(); ctx.arc(x, y, 10 * U + ripple * 40 * U, 0, TAU); ctx.stroke();
+  }
+  const k = 26 * U * s;
+  ctx.fillStyle = '#fff'; ctx.strokeStyle = C.bg; ctx.lineWidth = 2 * U;
+  ctx.beginPath(); ctx.moveTo(x, y); ctx.lineTo(x, y + k); ctx.lineTo(x + k * 0.28, y + k * 0.74); ctx.lineTo(x + k * 0.46, y + k * 1.1); ctx.lineTo(x + k * 0.6, y + k * 1.03); ctx.lineTo(x + k * 0.42, y + k * 0.68); ctx.lineTo(x + k * 0.75, y + k * 0.68); ctx.closePath();
+  ctx.fill(); ctx.stroke();
+}
+/* A plain button; style varies to show (in)consistency. */
+function btn(x, y, w, h, label, st = {}) {
+  ctx.beginPath();
+  if (st.round) ctx.roundRect(x, y, w, h, h / 2); else if (st.cut) cutPath(x, y, w, h, h * 0.25); else ctx.rect(x, y, w, h);
+  if (st.outline) { ctx.strokeStyle = st.col || C.line2; ctx.lineWidth = 2 * U; ctx.stroke(); } else { ctx.fillStyle = st.col || C.raised; ctx.fill(); }
+  ctx.font = st.font || `500 ${Math.min(h * 0.38, w / (label.length * 0.62))}px ${SC.FAM.text}`;
+  ctx.fillStyle = st.text || C.text; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText(label, x + w / 2, y + h / 2 + 1); resetText();
+}
+
+/* ================================================================ HOOK — a cluttered app and a lost cursor */
+function hook(t) {
+  const out = E.inExpo(prog(t, 3.55, 4.0));
+  const k = E.outExpo(prog(t, 0.05, 0.5));
+  if (k <= 0) return;
+  const w = Math.min(BOX.w, 900 * U), h = Math.min(BOX.h * 0.8, w * (LAND ? 0.6 : 1.1));
+  const x = BOX.cx - w / 2, y = BOX.cy - h / 2;
+  ctx.save(); ctx.globalAlpha = k * (1 - out) * (1 - 0.55 * E.outCubic(prog(t, 1.7, 2.2)));
+  const c = panel(x, y, w, h, 'sistema_v3_final', { titleSize: 16 * U });
+  // too many controls of every style
+  const cols = LAND ? 6 : 4, rows = LAND ? 5 : 7, bw = c.w / cols - 10 * U, bh = Math.min(c.h / rows - 12 * U, 56 * U);
+  for (let r = 0; r < rows; r++) for (let q = 0; q < cols; q++) {
+    const i = r * cols + q, hh = hash(i, 9);
+    const e = prog(t, 0.1 + i * 0.02, 0.3 + i * 0.02); if (e <= 0) continue;
+    ctx.save(); ctx.globalAlpha *= e;
+    btn(c.x + q * (bw + 10 * U), c.y + r * (bh + 12 * U), bw, bh, COPY.buttons[i % 12], { round: hh > 0.66, outline: hh < 0.33, col: hh > 0.85 ? 'rgba(2,224,251,0.25)' : undefined });
+    ctx.restore();
+  }
+  // wandering cursor, rage-clicks
+  const u = t * 1.3, cx = c.x + c.w * (0.5 + 0.38 * Math.sin(u * 1.7)), cy = c.y + c.h * (0.5 + 0.38 * Math.sin(u * 2.3 + 1));
+  const rp = ((t - 1.2) % 0.25) / 0.25;
+  cursor(cx, cy, 1.2, t > 1.2 && t < 2.2 ? rp : 0);
+  ctx.restore();
+}
+
+/* ================================================================ PAIN A — twelve buttons that all look the same */
+function painA(t) {
+  const [a, b] = PAIN_T[0], R = REG.vis, k = visIn(t, a, b);
+  if (k <= 0) return;
+  const cols = 4, rows = 3, gap = 16 * U, bw = Math.min((R.w - gap * 3) / 4, 170 * U), bh = 60 * U;
+  const gw = cols * bw + gap * 3, gh = rows * bh + gap * 2;
+  const x = R.x + (R.w - gw) / 2, y = R.y + (R.h - gh) / 2 + (1 - k) * 60 * U;
+  ctx.save(); ctx.globalAlpha = k;
+  const hov = Math.floor(prog(t, a + 0.3, a + 1.8) * 7) % 12;
+  const order = [1, 6, 3, 9, 4, 10, 7];
+  COPY.buttons.forEach((l, i) => {
+    const q = i % cols, r = Math.floor(i / cols);
+    btn(x + q * (bw + gap), y + r * (bh + gap), bw, bh, l, { col: i === order[hov % 7] ? 'rgba(214,226,245,0.22)' : C.raised });
+  });
+  const tgt = order[hov % 7], tq = tgt % cols, tr = Math.floor(tgt / cols);
+  const cx = x + tq * (bw + gap) + bw * 0.6, cy = y + tr * (bh + gap) + bh * 0.6;
+  cursor(cx, cy, 1);
+  // "?" over the cursor
+  const qk = 0.6 + 0.4 * bp(t);
+  setFont('display', 54 * U * qk, 800, 0); ctx.fillStyle = C.cyan; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText('?', cx + 30 * U, cy - 34 * U); resetText();
+  ctx.restore();
+}
+
+/* ================================================================ PAIN B — the form that never ends */
+function painB(t) {
+  const [a, b] = PAIN_T[1], R = REG.vis, k = visIn(t, a, b);
+  if (k <= 0) return;
+  const w = Math.min(R.w * 0.9, 560 * U), h = Math.min(R.h * 0.95, 560 * U);
+  const x = R.x + (R.w - w) / 2, y = R.y + (R.h - h) / 2 + (1 - k) * 60 * U;
+  ctx.save(); ctx.globalAlpha = k;
+  const c = panel(x, y, w, h, COPY.step);
+  // progress stuck at 2/9
+  ctx.fillStyle = 'rgba(214,226,245,0.1)'; ctx.fillRect(c.x, c.y, c.w, 8 * U);
+  ctx.fillStyle = C.muted; ctx.fillRect(c.x, c.y, c.w * 2 / 9, 8 * U);
+  // fields scroll past
+  const scroll = E.inOutCubic(prog(t, a + 0.3, a + 1.4)) * 300 * U;
+  ctx.save(); ctx.beginPath(); ctx.rect(c.x, c.y + 24 * U, c.w, c.h - 24 * U); ctx.clip();
+  COPY.formFields.forEach((f, i) => {
+    const fy = c.y + 34 * U + i * 74 * U - scroll;
+    mono(f.toUpperCase(), c.x, fy + 8 * U, 14 * U, C.muted, 'left', 500, 0.1);
+    ctx.strokeStyle = C.line2; ctx.lineWidth = 1.5 * U; ctx.strokeRect(c.x, fy + 22 * U, c.w, 40 * U);
+  });
+  ctx.restore();
+  const ab = E.outBack(prog(t, a + 1.45, a + 1.75));
+  if (ab > 0) {
+    ctx.save(); ctx.translate(x + w / 2, y + h / 2); ctx.rotate(-0.12); ctx.scale(ab, ab);
+    ctx.strokeStyle = C.text; ctx.lineWidth = 4 * U; ctx.strokeRect(-150 * U, -36 * U, 300 * U, 72 * U);
+    mono(COPY.abandoned, 0, 2 * U, 30 * U, C.text, 'center', 700, 0.18);
+    ctx.restore();
+  } else cursor(x + w * 0.62, y + h * 0.72 + Math.sin(t * 3) * 10 * U, 1);
+  ctx.restore();
+}
+
+/* ================================================================ PAIN C — three screens, three different brands */
+function painC(t) {
+  const [a] = PAIN_T[2], R = REG.vis;
+  const k = E.outExpo(prog(t, a + 0.1, a + 0.6));
+  if (k <= 0) return;
+  const gap = 24 * U, sw = Math.min((R.w - gap * 2) / 3, 240 * U), sh = Math.min(R.h * 0.9, sw * 1.8);
+  const x0 = R.x + (R.w - (sw * 3 + gap * 2)) / 2, y = R.y + (R.h - sh) / 2;
+  const styles = [
+    { head: '#2b3a55', btn: { round: true, col: '#3b82f6' }, font: `700 ${20 * U}px Georgia, serif` },
+    { head: '#3d4a2a', btn: { outline: true, col: '#a3a3a3', text: '#d4d4d4' }, font: `400 ${18 * U}px 'Geist Mono', monospace` },
+    { head: '#4a2b45', btn: { col: '#9ca3af', text: '#111' }, font: `800 ${19 * U}px Syne, sans-serif` }
+  ];
+  ctx.save();
+  COPY.screens.forEach((s, i) => {
+    const e = E.outBack(prog(t, a + 0.1 + i * 0.2, a + 0.45 + i * 0.2));
+    if (e <= 0) return;
+    const st = styles[i], x = x0 + i * (sw + gap), yy = y + (1 - clamp(e)) * 60 * U;
+    ctx.save(); ctx.globalAlpha = clamp(e) * k; ctx.translate(x + sw / 2, yy + sh / 2); ctx.rotate((i - 1) * 0.04); ctx.translate(-x - sw / 2, -yy - sh / 2);
+    ctx.fillStyle = C.surface; ctx.fillRect(x, yy, sw, sh); ctx.strokeStyle = C.line2; ctx.lineWidth = 1.5 * U; ctx.strokeRect(x, yy, sw, sh);
+    ctx.fillStyle = st.head; ctx.fillRect(x, yy, sw, sh * 0.14);
+    ctx.font = st.font; ctx.fillStyle = C.text; ctx.textBaseline = 'middle'; ctx.fillText(s, x + 16 * U, yy + sh * 0.25); resetText();
+    textBars(x + 16 * U, yy + sh * 0.36, sw - 32 * U, 4, sh * 0.07, 70 + i, 0.18, 6 * U);
+    btn(x + 16 * U, yy + sh * 0.76, sw - 32 * U, sh * 0.12, COPY.buttons[i], st.btn);
+    ctx.restore();
+  });
+  const nk = prog(t, a + 0.9, a + 1.2);
+  if (nk > 0) for (let i = 0; i < 2; i++) {
+    setFont('display', 54 * U, 800, 0); ctx.fillStyle = `rgba(230,236,245,${nk})`; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    ctx.fillText('≠', x0 + (i + 1) * (sw + gap) - gap / 2, y + sh / 2); resetText();
+  }
+  ctx.restore();
+}
+
+/* ================================================================ SOLUTION — the design canvas */
+function frameAt(S, i, n = 3) {
+  const gap = S.w * 0.06, fw = (S.w - gap * (n + 1)) / n, fh = Math.min(fw * 1.75, S.h - gap * 2);
+  return { x: S.x + gap + i * (fw + gap), y: S.y + (S.h - fh) / 2, w: fw, h: fh };
+}
+function wire(f, i, t, k = 1, hi = 0) {
+  ctx.save(); ctx.globalAlpha *= k;
+  ctx.fillStyle = C.raised; ctx.fillRect(f.x, f.y, f.w, f.h);
+  ctx.strokeStyle = hi > 0 ? C.accent : C.line2; ctx.lineWidth = (hi > 0 ? 3 : 1.5) * U; ctx.strokeRect(f.x, f.y, f.w, f.h);
+  mono(COPY.frames[i], f.x, f.y - 16 * U, 14 * U, hi > 0 ? C.accent : C.muted, 'left', 600, 0.1);
+  ctx.fillStyle = 'rgba(214,226,245,0.12)';
+  ctx.fillRect(f.x + f.w * 0.08, f.y + f.h * 0.06, f.w * 0.84, f.h * 0.3);
+  textBars(f.x + f.w * 0.08, f.y + f.h * 0.44, f.w * 0.84, 3, f.h * 0.07, 80 + i, 0.16, Math.max(5 * U, f.h * 0.025));
+  cutPath(f.x + f.w * 0.08, f.y + f.h * 0.8, f.w * 0.84, f.h * 0.1, f.h * 0.025); ctx.fillStyle = acc(0.8); ctx.fill();
+  ctx.restore();
+}
+function link(f1, f2, k) {
+  if (k <= 0) return;
+  const x1 = f1.x + f1.w * 0.92, y1 = f1.y + f1.h * 0.85, x2 = f2.x, y2 = f2.y + f2.h * 0.2;
+  ctx.strokeStyle = C.accent; ctx.lineWidth = 2.5 * U; ctx.beginPath(); ctx.moveTo(x1, y1);
+  const mx = (x1 + x2) / 2, q = clamp(k);
+  ctx.bezierCurveTo(lerp(x1, mx, q), y1, lerp(x1, mx, q), lerp(y1, y2, q), lerp(x1, x2, q), lerp(y1, y2, q)); ctx.stroke();
+  if (q >= 1) { ctx.fillStyle = C.accent; ctx.beginPath(); ctx.arc(x2, y2, 6 * U, 0, TAU); ctx.fill(); }
+}
+function solution(t, D0) {
+  const out = solOut(t);
+  const S = fitRect(D0, LAND ? 1.45 : 1.2);
+  const fk = E.outExpo(prog(t, 12.2, 12.7));
+  if (fk <= 0) return;
+  ctx.save(); ctx.globalAlpha = fk * (1 - out); ctx.translate(0, out * 80 * U + (1 - fk) * 40 * U);
+  const c = appWindow(S.x, S.y, S.w, S.h, 'symmetrical / ' + COPY.app, t);
+  // dotted design canvas
+  ctx.fillStyle = 'rgba(214,226,245,0.06)';
+  for (let gx = c.x; gx < c.x + c.w; gx += 24 * U) for (let gy = c.y; gy < c.y + c.h; gy += 24 * U) ctx.fillRect(gx, gy, 2 * U, 2 * U);
+  const k12 = Math.max(beatK(t, 0), beatK(t, 1));
+  if (k12 > 0) {
+    const F = [0, 1, 2].map(i => frameAt(c, i));
+    const click = [15.0, 15.7], active = t < click[0] ? 0 : t < click[1] ? 1 : 2;
+    F.forEach((f, i) => wire(f, i, t, E.outExpo(prog(t, 12.4 + i * 0.25, 12.8 + i * 0.25)) * k12, t > 14.6 && i === active ? 1 : 0));
+    ctx.save(); ctx.globalAlpha *= k12;
+    link(F[0], F[1], prog(t, 13.3, 13.8)); link(F[1], F[2], prog(t, 13.7, 14.2));
+    if (t > 14.6) {
+      // the user clicks through the prototype
+      const f = F[active], cx = f.x + f.w * 0.5, cy = f.y + f.h * 0.86;
+      const rp = Math.max(prog(t, click[0] - 0.05, click[0] + 0.3), 0) * (t < click[0] + 0.3 ? 1 : 0) || (t > click[1] - 0.05 && t < click[1] + 0.3 ? prog(t, click[1] - 0.05, click[1] + 0.3) : 0);
+      cursor(cx, cy, 1, rp);
+    }
+    ctx.restore();
+  }
+  // beat 3 — phone with the thumb zone
+  let k = beatK(t, 2);
+  if (k > 0) {
+    ctx.save(); ctx.globalAlpha *= k;
+    const ph = c.h * 0.98, pw = ph * 0.5, px = c.x + (c.w - pw) / 2, py = c.y + (c.h - ph) / 2 + (1 - k) * 30 * U;
+    const s = phoneFrame(px, py, pw, ph, { shadow: false });
+    textBars(s.x + 16 * U, s.y + 30 * U, s.w - 32 * U, 3, 26 * U, 91, 0.18);
+    const zr = s.w * 1.0, zk = E.outExpo(prog(t, 16.9, 17.4));
+    ctx.save(); ctx.beginPath(); ctx.rect(s.x, s.y, s.w, s.h); ctx.clip();
+    ctx.fillStyle = acc(0.18 * zk); ctx.beginPath(); ctx.arc(s.x + s.w, s.y + s.h, zr * zk, 0, TAU); ctx.fill();
+    ctx.strokeStyle = acc(0.6 * zk); ctx.lineWidth = 2 * U; ctx.setLineDash([8 * U, 6 * U]); ctx.beginPath(); ctx.arc(s.x + s.w, s.y + s.h, zr * zk, Math.PI, Math.PI * 1.5); ctx.stroke(); ctx.setLineDash([]);
+    ctx.restore();
+    // primary actions live in the thumb zone
+    const bk = E.outBack(prog(t, 17.4, 17.7));
+    if (bk > 0) {
+      cutPath(s.x + 14 * U, s.y + s.h - 130 * U, (s.w - 28 * U) * bk, 54 * U, 12 * U); ctx.fillStyle = C.accent; ctx.fill();
+      ctx.fillStyle = C.raised; ctx.fillRect(s.x, s.y + s.h - 56 * U, s.w, 56 * U);
+      for (let i = 0; i < 4; i++) { ctx.fillStyle = i === 0 ? C.accent : 'rgba(214,226,245,0.25)'; ctx.fillRect(s.x + s.w * (0.12 + i * 0.22), s.y + s.h - 36 * U, 16 * U, 16 * U); }
+    }
+    ctx.restore();
+  }
+  // beat 4 — the design system library
+  k = beatK(t, 3);
+  if (k > 0) {
+    ctx.save(); ctx.globalAlpha *= k;
+    const colW = c.w / 3, y0 = c.y + 10 * U;
+    COPY.lib.forEach((l, i) => mono(l, c.x + i * colW, y0, 14 * U, C.muted, 'left', 600, 0.12));
+    // colors
+    [C.accent, C.blue, C.cyan, C.raised, C.text].forEach((col, i) => {
+      const e = E.outBack(prog(t, 18.7 + i * 0.06, 18.95 + i * 0.06)); if (e <= 0) return;
+      const s = Math.min(colW * 0.36, 70 * U) * e;
+      cutPath(c.x + (i % 2) * (s + 14 * U), y0 + 30 * U + Math.floor(i / 2) * (s + 14 * U), s, s, s * 0.2); ctx.fillStyle = col; ctx.fill();
+    });
+    // type scale
+    [48, 34, 22, 15].forEach((sz, i) => {
+      const e = prog(t, 18.85 + i * 0.07, 19.1 + i * 0.07); if (e <= 0) return;
+      ctx.save(); ctx.globalAlpha *= e; setFont(i < 2 ? 'display' : 'text', Math.min(sz * U, colW * 0.3 * (1 - i * 0.15)), i < 2 ? 800 : 500, i < 2 ? -0.03 : 0);
+      ctx.fillStyle = C.text; ctx.textBaseline = 'top'; ctx.fillText('Aa', c.x + colW, y0 + 30 * U + i * 64 * U); resetText(); ctx.restore();
+    });
+    // button states
+    COPY.states.forEach((s, i) => {
+      const e = E.outExpo(prog(t, 19.0 + i * 0.08, 19.3 + i * 0.08)); if (e <= 0) return;
+      const bw = colW - 10 * U, bh = Math.min(52 * U, (c.h - 60 * U) / 4 - 14 * U), by = y0 + 30 * U + i * (bh + 14 * U);
+      ctx.save(); ctx.globalAlpha *= e * (i === 3 ? 0.4 : 1); ctx.translate((1 - e) * 30 * U, 0);
+      cutPath(c.x + colW * 2, by, bw, bh, bh * 0.25); ctx.fillStyle = i === 1 ? '#ff5a73' : i === 2 ? '#c21f3c' : C.accent; ctx.fill();
+      setFont('text', Math.min(18 * U, bw / 8), 600); ctx.fillStyle = '#fff'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText(s, c.x + colW * 2 + bw / 2, by + bh / 2 + 1); resetText();
+      ctx.restore();
+    });
+    ctx.restore();
+  }
+  ctx.restore();
+}
+
+/* ================================================================ SOUND */
+function sfx(at, N) {
+  for (let i = 0; i < 4; i++) at(1.2 + i * 0.25, (V, w) => V.tick(w, 0.06));                   // rage clicks
+  for (let i = 0; i < 7; i++) at(4.3 + i * 0.21, (V, w) => V.tick(w, 0.04));                   // hovering buttons
+  at(5.2, (V, w) => V.stab(w, [N.A3, N.B3, N.F4], 0.04));
+  at(6.3, (V, w) => V.whoosh(w, 1.1, 0.1));                                                    // scrolling the form
+  at(7.45, (V, w) => V.thud(w, 0.6));                                                          // "abandoned"
+  for (let i = 0; i < 3; i++) at(8.1 + i * 0.2, (V, w) => V.thud(w, 0.35));                    // three screens
+  at(8.95, (V, w) => V.stab(w, [N.A3, N.C4, N.F4], 0.04));                                     // ≠
+  for (let i = 0; i < 3; i++) at(12.4 + i * 0.25, (V, w) => V.pluck(w, [N.C5, N.E5, N.G5][i], 0.06)); // frames appear
+  at(13.3, (V, w) => V.pluck(w, N.C6, 0.05)); at(13.7, (V, w) => V.pluck(w, N.E5, 0.05));      // links
+  at(15.0, (V, w) => V.tick(w, 0.07)); at(15.7, (V, w) => V.tick(w, 0.07));                    // prototype clicks
+  at(16.9, (V, w) => V.whoosh(w, 0.5, 0.12)); at(17.45, (V, w) => V.bell(w, N.G5, 0.06));      // thumb zone
+  for (let i = 0; i < 5; i++) at(18.7 + i * 0.07, (V, w) => V.pluck(w, [N.C5, N.D5, N.E5, N.G5, N.A5][i], 0.04)); // library snaps
+}
+
+SC.run({ copy, accent: '#f43f5e', accentRgb: [244, 63, 94], hook, pains: [painA, painB, painC], solution, sfx });
+})();
+</script>
+</body>
+</html>

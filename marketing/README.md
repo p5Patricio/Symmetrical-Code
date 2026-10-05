@@ -8,8 +8,9 @@ marketing/
 │   └── tools/                 # Scripts que generan los SVG (reproducibles)
 ├── research/                  # Investigación que sustenta cada video
 ├── videos/
+│   ├── engine/                # Motor compartido: línea de tiempo, texto, logo, música, player, exportación
 │   ├── fonts/                 # Syne, Geist, Geist Mono (OFL) autoalojadas
-│   └── software-empresarial/  # Video 30 s: index.html (canvas + audio sintetizado)
+│   └── <servicio>/index.html  # Un video de 30 s por servicio (6), solo sus textos y escenas
 ├── tools/export-video.mjs     # Exporta cualquier video a MP4
 └── out/                       # MP4 generados (ignorado por git)
 ```
@@ -37,7 +38,37 @@ python3 marketing/brand/tools/lockup.py marketing/brand
 
 ## Videos
 
-Cada video es un solo `index.html` que dibuja todo en canvas. Para verlo con controles y sonido:
+Hay un video de 30 s por servicio del sitio. Todos comparten estructura, música y cierre, así se reconocen como serie. Cada uno usa el color de su servicio (`accentColor` en `src/data/services.ts`):
+
+| Video | Color | Gancho |
+|---|---|---|
+| `software-empresarial` | verde `#4ade80` | "¿Cuál es la versión final?" |
+| `inteligencia-artificial` | morado `#a855f7` | "¿Otra vez capturando facturas a mano?" |
+| `desarrollo-web-movil` | cian `#00e5ff` | "Tu cliente te buscó en el celular… y se fue." |
+| `ciberseguridad` | amarillo `#facc15` | "¿Y si mañana pierdes toda tu información?" |
+| `diseno-ui-ux` | rosa `#f43f5e` | "¿Tus usuarios se pierden en tu sistema?" |
+| `automatizacion-analitica` | naranja `#f97316` | "¿Respondes los mismos mensajes todo el día?" |
+
+**Estructura (igual en los 6):**
+
+| Tiempo | Escena |
+|---|---|
+| 0–4 s | Gancho: el caos del problema + una pregunta |
+| 4–10.5 s | Tres dolores, uno por beat |
+| 10.5–12 s | Barrido a 45° en el color del servicio → "Hay una mejor forma." |
+| 12–20 s | El producto en acción, en cuatro beats con su titular |
+| 20–26 s | Cuatro compromisos tomados del sitio |
+| 26–30 s | El logo se ensambla · nombre del servicio · Cotiza tu proyecto · symmetricalcode.com |
+
+**Cómo está hecho:** `videos/engine/engine.js` lleva todo lo común (línea de tiempo, fondo, HUD, texto cinético, logo, barrido, compromisos, cierre, música sintetizada a 120 BPM, player y ganchos de exportación). Cada `index.html` solo define:
+- `copy` en ES/EN;
+- el color del servicio;
+- tres funciones de escena: `hook(t)`, `pains[3](t)` y `solution(t, rect)`;
+- sus efectos de sonido (`sfx`).
+
+Para un video nuevo, copia una carpeta y reemplaza esas piezas.
+
+Para verlos con controles y sonido:
 
 ```bash
 pnpm dlx serve marketing     # abre http://localhost:3000/videos/software-empresarial/
@@ -50,7 +81,7 @@ Parámetros de URL: `?format=9x16|4x5|1x1|16x9` y `?lang=es|en`. El layout se re
 Requiere `ffmpeg` y un Chrome para Puppeteer (`pnpm exec puppeteer browsers install chrome`, o define `CHROME_PATH`).
 
 ```bash
-node marketing/tools/export-video.mjs software-empresarial                         # 4 formatos × ES/EN
+node marketing/tools/export-video.mjs software-empresarial                         # 4 formatos × ES/EN (cambia el nombre por cualquier video)
 node marketing/tools/export-video.mjs software-empresarial --formats 9x16 --langs es
 node marketing/tools/export-video.mjs software-empresarial --stills 3,14,28          # solo PNG de revisión
 ```
@@ -64,17 +95,9 @@ Renderiza cuadro por cuadro (30 fps, H.264, CRF 17), así que no se pierden cuad
 | 1x1 | 1080×1080 | LinkedIn, feed |
 | 16x9 | 1920×1080 | Sitio web, YouTube |
 
-## Software empresarial (30 s)
+## Guiones e investigación
 
-Guion basado en [`research/software-empresarial.md`](research/software-empresarial.md):
+- Software empresarial: [`research/software-empresarial.md`](research/software-empresarial.md)
+- Los otros cinco servicios: [`research/servicios.md`](research/servicios.md)
 
-| Tiempo | Escena |
-|---|---|
-| 0–4 s | Gancho: hojas `ventas_final_v2.xlsx`… → "¿Cuál es la versión final?" |
-| 4–10.5 s | Dolores: doble captura · inventario que no cuadra · software genérico que no se adapta |
-| 10.5–12 s | Barrido a 45° → "Hay una mejor forma." |
-| 12–20 s | Las celdas se arman en un sistema: un solo sistema · a la medida · permisos por rol · cualquier dispositivo |
-| 20–26 s | Compromisos: migración sin detener la operación · alcance y costo claros · avances cada dos semanas · código 100% tuyo |
-| 26–30 s | Logo se ensambla · "Software empresarial a la medida" · Cotiza tu proyecto · symmetricalcode.com |
-
-Todos los textos están en el objeto `COPY` del HTML. Las promesas salen del sitio (`src/data/services.ts`, `team.workflow_steps`); no muestra cifras ni métricas.
+Todos los textos están en el objeto `copy` de cada `index.html`. Las promesas salen del sitio (`src/data/services.ts`, `team.workflow_steps`). Ningún video muestra cifras ni métricas.

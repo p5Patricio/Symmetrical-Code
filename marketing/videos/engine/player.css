@@ -1,0 +1,22 @@
+/* Shared player shell for every video in marketing/videos/. */
+@font-face{font-family:'Syne';src:url(../fonts/syne.woff2) format('woff2');font-weight:400 800;font-display:block}
+@font-face{font-family:'Geist';src:url(../fonts/geist.woff2) format('woff2');font-weight:100 900;font-display:block}
+@font-face{font-family:'Geist Mono';src:url(../fonts/geist-mono.woff2) format('woff2');font-weight:100 900;font-display:block}
+:root{--bg:#05070b;--surface:#0a0e16;--text:#e6ecf5;--muted:#8c97aa;--line:rgba(214,226,245,.12);--blue:#005cfd;--cyan:#02e0fb}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--text);font-family:'Geist',system-ui,sans-serif}
+.wrap{min-height:100vh;display:flex;flex-direction:column;align-items:center;gap:12px;padding:16px}
+canvas{display:block;max-width:100%;height:auto;max-height:calc(100vh - 150px);background:#000;cursor:pointer}
+.bar{display:flex;align-items:center;gap:10px;width:100%;max-width:960px;font:12px/1 'Geist Mono',monospace;color:var(--muted)}
+.bar button{flex:none;height:34px;min-width:34px;padding:0 12px;border:1px solid var(--line);background:var(--surface);color:var(--text);font:inherit;cursor:pointer}
+.bar button:focus-visible,.chips a:focus-visible,.scrub:focus-visible{outline:2px solid var(--cyan);outline-offset:2px}
+.scrub{position:relative;flex:1;height:34px;cursor:pointer;touch-action:none}
+.scrub .track{position:absolute;left:0;right:0;top:16px;height:2px;background:var(--line)}
+.scrub .fill{position:absolute;left:0;top:16px;height:2px;background:var(--blue)}
+.tc{flex:none;font-variant-numeric:tabular-nums;color:var(--text)}
+.chips{display:flex;flex-wrap:wrap;gap:6px;justify-content:center}
+.chips a{padding:7px 10px;border:1px solid var(--line);color:var(--muted);text-decoration:none;font:12px/1 'Geist Mono',monospace}
+.chips a.on{color:var(--text);border-color:var(--blue)}
+body.export .wrap{padding:0;display:block}
+body.export .bar,body.export .chips{display:none}
+body.export canvas{max-height:none;max-width:none;cursor:default}

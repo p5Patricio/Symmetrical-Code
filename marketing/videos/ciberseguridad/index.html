@@ -1,0 +1,311 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Seguridad y soporte — Symmetrical Code</title>
+<link rel="stylesheet" href="../engine/player.css">
+</head>
+<body>
+<script src="../engine/engine.js"></script>
+<script>
+(() => {
+const { ctx, U, LAND, BOX, C, TAU, clamp, lerp, prog, E, hash, bp, acc, cutPath, card, setFont, resetText, mono, REG, PAIN_T, visIn, panel, toggle, checkNode, lockIcon, warnIcon, scramble, fitRect, appWindow, beatK, solOut } = SC;
+
+const copy = {
+  es: {
+    aria: 'Video: seguridad, infraestructura y soporte para tu software, Symmetrical Code',
+    tag: '// SEGURIDAD Y SOPORTE',
+    files: ['clientes.db', 'facturas_2026/', 'contabilidad.xlsx', 'nomina.pdf', 'proveedores.csv', 'contratos/', 'inventario.db', 'cotizaciones/', 'correo.pst'],
+    hook: '¿Y si mañana pierdes *toda tu información?*',
+    pains: [
+      { tag: '01 — CONTRASEÑAS COMPARTIDAS', text: 'Todos usan *la misma contraseña.*' },
+      { tag: '02 — SIN RESPALDOS', text: 'Tu último respaldo *fue… nunca.*' },
+      { tag: '03 — SISTEMAS SIN ACTUALIZAR', text: 'Y tu sistema lleva años *sin actualizarse.*' }
+    ],
+    login: 'INICIAR SESIÓN', user: 'Usuario', pass: 'Contraseña', password: 'admin123',
+    people: ['Ventas', 'Almacén', 'Caja', 'Admin'],
+    backups: 'RESPALDOS', lastBackup: 'Último respaldo', never: 'nunca', auto: 'Respaldo automático', offsite: 'Copia externa', none: '—',
+    system: 'Sistema de ventas · v1.2', pending: ['Actualización de seguridad', 'Parche de base de datos', 'Certificado vencido'], pendingTag: 'PENDIENTE',
+    turn: 'Hay una *mejor* forma.',
+    sol: ['Auditamos tu software y *cerramos los huecos.*', 'Cifrado en contraseñas, *documentos y datos.*', 'Respaldos automáticos, *listos para restaurar.*', 'Monitoreo con *alertas automáticas.*'],
+    app: 'seguridad', live: 'PROTEGIDO',
+    vulns: [['Crítico', 'Inyección en formulario'], ['Alto', 'Contraseñas sin cifrar'], ['Medio', 'Sesiones sin expirar']], fixed: 'corregido',
+    email: 'cliente@correo.com', twoFa: 'CÓDIGO DE VERIFICACIÓN', code: '482 913',
+    days: ['L', 'M', 'M', 'J', 'V', 'S', 'D'], restore: 'Restaurar',
+    alert: 'Alerta: uso alto en servidor 2', resolved: 'Resuelto',
+    promiseTag: 'NUESTRO COMPROMISO',
+    promises: ['Reporte de vulnerabilidades *por nivel de riesgo.*', 'Doble factor y *contraseñas cifradas.*', 'Plan de recuperación *ante fallas.*', 'Soporte y mejoras *después de la entrega.*'],
+    endSub: 'Seguridad, infraestructura y soporte',
+    cta: 'Cotiza tu proyecto',
+    url: 'symmetricalcode.com'
+  },
+  en: {
+    aria: 'Video: security, infrastructure and support for your software, Symmetrical Code',
+    tag: '// SECURITY AND SUPPORT',
+    files: ['clients.db', 'invoices_2026/', 'accounting.xlsx', 'payroll.pdf', 'suppliers.csv', 'contracts/', 'inventory.db', 'quotes/', 'mail.pst'],
+    hook: 'What if tomorrow you lose *all your data?*',
+    pains: [
+      { tag: '01 — SHARED PASSWORDS', text: 'Everyone uses *the same password.*' },
+      { tag: '02 — NO BACKUPS', text: 'Your last backup *was… never.*' },
+      { tag: '03 — OUTDATED SYSTEMS', text: "And your system hasn't been updated *in years.*" }
+    ],
+    login: 'SIGN IN', user: 'User', pass: 'Password', password: 'admin123',
+    people: ['Sales', 'Warehouse', 'Cashier', 'Admin'],
+    backups: 'BACKUPS', lastBackup: 'Last backup', never: 'never', auto: 'Automatic backup', offsite: 'Off-site copy', none: '—',
+    system: 'Sales system · v1.2', pending: ['Security update', 'Database patch', 'Expired certificate'], pendingTag: 'PENDING',
+    turn: 'There is a *better* way.',
+    sol: ['We audit your software and *close the gaps.*', 'Encryption for passwords, *documents and data.*', 'Automatic backups, *ready to restore.*', 'Monitoring with *automatic alerts.*'],
+    app: 'security', live: 'PROTECTED',
+    vulns: [['Critical', 'Form injection'], ['High', 'Unencrypted passwords'], ['Medium', 'Sessions never expire']], fixed: 'fixed',
+    email: 'client@mail.com', twoFa: 'VERIFICATION CODE', code: '482 913',
+    days: ['M', 'T', 'W', 'T', 'F', 'S', 'S'], restore: 'Restore',
+    alert: 'Alert: high load on server 2', resolved: 'Resolved',
+    promiseTag: 'OUR COMMITMENT',
+    promises: ['Vulnerability report *by risk level.*', 'Two-factor and *encrypted passwords.*', 'A recovery plan *for failures.*', 'Support and improvements *after delivery.*'],
+    endSub: 'Security, infrastructure and support',
+    cta: 'Get a quote',
+    url: 'symmetricalcode.com'
+  }
+};
+const COPY = copy[SC.LANG];
+
+/* ================================================================ HOOK — files getting locked one by one */
+function hook(t) {
+  const out = E.inExpo(prog(t, 3.55, 4.0));
+  const cols = LAND ? 3 : 3, rows = 3, gap = 22 * U;
+  const tw = Math.min((BOX.w * (LAND ? 0.7 : 1) - gap * (cols - 1)) / cols, 300 * U), th = tw * 0.62;
+  const gx = BOX.cx - (cols * tw + (cols - 1) * gap) / 2, gy = BOX.cy - (rows * th + (rows - 1) * gap) / 2;
+  ctx.save(); ctx.globalAlpha = (1 - out) * (1 - 0.55 * E.outCubic(prog(t, 1.7, 2.2)));
+  COPY.files.forEach((name, i) => {
+    const c = i % cols, r = Math.floor(i / cols);
+    const e = E.outBack(prog(t, 0.05 + i * 0.07, 0.45 + i * 0.07));
+    if (e <= 0) return;
+    const lockAt = 0.9 + hash(i, 2) * 1.0, lk = prog(t, lockAt, lockAt + 0.35);
+    const x = gx + c * (tw + gap), y = gy + r * (th + gap) + (1 - clamp(e)) * 40 * U;
+    ctx.save(); ctx.globalAlpha *= clamp(e);
+    card(x, y, tw, th, 12 * U, lk > 0.5 ? 'rgba(248,113,113,0.10)' : C.surface, lk > 0.5 ? 'rgba(248,113,113,0.6)' : C.line2);
+    // file glyph
+    ctx.strokeStyle = lk > 0.5 ? C.err : C.muted; ctx.lineWidth = 2 * U;
+    ctx.strokeRect(x + 20 * U, y + 20 * U, 30 * U, 38 * U);
+    if (lk > 0.5) lockIcon(x + tw - 40 * U, y + 38 * U, 30 * U, C.err);
+    mono(scramble(name, lk, i, t), x + 20 * U, y + th - 28 * U, Math.min(18 * U, tw / 14), lk > 0.5 ? C.err : C.text, 'left', 500, 0.02);
+    ctx.restore();
+  });
+  ctx.restore();
+}
+
+/* ================================================================ PAIN A — one password for everybody */
+function painA(t) {
+  const [a, b] = PAIN_T[0], R = REG.vis, k = visIn(t, a, b);
+  if (k <= 0) return;
+  const w = Math.min(R.w * 0.85, 520 * U), h = 300 * U;
+  const x = R.x + (R.w - w) / 2, y = R.y + R.h - h - 10 * U + (1 - k) * 60 * U;
+  ctx.save(); ctx.globalAlpha = k;
+  // people pointing at the same field
+  const n = COPY.people.length, py = y - 150 * U;
+  COPY.people.forEach((p, i) => {
+    const e = E.outBack(prog(t, a + 0.25 + i * 0.15, a + 0.55 + i * 0.15));
+    if (e <= 0) return;
+    const px = R.x + R.w * (0.14 + i * 0.24);
+    ctx.save(); ctx.globalAlpha *= clamp(e);
+    ctx.strokeStyle = 'rgba(248,113,113,0.55)'; ctx.lineWidth = 2 * U; ctx.setLineDash([6 * U, 6 * U]);
+    ctx.beginPath(); ctx.moveTo(px, py + 30 * U); ctx.lineTo(x + w / 2, y + 180 * U); ctx.stroke(); ctx.setLineDash([]);
+    ctx.fillStyle = C.raised; ctx.beginPath(); ctx.arc(px, py, 30 * U * e, 0, TAU); ctx.fill();
+    setFont('text', 22 * U, 700); ctx.fillStyle = C.text; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText(p[0], px, py + 1); resetText();
+    mono(p, px, py - 48 * U, 15 * U, C.muted, 'center', 500, 0.06);
+    ctx.restore();
+  });
+  const c = panel(x, y, w, h, COPY.login);
+  [[COPY.user, 'admin'], [COPY.pass, COPY.password]].forEach(([label, val], i) => {
+    const fy = c.y + i * 96 * U;
+    mono(label, c.x, fy + 10 * U, 15 * U, C.muted, 'left', 500, 0.1);
+    ctx.strokeStyle = i ? C.err : C.line2; ctx.lineWidth = 1.5 * U; ctx.strokeRect(c.x, fy + 24 * U, c.w, 50 * U);
+    mono(val, c.x + 14 * U, fy + 50 * U, 24 * U, i ? C.err : C.text, 'left', 600, 0.02);
+  });
+  ctx.restore();
+}
+
+/* ================================================================ PAIN B — no backups */
+function painB(t) {
+  const [a, b] = PAIN_T[1], R = REG.vis, k = visIn(t, a, b);
+  if (k <= 0) return;
+  const w = Math.min(R.w * 0.9, 600 * U), rh = 76 * U, h = 46 * U + 28 * U + rh * 3 + 70 * U;
+  const x = R.x + (R.w - w) / 2, y = R.y + (R.h - h) / 2 + (1 - k) * 60 * U;
+  ctx.save(); ctx.globalAlpha = k;
+  const c = panel(x, y, w, h, COPY.backups);
+  const rows = [[COPY.lastBackup, COPY.never, C.err], [COPY.auto, null], [COPY.offsite, COPY.none, C.muted]];
+  rows.forEach(([label, val, col], i) => {
+    const e = prog(t, a + 0.3 + i * 0.25, a + 0.6 + i * 0.25);
+    if (e <= 0) return;
+    const ry = c.y + i * rh + rh / 2;
+    ctx.save(); ctx.globalAlpha *= e;
+    if (i) { ctx.fillStyle = C.line; ctx.fillRect(c.x, ry - rh / 2, c.w, 1); }
+    setFont('text', 24 * U, 500); ctx.fillStyle = C.text; ctx.textBaseline = 'middle'; ctx.fillText(label, c.x, ry); resetText();
+    if (val) {
+      setFont('text', 26 * U, 700); ctx.fillStyle = col; ctx.textAlign = 'right'; ctx.textBaseline = 'middle'; ctx.fillText(val, c.x + c.w, ry); resetText();
+      if (i === 0) warnIcon(c.x + c.w - ctx.measureText(val).width - 50 * U, ry, 30 * U * (0.9 + 0.1 * bp(t)), C.err);
+    } else toggle(c.x + c.w - 30 * U, ry, 0);
+    ctx.restore();
+  });
+  ctx.fillStyle = 'rgba(214,226,245,0.1)'; ctx.fillRect(c.x, y + h - 40 * U, c.w, 10 * U);
+  mono('0%', c.x + c.w, y + h - 58 * U, 16 * U, C.err, 'right', 600, 0.04);
+  ctx.restore();
+}
+
+/* ================================================================ PAIN C — updates that never got installed */
+function painC(t) {
+  const [a] = PAIN_T[2], R = REG.vis;
+  const k = E.outExpo(prog(t, a + 0.1, a + 0.6));
+  if (k <= 0) return;
+  const w = Math.min(R.w * 0.9, 620 * U), rh = 74 * U, h = 46 * U + 28 * U + rh * 3 + 20 * U;
+  const x = R.x + (R.w - w) / 2, y = R.y + (R.h - h) / 2 + (1 - k) * 60 * U;
+  ctx.save(); ctx.globalAlpha = k;
+  const c = panel(x, y, w, h, COPY.system);
+  COPY.pending.forEach((p, i) => {
+    const e = E.outBack(prog(t, a + 0.35 + i * 0.3, a + 0.65 + i * 0.3));
+    if (e <= 0) return;
+    const ry = c.y + i * rh + rh / 2;
+    ctx.save(); ctx.globalAlpha *= clamp(e); ctx.translate((1 - e) * 30 * U, 0);
+    warnIcon(c.x + 16 * U, ry, 30 * U, C.accent);
+    setFont('text', Math.min(24 * U, c.w / 22), 500); ctx.fillStyle = C.text; ctx.textBaseline = 'middle'; ctx.fillText(p, c.x + 48 * U, ry); resetText();
+    mono(COPY.pendingTag, c.x + c.w, ry, 15 * U, C.accent, 'right', 600, 0.12);
+    ctx.restore();
+  });
+  ctx.restore();
+}
+
+/* ================================================================ SOLUTION — the security console */
+function shield(cx, cy, r, t, k) {
+  // concentric cut-corner rings close in around the data
+  for (let i = 0; i < 3; i++) {
+    const e = E.outExpo(prog(t, 12.5 + i * 0.18, 13.1 + i * 0.18)) * k;
+    if (e <= 0) continue;
+    const s = r * (1 - i * 0.24) * (1.4 - 0.4 * e);
+    ctx.save(); ctx.globalAlpha *= e * (0.35 + 0.2 * i) * (0.85 + 0.15 * bp(t + i * 0.12));
+    cutPath(cx - s, cy - s, s * 2, s * 2, s * 0.35); ctx.strokeStyle = C.accent; ctx.lineWidth = (3 + i) * U; ctx.stroke();
+    ctx.restore();
+  }
+  // database
+  const dw = r * 0.62, dh = r * 0.62, ex = dh * 0.16;
+  ctx.fillStyle = C.raised; ctx.strokeStyle = C.accent; ctx.lineWidth = 2.5 * U;
+  ctx.beginPath(); ctx.ellipse(cx, cy + dh / 2, dw / 2, ex, 0, 0, Math.PI); ctx.lineTo(cx - dw / 2, cy - dh / 2); ctx.ellipse(cx, cy - dh / 2, dw / 2, ex, 0, Math.PI, 0, true); ctx.closePath(); ctx.fill(); ctx.stroke();
+  ctx.beginPath(); ctx.ellipse(cx, cy - dh / 2, dw / 2, ex, 0, 0, TAU); ctx.stroke();
+  for (let j = 1; j < 3; j++) { ctx.beginPath(); ctx.ellipse(cx, cy - dh / 2 + j * dh / 3, dw / 2, ex, 0, 0, Math.PI); ctx.stroke(); }
+}
+function solution(t, D0) {
+  const out = solOut(t);
+  const S = fitRect(D0, LAND ? 1.45 : 1.2);
+  const fk = E.outExpo(prog(t, 12.2, 12.7));
+  if (fk <= 0) return;
+  ctx.save(); ctx.globalAlpha = fk * (1 - out); ctx.translate(0, out * 80 * U + (1 - fk) * 40 * U);
+  const c = appWindow(S.x, S.y, S.w, S.h, 'symmetrical / ' + COPY.app, t);
+  const lw = c.w * 0.38, rx = c.x + lw + 28 * U, rw = c.w - lw - 28 * U;
+  shield(c.x + lw / 2, c.y + c.h / 2, Math.min(lw, c.h) * 0.48, t, 1);
+  // beat 1 — vulnerabilities, from red to fixed
+  let k = beatK(t, 0);
+  if (k > 0) {
+    ctx.save(); ctx.globalAlpha *= k;
+    const rh = Math.min(c.h / 3, 110 * U);
+    COPY.vulns.forEach(([lvl, name], i) => {
+      const ry = c.y + (c.h - rh * 3) / 2 + i * rh, fx = prog(t, 13.3 + i * 0.35, 13.55 + i * 0.35);
+      ctx.fillStyle = C.line; if (i) ctx.fillRect(rx, ry, rw, 1);
+      const chip = fx > 0.5 ? C.accent : C.err;
+      setFont('mono', 14 * U, 600, 0.1); const cw = ctx.measureText(lvl.toUpperCase()).width + 20 * U; resetText();
+      ctx.strokeStyle = chip; ctx.lineWidth = 1.5 * U; ctx.strokeRect(rx, ry + 16 * U, cw, 28 * U);
+      mono(lvl.toUpperCase(), rx + 10 * U, ry + 30 * U, 14 * U, chip, 'left', 600, 0.1);
+      setFont('text', Math.min(24 * U, rw / 14), 500); ctx.fillStyle = C.text; ctx.textBaseline = 'middle'; ctx.fillText(name, rx, ry + 68 * U); resetText();
+      checkNode(rx + rw - 36 * U, ry + rh / 2, 36 * U, E.outBack(prog(t, 13.3 + i * 0.35, 13.6 + i * 0.35)), prog(t, 13.4 + i * 0.35, 13.7 + i * 0.35));
+    });
+    ctx.restore();
+  }
+  // beat 2 — data becomes ciphertext, sign-in asks for a second factor
+  k = beatK(t, 1);
+  if (k > 0) {
+    ctx.save(); ctx.globalAlpha *= k;
+    const y0 = c.y + c.h * 0.08;
+    mono('EMAIL', rx, y0, 14 * U, C.muted, 'left', 500, 0.12);
+    ctx.strokeStyle = C.line2; ctx.lineWidth = 1.5 * U; ctx.strokeRect(rx, y0 + 16 * U, rw, 50 * U);
+    const enc = prog(t, 14.9, 15.6);
+    mono(scramble(COPY.email, enc, 3, t), rx + 14 * U, y0 + 41 * U, Math.min(22 * U, rw / 18), enc > 0.5 ? C.accent : C.text, 'left', 500, 0.02);
+    lockIcon(rx + rw - 26 * U, y0 + 41 * U, 22 * U * E.outBack(prog(t, 15.5, 15.8)), C.accent);
+    const y1 = y0 + 120 * U;
+    mono(COPY.twoFa, rx, y1, 14 * U, C.muted, 'left', 500, 0.12);
+    const digits = COPY.code.replace(' ', ''), n = Math.floor(prog(t, 15.7, 16.3) * 6), bw = Math.min(56 * U, (rw - 50 * U) / 6);
+    for (let i = 0; i < 6; i++) {
+      const bx = rx + i * (bw + 10 * U);
+      ctx.strokeStyle = i < n ? C.accent : C.line2; ctx.lineWidth = 2 * U; ctx.strokeRect(bx, y1 + 16 * U, bw, bw * 1.2);
+      if (i < n) { setFont('display', bw * 0.6, 800, 0); ctx.fillStyle = C.text; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText(digits[i], bx + bw / 2, y1 + 16 * U + bw * 0.62); resetText(); }
+    }
+    ctx.restore();
+  }
+  // beat 3 — a week of backups, every day checked
+  k = beatK(t, 2);
+  if (k > 0) {
+    ctx.save(); ctx.globalAlpha *= k;
+    const cw = (rw - 6 * 10 * U) / 7, y0 = c.y + c.h * 0.18;
+    COPY.days.forEach((d, i) => {
+      const bx = rx + i * (cw + 10 * U);
+      mono(d, bx + cw / 2, y0, 16 * U, C.muted, 'center', 600, 0.1);
+      card(bx, y0 + 22 * U, cw, cw * 1.3, 6 * U, C.raised, null);
+      checkNode(bx + (cw - cw * 0.6) / 2, y0 + 22 * U + cw * 0.65, cw * 0.6, E.outBack(prog(t, 16.8 + i * 0.12, 17.05 + i * 0.12)), prog(t, 16.9 + i * 0.12, 17.15 + i * 0.12));
+    });
+    const bk = E.outExpo(prog(t, 17.8, 18.1));
+    if (bk > 0) {
+      ctx.save(); ctx.globalAlpha *= bk;
+      const by = y0 + 50 * U + cw * 1.3, bw = Math.min(rw, 260 * U);
+      cutPath(rx, by, bw, 56 * U, 12 * U); ctx.fillStyle = C.accent; ctx.fill();
+      setFont('text', 22 * U, 700); ctx.fillStyle = C.bg; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText(COPY.restore, rx + bw / 2, by + 29 * U); resetText();
+      ctx.restore();
+    }
+    ctx.restore();
+  }
+  // beat 4 — monitoring line with an alert that resolves
+  k = beatK(t, 3);
+  if (k > 0) {
+    ctx.save(); ctx.globalAlpha *= k;
+    const gy = c.y + c.h * 0.12, gh = c.h * 0.45;
+    ctx.fillStyle = C.line; ctx.fillRect(rx, gy + gh, rw, 1);
+    ctx.strokeStyle = C.accent; ctx.lineWidth = 3 * U; ctx.beginPath();
+    for (let i = 0; i <= 60; i++) {
+      const u = i / 60, v = 0.35 + 0.12 * Math.sin(u * 14 + t * 3) + (Math.abs(u - 0.72) < 0.06 ? 0.35 * (1 - Math.abs(u - 0.72) / 0.06) : 0);
+      const px = rx + u * rw, py = gy + gh - v * gh;
+      i ? ctx.lineTo(px, py) : ctx.moveTo(px, py);
+    }
+    ctx.stroke();
+    const ak = E.outBack(prog(t, 18.95, 19.25));
+    if (ak > 0) {
+      const ay = gy + gh + 24 * U, resolved = t > 19.45;
+      ctx.save(); ctx.globalAlpha *= clamp(ak);
+      card(rx, ay, rw, 64 * U, 10 * U, C.raised, resolved ? C.accent : C.err);
+      if (resolved) checkNode(rx + 14 * U, ay + 32 * U, 30 * U, 1, prog(t, 19.45, 19.65));
+      else warnIcon(rx + 30 * U, ay + 32 * U, 26 * U, C.err);
+      setFont('text', Math.min(20 * U, rw / 20), 500); ctx.fillStyle = C.text; ctx.textBaseline = 'middle'; ctx.fillText(resolved ? COPY.resolved : COPY.alert, rx + 58 * U, ay + 33 * U); resetText();
+      ctx.restore();
+    }
+    ctx.restore();
+  }
+  ctx.restore();
+}
+
+/* ================================================================ SOUND */
+function sfx(at, N) {
+  for (let i = 0; i < 9; i++) at(0.05 + i * 0.07, (V, w) => V.tick(w, 0.04));                  // tiles appear
+  for (let i = 0; i < 9; i++) at(0.9 + hash(i, 2) * 1.0, (V, w) => V.thud(w, 0.3));             // tiles lock
+  for (let i = 0; i < 4; i++) at(4.25 + i * 0.15, (V, w) => V.pluck(w, N.A4, 0.04));            // people
+  at(5.1, (V, w) => V.stab(w, [N.A3, N.B3, N.F4], 0.045));                                      // same password
+  at(6.35, (V, w) => V.thud(w, 0.55));                                                          // "never"
+  for (let i = 0; i < 3; i++) at(8.35 + i * 0.3, (V, w) => V.tick(w, 0.07));                   // pending updates
+  for (let i = 0; i < 3; i++) at(12.5 + i * 0.18, (V, w) => V.pluck(w, [N.C5, N.E5, N.G5][i], 0.05)); // shield closes
+  for (let i = 0; i < 3; i++) at(13.3 + i * 0.35, (V, w) => V.pluck(w, [N.E5, N.G5, N.C6][i], 0.07)); // vulnerabilities fixed
+  at(15.5, (V, w) => V.bell(w, N.G5, 0.06));                                                    // encrypted
+  for (let i = 0; i < 6; i++) at(15.7 + i * 0.1, (V, w) => V.key(w));                         // 2FA code
+  for (let i = 0; i < 7; i++) at(16.8 + i * 0.12, (V, w) => V.tick(w, 0.05));                  // daily backups
+  at(18.95, (V, w) => V.stab(w, [N.A3, N.B3, N.F4], 0.035)); at(19.45, (V, w) => V.bell(w, N.C6, 0.07)); // alert → resolved
+}
+
+SC.run({ copy, accent: '#facc15', accentRgb: [250, 204, 21], hook, pains: [painA, painB, painC], solution, sfx });
+})();
+</script>
+</body>
+</html>
